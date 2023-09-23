@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "173950954451",
+    "project_id": "spoosk-c0b68",
+    "storage_bucket": "spoosk-c0b68.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:173950954451:android:11a62f52deff2cb1fedd26",
+        "android_client_info": {
+          "package_name": "com.example.spoosk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhDHNP6v54jhf4sL62sY8i49m-3T_6bPQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

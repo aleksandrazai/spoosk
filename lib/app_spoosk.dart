@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:spoosk/generated/l10n.dart';
 
-class SpooskApp extends StatelessWidget {
+class SpooskApp extends StatefulWidget {
   const SpooskApp({super.key});
 
+  @override
+  State<SpooskApp> createState() => _SpooskAppState();
+}
+
+class _SpooskAppState extends State<SpooskApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,8 +21,16 @@ class SpooskApp extends StatelessWidget {
       ],
       supportedLocales: S.delegate.supportedLocales,
       home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
+        body: Column(
+          children: [
+            Center(
+              child: Text('Hello World!'),
+            ),
+            TextButton(
+              onPressed: () => throw Exception(),
+              child: const Text("Throw Test Exception"),
+            ),
+          ],
         ),
       ),
     );
