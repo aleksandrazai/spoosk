@@ -1,1 +1,2 @@
-{}
+{"helloworld": "Hello world!",
+"testexception": "Throw Test Exception"}

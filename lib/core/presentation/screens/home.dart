@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spoosk/core/generated/l10n.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -13,12 +14,12 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: Column(
         children: [
-          const Center(
-            child: Text('Hello World!'),
+          Center(
+            child: Text(S.of(context).helloworld),
           ),
           TextButton(
             onPressed: () => throw Exception(),
-            child: const Text("Throw Test Exception"),
+            child: Text(S.of(context).testexception),
           ),
         ],
       ),
