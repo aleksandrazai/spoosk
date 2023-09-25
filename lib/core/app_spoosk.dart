@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:spoosk/generated/l10n.dart';
+import 'package:spoosk/core/generated/l10n.dart';
 
 class SpooskApp extends StatefulWidget {
   const SpooskApp({super.key});
