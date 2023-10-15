@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:spoosk/core/generated/l10n.dart';
+import 'package:spoosk/core/presentation/routes.dart';
+import 'package:spoosk/core/presentation/screens/home.dart';
 
 class SpooskApp extends StatefulWidget {
   const SpooskApp({super.key});
@@ -12,7 +14,8 @@ class SpooskApp extends StatefulWidget {
 class _SpooskAppState extends State<SpooskApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    AppRouter appRouter = AppRouter();
+    return MaterialApp.router(
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -20,7 +23,7 @@ class _SpooskAppState extends State<SpooskApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      home: Home(),
+      routerConfig: appRouter.config(),
     );
   }
 }
