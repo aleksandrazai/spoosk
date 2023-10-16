@@ -33,10 +33,26 @@ class HomeScreen extends StatelessWidget {
           expandedHeight: MediaQuery.of(context).size.height * 0.3,
           floating: false,
           pinned: true,
-          backgroundColor: const Color(0xF8F8F8),
+          backgroundColor: const Color(0x00f8f8f8),
           elevation: 0,
           flexibleSpace: const FlexibleSpaceBar(
             background: CustomAppBar(),
+          ),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(36),
+            child: CustomSearchField(
+              onTap: () {},
+            ),
+          ),
+        ),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              return ListTile(
+                title: Text("Item $index"),
+              );
+            },
+            childCount: 15, // Example item count
           ),
         ),
       ],
@@ -75,12 +91,34 @@ class CustomAppBar extends StatelessWidget {
     );
   }
 }
+//TODO: Доделать поиск
 
 class CustomSearchField extends StatelessWidget {
-  const CustomSearchField({super.key});
-
+  const CustomSearchField({super.key, required this.onTap});
+  final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
-    return TextField(); //TODO
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(17),
+        ),
+        child: const Row(
+          children: [
+            Icon(Icons.search_rounded),
+            SizedBox(width: 12),
+            Text(
+              'Поиск курорта...',
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
