@@ -27,11 +27,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/img/comparison.svg
-    - assets/img/home.svg
-    - assets/img/profile.svg
-    - assets/img/search.svg
-    - assets/img/selected.svg
+    - assets/img/
+
 
 flutter_intl:
   enabled: true
