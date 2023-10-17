@@ -71,7 +71,7 @@ class CustomAppBar extends StatelessWidget {
         Positioned(
           width: MediaQuery.of(context).size.width * 0.9,
           top: 20,
-          child: Image.asset(test_png_header, fit: BoxFit.cover),
+          child: Image.asset(image_png_header_size_xxl, fit: BoxFit.cover),
         ),
         Positioned(
           width: MediaQuery.of(context).size.width * 0.9,
