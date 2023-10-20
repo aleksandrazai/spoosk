@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:spoosk/core/generated/l10n.dart';
 import 'package:spoosk/core/presentation/routes.dart';
-import 'package:spoosk/core/presentation/screens/home.dart';
 
-import 'package:spoosk/core/presentation/screens/home.dart';
 
 class SpooskApp extends StatefulWidget {
   const SpooskApp({super.key});
