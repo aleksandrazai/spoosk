@@ -50,11 +50,11 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Привет Мир!`
-  String get helloworld {
+  /// `Популярные курорты`
+  String get popular_resorts {
     return Intl.message(
-      'Привет Мир!',
-      name: 'helloworld',
+      'Популярные курорты',
+      name: 'popular_resorts',
       desc: '',
       args: [],
     );

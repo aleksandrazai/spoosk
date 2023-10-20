@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:spoosk/core/presentation/image.dart';
+import '../widgets/widgets.dart';
 
 @RoutePage()
 class Home extends StatefulWidget {
@@ -24,7 +23,6 @@ class _HomeState extends State<Home> {
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
@@ -33,92 +31,48 @@ class HomeScreen extends StatelessWidget {
           expandedHeight: MediaQuery.of(context).size.height * 0.3,
           floating: false,
           pinned: true,
-          backgroundColor: const Color(0x00f8f8f8),
+          backgroundColor: const Color(0xFFf8f8f8),
           elevation: 0,
           flexibleSpace: const FlexibleSpaceBar(
             background: CustomAppBar(),
           ),
           bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(36),
+            preferredSize: const Size.fromHeight(26),
             child: CustomSearchField(
               onTap: () {},
             ),
           ),
         ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
-              return ListTile(
-                title: Text("Item $index"),
-              );
-            },
-            childCount: 15, // Example item count
-          ),
+        const SliverToBoxAdapter(
+          child: CardsHeaderPopularALL(),
         ),
-      ],
-    );
-  }
-}
-
-class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Positioned(
-          width: MediaQuery.of(context).size.width * 0.9,
-          top: 20,
-          child: Image.asset(image_png_header_size_xxl, fit: BoxFit.cover),
-        ),
-        Positioned(
-          width: MediaQuery.of(context).size.width * 0.9,
-          top: 32,
-          child: SvgPicture.asset(image_header_slogan, fit: BoxFit.contain),
-        ),
-        Positioned(
-          top: 28,
-          right: 25 * 2.13,
-          child: Image.asset(
-            image_header_logo,
-            width: 50,
-            height: 16,
-          ),
-        ),
-      ],
-    );
-  }
-}
-//TODO: Доделать поиск
-
-class CustomSearchField extends StatelessWidget {
-  const CustomSearchField({super.key, required this.onTap});
-  final VoidCallback onTap;
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(17),
-        ),
-        child: const Row(
-          children: [
-            Icon(Icons.search_rounded),
-            SizedBox(width: 12),
-            Text(
-              'Поиск курорта...',
-              style: TextStyle(
-                fontSize: 16,
-              ),
+        SliverToBoxAdapter(
+          child: SizedBox(
+            height: 260, //test
+            width: MediaQuery.of(context).size.width * 0.8,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                return const ResortCard();
+              },
             ),
-          ],
+          ),
         ),
-      ),
+        SliverToBoxAdapter(
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.8,
+            height: 550,
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              itemCount: 6,
+              itemBuilder: (context, index) {
+                return const ReviewCard();
+              },
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
