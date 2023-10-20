@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import '../widgets/widgets.dart';
+import 'package:spoosk/core/data/ApiConfig.dart';
+import 'package:spoosk/core/data/RequestController.dart';
 
 @RoutePage()
 class Home extends StatefulWidget {
@@ -11,6 +13,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  RequestController _requestController = RequestController();
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
