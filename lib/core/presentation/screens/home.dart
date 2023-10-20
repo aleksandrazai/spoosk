@@ -20,7 +20,9 @@ class _HomeState extends State<Home> {
       body: Center(
         child: ElevatedButton(
             onPressed: () {
-              _requestController.getData(ApiConfigurate.getResotrs);
+              _requestController.getResortsById(
+                  id: 'Roza_hutor',
+                  getResotrsById: ApiConfigurate.getResotrsById);
             },
             child: const Text("Press me")),
       ),
