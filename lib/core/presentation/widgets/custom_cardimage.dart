@@ -1,21 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:spoosk/core/data/models/resorts.dart';
 import 'package:spoosk/core/presentation/image.dart';
 
 class CustomCardImage extends StatelessWidget {
   const CustomCardImage({
     super.key,
+    required this.resort,
   });
+  final Resorts resort;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
+    return Container(
+      padding: const EdgeInsets.all(4.0),
       child: Stack(
         children: [
           Positioned(
-            child: SvgPicture.asset(
-              image_header_background,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(17),
+              child: Image.network(
+                resort.mainResortImg,
+                height: 108,
+                width: 240,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           const Positioned(
@@ -27,26 +36,21 @@ class CustomCardImage extends StatelessWidget {
                 color: Colors.white,
                 fontSize: 20,
                 fontFamily: 'Nunito Sans',
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-          const Positioned(
-            bottom: 4,
-            left: 12,
-            child: Text(
-              'трасс',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontFamily: 'Nunito Sans',
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w800,
               ),
             ),
           ),
           Positioned(
-            top: 6,
-            right: 6,
+            bottom: 4,
+            left: 12,
+            child: Text(
+              'трасс',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          ),
+          Positioned(
+            top: 4,
+            left: 185,
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
@@ -63,8 +67,8 @@ class CustomCardImage extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 6,
-            right: 46,
+            top: 4,
+            right: 35,
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(

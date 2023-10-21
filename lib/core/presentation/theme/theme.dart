@@ -25,7 +25,8 @@ class CustomTheme {
       bodyLarge: TextStyle(
         fontSize: 16,
         fontFamily: fontFamily,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w600,
+        color: Colors.white,
       ),
       bodyMedium: TextStyle(
         color: primaryFontLight,
@@ -38,7 +39,7 @@ class CustomTheme {
         color: Color(0xFF9C9DA0),
         fontSize: 12,
         fontFamily: fontFamily,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w400,
       ),
       //btn 2
       labelMedium: TextStyle(

@@ -8,4 +8,6 @@ const String image_header_slogan = 'assets/img/header_slogan.svg';
 const String test_png_header = 'assets/img/PNG_header.png';
 const String image_header_logo = 'assets/img/header_logo.png';
 const String image_png_header_size_xxl = 'assets/img/PNG_header_size_xxl.png';
-
+const String image_trail = 'assets/img/trail.svg';
+const String image_skipass = 'assets/img/credit-card.svg';
+const String image_star = 'assets/img/star.svg';

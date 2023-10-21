@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:spoosk/core/presentation/image.dart';
 
 class StarIcon extends StatelessWidget {
   const StarIcon({
@@ -7,9 +9,6 @@ class StarIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Icon(
-      Icons.star,
-      color: Color(0xFF005FF9),
-    );
+    return SvgPicture.asset(image_star, width: 14, height: 14);
   }
 }

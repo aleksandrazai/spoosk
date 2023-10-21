@@ -1,19 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:spoosk/core/data/models/resorts.dart';
 import '../widgets/widgets.dart';
 import 'package:spoosk/core/data/ApiConfig.dart';
 import 'package:spoosk/core/data/RequestController.dart';
 
 @RoutePage()
-class Home extends StatefulWidget {
+class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
-
-  @override
-  _HomeState createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  RequestController _requestController = RequestController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +19,33 @@ class _HomeState extends State<Home> {
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  RequestController requestController = RequestController();
+  List<Resorts> _resorts = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _getAllResorts();
+  }
+
+  Future<void> _getAllResorts() async {
+    final resorts = await requestController.getResortsAll(
+        getAllResorts: ApiConfigurate.getAllResorts);
+    if (resorts != null) {
+      setState(() {
+        _resorts = resorts as List<Resorts>;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
@@ -52,13 +71,14 @@ class HomeScreen extends StatelessWidget {
         ),
         SliverToBoxAdapter(
           child: SizedBox(
-            height: 260, //test
-            width: MediaQuery.of(context).size.width * 0.8,
+            height: 212, //test
+            width: 256,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: 5,
               itemBuilder: (context, index) {
-                return const ResortCard();
+                final resort = _resorts[index];
+                return ResortCard(resort: resort);
               },
             ),
           ),
