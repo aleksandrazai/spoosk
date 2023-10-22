@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
         getAllResorts: ApiConfigurate.getAllResorts);
     if (resorts != null) {
       setState(() {
-        _resorts = resorts as List<Resorts>;
+        _resorts = resorts;
       });
     }
   }
@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
             width: 256,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: 5,
+              itemCount: _resorts.length,
               itemBuilder: (context, index) {
                 final resort = _resorts[index];
                 return ResortCard(resort: resort);
@@ -84,15 +84,12 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         SliverToBoxAdapter(
-          child: Container(
-            width: MediaQuery.of(context).size.width * 0.8,
-            height: 550,
-            child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: 6,
-              itemBuilder: (context, index) {
-                return const ReviewCard();
-              },
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              children: <ReviewCard>[
+                ...List.filled(6, false).map((e) => const ReviewCard())
+              ],
             ),
           ),
         ),

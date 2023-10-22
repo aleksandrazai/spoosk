@@ -17,7 +17,7 @@ class ReviewCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SizedBox(
-          width: 100,
+          // width: 100,
           height: 150,
           child: Column(
             children: [
