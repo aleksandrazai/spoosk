@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spoosk/core/presentation/theme/theme.dart';
+import 'package:spoosk/core/colors.dart';
 
 class HideTextOverflow extends StatefulWidget {
   const HideTextOverflow(
@@ -35,7 +35,7 @@ class _HideTextOverflowState extends State<HideTextOverflow> {
           },
           child: Text(
             isExpanded ? "Свернуть" : "Показать полностью",
-            style: const TextStyle(color: primaryColor),
+            style: TextStyle(color: AppColors.primaryColor),
           ),
         ),
       ],
