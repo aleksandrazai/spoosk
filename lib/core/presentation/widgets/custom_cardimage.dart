@@ -27,17 +27,12 @@ class CustomCardImage extends StatelessWidget {
               ),
             ),
           ),
-          const Positioned(
+          Positioned(
             bottom: 21,
             left: 12,
             child: Text(
-              '145',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontFamily: 'Nunito Sans',
-                fontWeight: FontWeight.w800,
-              ),
+              resort.trailNumber.toString(),
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
           ),
           Positioned(

@@ -53,7 +53,7 @@ class ResortCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Text(
-              'РОССИЯ, ${resort.region}',
+              'Россия, ${resort.region}',
               style: Theme.of(context).textTheme.bodySmall,
             ),
           ),
@@ -61,7 +61,7 @@ class ResortCard extends StatelessWidget {
             padding: const EdgeInsets.only(top: 8),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Container(
+              child: SizedBox(
                 width: 190,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,22 +69,12 @@ class ResortCard extends StatelessWidget {
                     SvgPicture.asset(image_trail, height: 18, width: 18),
                     Text(
                       '${resort.trailLength} км.',
-                      style: const TextStyle(
-                        color: Color(0xFF4C4E4F),
-                        fontSize: 14,
-                        fontFamily: 'Nunito Sans',
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: Theme.of(context).textTheme.labelMedium,
                     ),
                     SvgPicture.asset(image_skipass, height: 18, width: 18),
                     Text(
                       'от ${resort.skipass.toString()} р.',
-                      style: const TextStyle(
-                        color: Color(0xFF4C4E4F),
-                        fontSize: 14,
-                        fontFamily: 'Nunito Sans',
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: Theme.of(context).textTheme.labelMedium,
                     ),
                   ],
                 ),
