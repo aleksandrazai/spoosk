@@ -3,7 +3,7 @@ import 'package:auto_route/auto_route.dart';
 
 @RoutePage()
 class Resort extends StatefulWidget {
-  Resort({Key? key}) : super(key: key);
+  const Resort({Key? key}) : super(key: key);
 
   @override
   _ResortState createState() => _ResortState();

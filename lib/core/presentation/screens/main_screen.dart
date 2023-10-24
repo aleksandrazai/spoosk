@@ -16,98 +16,92 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    return AutoTabsRouter(
-      routes: const [
+    return AutoTabsScaffold(
+      routes: [
         Home(),
         Selection(),
         Comparison(),
         Selected(),
         Profile(),
+        Resort()
       ],
-      builder: (context, child) {
-        final tabsRouter = AutoTabsRouter.of(context);
-        return Scaffold(
-          body: child,
-          bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            selectedItemColor: AppColors.icons_active_blue,
-            unselectedLabelStyle:
-                TextStyle(color: AppColors.icons_not_Active_gray),
-            selectedLabelStyle: TextStyle(color: AppColors.icons_active_blue),
-            currentIndex: tabsRouter.activeIndex,
-            onTap: (value) {
-              tabsRouter.setActiveIndex(value);
-            },
-            items: [
-              BottomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                      height: 20,
-                      width: 20,
-                      image_home,
-                      color: AppColors.icons_not_Active_gray),
-                  label: 'Главная',
-                  activeIcon: SvgPicture.asset(
-                    height: 20,
-                    width: 20,
-                    image_home,
-                    color: AppColors.icons_active_blue,
-                  )),
-              BottomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                      height: 20,
-                      width: 20,
-                      image_search,
-                      color: AppColors.icons_not_Active_gray),
-                  label: 'Подбор',
-                  activeIcon: SvgPicture.asset(
-                    height: 20,
-                    width: 20,
-                    image_search,
-                    color: AppColors.icons_active_blue,
-                  )),
-              BottomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                      height: 20,
-                      width: 20,
-                      image_comparison,
-                      color: AppColors.icons_not_Active_gray),
-                  label: 'Сравнение',
-                  activeIcon: SvgPicture.asset(
-                    height: 20,
-                    width: 20,
-                    image_comparison,
-                    color: AppColors.icons_active_blue,
-                  )),
-              BottomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                      height: 20,
-                      width: 20,
-                      image_selected,
-                      color: AppColors.icons_not_Active_gray),
-                  label: 'Избранное',
-                  activeIcon: SvgPicture.asset(
-                    height: 20,
-                    width: 20,
-                    image_selected,
-                    color: AppColors.icons_active_blue,
-                  )),
-              BottomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                      height: 20,
-                      width: 20,
-                      image_profile,
-                      color: AppColors.icons_not_Active_gray),
-                  label: 'Профиль',
-                  activeIcon: SvgPicture.asset(
-                    height: 20,
-                    width: 20,
-                    image_profile,
-                    color: AppColors.icons_active_blue,
-                  )),
-            ],
-          ),
-        );
-      },
+      bottomNavigationBuilder: (context, tabsRouter) => BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: AppColors.icons_active_blue,
+        unselectedLabelStyle: TextStyle(color: AppColors.icons_not_Active_gray),
+        selectedLabelStyle: TextStyle(color: AppColors.icons_active_blue),
+        currentIndex: tabsRouter.activeIndex,
+        onTap: (value) {
+          tabsRouter.setActiveIndex(value);
+        },
+        items: [
+          BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                  height: 20,
+                  width: 20,
+                  image_home,
+                  color: AppColors.icons_not_Active_gray),
+              label: 'Главная',
+              activeIcon: SvgPicture.asset(
+                height: 20,
+                width: 20,
+                image_home,
+                color: AppColors.icons_active_blue,
+              )),
+          BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                  height: 20,
+                  width: 20,
+                  image_search,
+                  color: AppColors.icons_not_Active_gray),
+              label: 'Подбор',
+              activeIcon: SvgPicture.asset(
+                height: 20,
+                width: 20,
+                image_search,
+                color: AppColors.icons_active_blue,
+              )),
+          BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                  height: 20,
+                  width: 20,
+                  image_comparison,
+                  color: AppColors.icons_not_Active_gray),
+              label: 'Сравнение',
+              activeIcon: SvgPicture.asset(
+                height: 20,
+                width: 20,
+                image_comparison,
+                color: AppColors.icons_active_blue,
+              )),
+          BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                  height: 20,
+                  width: 20,
+                  image_selected,
+                  color: AppColors.icons_not_Active_gray),
+              label: 'Избранное',
+              activeIcon: SvgPicture.asset(
+                height: 20,
+                width: 20,
+                image_selected,
+                color: AppColors.icons_active_blue,
+              )),
+          BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                  height: 20,
+                  width: 20,
+                  image_profile,
+                  color: AppColors.icons_not_Active_gray),
+              label: 'Профиль',
+              activeIcon: SvgPicture.asset(
+                height: 20,
+                width: 20,
+                image_profile,
+                color: AppColors.icons_active_blue,
+              )),
+        ],
+      ),
     );
   }
 }
