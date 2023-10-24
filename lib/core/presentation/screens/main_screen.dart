@@ -17,7 +17,13 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter(
-      routes: const [Home(), Selection(), Comparison(), Selected(), Profile()],
+      routes: const [
+        Home(),
+        Selection(),
+        Comparison(),
+        Selected(),
+        Profile(),
+      ],
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);
         return Scaffold(
