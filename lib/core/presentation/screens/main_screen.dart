@@ -118,6 +118,6 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     requestControllerBloc = context.read<RequestControllerBloc>();
-    requestControllerBloc.add(InitializeDataEvent());
+    requestControllerBloc.add(LoadAllResorts());
   }
 }

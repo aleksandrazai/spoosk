@@ -1,6 +1,5 @@
 part of 'request_controller_bloc.dart';
 
-@immutable
-class RequestControllerEvent {}
+abstract class RequestControllerEvent {}
 
-class InitializeDataEvent extends RequestControllerEvent {}
+class LoadAllResorts extends RequestControllerEvent {}

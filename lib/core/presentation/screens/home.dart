@@ -29,60 +29,64 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   RequestController requestController = RequestController();
-  List<Resorts> _resorts = [];
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RequestControllerBloc, RequestControllerInitialState>(
+    return BlocBuilder<RequestControllerBloc, RequestControllerState>(
       builder: (context, state) {
-        print("resortsAll: ${state.resortsAll}");
-        return CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              expandedHeight: MediaQuery.of(context).size.height * 0.3,
-              floating: false,
-              pinned: true,
-              backgroundColor: const Color(0xFFf8f8f8),
-              elevation: 0,
-              flexibleSpace: const FlexibleSpaceBar(
-                background: CustomAppBar(),
-              ),
-              bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(26),
-                child: CustomSearchField(
-                  onTap: () {},
+        if (state is RequestControllerLoaded) {
+          final resortsAll = state.resortsAll;
+
+          // print("resortsAll: ${state.resortsAll}");
+          return CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                expandedHeight: MediaQuery.of(context).size.height * 0.3,
+                floating: false,
+                pinned: true,
+                backgroundColor: const Color(0xFFf8f8f8),
+                elevation: 0,
+                flexibleSpace: const FlexibleSpaceBar(
+                  background: CustomAppBar(),
+                ),
+                bottom: PreferredSize(
+                  preferredSize: const Size.fromHeight(26),
+                  child: CustomSearchField(
+                    onTap: () {},
+                  ),
                 ),
               ),
-            ),
-            const SliverToBoxAdapter(
-              child: CardsHeaderPopularALL(),
-            ),
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: 212, //test
-                width: 256,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: state.resortsAll.length,
-                  itemBuilder: (context, index) {
-                    final resort = state.resortsAll[index];
-                    return ResortCard(resort: resort);
-                  },
+              const SliverToBoxAdapter(
+                child: CardsHeaderPopularALL(),
+              ),
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 212, //test
+                  width: 256,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: state.resortsAll.length,
+                    itemBuilder: (context, index) {
+                      final resort = state.resortsAll[index];
+                      return ResortCard(resort: resort);
+                    },
+                  ),
                 ),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  children: <ReviewCard>[
-                    ...List.filled(6, false).map((e) => const ReviewCard())
-                  ],
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    children: <ReviewCard>[
+                      ...List.filled(6, false).map((e) => const ReviewCard())
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
-        );
+            ],
+          );
+        }
+        return Center(child: CircularProgressIndicator());
       },
     );
   }

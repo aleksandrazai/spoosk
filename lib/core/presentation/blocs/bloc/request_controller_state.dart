@@ -1,14 +1,10 @@
 part of 'request_controller_bloc.dart';
 
-@immutable
-sealed class RequestControllerState {}
+abstract class RequestControllerState {}
 
-class RequestControllerInitialState extends RequestControllerState {
-  List<Resorts> resortsAll = [];
-  RequestControllerInitialState({required this.resortsAll});
-}
+class RequestControllerInitial extends RequestControllerState {}
 
-class RequestControllerNewState extends RequestControllerState {
-  List<Resorts> newList = [];
-  RequestControllerNewState({required this.newList});
+class RequestControllerLoaded extends RequestControllerState {
+  RequestControllerLoaded({required this.resortsAll});
+  final List<Resorts> resortsAll;
 }
