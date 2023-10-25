@@ -12,8 +12,8 @@ class AppRouter extends $AppRouter {
             AutoRoute(page: Home.page, path: 'Home'),
             AutoRoute(page: Selection.page, path: 'Selection'),
             AutoRoute(page: Comparison.page, path: 'Comparison'),
-            AutoRoute(page: Profile.page, path: 'Profile'),
             AutoRoute(page: Selected.page, path: 'Selected'),
+            AutoRoute(page: Profile.page, path: 'Profile'),
           ],
         ),
       ];
