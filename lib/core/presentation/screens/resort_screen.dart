@@ -15,6 +15,9 @@ class _ResortScreenState extends State<ResortScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text('Resort Name'),
+      ),
       body: Center(
         child: Text('Work'),
       ),
