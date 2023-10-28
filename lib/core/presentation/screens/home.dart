@@ -47,9 +47,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   background: CustomAppBar(),
                 ),
                 bottom: PreferredSize(
-                  preferredSize: const Size.fromHeight(26),
-                  child: CustomSearchField(
-                    onTap: () {},
+                  preferredSize: const Size.fromHeight(15),
+                  child: Container(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: CustomSearchField(
+                      onTap: () {},
+                    ),
                   ),
                 ),
               ),

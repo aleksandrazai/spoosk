@@ -36,16 +36,28 @@ class ReviewCard extends StatelessWidget {
                     ),
                     child: Image.asset(image_avatar_placeholder),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Александр В.',
-                            style: Theme.of(context).textTheme.bodyMedium),
+                        Text(
+                          'Александр В.',
+                          style: TextStyle(
+                            color: Color(0xFF4D4E50),
+                            fontSize: 16,
+                            fontFamily: 'Nunito Sans',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                         Text(
                           '23.12.2023',
-                          style: Theme.of(context).textTheme.bodySmall,
+                          style: TextStyle(
+                            color: Color(0xFF9B9CA0),
+                            fontSize: 12,
+                            fontFamily: 'Nunito Sans',
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ],
                     ),

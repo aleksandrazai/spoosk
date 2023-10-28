@@ -22,7 +22,7 @@ class ResortCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomCardImage(resort: resort),
+          SizedBox(child: CustomCardImage(resort: resort)),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: SizedBox(
@@ -58,9 +58,12 @@ class ResortCard extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Text(
-              'Россия, ${resort.region}',
-              style: Theme.of(context).textTheme.bodySmall,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: Text(
+                'РОССИЯ, ${resort.region.toUpperCase()}',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
             ),
           ),
           Padding(

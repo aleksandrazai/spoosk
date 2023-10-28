@@ -35,9 +35,9 @@ class CustomTheme {
       //Caption в Figme
       bodySmall: const TextStyle(
         color: Color(0xFF9C9DA0),
-        fontSize: 12,
+        fontSize: 10,
         fontFamily: fontFamily,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w600,
       ),
       //btn 2
       labelMedium: TextStyle(

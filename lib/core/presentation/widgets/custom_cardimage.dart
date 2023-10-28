@@ -19,30 +19,32 @@ class CustomCardImage extends StatelessWidget {
           Positioned(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(17),
-              child: Image.network(
-                resort.mainResortImg,
-                height: 108,
-                width: 240,
-                fit: BoxFit.cover,
-              ),
+              child: LayoutBuilder(builder: (context, constraints) {
+                return Image.network(
+                  resort.mainResortImg,
+                  height: 108,
+                  width: 245,
+                  fit: BoxFit.cover,
+                );
+              }),
             ),
           ),
-          Positioned(
-            bottom: 21,
-            left: 12,
-            child: Text(
-              resort.trailNumber.toString(),
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-          ),
-          Positioned(
-            bottom: 4,
-            left: 12,
-            child: Text(
-              'трасс',
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-          ),
+          // Positioned(
+          //   bottom: 21,
+          //   left: 12,
+          //   child: Text(
+          //     resort.trailNumber.toString(),
+          //     style: Theme.of(context).textTheme.bodyLarge,
+          //   ),
+          // ),
+          // Positioned(
+          //   bottom: 4,
+          //   left: 12,
+          //   child: Text(
+          //     'трасс',
+          //     style: Theme.of(context).textTheme.bodyLarge,
+          //   ),
+          // ),
           Positioned(
             top: 4,
             left: 185,
