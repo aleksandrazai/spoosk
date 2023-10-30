@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 256,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: state.resortsAll.length,
+                      itemCount: 6,
                       itemBuilder: (context, index) {
                         final resort = state.resortsAll[index];
                         return ResortCard(resort: resort);
