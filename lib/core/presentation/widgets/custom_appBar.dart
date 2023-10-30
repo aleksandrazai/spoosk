@@ -13,7 +13,10 @@ class CustomAppBar extends StatelessWidget {
         Positioned(
           width: MediaQuery.of(context).size.width * 0.9,
           top: 20,
-          child: Image.asset(test_png_header, fit: BoxFit.cover),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(17),
+            child: Image.asset(test_png_header, fit: BoxFit.fill, height: 160),
+          ),
         ),
         Positioned(
           width: MediaQuery.of(context).size.width * 0.9,
