@@ -90,10 +90,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 24.0, vertical: 8.0),
-                  child: FilledButton(
-                    onPressed: () {},
-                    child: Text('Написать отзыв',
-                        style: Theme.of(context).textTheme.bodyLarge),
+                  child: ReviewButton(
+                    buttonText: 'Написать отзыв',
+                    onPressedCallback: () {},
                   ),
                 ),
               ),
@@ -102,6 +101,24 @@ class _HomeScreenState extends State<HomeScreen> {
         }
         return Center(child: CircularProgressIndicator());
       },
+    );
+  }
+}
+
+class ReviewButton extends StatelessWidget {
+  final String buttonText;
+  final VoidCallback? onPressedCallback;
+  const ReviewButton({
+    super.key,
+    required this.buttonText,
+    required this.onPressedCallback,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return FilledButton(
+      onPressed: onPressedCallback,
+      child: Text(buttonText, style: Theme.of(context).textTheme.bodyLarge),
     );
   }
 }
