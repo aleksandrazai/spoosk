@@ -23,6 +23,7 @@ dependencies:
   bloc: ^8.1.2
   meta: ^1.9.1
   connectivity_plus: ^5.0.1
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:

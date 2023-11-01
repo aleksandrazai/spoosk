@@ -18,6 +18,7 @@ class RequestController {
           List<Resorts>.from(response.data.map((x) => Resorts.fromJson(x)));
       return result;
     } catch (e) {
+      print(e);
       Exception(e);
       return null;
     }

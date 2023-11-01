@@ -1,135 +1,39 @@
 class Resorts {
-  String idResort;
-  int trailLength;
-  int trailNumber;
-  num skipass;
-  num heightDifference;
-  int greenTrails;
-  int blueTrails;
-  int redTrails;
-  int blackTrails;
-  int gondolaSkilift;
-  int armchairSkilift;
-  int travelatorsSkilift;
-  int bugelnySkilift;
   String name;
   String region;
-  String beginSeason;
-  String endSeason;
-  int freeride;
-  int snowpark;
-  int eveningSkiing;
-  int school;
-  int indTraining;
-  int childrenSchool;
-  int equipRental;
-  int distanceAirport;
-  int distanceRailway;
-  String info;
   String image;
-  String listMonth;
-  String linkOfsite;
-  String mainResortImg;
+  num trailLength;
+  num heightDifference;
+  num skipass;
+  num trailNumber;
 
   Resorts({
-    required this.idResort,
-    required this.trailLength,
-    required this.trailNumber,
-    required this.skipass,
-    required this.heightDifference,
-    required this.greenTrails,
-    required this.blueTrails,
-    required this.redTrails,
-    required this.blackTrails,
-    required this.gondolaSkilift,
-    required this.armchairSkilift,
-    required this.travelatorsSkilift,
-    required this.bugelnySkilift,
     required this.name,
     required this.region,
-    required this.beginSeason,
-    required this.endSeason,
-    required this.freeride,
-    required this.snowpark,
-    required this.eveningSkiing,
-    required this.school,
-    required this.indTraining,
-    required this.childrenSchool,
-    required this.equipRental,
-    required this.distanceAirport,
-    required this.distanceRailway,
-    required this.info,
     required this.image,
-    required this.listMonth,
-    required this.linkOfsite,
-    required this.mainResortImg,
+    required this.trailLength,
+    required this.heightDifference,
+    required this.skipass,
+    required this.trailNumber,
   });
 
   factory Resorts.fromJson(Map<String, dynamic> json) => Resorts(
-        idResort: json["id_resort"],
         trailLength: json["trail_length"],
         trailNumber: json["trail_number"],
         skipass: json["skipass"],
         heightDifference: json["height_difference"],
-        greenTrails: json["green_trails"],
-        blueTrails: json["blue_trails"],
-        redTrails: json["red_trails"],
-        blackTrails: json["black_trails"],
-        gondolaSkilift: json["gondola_skilift"],
-        armchairSkilift: json["armchair_skilift"],
-        travelatorsSkilift: json["travelators_skilift"],
-        bugelnySkilift: json["bugelny_skilift"],
         name: json["name"],
         region: json["region"],
-        beginSeason: json["begin_season"],
-        endSeason: json["end_season"],
-        freeride: json["freeride"],
-        snowpark: json["snowpark"],
-        eveningSkiing: json["evening_skiing"],
-        school: json["school"],
-        indTraining: json["ind_training"],
-        childrenSchool: json["children_school"],
-        equipRental: json["equip_rental"],
-        distanceAirport: json["distance_airport"],
-        distanceRailway: json["distance_railway"],
-        info: json["info"],
         image: json["image"],
-        listMonth: json["list_month"],
-        linkOfsite: json["link_ofsite"],
-        mainResortImg: json["main_resort_img"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id_resort": idResort,
         "trail_length": trailLength,
         "trail_number": trailNumber,
         "skipass": skipass,
         "height_difference": heightDifference,
-        "green_trails": greenTrails,
-        "blue_trails": blueTrails,
-        "red_trails": redTrails,
-        "black_trails": blackTrails,
-        "gondola_skilift": gondolaSkilift,
-        "armchair_skilift": armchairSkilift,
-        "travelators_skilift": travelatorsSkilift,
-        "bugelny_skilift": bugelnySkilift,
         "name": name,
         "region": region,
-        "begin_season": beginSeason,
-        "end_season": endSeason,
-        "freeride": freeride,
-        "snowpark": snowpark,
-        "evening_skiing": eveningSkiing,
-        "school": school,
-        "ind_training": indTraining,
-        "children_school": childrenSchool,
-        "equip_rental": equipRental,
-        "distance_airport": distanceAirport,
-        "distance_railway": distanceRailway,
-        "info": info,
         "image": image,
-        "list_month": listMonth,
-        "link_ofsite": linkOfsite,
-        "main_resort_img": mainResortImg,
       };
 }

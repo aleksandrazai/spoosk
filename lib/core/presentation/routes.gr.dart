@@ -9,6 +9,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i9;
+import 'package:flutter/material.dart' as _i10;
+import 'package:spoosk/core/data/models/resorts.dart' as _i11;
 import 'package:spoosk/core/presentation/routes.dart' as _i6;
 import 'package:spoosk/core/presentation/screens/comparison.dart' as _i1;
 import 'package:spoosk/core/presentation/screens/home.dart' as _i2;
@@ -48,9 +50,13 @@ abstract class $AppRouter extends _i9.RootStackRouter {
       );
     },
     ResortRoute.name: (routeData) {
+      final args = routeData.argsAs<ResortRouteArgs>();
       return _i9.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i5.ResortScreen(),
+        child: _i5.ResortScreen(
+          key: args.key,
+          resort: args.resort,
+        ),
       );
     },
     ResortTab.name: (routeData) {
@@ -132,16 +138,40 @@ class Profile extends _i9.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.ResortScreen]
-class ResortRoute extends _i9.PageRouteInfo<void> {
-  const ResortRoute({List<_i9.PageRouteInfo>? children})
-      : super(
+class ResortRoute extends _i9.PageRouteInfo<ResortRouteArgs> {
+  ResortRoute({
+    _i10.Key? key,
+    required _i11.Resorts? resort,
+    List<_i9.PageRouteInfo>? children,
+  }) : super(
           ResortRoute.name,
+          args: ResortRouteArgs(
+            key: key,
+            resort: resort,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'ResortRoute';
 
-  static const _i9.PageInfo<void> page = _i9.PageInfo<void>(name);
+  static const _i9.PageInfo<ResortRouteArgs> page =
+      _i9.PageInfo<ResortRouteArgs>(name);
+}
+
+class ResortRouteArgs {
+  const ResortRouteArgs({
+    this.key,
+    required this.resort,
+  });
+
+  final _i10.Key? key;
+
+  final _i11.Resorts? resort;
+
+  @override
+  String toString() {
+    return 'ResortRouteArgs{key: $key, resort: $resort}';
+  }
 }
 
 /// generated route for

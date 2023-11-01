@@ -26,7 +26,7 @@ class RequestControllerBloc
         }
       } catch (e) {
         emit(RequestControllerLoaded(resortsAll: []));
-        print(e);
+        print("RequestControllerBloc: ${e}");
       }
     });
   }
