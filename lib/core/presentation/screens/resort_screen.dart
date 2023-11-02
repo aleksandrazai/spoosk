@@ -7,11 +7,12 @@ import 'package:spoosk/core/data/models/chart.dart';
 import 'package:spoosk/core/data/models/resorts.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/theme/theme.dart';
-import 'package:spoosk/core/presentation/widgets/chart_widget.dart';
-import 'package:spoosk/core/presentation/widgets/custom_gallery.dart';
-import 'package:spoosk/core/presentation/widgets/map_widget.dart';
+import 'package:spoosk/core/presentation/widgets/resort_screen_widgets/chart_widget.dart';
+import 'package:spoosk/core/presentation/widgets/resort_screen_widgets/custom_gallery.dart';
+import 'package:spoosk/core/presentation/widgets/resort_screen_widgets/map_widget.dart';
 import 'package:spoosk/core/presentation/widgets/separator.dart';
 import 'package:spoosk/core/presentation/widgets/weather_widget.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 @RoutePage()
 class ResortScreen extends StatefulWidget {
@@ -24,6 +25,7 @@ class ResortScreen extends StatefulWidget {
 
 class _ResortScreenState extends State<ResortScreen>
     with AutoRouteAwareStateMixin<ResortScreen> {
+  bool _seeNameResort = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,9 +37,12 @@ class _ResortScreenState extends State<ResortScreen>
             fontFamily: fontFamily,
             fontWeight: FontWeight.w700,
           ),
-          title: Text(widget.resort!.name),
-          systemOverlayStyle:
-              SystemUiOverlayStyle(statusBarColor: AppColors.white),
+          title: _seeNameResort
+              ? Text(
+                  widget.resort!.name,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                )
+              : null,
           actions: [
             GestureDetector(
               onTap: () {},
@@ -88,7 +93,7 @@ class _ResortScreenState extends State<ResortScreen>
                 height: 16.33,
               )),
           iconTheme: Theme.of(context).iconTheme,
-          backgroundColor: AppColors.white,
+          backgroundColor: Color(0xFFf8f8f8),
           elevation: 0,
         ),
         body: SingleChildScrollView(
@@ -104,12 +109,23 @@ class _ResortScreenState extends State<ResortScreen>
                 margin: const EdgeInsets.only(top: 4),
                 child: Row(
                   children: [
-                    Text(
-                      widget.resort!.name,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineMedium!
-                          .copyWith(fontSize: 20),
+                    VisibilityDetector(
+                      key: Key("unique key"),
+                      child: Text(
+                        widget.resort!.name,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
+                            .copyWith(fontSize: 20),
+                      ),
+                      onVisibilityChanged: (info) {
+                        if (info != null) {
+                          setState(() {
+                            _seeNameResort =
+                                info.visibleFraction > 0 ? false : true;
+                          });
+                        }
+                      },
                     ),
                     const Spacer(),
                     Row(
@@ -496,20 +512,16 @@ class _ResortScreenState extends State<ResortScreen>
                         "Смотреть все тарифы")
                   ],
                 ),
-                Center(
-                  child: FilledButton(
-                    style: ButtonStyle(
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    )),
-                    onPressed: () {},
-                    child: Text('Написать отзыв',
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                              color: Color(0xFF005FF9),
-                            )),
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    height: 40,
+                    decoration: BoxDecoration(
+                        color: const Color(0xFF005FF9),
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Center(
+                        child: Text('Написать отзыв',
+                            style: Theme.of(context).textTheme.bodyLarge)),
                   ),
                 )
               ])
