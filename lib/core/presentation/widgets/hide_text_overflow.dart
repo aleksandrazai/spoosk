@@ -24,11 +24,8 @@ class _HideTextOverflowState extends State<HideTextOverflow> {
           maxLines: isExpanded ? null : widget.maxSymbols,
           overflow: isExpanded ? TextOverflow.visible : TextOverflow.ellipsis,
         ),
-        TextButton(
-          style: TextButton.styleFrom(
-            textStyle: Theme.of(context).textTheme.bodyMedium,
-          ),
-          onPressed: () {
+        InkWell(
+          onTap: () {
             setState(() {
               isExpanded = !isExpanded;
             });

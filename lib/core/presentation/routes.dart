@@ -7,15 +7,31 @@ class AppRouter extends $AppRouter {
   List<AutoRoute> get routes => [
         AutoRoute(
           page: MainRoute.page,
+          path: '/',
           initial: true,
           children: [
-            AutoRoute(page: Home.page, path: 'Home'),
+            AutoRoute(
+              path: 'emptyhome',
+              page: ResortTab.page,
+              children: [
+                RedirectRoute(path: '', redirectTo: 'emptyhome/:id'),
+                AutoRoute(
+                  page: Home.page,
+                  path: 'Home',
+                ),
+                AutoRoute(page: ResortRoute.page, path: 'resortscreen'),
+              ],
+            ),
             AutoRoute(page: Selection.page, path: 'Selection'),
             AutoRoute(page: Comparison.page, path: 'Comparison'),
-            AutoRoute(page: Profile.page, path: 'Profile'),
             AutoRoute(page: Selected.page, path: 'Selected'),
-            AutoRoute(page: Resort.page),
+            AutoRoute(page: Profile.page, path: 'Profile'),
           ],
         ),
       ];
+}
+
+@RoutePage(name: 'ResortTab')
+class ResortTabPage extends AutoRouter {
+  const ResortTabPage({super.key});
 }

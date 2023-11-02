@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:spoosk/core/data/models/resorts.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spoosk/core/presentation/blocs/bloc/request_controller_bloc.dart';
 import '../widgets/widgets.dart';
-import 'package:spoosk/core/data/ApiConfig.dart';
 import 'package:spoosk/core/data/RequestController.dart';
 
 @RoutePage()
@@ -28,72 +28,77 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   RequestController requestController = RequestController();
-  List<Resorts> _resorts = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _getAllResorts();
-  }
-
-  Future<void> _getAllResorts() async {
-    final resorts = await requestController.getResortsAll(
-        getAllResorts: ApiConfigurate.getAllResorts);
-    if (resorts != null) {
-      setState(() {
-        _resorts = resorts;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        SliverAppBar(
-          expandedHeight: MediaQuery.of(context).size.height * 0.3,
-          floating: false,
-          pinned: true,
-          backgroundColor: const Color(0xFFf8f8f8),
-          elevation: 0,
-          flexibleSpace: const FlexibleSpaceBar(
-            background: CustomAppBar(),
-          ),
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(26),
-            child: CustomSearchField(
-              onTap: () {},
-            ),
-          ),
-        ),
-        const SliverToBoxAdapter(
-          child: CardsHeaderPopularALL(),
-        ),
-        SliverToBoxAdapter(
-          child: SizedBox(
-            height: 212, //test
-            width: 256,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: _resorts.length,
-              itemBuilder: (context, index) {
-                final resort = _resorts[index];
-                return ResortCard(resort: resort);
-              },
-            ),
-          ),
-        ),
-        SliverToBoxAdapter(
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              children: <ReviewCard>[
-                ...List.filled(6, false).map((e) => const ReviewCard())
-              ],
-            ),
-          ),
-        ),
-      ],
+    return BlocBuilder<RequestControllerBloc, RequestControllerState>(
+      builder: (context, state) {
+        if (state is RequestControllerLoaded) {
+          // print("resortsAll: ${state.resortsAll}");
+          return CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                expandedHeight: MediaQuery.of(context).size.height * 0.3,
+                floating: false,
+                pinned: true,
+                backgroundColor: const Color(0xFFf8f8f8),
+                elevation: 0,
+                flexibleSpace: const FlexibleSpaceBar(
+                  background: CustomAppBar(),
+                ),
+                bottom: PreferredSize(
+                  preferredSize: const Size.fromHeight(26),
+                  child: CustomSearchField(
+                    onTap: () {},
+                  ),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: CardsHeaderPopularALL(),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: SizedBox(
+                    height: 212, //test
+                    width: 256,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: state.resortsAll.length,
+                      itemBuilder: (context, index) {
+                        final resort = state.resortsAll[index];
+                        return ResortCard(resort: resort);
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    children: <ReviewCard>[
+                      ...List.filled(6, false).map((e) => const ReviewCard())
+                    ],
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 24.0, vertical: 8.0),
+                  child: FilledButton(
+                    onPressed: () {},
+                    child: Text('Написать отзыв',
+                        style: Theme.of(context).textTheme.bodyLarge),
+                  ),
+                ),
+              ),
+            ],
+          );
+        }
+        return Center(child: CircularProgressIndicator());
+      },
     );
   }
 }

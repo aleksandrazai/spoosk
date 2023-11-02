@@ -13,14 +13,14 @@ class CustomCardImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(8.0),
       child: Stack(
         children: [
           Positioned(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(17),
               child: Image.network(
-                resort.mainResortImg,
+                resort.image,
                 height: 108,
                 width: 240,
                 fit: BoxFit.cover,

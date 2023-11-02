@@ -36,31 +36,45 @@ class ReviewCard extends StatelessWidget {
                     ),
                     child: Image.asset(image_avatar_placeholder),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Александр В.',
-                          style: Theme.of(context).textTheme.bodyMedium),
-                      Text(
-                        '23.12.2023',
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Александр В.',
+                            style: Theme.of(context).textTheme.bodyMedium),
+                        Text(
+                          '23.12.2023',
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
-                    'Роза хутор',
-                    style: Theme.of(context).textTheme.headlineMedium,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(
+                      'Роза хутор',
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
                   ),
-                  const StarIcon(),
-                  const StarIcon(),
-                  const StarIcon(),
-                  const StarIcon(),
-                  const StarIcon(),
+                  const Padding(
+                    padding: EdgeInsets.all(12.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        StarIcon(),
+                        StarIcon(),
+                        StarIcon(),
+                        StarIcon(),
+                        StarIcon(),
+                      ],
+                    ),
+                  ),
                 ],
               ),
               SizedBox(

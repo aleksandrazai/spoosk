@@ -18,7 +18,7 @@ class ResortCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        AutoRouter.of(context).push(Resort());
+        context.router.push(ResortRoute(resort: resort));
       },
       child: Card(
         color: Colors.white,
@@ -35,22 +35,28 @@ class ResortCard extends StatelessWidget {
                 width: null,
                 height: null,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
                       resort.name,
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
-                    const StarIcon(),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4),
+                      child: StarIcon(),
+                    ),
                     //rating нет в API
                     Text(
-                      '5.0',
+                      '5,0',
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
                     //reviews нет в API
-                    Text(
-                      '(278)',
-                      style: Theme.of(context).textTheme.bodyMedium,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: Text(
+                        '(278)',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
                     ),
                   ],
                 ),
@@ -65,25 +71,29 @@ class ResortCard extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: SizedBox(
-                  width: 190,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SvgPicture.asset(image_trail, height: 18, width: 18),
-                      Text(
-                        '${resort.trailLength} км.',
-                        style: Theme.of(context).textTheme.labelMedium,
-                      ),
-                      SvgPicture.asset(image_skipass, height: 18, width: 18),
-                      Text(
-                        'от ${resort.skipass.toString()} р.',
-                        style: Theme.of(context).textTheme.labelMedium,
-                      ),
-                    ],
-                  ),
+              child: SizedBox(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(12, 4, 4, 4),
+                      child:
+                          SvgPicture.asset(image_trail, height: 18, width: 18),
+                    ),
+                    Text(
+                      '${resort.trailLength} км.',
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 0, 8, 0),
+                      child: SvgPicture.asset(image_skipass,
+                          height: 18, width: 18),
+                    ),
+                    Text(
+                      'от ${resort.skipass.toString()} р.',
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
+                  ],
                 ),
               ),
             ),
