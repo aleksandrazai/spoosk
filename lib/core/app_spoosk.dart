@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:spoosk/core/generated/l10n.dart';
-import 'package:spoosk/core/presentation/blocs/bloc/request_controller_bloc.dart';
+import 'package:spoosk/core/presentation/bloc_by_id/resort_by_id_bloc.dart';
+import 'package:spoosk/core/presentation/blocs_init/bloc/request_controller_bloc.dart';
 import 'package:spoosk/core/presentation/routes.dart';
 import 'package:spoosk/core/presentation/theme/theme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,11 +22,14 @@ class _SpooskAppState extends State<SpooskApp> {
         providers: [
           BlocProvider(
             create: (context) => RequestControllerBloc(),
+          ),
+          BlocProvider(
+            create: (context) => ResortByIdBloc(),
           )
         ],
         child: MaterialApp.router(
           theme: CustomTheme.lightTheme,
-          darkTheme: CustomTheme.darkTheme,
+          // darkTheme: CustomTheme.darkTheme,
           themeMode: ThemeMode.system,
           localizationsDelegates: const [
             S.delegate,

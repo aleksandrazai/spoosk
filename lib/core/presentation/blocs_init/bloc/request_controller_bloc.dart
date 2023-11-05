@@ -16,7 +16,6 @@ class RequestControllerBloc
         final connectivityResult = await (Connectivity().checkConnectivity());
         if (connectivityResult == ConnectivityResult.wifi ||
             connectivityResult == ConnectivityResult.mobile) {
-          print("WORK");
           final List<Resorts>? resorts = await requestController.getResortsAll(
               getAllResorts: ApiConfigurate.getAllResorts);
 
@@ -26,7 +25,6 @@ class RequestControllerBloc
         }
       } catch (e) {
         emit(RequestControllerLoaded(resortsAll: []));
-        print("RequestControllerBloc: ${e}");
       }
     });
   }

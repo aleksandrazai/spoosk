@@ -1,9 +1,11 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spoosk/core/colors.dart';
-import 'package:spoosk/core/presentation/blocs/bloc/request_controller_bloc.dart';
+import 'package:spoosk/core/presentation/blocs_init/bloc/request_controller_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
 

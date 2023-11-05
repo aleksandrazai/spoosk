@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spoosk/core/presentation/blocs/bloc/request_controller_bloc.dart';
+import 'package:spoosk/core/presentation/blocs_init/bloc/request_controller_bloc.dart';
 import '../widgets/widgets.dart';
 import 'package:spoosk/core/data/RequestController.dart';
 
