@@ -19,6 +19,7 @@ import 'package:spoosk/core/presentation/widgets/resort_screen_widgets/tablet_wi
 import 'package:spoosk/core/presentation/widgets/review_card.dart';
 import 'package:spoosk/core/presentation/widgets/separator.dart';
 import 'package:spoosk/core/presentation/widgets/weather_widget.dart';
+import 'package:spoosk/core/presentation/widgets/widgets.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 @RoutePage()
@@ -243,7 +244,7 @@ class _ResortScreenState extends State<ResortScreen>
                                         ),
                                         Text(
                                             //TODO Даты захардкодил надо уточнить
-                                            "24 ${""} - 15 ${" "}",
+                                            " ${state.resortById!.beginSeason} - ${state.resortById!.endSeason}",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyMedium
@@ -269,7 +270,8 @@ class _ResortScreenState extends State<ResortScreen>
                                             fit: BoxFit.scaleDown,
                                           ),
                                         ),
-                                        Text("Ски-пасс от 4 500 р",
+                                        Text(
+                                            "Ски-пасс от ${state.resortById?.skipass.toInt()} р.",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyMedium!
@@ -311,7 +313,8 @@ class _ResortScreenState extends State<ResortScreen>
                                 SvgPicture.asset(image_height_mountain),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 9),
-                                  child: Text("2500 м",
+                                  child: Text(
+                                      "${state.resortById?.heightDifference.toInt()} м",
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium!
@@ -324,7 +327,7 @@ class _ResortScreenState extends State<ResortScreen>
                                   child: SvgPicture.asset(
                                       image_height_mountain_ground),
                                 ),
-                                Text("5000 м",
+                                Text("${state.resortById?.maxHeight.toInt()} м",
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyMedium!
@@ -511,7 +514,7 @@ class _ResortScreenState extends State<ResortScreen>
                                         style: Theme.of(context)
                                             .textTheme
                                             .headlineMedium,
-                                        "Ски-пасс")),
+                                        "Описание")),
                                 //TODO надо добавить раскрытие описания как в отзывах
                                 Text(
                                     style: Theme.of(context)
@@ -598,7 +601,21 @@ class _ResortScreenState extends State<ResortScreen>
                               ),
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(20.0),
+                                        topRight: Radius.circular(20.0),
+                                      ),
+                                    ),
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return ReviewForm(
+                                          resortById: resortByIdBloc);
+                                    });
+                              },
                               child: Container(
                                 margin: const EdgeInsets.only(top: 20),
                                 height: 40,
