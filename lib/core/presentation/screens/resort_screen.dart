@@ -244,7 +244,7 @@ class _ResortScreenState extends State<ResortScreen>
                                         ),
                                         Text(
                                             //TODO Даты захардкодил надо уточнить
-                                            " ${state.resortById!.beginSeason} - ${state.resortById!.endSeason}",
+                                            " ${state.resortById?.beginSeason} - ${state.resortById?.endSeason}",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyMedium
@@ -612,8 +612,7 @@ class _ResortScreenState extends State<ResortScreen>
                                     ),
                                     context: context,
                                     builder: (BuildContext context) {
-                                      return ReviewForm(
-                                          resortById: resortByIdBloc);
+                                      return const ReviewForm();
                                     });
                               },
                               child: Container(
