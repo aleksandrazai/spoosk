@@ -7,8 +7,9 @@ import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/widgets/review_button.dart';
 
 class ReviewForm extends StatefulWidget {
-  const ReviewForm({super.key, required this.resortById});
-  final ResortByIdBloc resortById;
+  const ReviewForm({
+    super.key,
+  });
 
   @override
   State<ReviewForm> createState() => _ReviewFormState();
