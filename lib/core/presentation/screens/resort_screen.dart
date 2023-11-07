@@ -478,7 +478,8 @@ class _ResortScreenState extends State<ResortScreen>
                                 margin: const EdgeInsets.only(top: 20),
                                 child: const Separator()),
                             SizedBox(
-                              height: 250,
+                              height: 360,
+                              width: MediaQuery.of(context).size.width * 0.8,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -490,7 +491,6 @@ class _ResortScreenState extends State<ResortScreen>
                                               .headlineMedium,
                                           "Ски-пасс")),
                                   TabletWidget(),
-                                  const Spacer(),
                                   Text(
                                       style: Theme.of(context)
                                           .textTheme
@@ -498,7 +498,8 @@ class _ResortScreenState extends State<ResortScreen>
                                           .copyWith(
                                               color:
                                                   AppColors.icons_active_blue),
-                                      "Смотреть все тарифы")
+                                      "Смотреть все тарифы"),
+                                  const Spacer(),
                                 ],
                               ),
                             ),
