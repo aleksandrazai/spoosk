@@ -612,7 +612,10 @@ class _ResortScreenState extends State<ResortScreen>
                                             .bodyLarge)),
                               ),
                             )
-                          ])
+                          ]),
+                      ...<ReviewCard>[
+                        ...List.filled(6, false).map((e) => const ReviewCard())
+                      ]
                     ]),
                   ),
                 )));
