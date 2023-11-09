@@ -1,52 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:spoosk/core/data/models/ResortById.dart';
+import 'package:spoosk/core/data/models/skipass_type.dart';
 
-class TabletWidget extends StatefulWidget {
-  TabletWidget({Key? key}) : super(key: key);
+import '../../../colors.dart';
 
-  @override
-  _TabletWidgetState createState() => _TabletWidgetState();
-}
+class TabletWidget extends StatelessWidget {
+  const TabletWidget({Key? key, required this.skipasses}) : super(key: key);
+  final List<Skipass>? skipasses;
 
-class _TabletWidgetState extends State<TabletWidget> {
-  final List<Skipass> items = [
-    Skipass(mobType: '1', price: '100'),
-    Skipass(mobType: '2', price: '200'),
-    Skipass(mobType: '3', price: '300'),
-    Skipass(mobType: '1', price: '100'),
-    Skipass(mobType: '2', price: '200'),
-  ];
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(12),
-        child: DataTable(
-          border: TableBorder.all(width: 0.1),
-          headingRowColor: MaterialStatePropertyAll(Color(0xFFBDE3FF)),
-          columns: const [
-            DataColumn(label: Text('Количество дней')),
-            DataColumn(label: Text('Cтоимость от')),
-          ],
-          rows: items
-              .map(
-                (Skipass) => DataRow(
-                  cells: [
-                    DataCell(Center(
-                      child: Text(
-                        Skipass.mobType,
-                      ),
-                    )),
-                    DataCell(Center(
-                      child: Text(
-                        Skipass.price,
-                      ),
-                    )),
-                  ],
-                ),
-              )
-              .toList(),
-        ),
+    return SizedBox(
+      child: DataTable(
+        border: TableBorder.all(width: 0.1),
+        headingRowColor: const MaterialStatePropertyAll(Color(0xFFBDE3FF)),
+        columnSpacing: 100,
+        columns: [
+          DataColumn(
+            label: Text(
+              'Количество дней',
+              textAlign: TextAlign.center,
+              style: Theme.of(context)
+                  .textTheme
+                  .labelMedium!
+                  .copyWith(color: AppColors.text_black),
+            ),
+          ),
+          DataColumn(
+              label: Text(
+            'Cтоимость от',
+            style: Theme.of(context)
+                .textTheme
+                .labelMedium!
+                .copyWith(color: AppColors.text_black),
+            textAlign: TextAlign.center,
+          )),
+        ],
+        rows: (skipasses ?? [])
+            .map(
+              (skipass) => DataRow(
+                cells: [
+                  DataCell(Center(
+                    child: Text(
+                        SkipassType.type[skipass.mobType] ?? skipass.mobType),
+                  )),
+                  DataCell(Center(
+                    child: Text(skipass.price.toString().replaceAllMapped(
+                        RegExp(r'(?<=\d)(?=(\d{3})+(?!\d))'), (match) => ' ')),
+                  )),
+                ],
+              ),
+            )
+            .toList(),
       ),
     );
   }

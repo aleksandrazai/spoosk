@@ -490,7 +490,9 @@ class _ResortScreenState extends State<ResortScreen>
                                               .textTheme
                                               .headlineMedium,
                                           "Ски-пасс")),
-                                  TabletWidget(),
+                                  TabletWidget(
+                                    skipasses: state.resortById?.skipasses,
+                                  ),
                                   Text(
                                       style: Theme.of(context)
                                           .textTheme
