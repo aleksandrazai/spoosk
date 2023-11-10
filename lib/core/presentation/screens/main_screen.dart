@@ -38,8 +38,23 @@ class _MainScreenState extends State<MainScreen> {
                 selectedLabelStyle:
                     TextStyle(color: AppColors.icons_active_blue),
                 currentIndex: tabsRouter.activeIndex,
-                onTap: (value) {
-                  tabsRouter.setActiveIndex(value);
+                onTap: (int index) {
+                  if (index == 0) {
+                    // Navigate to the Home page.
+                    AutoRouter.of(context).navigate(Home());
+                  } else if (index == 1) {
+                    // Navigate to the Selection page.
+                    AutoRouter.of(context).navigate(Selection());
+                  } else if (index == 2) {
+                    // Navigate to the Comparison page.
+                    AutoRouter.of(context).navigate(Comparison());
+                  } else if (index == 3) {
+                    // Navigate to the Selected page.
+                    AutoRouter.of(context).navigate(Selected());
+                  } else if (index == 4) {
+                    // Navigate to the Profile page.
+                    AutoRouter.of(context).navigate(Profile());
+                  }
                 },
                 items: [
                   BottomNavigationBarItem(
