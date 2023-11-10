@@ -12,6 +12,7 @@ import 'package:spoosk/core/data/models/resorts.dart';
 import 'package:spoosk/core/presentation/bloc_by_id/resort_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/theme/theme.dart';
+import 'package:spoosk/core/presentation/widgets/hide_text_overflow.dart';
 import 'package:spoosk/core/presentation/widgets/resort_screen_widgets/chart_widget.dart';
 import 'package:spoosk/core/presentation/widgets/resort_screen_widgets/custom_gallery.dart';
 import 'package:spoosk/core/presentation/widgets/resort_screen_widgets/map_widget.dart';
@@ -376,110 +377,112 @@ class _ResortScreenState extends State<ResortScreen>
                                             .copyWith(
                                                 color: AppColors.text_black),
                                         "Подъемники"),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall,
-                                                "Гондольный"),
-                                            Container(
-                                                margin: const EdgeInsets.only(
-                                                    top: 8, bottom: 8),
-                                                child: SvgPicture.asset(
-                                                    image_type_handball)),
-                                            Text(
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyMedium!
-                                                    .copyWith(
-                                                        color: AppColors
-                                                            .text_black),
-                                                "6")
-                                          ],
-                                        ),
-                                        Column(
-                                          children: [
-                                            Text(
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall,
-                                                "Карусельный"),
-                                            Container(
-                                                margin: const EdgeInsets.only(
-                                                    top: 8, bottom: 8),
-                                                child: SvgPicture.asset(
-                                                    image_type_carousel)),
-                                            Text(
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyMedium!
-                                                    .copyWith(
-                                                        color: AppColors
-                                                            .text_black),
-                                                "6")
-                                          ],
-                                        ),
-                                        Column(
-                                          children: [
-                                            Text(
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall,
-                                                "Травалатор"),
-                                            Container(
-                                                margin: const EdgeInsets.only(
-                                                    top: 8, bottom: 8),
-                                                child: SvgPicture.asset(
-                                                    image_type_travolator)),
-                                            Text(
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyMedium!
-                                                    .copyWith(
-                                                        color: AppColors
-                                                            .text_black),
-                                                "6")
-                                          ],
-                                        ),
-                                        Column(
-                                          children: [
-                                            Text(
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall,
-                                                "Бугельный"),
-                                            Container(
-                                                margin: const EdgeInsets.only(
-                                                    top: 8, bottom: 8),
-                                                child: SvgPicture.asset(
-                                                    image_type_bugelny)),
-                                            Text(
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyMedium!
-                                                    .copyWith(
-                                                        color: AppColors
-                                                            .text_black),
-                                                "6")
-                                          ],
-                                        ),
-                                      ],
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 20.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall,
+                                                  "Гондольный"),
+                                              Container(
+                                                  margin: const EdgeInsets.only(
+                                                      top: 8, bottom: 8),
+                                                  child: SvgPicture.asset(
+                                                      image_type_handball)),
+                                              Text(
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyMedium!
+                                                      .copyWith(
+                                                          color: AppColors
+                                                              .text_black),
+                                                  "6")
+                                            ],
+                                          ),
+                                          Column(
+                                            children: [
+                                              Text(
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall,
+                                                  "Карусельный"),
+                                              Container(
+                                                  margin: const EdgeInsets.only(
+                                                      top: 8, bottom: 8),
+                                                  child: SvgPicture.asset(
+                                                      image_type_carousel)),
+                                              Text(
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyMedium!
+                                                      .copyWith(
+                                                          color: AppColors
+                                                              .text_black),
+                                                  "6")
+                                            ],
+                                          ),
+                                          Column(
+                                            children: [
+                                              Text(
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall,
+                                                  "Травалатор"),
+                                              Container(
+                                                  margin: const EdgeInsets.only(
+                                                      top: 8, bottom: 8),
+                                                  child: SvgPicture.asset(
+                                                      image_type_travolator)),
+                                              Text(
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyMedium!
+                                                      .copyWith(
+                                                          color: AppColors
+                                                              .text_black),
+                                                  "6")
+                                            ],
+                                          ),
+                                          Column(
+                                            children: [
+                                              Text(
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall,
+                                                  "Бугельный"),
+                                              Container(
+                                                  margin: const EdgeInsets.only(
+                                                      top: 8, bottom: 8),
+                                                  child: SvgPicture.asset(
+                                                      image_type_bugelny)),
+                                              Text(
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyMedium!
+                                                      .copyWith(
+                                                          color: AppColors
+                                                              .text_black),
+                                                  "6")
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ]),
                             ),
-                            Container(
-                                margin: const EdgeInsets.only(top: 20),
-                                child: const Separator()),
+                            Container(child: const Separator()),
                             SizedBox(
-                              height: 360,
-                              width: MediaQuery.of(context).size.width * 0.8,
+                              height: 420,
+                              width: MediaQuery.of(context).size.width,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -490,8 +493,14 @@ class _ResortScreenState extends State<ResortScreen>
                                               .textTheme
                                               .headlineMedium,
                                           "Ски-пасс")),
-                                  TabletWidget(
-                                    skipasses: state.resortById?.skipasses,
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 16, 0, 20),
+                                    child: Center(
+                                      child: TabletWidget(
+                                        skipasses: state.resortById?.skipasses,
+                                      ),
+                                    ),
                                   ),
                                   Text(
                                       style: Theme.of(context)
@@ -506,7 +515,7 @@ class _ResortScreenState extends State<ResortScreen>
                               ),
                             ),
                             Container(
-                                margin: const EdgeInsets.only(top: 20),
+                                margin: const EdgeInsets.only(top: 10),
                                 child: const Separator()),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -518,13 +527,11 @@ class _ResortScreenState extends State<ResortScreen>
                                             .textTheme
                                             .headlineMedium,
                                         "Описание")),
-                                //TODO надо добавить раскрытие описания как в отзывах
-                                Text(
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(color: AppColors.text_black),
-                                    "Один из лучших росийских круглогодичных курортов. Именно Роза Хутор дает возможность своим гостям зимой пользоваться 102 км уникальных горнолыжных трасс, современными подъёмниками и тоннами особого краснополянского снега. Летом же курорт предлагает множество сезонных активностей, среди которых пешие и вело — прогулки, конные прогулки, веревочный «Панда-Парк», спортивные площадки для всей семьи, багги-туры, занятия йогой и многое другое.")
+                                const HideTextOverflow(
+                                  fullText:
+                                      "Один из лучших росийских круглогодичных курортов. Именно Роза Хутор дает возможность своим гостям зимой пользоваться 102 км уникальных горнолыжных трасс, современными подъёмниками и тоннами особого краснополянского снега. Летом же курорт предлагает множество сезонных активностей, среди которых пешие и вело — прогулки, конные прогулки, веревочный «Панда-Парк», спортивные площадки для всей семьи, багги-туры, занятия йогой и многое другое.",
+                                  maxSymbols: 147,
+                                )
                               ],
                             ),
                             Container(
@@ -532,6 +539,8 @@ class _ResortScreenState extends State<ResortScreen>
                                 child: const Separator()),
                             Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
                                       margin: const EdgeInsets.only(
@@ -556,7 +565,79 @@ class _ResortScreenState extends State<ResortScreen>
                                         const Padding(
                                           padding: EdgeInsets.only(left: 12),
                                           child: Text('Пункты проката'),
-                                        )
+                                        ),
+                                      ]),
+                                  SizedBox(height: 16),
+                                  Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        SvgPicture.asset(
+                                          image_check_blue,
+                                          height: 18,
+                                          width: 18,
+                                          fit: BoxFit.scaleDown,
+                                        ),
+                                        const Padding(
+                                          padding: EdgeInsets.only(left: 12),
+                                          child: Text('Горнолыжные школы'),
+                                        ),
+                                      ]),
+                                  SizedBox(height: 16),
+                                  Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        SvgPicture.asset(
+                                          image_check_blue,
+                                          height: 18,
+                                          width: 18,
+                                          fit: BoxFit.scaleDown,
+                                        ),
+                                        const Padding(
+                                          padding: EdgeInsets.only(left: 12),
+                                          child: Text('Вечернее катание'),
+                                        ),
+                                      ]),
+                                  SizedBox(height: 16),
+                                  Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        SvgPicture.asset(
+                                          image_check_gray,
+                                          height: 18,
+                                          width: 18,
+                                          fit: BoxFit.scaleDown,
+                                        ),
+                                        const Padding(
+                                          padding: EdgeInsets.only(left: 12),
+                                          child: Text('Сноупарк'),
+                                        ),
+                                      ]),
+                                  SizedBox(height: 16),
+                                  Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        SvgPicture.asset(
+                                          image_check_blue,
+                                          height: 18,
+                                          width: 18,
+                                          fit: BoxFit.scaleDown,
+                                        ),
+                                        const Padding(
+                                          padding: EdgeInsets.only(left: 12),
+                                          child: Text('Зоны для фрирайда'),
+                                        ),
                                       ]),
                                   Container(
                                     margin: const EdgeInsets.only(top: 20),
@@ -615,7 +696,8 @@ class _ResortScreenState extends State<ResortScreen>
                                     ),
                                     context: context,
                                     builder: (BuildContext context) {
-                                      return const ReviewForm();
+                                      return ReviewForm(
+                                          resort: widget.resort!.image);
                                     });
                               },
                               child: Container(
