@@ -25,13 +25,16 @@ class _ChartWidgetState extends State<ChartWidget> {
         Wrap(
           alignment: WrapAlignment.start,
           children: [
-            Row(
-              children: [
-                _buildLegendItem(AppColors.chart_green, 'Легкие'),
-                _buildLegendItem(AppColors.chart_blue, 'Средней сложности'),
-                _buildLegendItem(AppColors.chart_pink, 'Сложные'),
-                _buildLegendItem(AppColors.chart_black, 'Очень сложные'),
-              ],
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  _buildLegendItem(AppColors.chart_green, 'Легкие'),
+                  _buildLegendItem(AppColors.chart_blue, 'Средней сложности'),
+                  _buildLegendItem(AppColors.chart_pink, 'Сложные'),
+                  _buildLegendItem(AppColors.chart_black, 'Очень сложные'),
+                ],
+              ),
             )
           ],
         ),
