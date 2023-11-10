@@ -10,31 +10,42 @@ class TabletWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      clipBehavior: Clip.hardEdge,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      width: MediaQuery.sizeOf(context).width * 0.9,
       child: DataTable(
-        border: TableBorder.all(width: 0.1),
-        headingRowColor: const MaterialStatePropertyAll(Color(0xFFBDE3FF)),
-        columnSpacing: 100,
+        border: TableBorder.all(
+          style: BorderStyle.none,
+          width: 0.1,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        headingRowColor: MaterialStatePropertyAll(Color(0xFFBDE3FF)),
         columns: [
           DataColumn(
-            label: Text(
-              'Количество дней',
-              textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .labelMedium!
-                  .copyWith(color: AppColors.text_black),
+            label: Center(
+              child: Text(
+                'Тип скипасса',
+                style: Theme.of(context)
+                    .textTheme
+                    .labelMedium!
+                    .copyWith(color: AppColors.text_black, fontSize: 16),
+              ),
             ),
           ),
           DataColumn(
-              label: Text(
-            'Cтоимость от',
-            style: Theme.of(context)
-                .textTheme
-                .labelMedium!
-                .copyWith(color: AppColors.text_black),
-            textAlign: TextAlign.center,
-          )),
+            label: Center(
+              child: Text(
+                'Cтоимость от',
+                style: Theme.of(context)
+                    .textTheme
+                    .labelMedium!
+                    .copyWith(color: AppColors.text_black, fontSize: 16),
+              ),
+            ),
+          ),
         ],
         rows: (skipasses ?? [])
             .map(
@@ -42,11 +53,20 @@ class TabletWidget extends StatelessWidget {
                 cells: [
                   DataCell(Center(
                     child: Text(
-                        SkipassType.type[skipass.mobType] ?? skipass.mobType),
+                        SkipassType.type[skipass.mobType] ?? skipass.mobType,
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: AppColors.text_black,
+                            fontWeight: FontWeight.w700)),
                   )),
                   DataCell(Center(
-                    child: Text(skipass.price.toString().replaceAllMapped(
-                        RegExp(r'(?<=\d)(?=(\d{3})+(?!\d))'), (match) => ' ')),
+                    child: Text(
+                        skipass.price.toString().replaceAllMapped(
+                                RegExp(r'(?<=\d)(?=(\d{3})+(?!\d))'),
+                                (match) => ' ') +
+                            ' р',
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: AppColors.text_black,
+                            fontWeight: FontWeight.w700)),
                   )),
                 ],
               ),
