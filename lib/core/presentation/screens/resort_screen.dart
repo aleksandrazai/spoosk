@@ -2,7 +2,6 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spoosk/core/colors.dart';
@@ -12,16 +11,15 @@ import 'package:spoosk/core/data/models/resorts.dart';
 import 'package:spoosk/core/presentation/bloc_by_id/resort_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/theme/theme.dart';
+import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
 import 'package:spoosk/core/presentation/widgets/hide_text_overflow.dart';
 import 'package:spoosk/core/presentation/widgets/resort_screen_widgets/chart_widget.dart';
 import 'package:spoosk/core/presentation/widgets/resort_screen_widgets/custom_gallery.dart';
 import 'package:spoosk/core/presentation/widgets/resort_screen_widgets/map_widget.dart';
 import 'package:spoosk/core/presentation/widgets/resort_screen_widgets/tablet_widget.dart';
-import 'package:spoosk/core/presentation/widgets/review_card.dart';
 import 'package:spoosk/core/presentation/widgets/separator.dart';
 import 'package:spoosk/core/presentation/widgets/weather_widget.dart';
 import 'package:spoosk/core/presentation/widgets/widgets.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 
 @RoutePage()
 class ResortScreen extends StatefulWidget {
@@ -116,17 +114,17 @@ class _ResortScreenState extends State<ResortScreen>
                   final renderBox =
                       textKey.currentContext?.findRenderObject() as RenderBox;
                   final position = renderBox.localToGlobal(Offset.zero);
-
-                  if (_seeNameResort =
-                      position.dy >= 60 && _seeNameResort != false) {
+                  if (_seeNameResort && position.dy >= 60) {
                     setState(() {
                       _seeNameResort = false;
                     });
-                  } else if (position.dy <= 60 && _seeNameResort != true) {
+                  } else if (!_seeNameResort && position.dy <= 60) {
                     setState(() {
                       _seeNameResort = true;
                     });
                   }
+
+                  return true;
 
                   return true;
                 },
@@ -684,39 +682,51 @@ class _ResortScreenState extends State<ResortScreen>
                                 ],
                               ),
                             ),
-                            InkWell(
+                            CustomButton(
+                              margin: const EdgeInsets.symmetric(vertical: 20),
+                              boxDecoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8)),
+                              textStyle: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium
+                                  ?.copyWith(color: AppColors.white),
+                              height: 40,
+                              color: AppColors.primaryColor,
                               onTap: () {
-                                showModalBottomSheet(
-                                    isScrollControlled: true,
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(20.0),
-                                        topRight: Radius.circular(20.0),
-                                      ),
-                                    ),
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return ReviewForm(
-                                          resort: widget.resort!.image);
-                                    });
+                                _showModalBottomSheet(state);
                               },
-                              child: Container(
-                                margin: const EdgeInsets.only(top: 20),
-                                height: 40,
-                                decoration: BoxDecoration(
-                                    color: const Color(0xFF005FF9),
-                                    borderRadius: BorderRadius.circular(8)),
-                                child: Center(
-                                    child: Text('Написать отзыв',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge)),
-                              ),
+                              buttonText: "Оставить отзыв",
                             )
                           ]),
                       ...<ReviewCard>[
                         ...List.filled(6, false).map((e) => const ReviewCard())
-                      ]
+                      ],
+                      CustomButton(
+                        margin: const EdgeInsets.symmetric(vertical: 20),
+                        boxDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8)),
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .labelMedium
+                            ?.copyWith(color: AppColors.text_black),
+                        height: 40,
+                        color: AppColors.gray,
+                        onTap: () {},
+                        buttonText: "Показать все отзывы (256)",
+                      ),
+                      CustomButton(
+                        margin: const EdgeInsets.only(bottom: 20),
+                        boxDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8)),
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .labelMedium
+                            ?.copyWith(color: AppColors.white),
+                        height: 40,
+                        color: AppColors.primaryColor,
+                        onTap: () {},
+                        buttonText: "Написать отзыв",
+                      )
                     ]),
                   ),
                 )));
@@ -728,6 +738,24 @@ class _ResortScreenState extends State<ResortScreen>
     return <ReviewCard>[
       ...List.filled(6, false).map((e) => const ReviewCard())
     ];
+  }
+
+  _showModalBottomSheet(state) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
+          ),
+        ),
+        context: context,
+        builder: (BuildContext context) {
+          print(state.resortById!.name);
+          return ReviewForm(
+            resort: state.resortById,
+          );
+        });
   }
 
   @override

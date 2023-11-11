@@ -7,7 +7,9 @@ import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/widgets/review_button.dart';
 
 class ReviewForm extends StatefulWidget {
-  const ReviewForm({
+  ResortById? resort;
+  ReviewForm({
+    required this.resort,
     super.key,
   });
 
@@ -55,11 +57,17 @@ class _ReviewFormState extends State<ReviewForm> {
                   alignment: Alignment.centerLeft,
                   width: 60,
                   height: 60,
+                  clipBehavior: Clip.hardEdge,
                   decoration: ShapeDecoration(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                       color: Colors.blue),
+                  child: Image.network(
+                      height: 60,
+                      width: 60,
+                      fit: BoxFit.fill,
+                      widget.resort!.image),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 16),

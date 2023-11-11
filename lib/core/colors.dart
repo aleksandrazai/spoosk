@@ -14,4 +14,5 @@ class AppColors {
   static Color chart_blue = const Color(0xFF94DDEE);
   static Color chart_pink = const Color(0xFFFD546A);
   static Color chart_black = const Color(0xFF504949);
+  static Color gray = const Color(0xFFE6E6E6);
 }
