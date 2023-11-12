@@ -724,7 +724,9 @@ class _ResortScreenState extends State<ResortScreen>
                             ?.copyWith(color: AppColors.white),
                         height: 40,
                         color: AppColors.primaryColor,
-                        onTap: () {},
+                        onTap: () {
+                          _showModalBottomSheet(state);
+                        },
                         buttonText: "Написать отзыв",
                       )
                     ]),

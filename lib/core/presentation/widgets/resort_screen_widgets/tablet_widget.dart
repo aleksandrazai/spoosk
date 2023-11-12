@@ -14,6 +14,7 @@ class TabletWidget extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
+        border: Border.all(width: 0.1),
       ),
       width: MediaQuery.sizeOf(context).width * 0.9,
       child: DataTable(
