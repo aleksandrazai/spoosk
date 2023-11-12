@@ -1,9 +1,11 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spoosk/core/colors.dart';
-import 'package:spoosk/core/presentation/blocs/bloc/request_controller_bloc.dart';
+import 'package:spoosk/core/presentation/blocs_init/bloc/request_controller_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
 
@@ -36,8 +38,23 @@ class _MainScreenState extends State<MainScreen> {
                 selectedLabelStyle:
                     TextStyle(color: AppColors.icons_active_blue),
                 currentIndex: tabsRouter.activeIndex,
-                onTap: (value) {
-                  tabsRouter.setActiveIndex(value);
+                onTap: (int index) {
+                  if (index == 0) {
+                    // Navigate to the Home page.
+                    AutoRouter.of(context).navigate(Home());
+                  } else if (index == 1) {
+                    // Navigate to the Selection page.
+                    AutoRouter.of(context).navigate(Selection());
+                  } else if (index == 2) {
+                    // Navigate to the Comparison page.
+                    AutoRouter.of(context).navigate(Comparison());
+                  } else if (index == 3) {
+                    // Navigate to the Selected page.
+                    AutoRouter.of(context).navigate(Selected());
+                  } else if (index == 4) {
+                    // Navigate to the Profile page.
+                    AutoRouter.of(context).navigate(Profile());
+                  }
                 },
                 items: [
                   BottomNavigationBarItem(

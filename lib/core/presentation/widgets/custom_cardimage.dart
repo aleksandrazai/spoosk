@@ -19,14 +19,12 @@ class CustomCardImage extends StatelessWidget {
           Positioned(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(17),
-              child: LayoutBuilder(builder: (context, constraints) {
-                return Image.network(
-                  resort.mainResortImg,
-                  height: 108,
-                  width: 245,
-                  fit: BoxFit.cover,
-                );
-              }),
+              child: Image.network(
+                resort.image,
+                height: 108,
+                width: 240,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           // Positioned(

@@ -18,7 +18,7 @@ class ResortCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.router.push(ResortRoute());
+        context.router.push(ResortRoute(resort: resort));
       },
       child: Card(
         color: Colors.white,

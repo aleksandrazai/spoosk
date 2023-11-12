@@ -1,7 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spoosk/core/presentation/blocs/bloc/request_controller_bloc.dart';
+import 'package:spoosk/core/colors.dart';
+
+import 'package:spoosk/core/presentation/blocs_init/bloc/request_controller_bloc.dart';
+import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
 import '../widgets/widgets.dart';
 import 'package:spoosk/core/data/RequestController.dart';
 
@@ -34,7 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocBuilder<RequestControllerBloc, RequestControllerState>(
       builder: (context, state) {
         if (state is RequestControllerLoaded) {
-          // print("resortsAll: ${state.resortsAll}");
           return CustomScrollView(
             slivers: [
               SliverAppBar(
@@ -89,17 +91,26 @@ class _HomeScreenState extends State<HomeScreen> {
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 24.0, vertical: 8.0),
-                  child: ReviewButton(
-                    buttonText: 'Написать отзыв',
-                    onPressedCallback: () {},
+                    horizontal: 16.0,
+                  ).copyWith(bottom: 16),
+                  child: CustomButton(
+                    boxDecoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .labelMedium
+                        ?.copyWith(color: AppColors.white),
+                    height: 40,
+                    color: AppColors.primaryColor,
+                    onTap: () {},
+                    buttonText: "Написать отзыв",
                   ),
                 ),
               ),
             ],
           );
         }
-        return Center(child: CircularProgressIndicator());
+        return const Center(child: CircularProgressIndicator());
       },
     );
   }

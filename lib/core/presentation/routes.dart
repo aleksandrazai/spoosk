@@ -14,7 +14,7 @@ class AppRouter extends $AppRouter {
               path: 'emptyhome',
               page: ResortTab.page,
               children: [
-                RedirectRoute(path: '', redirectTo: 'emptyhome'),
+                RedirectRoute(path: '', redirectTo: 'emptyhome/:id'),
                 AutoRoute(
                   page: Home.page,
                   path: 'Home',

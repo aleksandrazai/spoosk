@@ -6,4 +6,13 @@ class AppColors {
   static Color primaryColor = const Color(0xFF005FF9);
   static Color scaffoldBackgroundLight = const Color(0xFFF5F5F5);
   static Color primaryFontLight = const Color(0xFF4C4E4F);
+  static Color white = const Color.fromARGB(255, 255, 255, 255);
+  static Color transparent = Colors.transparent;
+  static Color black = Colors.black;
+  static Color text_black = const Color(0xFF4D4E50);
+  static Color chart_green = const Color(0xFFA8E68E);
+  static Color chart_blue = const Color(0xFF94DDEE);
+  static Color chart_pink = const Color(0xFFFD546A);
+  static Color chart_black = const Color(0xFF504949);
+  static Color gray = const Color(0xFFE6E6E6);
 }

@@ -14,6 +14,7 @@ class CustomTheme {
         fontFamily: fontFamily,
         fontWeight: FontWeight.w600,
       ),
+
       headlineMedium: TextStyle(
         color: AppColors.primaryFontLight,
         fontSize: 18,
@@ -46,6 +47,9 @@ class CustomTheme {
         fontFamily: fontFamily,
         fontWeight: FontWeight.w700,
       ),
+    ),
+    iconTheme: IconThemeData(
+      color: AppColors.white,
     ),
   );
 
