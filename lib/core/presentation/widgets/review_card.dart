@@ -14,7 +14,7 @@ class ReviewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: context.router.current.name == "Home"
-          ? const EdgeInsets.all(16.0)
+          ? const EdgeInsets.fromLTRB(16, 8, 16, 8)
           : null,
       color: Colors.white,
       shape: RoundedRectangleBorder(
@@ -39,28 +39,18 @@ class ReviewCard extends StatelessWidget {
                     ),
                     child: Image.asset(image_avatar_placeholder),
                   ),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(horizontal: 12.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Александр В.',
-                          style: TextStyle(
-                            color: Color(0xFF4D4E50),
-                            fontSize: 16,
-                            fontFamily: 'Nunito Sans',
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         Text(
                           '23.12.2023',
-                          style: TextStyle(
-                            color: Color(0xFF9B9CA0),
-                            fontSize: 12,
-                            fontFamily: 'Nunito Sans',
-                            fontWeight: FontWeight.w400,
-                          ),
+                          style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ],
                     ),

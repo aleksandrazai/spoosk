@@ -58,14 +58,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-              const SliverToBoxAdapter(
-                child: CardsHeaderPopularALL(),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0)
+                      .copyWith(top: 20, bottom: 8),
+                  child: const CardsHeaderPopularALL(
+                    header: 'Популярные курорты',
+                    all: 'Все',
+                  ),
+                ),
               ),
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: SizedBox(
-                    height: 212, //test
+                    height: 220, //test
                     width: 256,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
@@ -75,6 +82,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         return ResortCard(resort: resort);
                       },
                     ),
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16)
+                      .copyWith(top: 28, bottom: 8),
+                  child: const CardsHeaderPopularALL(
+                    header: 'Последние отзывы',
+                    all: '',
                   ),
                 ),
               ),
@@ -90,8 +107,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
+                  padding: const EdgeInsets.all(
+                    16.0,
                   ).copyWith(bottom: 16),
                   child: CustomButton(
                     boxDecoration:

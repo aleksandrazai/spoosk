@@ -63,10 +63,16 @@ class ResortCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12).copyWith(top: 6),
               child: Text(
-                'Россия, ${resort.region}',
-                style: Theme.of(context).textTheme.bodySmall,
+                'РОССИЯ, ${resort.region}'.toUpperCase(),
+                style: const TextStyle(
+                  color: Color(0xFF9B9CA0),
+                  fontSize: 10,
+                  fontFamily: 'Nunito Sans',
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
             Padding(
@@ -85,7 +91,7 @@ class ResortCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 0, 8, 0),
+                      padding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
                       child: SvgPicture.asset(image_skipass,
                           height: 18, width: 18),
                     ),

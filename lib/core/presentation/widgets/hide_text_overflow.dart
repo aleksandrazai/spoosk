@@ -29,6 +29,7 @@ class _HideTextOverflowState extends State<HideTextOverflow> {
               : widget.fullText.substring(0, widget.maxSymbols),
           maxLines: isExpanded ? null : widget.maxSymbols,
           overflow: isExpanded ? TextOverflow.visible : TextOverflow.ellipsis,
+          style: Theme.of(context).textTheme.bodyMedium,
         ),
         GestureDetector(
           onTap: () {
