@@ -8,35 +8,38 @@ class CustomTheme {
     primaryColor: AppColors.primaryColor,
     scaffoldBackgroundColor: AppColors.scaffoldBackgroundLight,
     textTheme: TextTheme(
+      //H3
       headlineLarge: TextStyle(
         color: AppColors.primaryFontLight,
         fontSize: 20,
         fontFamily: fontFamily,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w700,
       ),
-
+      //H4
       headlineMedium: TextStyle(
         color: AppColors.primaryFontLight,
         fontSize: 18,
         fontFamily: fontFamily,
         fontWeight: FontWeight.w700,
       ),
-      bodyLarge: const TextStyle(
+      //Body1
+      bodyLarge: TextStyle(
         fontSize: 16,
         fontFamily: fontFamily,
         fontWeight: FontWeight.w600,
-        color: Colors.white,
+        color: AppColors.primaryFontLight,
       ),
+      //Body2
       bodyMedium: TextStyle(
         color: AppColors.primaryFontLight,
         fontSize: 14,
         fontFamily: fontFamily,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w500,
       ),
-      //Caption в Figme
+      //Caption
       bodySmall: const TextStyle(
         color: Color(0xFF9C9DA0),
-        fontSize: 10,
+        fontSize: 12,
         fontFamily: fontFamily,
         fontWeight: FontWeight.w600,
       ),
