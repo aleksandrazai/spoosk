@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:spoosk/core/data/ApiConfig.dart';
 import 'package:spoosk/core/data/models/ResortById.dart';
+import 'package:spoosk/core/data/models/regions.dart';
 import 'package:spoosk/core/data/models/resorts.dart';
 
 class RequestController {
@@ -39,6 +40,21 @@ class RequestController {
       return result;
     } catch (e) {
       print(e);
+      return null;
+    }
+  }
+
+  //Get regions
+  Future<List<Regions>?> getRegionsAll({required getAllRegions}) async {
+    try {
+      final response =
+          await _dio.get(_url + getAllRegions, options: ApiConfigurate.headers);
+      final result =
+          List<Regions>.from(response.data.map((x) => Regions.fromJson(x)));
+      return result;
+    } catch (e) {
+      print(e);
+      Exception(e);
       return null;
     }
   }
