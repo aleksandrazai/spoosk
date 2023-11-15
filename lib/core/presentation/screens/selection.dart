@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/presentation/image.dart';
+import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
 
 @RoutePage()
@@ -24,17 +27,24 @@ class _SelectionState extends State<Selection> {
               Image.asset(image_selection_header_bg),
               Column(children: [
                 _navigateTo(
-                    margin: const EdgeInsets.only(top: 21, left: 20),
+                    onTap: () {
+                      print("work");
+                      CustomBottomSheetRegion.show(context);
+                    },
+                    margin: const EdgeInsets.only(top: 21, left: 20, right: 21),
                     imageName: image_location_blue,
                     text: "Регион"),
                 _navigateTo(
-                    margin: const EdgeInsets.only(top: 21, left: 20),
+                    onTap: () {},
+                    margin: const EdgeInsets.only(top: 21, left: 20, right: 21),
                     imageName: image_calendar,
                     text: "Месяц",
                     color: AppColors.primaryColor),
                 _navigateTo(
-                    margin: const EdgeInsets.only(top: 21, left: 20),
+                    onTap: () {},
+                    margin: const EdgeInsets.only(top: 21, left: 20, right: 21),
                     imageName: image_snowborder,
+                    color: AppColors.primaryColor,
                     text: "Уровень катания"),
                 Container(
                   margin: const EdgeInsets.only(top: 21, left: 20),
@@ -82,33 +92,51 @@ class _SelectionState extends State<Selection> {
   }
 
   Widget _navigateTo(
-      {required String imageName,
+      {required void Function() onTap,
+      required String imageName,
       required String text,
       Color? color,
       EdgeInsets? margin}) {
-    return Container(
-      margin: margin,
-      child: Row(
-        children: [
-          Container(
-            width: 38,
-            height: 38,
-            decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: const BorderRadius.all(Radius.circular(10))),
-            child: Center(child: SvgPicture.asset(color: color, imageName)),
+    return InkWell(
+      child: Container(
+        margin: margin,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(10),
+          splashColor: AppColors.blue_light,
+          onTap: () {
+            onTap();
+          },
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: 38,
+                height: 38,
+                decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: const BorderRadius.all(Radius.circular(10))),
+                child: Center(child: SvgPicture.asset(color: color, imageName)),
+              ),
+              const SizedBox(
+                width: 22,
+              ),
+              Text(
+                text,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(color: AppColors.text_black),
+              ),
+              const Spacer(),
+              Transform(
+                alignment: Alignment.center,
+                transform: Matrix4.rotationY(pi),
+                child: SvgPicture.asset(
+                    color: AppColors.blue_light, image_arrow_left),
+              )
+            ],
           ),
-          const SizedBox(
-            width: 22,
-          ),
-          Text(
-            text,
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium!
-                .copyWith(color: AppColors.text_black),
-          )
-        ],
+        ),
       ),
     );
   }

@@ -1,66 +1,75 @@
-import 'package:flutter/material.dart';
+import 'dart:ffi';
 
-class CustomSearchField extends StatelessWidget {
-  const CustomSearchField({super.key, required this.onTap});
-  final VoidCallback onTap;
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:spoosk/core/colors.dart';
+import 'package:spoosk/core/presentation/image.dart';
+
+class CustomSearchField extends StatefulWidget {
+  const CustomSearchField({Key? key}) : super(key: key);
+
+  @override
+  _CustomSearchFieldState createState() => _CustomSearchFieldState();
+}
+
+class _CustomSearchFieldState extends State<CustomSearchField> {
+  final TextEditingController _textEditingController = TextEditingController();
+  String? value;
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: double.infinity,
-        margin: const EdgeInsets.symmetric(
-          horizontal: 16,
-        ).copyWith(
-          bottom: 8,
-        ),
-        padding: const EdgeInsets.all(8),
-        decoration: ShapeDecoration(
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            side: const BorderSide(
-              width: 1,
-              strokeAlign: BorderSide.strokeAlignCenter,
-              color: Color(0x44AFAFAF),
-            ),
-            borderRadius: BorderRadius.circular(12),
+    return SizedBox(
+      height: 36,
+      child: TextField(
+        cursorColor: AppColors.primaryColor,
+        onChanged: _onChange,
+        controller: _textEditingController,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: AppColors.white,
+          suffixIcon: _textEditingController.text.isEmpty
+              ? null
+              : IconButton(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onPressed: _clearText,
+                  icon: SvgPicture.asset(image_clear)),
+          contentPadding: const EdgeInsets.all(0),
+          hintStyle: const TextStyle(color: Color(0xFFC3C3C3)),
+          prefixIcon: const Icon(
+            Icons.search,
+            color: Color(0xFF858585),
           ),
-          shadows: const [
-            BoxShadow(
-              color: Color(0x07000000),
-              blurRadius: 12,
-              offset: Offset(0, 7),
-              spreadRadius: 0,
-            )
-          ],
-        ),
-        child: const Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.search,
-              color: Color(0xFFD9D9D9),
-            ),
-            SizedBox(
-              width: 8,
-            ),
-            Expanded(
-              child: Text(
-                'Поиск курорта...',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontFamily: 'Nunito Sans',
-                  color: Color(0xFFC2C2C2),
-                  fontWeight: FontWeight.w600,
-                ),
-                textAlign: TextAlign.start,
-              ),
-            ),
-          ],
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: AppColors.gray_border, width: 1.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: AppColors.primaryColor, width: 1.0),
+          ),
+          hintText: "Поиск курорта",
         ),
       ),
     );
+  }
+
+  void _onChange(String text) {
+    if (text.isEmpty) {
+      _clearText();
+    } else {
+      _updateValue(text);
+    }
+  }
+
+  void _clearText() {
+    _textEditingController.clear();
+    _updateValue(null);
+  }
+
+  void _updateValue(String? text) {
+    setState(() {
+      value = text;
+    });
   }
 }

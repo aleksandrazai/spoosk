@@ -33,3 +33,4 @@ const String image_chart = 'assets/img/bar-chart-2-2.svg';
 const String image_selection_header_bg = 'assets/img/selection_header_bg.png';
 const String image_snowborder = 'assets/img/snowborder.svg';
 const String image_location_blue = 'assets/img/location_blue.svg';
+const String image_clear = 'assets/img/сlear.svg';
