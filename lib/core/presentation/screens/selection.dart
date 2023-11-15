@@ -7,10 +7,11 @@ import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
+import 'package:spoosk/core/presentation/widgets/widgets.dart';
 
 @RoutePage()
 class Selection extends StatefulWidget {
-  const Selection({Key? key}) : super(key: key);
+  const Selection({super.key});
 
   @override
   _SelectionState createState() => _SelectionState();
@@ -20,6 +21,15 @@ class _SelectionState extends State<Selection> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: AppColors.scaffoldBackgroundLight,
+        title: Text(
+          'Подбор курорта',
+          textAlign: TextAlign.start,
+          style: Theme.of(context).textTheme.headlineLarge,
+        ),
+      ),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
@@ -29,7 +39,9 @@ class _SelectionState extends State<Selection> {
                 _navigateTo(
                     onTap: () {
                       print("work");
-                      CustomBottomSheetRegion.show(context);
+                      CustomBottomSheetRegion.show(context, [
+                        CustomSearchField(),
+                      ]);
                     },
                     margin: const EdgeInsets.only(top: 21, left: 20, right: 21),
                     imageName: image_location_blue,
