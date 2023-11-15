@@ -5,6 +5,7 @@ import 'package:spoosk/core/data/models/ResortById.dart';
 import 'package:spoosk/core/presentation/bloc_by_id/resort_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/widgets/review_button.dart';
+import 'package:spoosk/core/presentation/widgets/widgets.dart';
 
 class ReviewForm extends StatefulWidget {
   ResortById? resort;
@@ -25,29 +26,7 @@ class _ReviewFormState extends State<ReviewForm> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Opacity(
-                  opacity: 0.40,
-                  child: Container(
-                    width: 32,
-                    height: 4,
-                    decoration: ShapeDecoration(
-                      color: const Color(0xFF79747E),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+          ModalHandle(),
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Row(
