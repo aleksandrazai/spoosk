@@ -9,7 +9,6 @@ import 'package:spoosk/core/presentation/screens/selection_screen/selection_scre
 import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet_filter.dart';
 import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet_region.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
-import 'package:spoosk/core/presentation/widgets/widgets.dart';
 
 @RoutePage()
 class Selection extends StatefulWidget {
