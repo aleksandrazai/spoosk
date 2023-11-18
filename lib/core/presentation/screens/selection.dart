@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet.dart';
+import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet_filter.dart';
 import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet_region.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
 import 'package:spoosk/core/presentation/widgets/widgets.dart';
@@ -40,8 +41,12 @@ class _SelectionState extends State<Selection> {
               Column(children: [
                 _navigateTo(
                     onTap: () {
-                      CustomBottomSheet.show(context,
-                          <Widget>[SelectionScreenBottomSheetRegion()]);
+                      CustomBottomSheet.customShowModalBottomSheet(
+                          height: MediaQuery.sizeOf(context).height * 0.5,
+                          context: context,
+                          children: <Widget>[
+                            SelectionScreenBottomSheetRegion()
+                          ]);
                     },
                     margin: const EdgeInsets.only(top: 21, left: 20, right: 21),
                     imageName: image_location_blue,
@@ -63,12 +68,22 @@ class _SelectionState extends State<Selection> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(color: AppColors.primaryColor),
-                          "Все фильтры"),
+                      TextButton(
+                        onPressed: () {
+                          CustomBottomSheet.customShowModalBottomSheet(
+                              height: MediaQuery.sizeOf(context).height,
+                              context: context,
+                              children: [
+                                const SelectionScreenBottomSheetFilter()
+                              ]);
+                        },
+                        child: Text(
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(color: AppColors.primaryColor),
+                            "Все фильтры"),
+                      ),
                       const SizedBox(
                         width: 28,
                       ),

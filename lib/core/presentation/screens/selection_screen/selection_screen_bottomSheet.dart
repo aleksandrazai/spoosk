@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:spoosk/core/presentation/widgets/widgets.dart';
 
 class CustomBottomSheet {
-  static show(BuildContext context, List<Widget> children) {
+  static customShowModalBottomSheet(
+      {required BuildContext context,
+      required List<Widget> children,
+      double? height}) {
     return showModalBottomSheet(
         isScrollControlled: true,
         shape: const RoundedRectangleBorder(
@@ -19,7 +22,7 @@ class CustomBottomSheet {
                 right: 16,
                 bottom: MediaQuery.of(context).viewInsets.bottom),
             child: SizedBox(
-              height: MediaQuery.sizeOf(context).height * 0.5,
+              height: height,
               child: Column(
                 children: [const ModalHandle(), ...children],
               ),
