@@ -8,7 +8,6 @@ import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet.dart';
 import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet_region.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
-import 'package:spoosk/core/presentation/widgets/widgets.dart';
 
 @RoutePage()
 class Selection extends StatefulWidget {
@@ -40,8 +39,9 @@ class _SelectionState extends State<Selection> {
               Column(children: [
                 _navigateTo(
                     onTap: () {
-                      CustomBottomSheet.show(context,
-                          <Widget>[SelectionScreenBottomSheetRegion()]);
+                      CustomBottomSheet.show(context, <Widget>[
+                        SelectionScreenBottomSheetRegion(),
+                      ]);
                     },
                     margin: const EdgeInsets.only(top: 21, left: 20, right: 21),
                     imageName: image_location_blue,
