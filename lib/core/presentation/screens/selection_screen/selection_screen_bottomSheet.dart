@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spoosk/core/presentation/widgets/widgets.dart';
 
-class CustomBottomSheetRegion {
+class CustomBottomSheet {
   static show(BuildContext context, List<Widget> children) {
     return showModalBottomSheet(
         isScrollControlled: true,
@@ -13,10 +13,16 @@ class CustomBottomSheetRegion {
         ),
         context: context,
         builder: (BuildContext context) {
-          return SizedBox(
-            height: MediaQuery.sizeOf(context).height * 0.5,
-            child: Column(
-              children: [ModalHandle(), ...children],
+          return Padding(
+            padding: EdgeInsets.only(
+                left: 16,
+                right: 16,
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: SizedBox(
+              height: MediaQuery.sizeOf(context).height * 0.5,
+              child: Column(
+                children: [const ModalHandle(), ...children],
+              ),
             ),
           );
         });
