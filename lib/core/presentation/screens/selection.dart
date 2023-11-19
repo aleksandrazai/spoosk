@@ -7,6 +7,8 @@ import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet.dart';
 import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet_filter.dart';
+import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet_level.dart';
+import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet_month.dart';
 import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet_region.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
 
@@ -44,20 +46,34 @@ class _SelectionState extends State<Selection> {
                           height: MediaQuery.sizeOf(context).height * 0.5,
                           context: context,
                           children: <Widget>[
-                            SelectionScreenBottomSheetRegion()
+                            const SelectionScreenBottomSheetRegion()
                           ]);
                     },
                     margin: const EdgeInsets.only(top: 21, left: 20, right: 21),
                     imageName: image_location_blue,
                     text: "Регион"),
                 _navigateTo(
-                    onTap: () {},
+                    onTap: () {
+                      CustomBottomSheet.customShowModalBottomSheet(
+                          height: MediaQuery.sizeOf(context).height * 0.5,
+                          context: context,
+                          children: <Widget>[
+                            const SelectionScreenBottomSheetMonth()
+                          ]);
+                    },
                     margin: const EdgeInsets.only(top: 21, left: 20, right: 21),
                     imageName: image_calendar,
                     text: "Месяц",
                     color: AppColors.primaryColor),
                 _navigateTo(
-                    onTap: () {},
+                    onTap: () {
+                      CustomBottomSheet.customShowModalBottomSheet(
+                          height: MediaQuery.sizeOf(context).height * 0.5,
+                          context: context,
+                          children: <Widget>[
+                            const SelectionScreenBottomSheetLevel(),
+                          ]);
+                    },
                     margin: const EdgeInsets.only(top: 21, left: 20, right: 21),
                     imageName: image_snowborder,
                     color: AppColors.primaryColor,
