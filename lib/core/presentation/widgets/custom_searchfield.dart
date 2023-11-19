@@ -6,7 +6,8 @@ import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/presentation/image.dart';
 
 class CustomSearchField extends StatefulWidget {
-  const CustomSearchField({Key? key}) : super(key: key);
+  final bool? autofocus;
+  const CustomSearchField({super.key, this.autofocus});
 
   @override
   _CustomSearchFieldState createState() => _CustomSearchFieldState();
@@ -24,6 +25,7 @@ class _CustomSearchFieldState extends State<CustomSearchField> {
         cursorColor: AppColors.primaryColor,
         onChanged: _onChange,
         controller: _textEditingController,
+        autofocus: widget.autofocus ?? false,
         decoration: InputDecoration(
           filled: true,
           fillColor: AppColors.white,
