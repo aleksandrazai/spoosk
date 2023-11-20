@@ -55,6 +55,7 @@ class _SelectionScreenBottomSheetRegionState
                     return CustomButtonFilter(
                       margin: const EdgeInsets.only(top: 12),
                       text: region,
+                      onPress: () {},
                     );
                   }).toList(),
                 ),

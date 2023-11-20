@@ -27,6 +27,8 @@ const String image_type_travolator = 'assets/img/type_travolator.svg';
 const String image_type_handball = 'assets/img/type_handball.svg';
 const String image_type_carousel = 'assets/img/type_carousel.svg';
 const String image_type_bugelny = 'assets/img/type_bugelny.svg';
+const String image_type_children = 'assets/img/children.svg';
+
 const String image_check_blue = 'assets/img/image_check_blue.svg';
 const String image_check_gray = 'assets/img/image_check_gray.svg';
 const String image_chart = 'assets/img/bar-chart-2-2.svg';

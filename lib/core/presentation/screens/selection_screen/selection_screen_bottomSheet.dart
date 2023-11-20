@@ -7,6 +7,7 @@ class CustomBottomSheet {
       required List<Widget> children,
       double? height}) {
     return showModalBottomSheet(
+        useSafeArea: true,
         isScrollControlled: true,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(

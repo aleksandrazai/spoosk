@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:group_button/group_button.dart';
+// import 'package:group_button/group_button.dart';
 import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/data/models/resort_month.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
@@ -39,8 +39,10 @@ class _SelectionScreenBottomSheetMonthState
             itemCount: ResortMonths.month.length,
             itemBuilder: (BuildContext context, int index) {
               return CustomButtonFilter(
-                  margin: const EdgeInsets.symmetric(vertical: 4),
-                  text: ResortMonths.month.elementAt(index));
+                margin: const EdgeInsets.symmetric(vertical: 4),
+                text: ResortMonths.month.elementAt(index),
+                onPress: () {},
+              );
             },
           ),
         ),

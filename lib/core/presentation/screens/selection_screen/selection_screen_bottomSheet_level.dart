@@ -31,7 +31,8 @@ class _SelectionScreenBottomSheetLevelState
             child: Wrap(
                 spacing: 7,
                 children: UserLevel.userLevel
-                    .map((level) => CustomButtonFilter(text: level))
+                    .map((level) =>
+                        CustomButtonFilter(onPress: () {}, text: level))
                     .toList()),
           ),
         ),
