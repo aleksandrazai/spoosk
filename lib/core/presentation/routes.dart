@@ -20,6 +20,7 @@ class AppRouter extends $AppRouter {
                   path: 'Home',
                 ),
                 AutoRoute(page: ResortRoute.page, path: 'resortscreen'),
+                AutoRoute(page: ResultRoute.page, path: 'Result'),
               ],
             ),
             AutoRoute(page: Selection.page, path: 'Selection'),
