@@ -24,8 +24,10 @@ class CustomBottomSheet {
                 bottom: MediaQuery.of(context).viewInsets.bottom),
             child: SizedBox(
               height: height,
-              child: Column(
-                children: [const ModalHandle(), ...children],
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [const ModalHandle(), ...children],
+                ),
               ),
             ),
           );
