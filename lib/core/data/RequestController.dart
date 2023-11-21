@@ -58,4 +58,23 @@ class RequestController {
       return null;
     }
   }
+
+  //Main filter --пока одно значение
+  Future<List<Resorts>?> getMainFilter({
+    required String regions,
+    required String months,
+    required String levels,
+  }) async {
+    try {
+      final response = await _dio.get(_url + regions + months + levels,
+          options: ApiConfigurate.headers);
+      final result =
+          List<Resorts>.from(response.data.map((x) => Resorts.fromJson(x)));
+      return result;
+    } catch (e) {
+      print(e);
+      Exception(e);
+      return null;
+    }
+  }
 }
