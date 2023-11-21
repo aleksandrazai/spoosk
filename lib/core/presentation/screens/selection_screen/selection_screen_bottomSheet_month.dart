@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-// import 'package:group_button/group_button.dart';
+import 'package:provider/provider.dart';
 import 'package:spoosk/core/colors.dart';
-import 'package:spoosk/core/data/models/resort_month.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/months.dart';
+import 'package:spoosk/core/data/models/month.dart';
+
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButtonWithContent.dart';
 
@@ -15,8 +17,17 @@ class SelectionScreenBottomSheetMonth extends StatefulWidget {
 
 class _SelectionScreenBottomSheetMonthState
     extends State<SelectionScreenBottomSheetMonth> {
+  late final SelectedMonthsModel monthModel;
+
+  @override
+  void initState() {
+    super.initState();
+    monthModel = Provider.of<SelectedMonthsModel>(context, listen: false);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final month = ResortMonths.month;
     return Column(
       children: [
         SizedBox(
@@ -40,8 +51,14 @@ class _SelectionScreenBottomSheetMonthState
             itemBuilder: (BuildContext context, int index) {
               return CustomButtonFilter(
                 margin: const EdgeInsets.symmetric(vertical: 4),
-                text: ResortMonths.month.elementAt(index),
-                onPress: () {},
+                text: month.elementAt(index),
+                currentSelected:
+                    monthModel.isSelectedMonth(month.elementAt(index)),
+                onPress: () {
+                  setState(() {
+                    monthModel.toggleSelectedMonth(month.elementAt(index));
+                  });
+                },
               );
             },
           ),
@@ -58,7 +75,11 @@ class _SelectionScreenBottomSheetMonthState
               height: 36,
               buttonText: "Применить",
               color: AppColors.primaryColor,
-              onTap: () {},
+              onTap: () {
+                Provider.of<SelectedMonthsModel>(context, listen: false)
+                    .selectedMonths;
+                Navigator.pop(context);
+              },
             ),
           ],
         ),

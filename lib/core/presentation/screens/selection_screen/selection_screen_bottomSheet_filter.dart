@@ -112,7 +112,6 @@ class _SelectionScreenBottomSheetFilterState
           spasing: spasing,
           icon: icon?[id - 1],
           // id: id,
-          currentSelected: state,
           onPress: () => _setGroupButton(
               groupButtonType: groupButtonType,
               textButton: buttonTexts[id - 1]),

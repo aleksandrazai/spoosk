@@ -3,8 +3,13 @@ import 'dart:math';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:spoosk/core/colors.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/levels.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/months.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/regions.dart';
 import 'package:spoosk/core/presentation/image.dart';
+import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet.dart';
 import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet_filter.dart';
 import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet_level.dart';
@@ -41,17 +46,18 @@ class _SelectionState extends State<Selection> {
               Image.asset(image_selection_header_bg),
               Column(children: [
                 _navigateTo(
-                    onTap: () {
-                      CustomBottomSheet.customShowModalBottomSheet(
-                          height: MediaQuery.sizeOf(context).height * 0.5,
-                          context: context,
-                          children: <Widget>[
-                            const SelectionScreenBottomSheetRegion()
-                          ]);
-                    },
-                    margin: const EdgeInsets.only(top: 21, left: 20, right: 21),
-                    imageName: image_location_blue,
-                    text: "Регион"),
+                  onTap: () {
+                    CustomBottomSheet.customShowModalBottomSheet(
+                        height: MediaQuery.sizeOf(context).height * 0.5,
+                        context: context,
+                        children: <Widget>[
+                          const SelectionScreenBottomSheetRegion()
+                        ]);
+                  },
+                  margin: const EdgeInsets.only(top: 21, left: 20, right: 21),
+                  imageName: image_location_blue,
+                  text: _getSelectedRegionsText(),
+                ),
                 _navigateTo(
                     onTap: () {
                       CustomBottomSheet.customShowModalBottomSheet(
@@ -63,7 +69,7 @@ class _SelectionState extends State<Selection> {
                     },
                     margin: const EdgeInsets.only(top: 21, left: 20, right: 21),
                     imageName: image_calendar,
-                    text: "Месяц",
+                    text: _getSelectedMonthsText(),
                     color: AppColors.primaryColor),
                 _navigateTo(
                     onTap: () {
@@ -77,7 +83,7 @@ class _SelectionState extends State<Selection> {
                     margin: const EdgeInsets.only(top: 21, left: 20, right: 21),
                     imageName: image_snowborder,
                     color: AppColors.primaryColor,
-                    text: "Уровень катания"),
+                    text: _getSelectedLevelsText()),
                 Container(
                   margin: const EdgeInsets.only(top: 21, left: 20),
                   child: Row(
@@ -127,13 +133,45 @@ class _SelectionState extends State<Selection> {
                     height: 36,
                     buttonText: "Подобрать",
                     color: AppColors.primaryColor,
-                    onTap: () {},
+                    onTap: () {
+                      context.router.push(ResultRoute());
+                    },
                   ),
                 ),
               ))
             ],
           )),
     );
+  }
+
+  String _getSelectedRegionsText() {
+    final selectedRegions =
+        Provider.of<SelectedRegionsModel>(context).selectedRegions;
+    if (selectedRegions.isNotEmpty) {
+      return selectedRegions.join(', ');
+    } else {
+      return 'Регион';
+    }
+  }
+
+  String _getSelectedMonthsText() {
+    final selectedMonths =
+        Provider.of<SelectedMonthsModel>(context).selectedMonths;
+    if (selectedMonths.isNotEmpty) {
+      return selectedMonths.join(', ');
+    } else {
+      return 'Месяц';
+    }
+  }
+
+  String _getSelectedLevelsText() {
+    final selectedLevels =
+        Provider.of<SelectedLevelsModel>(context).selectedLevels;
+    if (selectedLevels.isNotEmpty) {
+      return selectedLevels.join(', ');
+    } else {
+      return 'Уровень катания';
+    }
   }
 
   Widget _navigateTo(

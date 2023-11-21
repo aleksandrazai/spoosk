@@ -7,20 +7,20 @@ class CustomButtonFilter extends StatefulWidget {
   Widget? icon;
   EdgeInsetsGeometry? margin;
   double? spasing;
-  List<String>? currentSelected;
+  bool currentSelected;
   // int? id;
   void Function() onPress;
 
-  CustomButtonFilter(
-      {Key? key,
-      required this.text,
-      required this.onPress,
-      this.icon,
-      this.margin,
-      this.spasing,
-      // this.id,
-      this.currentSelected})
-      : super(key: key);
+  CustomButtonFilter({
+    Key? key,
+    required this.text,
+    required this.onPress,
+    this.icon,
+    this.margin,
+    this.spasing,
+    // this.id,
+    this.currentSelected = false,
+  }) : super(key: key);
 
   @override
   _CustomButtonFilterState createState() => _CustomButtonFilterState();
@@ -32,13 +32,17 @@ class _CustomButtonFilterState extends State<CustomButtonFilter> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.onPress,
+      onTap: () {
+        setState(() {
+          widget.onPress();
+        });
+      },
       child: Container(
         margin: widget.margin,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         decoration: BoxDecoration(
           border: Border.all(
-            color: widget.currentSelected!.contains(widget.text)
+            color: widget.currentSelected
                 ? AppColors.icons_active_blue
                 : AppColors.icons_not_Active_gray,
           ),

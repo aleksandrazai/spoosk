@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
+import 'package:spoosk/core/colors.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/regions.dart';
 import 'package:spoosk/core/presentation/bloc_region/region_bloc.dart';
+import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButtonWithContent.dart';
-import 'package:spoosk/core/presentation/widgets/custom_searchfield.dart';
 
 class SelectionScreenBottomSheetRegion extends StatefulWidget {
   const SelectionScreenBottomSheetRegion({
@@ -17,12 +20,14 @@ class SelectionScreenBottomSheetRegion extends StatefulWidget {
 class _SelectionScreenBottomSheetRegionState
     extends State<SelectionScreenBottomSheetRegion> {
   late final RegionBloc regionBloc;
+  late final SelectedRegionsModel regionModel;
 
   @override
   void initState() {
     super.initState();
     regionBloc = context.read<RegionBloc>();
     regionBloc.add(LoadAllRegions());
+    regionModel = Provider.of<SelectedRegionsModel>(context, listen: false);
   }
 
   @override
@@ -45,7 +50,8 @@ class _SelectionScreenBottomSheetRegionState
               const SizedBox(
                 height: 12,
               ),
-              CustomSearchField(autofocus: true),
+              //убрали поиск до добавления новых регионов
+              //CustomSearchField(autofocus: true),
               Container(
                 alignment: Alignment.topLeft,
                 child: Wrap(
@@ -55,10 +61,31 @@ class _SelectionScreenBottomSheetRegionState
                     return CustomButtonFilter(
                       margin: const EdgeInsets.only(top: 12),
                       text: region,
-                      onPress: () {},
+                      currentSelected: regionModel.isSelectedRegion(region),
+                      onPress: () {
+                        setState(() {
+                          regionModel.toggleSelectedRegion(region);
+                        });
+                      },
                     );
                   }).toList(),
                 ),
+              ),
+              CustomButton(
+                textStyle: Theme.of(context)
+                    .textTheme
+                    .headlineMedium
+                    ?.copyWith(color: AppColors.white, fontSize: 16),
+                boxDecoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                height: 36,
+                buttonText: "Применить",
+                color: AppColors.primaryColor,
+                onTap: () {
+                  Provider.of<SelectedRegionsModel>(context, listen: false)
+                      .selectedRegions;
+                  Navigator.pop(context);
+                },
               ),
             ],
           );

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:spoosk/core/colors.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/levels.dart';
 import 'package:spoosk/core/data/models/user_level.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButtonWithContent.dart';
@@ -14,6 +16,13 @@ class SelectionScreenBottomSheetLevel extends StatefulWidget {
 
 class _SelectionScreenBottomSheetLevelState
     extends State<SelectionScreenBottomSheetLevel> {
+  late final SelectedLevelsModel levelsModel;
+  @override
+  void initState() {
+    super.initState();
+    levelsModel = Provider.of<SelectedLevelsModel>(context, listen: false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -31,8 +40,16 @@ class _SelectionScreenBottomSheetLevelState
             child: Wrap(
                 spacing: 7,
                 children: UserLevel.userLevel
-                    .map((level) =>
-                        CustomButtonFilter(onPress: () {}, text: level))
+                    .map(
+                      (level) => CustomButtonFilter(
+                          currentSelected: levelsModel.isSelectedLevel(level),
+                          onPress: () {
+                            setState(() {
+                              levelsModel.toggleSelectedLevel(level);
+                            });
+                          },
+                          text: level),
+                    )
                     .toList()),
           ),
         ),
@@ -48,7 +65,11 @@ class _SelectionScreenBottomSheetLevelState
               height: 36,
               buttonText: "Применить",
               color: AppColors.primaryColor,
-              onTap: () {},
+              onTap: () {
+                Provider.of<SelectedLevelsModel>(context, listen: false)
+                    .selectedLevels;
+                Navigator.pop(context);
+              },
             ),
           ],
         ),
