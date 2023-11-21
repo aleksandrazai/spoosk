@@ -7,8 +7,8 @@ class CustomButtonFilter extends StatefulWidget {
   Widget? icon;
   EdgeInsetsGeometry? margin;
   double? spasing;
-  int? currentSelected;
-  int? id;
+  List<String>? currentSelected;
+  // int? id;
   void Function() onPress;
 
   CustomButtonFilter(
@@ -18,7 +18,7 @@ class CustomButtonFilter extends StatefulWidget {
       this.icon,
       this.margin,
       this.spasing,
-      this.id,
+      // this.id,
       this.currentSelected})
       : super(key: key);
 
@@ -38,7 +38,7 @@ class _CustomButtonFilterState extends State<CustomButtonFilter> {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         decoration: BoxDecoration(
           border: Border.all(
-            color: widget.id == widget.currentSelected
+            color: widget.currentSelected!.contains(widget.text)
                 ? AppColors.icons_active_blue
                 : AppColors.icons_not_Active_gray,
           ),

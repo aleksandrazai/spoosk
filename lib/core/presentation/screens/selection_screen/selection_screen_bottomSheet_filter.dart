@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:spoosk/core/colors.dart';
@@ -28,39 +30,67 @@ class _SelectionScreenBottomSheetFilterState
   final List<double> values = [0, 50, 100];
   int selectedIndex = 0;
 
-  int sort_group_button = 0;
-  int trails_group_button = 0;
-  int elevator_group_button = 0;
-  int instructor_group_button = 0;
-  int additionally_group_button = 0;
+  List<String> sort_group_button = [];
+  List<String> trails_group_button = [];
+  List<String> elevator_group_button = [];
+  List<String> instructor_group_button = [];
+  List<String> additionally_group_button = [];
 
   void _setGroupButton(
-      {required GroupButtonType groupButtonType, required int id}) {
+      {required GroupButtonType groupButtonType, required String textButton}) {
     setState(() {
       switch (groupButtonType) {
         case GroupButtonType.Sort:
           setState(() {
-            sort_group_button = id;
+            if (sort_group_button.contains(textButton)) {
+              sort_group_button.remove(textButton);
+            } else {
+              sort_group_button.add(textButton);
+            }
+            sort_group_button = sort_group_button;
           });
+          print(sort_group_button);
+
           break;
         case GroupButtonType.Trails:
           setState(() {
-            trails_group_button = id;
+            if (trails_group_button.contains(textButton)) {
+              trails_group_button.remove(textButton);
+            } else {
+              trails_group_button.add(textButton);
+            }
+            trails_group_button = trails_group_button;
           });
+          print(trails_group_button);
           break;
         case GroupButtonType.Elevator:
           setState(() {
-            elevator_group_button = id;
+            if (elevator_group_button.contains(textButton)) {
+              elevator_group_button.remove(textButton);
+            } else {
+              elevator_group_button.add(textButton);
+            }
+            elevator_group_button = elevator_group_button;
           });
           break;
         case GroupButtonType.Instructor:
           setState(() {
-            instructor_group_button = id;
+            if (instructor_group_button.contains(textButton)) {
+              instructor_group_button.remove(textButton);
+            } else {
+              instructor_group_button.add(textButton);
+            }
+            instructor_group_button = instructor_group_button;
           });
           break;
         case GroupButtonType.Additionally:
           setState(() {
-            additionally_group_button = id;
+            if (additionally_group_button.contains(textButton)) {
+              additionally_group_button.remove(textButton);
+            } else {
+              additionally_group_button.add(textButton);
+            }
+            additionally_group_button = additionally_group_button;
           });
           break;
       }
@@ -72,7 +102,7 @@ class _SelectionScreenBottomSheetFilterState
       double? spasing,
       required List<String> buttonTexts,
       required GroupButtonType groupButtonType,
-      required int state}) {
+      required List<String> state}) {
     List<Widget> buttons = [];
 
     for (int id = 1; id <= buttonTexts.length; id++) {
@@ -81,10 +111,11 @@ class _SelectionScreenBottomSheetFilterState
           margin: const EdgeInsets.only(top: 12),
           spasing: spasing,
           icon: icon?[id - 1],
-          id: id,
+          // id: id,
           currentSelected: state,
-          onPress: () =>
-              _setGroupButton(groupButtonType: groupButtonType, id: id),
+          onPress: () => _setGroupButton(
+              groupButtonType: groupButtonType,
+              textButton: buttonTexts[id - 1]),
           text: buttonTexts[id - 1],
         ),
       );
@@ -117,9 +148,10 @@ class _SelectionScreenBottomSheetFilterState
                   spasing: 10,
                   groupButtonType: GroupButtonType.Sort,
                   buttonTexts: [
-                    "Рейтингу",
-                    "Цене на ски-пасс",
-                    "Протяженности трасс",
+                    "Высокий рейтинг",
+                    "Сначала дешевые",
+                    "Сначала дорогие",
+                    "По протяженности трасс",
                   ],
                   state: sort_group_button),
             ),
@@ -217,6 +249,7 @@ class _SelectionScreenBottomSheetFilterState
             ),
             SliderTheme(
                 data: SliderThemeData(
+                  overlayShape: SliderComponentShape.noOverlay,
                   trackHeight: 4,
                   tickMarkShape:
                       const RoundSliderTickMarkShape(tickMarkRadius: 3),
@@ -242,6 +275,32 @@ class _SelectionScreenBottomSheetFilterState
                     });
                   },
                 )),
+            SizedBox(
+              width: MediaQuery.of(context).size.width - (28),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(fontSize: 12, color: Colors.black),
+                      "Любое"),
+                  Text(
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(fontSize: 12, color: Colors.black),
+                      'Не более\n50 км.'),
+                  Text(
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(fontSize: 12, color: Colors.black),
+                      'Не более\n100 км.'),
+                ],
+              ),
+            ),
             Container(
               margin: const EdgeInsets.only(top: 28),
               child: Row(
@@ -279,22 +338,22 @@ class _SelectionScreenBottomSheetFilterState
                             .textTheme
                             .headlineMedium
                             ?.copyWith(
-                                color: (sort_group_button != 0 ||
-                                        trails_group_button != 0 ||
-                                        elevator_group_button != 0 ||
-                                        instructor_group_button != 0 ||
-                                        additionally_group_button != 0 ||
+                                color: (sort_group_button.length != 0 ||
+                                        trails_group_button.length != 0 ||
+                                        elevator_group_button.length != 0 ||
+                                        instructor_group_button.length != 0 ||
+                                        additionally_group_button.length != 0 ||
                                         selectedIndex != 0)
                                     ? AppColors.icons_active_blue
                                     : AppColors.icons_not_Active_gray,
                                 fontSize: 16),
                         boxDecoration: BoxDecoration(
                             border: Border.all(
-                                color: (sort_group_button != 0 ||
-                                        trails_group_button != 0 ||
-                                        elevator_group_button != 0 ||
-                                        instructor_group_button != 0 ||
-                                        additionally_group_button != 0 ||
+                                color: (sort_group_button.length != 0 ||
+                                        trails_group_button.length != 0 ||
+                                        elevator_group_button.length != 0 ||
+                                        instructor_group_button.length != 0 ||
+                                        additionally_group_button.length != 0 ||
                                         selectedIndex != 0)
                                     ? AppColors.icons_active_blue
                                     : AppColors.icons_not_Active_gray),
@@ -332,11 +391,11 @@ class _SelectionScreenBottomSheetFilterState
 
   _clearAllGroup() {
     setState(() {
-      sort_group_button = 0;
-      trails_group_button = 0;
-      elevator_group_button = 0;
-      instructor_group_button = 0;
-      additionally_group_button = 0;
+      sort_group_button = [];
+      trails_group_button = [];
+      elevator_group_button = [];
+      instructor_group_button = [];
+      additionally_group_button = [];
       sliderValue = 0;
       selectedIndex = 0;
     });
