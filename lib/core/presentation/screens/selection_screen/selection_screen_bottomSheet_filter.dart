@@ -1,4 +1,4 @@
-// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names, non_constant_identifier_names, deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -145,7 +145,6 @@ class _SelectionScreenBottomSheetFilterState
             Wrap(
               spacing: 8,
               children: _buildButtonsList(
-                  spasing: 10,
                   groupButtonType: GroupButtonType.Sort,
                   buttonTexts: [
                     "Высокий рейтинг",
@@ -338,22 +337,22 @@ class _SelectionScreenBottomSheetFilterState
                             .textTheme
                             .headlineMedium
                             ?.copyWith(
-                                color: (sort_group_button.length != 0 ||
-                                        trails_group_button.length != 0 ||
-                                        elevator_group_button.length != 0 ||
-                                        instructor_group_button.length != 0 ||
-                                        additionally_group_button.length != 0 ||
+                                color: (sort_group_button.isNotEmpty ||
+                                        trails_group_button.isNotEmpty ||
+                                        elevator_group_button.isNotEmpty ||
+                                        instructor_group_button.isNotEmpty ||
+                                        additionally_group_button.isNotEmpty ||
                                         selectedIndex != 0)
                                     ? AppColors.icons_active_blue
                                     : AppColors.icons_not_Active_gray,
                                 fontSize: 16),
                         boxDecoration: BoxDecoration(
                             border: Border.all(
-                                color: (sort_group_button.length != 0 ||
-                                        trails_group_button.length != 0 ||
-                                        elevator_group_button.length != 0 ||
-                                        instructor_group_button.length != 0 ||
-                                        additionally_group_button.length != 0 ||
+                                color: (sort_group_button.isNotEmpty ||
+                                        trails_group_button.isNotEmpty ||
+                                        elevator_group_button.isNotEmpty ||
+                                        instructor_group_button.isNotEmpty ||
+                                        additionally_group_button.isNotEmpty ||
                                         selectedIndex != 0)
                                     ? AppColors.icons_active_blue
                                     : AppColors.icons_not_Active_gray),
