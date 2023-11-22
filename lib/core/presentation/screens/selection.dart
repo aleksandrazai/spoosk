@@ -152,7 +152,7 @@ class _SelectionState extends State<Selection> {
                         resort_level: selectedLevelsModel.selectedLevels,
                       ));
                       print(
-                          "Selected filter : ${selectedRegionsModel.selectedRegions},${selectedMonthsModel.selectedMonths}, ${selectedLevelsModel.selectedLevels} ");
+                          "Selected filter : ${selectedRegionsModel.selectedRegions},${selectedMonthsModel.selectedMonths},${selectedLevelsModel.selectedLevels} ");
                       context.router.push(const ResultRoute());
                     },
                   ),

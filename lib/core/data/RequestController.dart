@@ -5,6 +5,7 @@ import 'package:spoosk/core/data/ApiConfig.dart';
 import 'package:spoosk/core/data/models/ResortById.dart';
 import 'package:spoosk/core/data/models/regions.dart';
 import 'package:spoosk/core/data/models/resorts.dart';
+import 'package:spoosk/core/data/models/user_level.dart';
 
 class RequestController {
   final Dio _dio = Dio();
@@ -70,7 +71,8 @@ class RequestController {
     try {
       final String regionsSelected = resort_region.join(',');
       final String monthsSelected = resort_month.join(',');
-      final String levelsSelected = resort_level.join(',');
+      final String levelsSelected =
+          UserLevel.mapLevelsToColors(resort_level).join(',');
 
       final response = await _dio.get(
           '$_url${ApiConfigurate.mainFilter}?resort_region=$regionsSelected&resort_month=$monthsSelected&resort_level=$levelsSelected',

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_mainFilter.dart/mainFilter_bloc.dart';
+import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/widgets/resort_card.dart';
 
 @RoutePage()
@@ -39,7 +40,17 @@ class ResultScreen extends StatelessWidget {
                 ],
               );
             } else {
-              return CircularProgressIndicator();
+              return Column(
+                children: [
+                  Text('По указанным параметрам ничего не найдено',
+                      style: Theme.of(context).textTheme.headlineMedium),
+                  ElevatedButton(
+                      onPressed: () {
+                        context.router.push(Selection());
+                      },
+                      child: Text('Вернуться к подбору'))
+                ],
+              );
             }
           }),
         ],
