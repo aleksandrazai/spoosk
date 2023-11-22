@@ -135,12 +135,24 @@ class _SelectionState extends State<Selection> {
                     buttonText: "Подобрать",
                     color: AppColors.primaryColor,
                     onTap: () {
+                      final selectedRegionsModel =
+                          Provider.of<SelectedRegionsModel>(context,
+                              listen: false);
+                      final selectedLevelsModel =
+                          Provider.of<SelectedLevelsModel>(context,
+                              listen: false);
+                      final selectedMonthsModel =
+                          Provider.of<SelectedMonthsModel>(context,
+                              listen: false);
+
                       final mainFilterBloc = context.read<MainFilterBloc>();
                       mainFilterBloc.add(MainFilterRequest(
-                        resort_region: [],
-                        resort_month: [],
-                        resort_level: [],
+                        resort_region: selectedRegionsModel.selectedRegions,
+                        resort_month: selectedMonthsModel.selectedMonths,
+                        resort_level: selectedLevelsModel.selectedLevels,
                       ));
+                      print(
+                          "Selected filter : ${selectedRegionsModel.selectedRegions},${selectedMonthsModel.selectedMonths}, ${selectedLevelsModel.selectedLevels} ");
                       context.router.push(const ResultRoute());
                     },
                   ),

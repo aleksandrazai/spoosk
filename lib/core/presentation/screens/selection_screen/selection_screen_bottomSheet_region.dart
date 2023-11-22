@@ -73,24 +73,23 @@ class _SelectionScreenBottomSheetRegionState
                 ),
               ),
               CustomButton(
-                textStyle: Theme.of(context)
-                    .textTheme
-                    .headlineMedium
-                    ?.copyWith(color: AppColors.white, fontSize: 16),
-                boxDecoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                height: 36,
-                buttonText: "Применить",
-                color: AppColors.primaryColor,
-                onTap: () {
-                  // Provider.of<SelectedRegionsModel>(context, listen: false)
-                  //     .selectedRegions;
-                  // Navigator.pop(context)
-                  context.router.pop(
-                      Provider.of<SelectedRegionsModel>(context, listen: false)
-                          .selectedRegions);
-                },
-              ),
+                  textStyle: Theme.of(context)
+                      .textTheme
+                      .headlineMedium
+                      ?.copyWith(color: AppColors.white, fontSize: 16),
+                  boxDecoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                  height: 36,
+                  buttonText: "Применить",
+                  color: AppColors.primaryColor,
+                  onTap: () {
+                    List<String> selectedRegions =
+                        Provider.of<SelectedRegionsModel>(context,
+                                listen: false)
+                            .selectedRegions;
+                    print("Selected: $selectedRegions");
+                    Navigator.pop(context);
+                  }),
             ],
           );
         }

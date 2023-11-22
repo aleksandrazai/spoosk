@@ -70,6 +70,7 @@ class _SelectionScreenBottomSheetLevelState
                     Provider.of<SelectedLevelsModel>(context, listen: false)
                         .selectedLevels;
                 print("Selected Levels: $selectedLevels");
+
                 Navigator.pop(context);
               },
             ),

@@ -76,8 +76,10 @@ class _SelectionScreenBottomSheetMonthState
               buttonText: "Применить",
               color: AppColors.primaryColor,
               onTap: () {
-                Provider.of<SelectedMonthsModel>(context, listen: false)
-                    .selectedMonths;
+                List<String> selectedMonths =
+                    Provider.of<SelectedMonthsModel>(context, listen: false)
+                        .selectedMonths;
+                print("Selected: $selectedMonths");
                 Navigator.pop(context);
               },
             ),

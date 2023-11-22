@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 
 class SelectedRegionsModel extends ChangeNotifier {
-  final List<String> _selectedRegions = [];
-
-  List<String> get selectedRegions => _selectedRegions;
+  final List<String> selectedRegions = [];
 
   bool isSelectedRegion(String region) {
-    return _selectedRegions.contains(region);
+    return selectedRegions.contains(region);
   }
 
   void toggleSelectedRegion(String region) {
-    if (_selectedRegions.contains(region)) {
-      _selectedRegions.remove(region);
+    if (selectedRegions.contains(region)) {
+      selectedRegions.remove(region);
     } else {
-      _selectedRegions.add(region);
+      selectedRegions.add(region);
     }
     notifyListeners();
   }
