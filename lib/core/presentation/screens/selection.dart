@@ -8,6 +8,7 @@ import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/data/models/fliter_models.dart/levels.dart';
 import 'package:spoosk/core/data/models/fliter_models.dart/months.dart';
 import 'package:spoosk/core/data/models/fliter_models.dart/regions.dart';
+import 'package:spoosk/core/presentation/bloc_mainFilter.dart/mainFilter_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet.dart';
@@ -134,7 +135,13 @@ class _SelectionState extends State<Selection> {
                     buttonText: "Подобрать",
                     color: AppColors.primaryColor,
                     onTap: () {
-                      context.router.push(ResultRoute());
+                      final mainFilterBloc = context.read<MainFilterBloc>();
+                      mainFilterBloc.add(MainFilterRequest(
+                        resort_region: [],
+                        resort_month: [],
+                        resort_level: [],
+                      ));
+                      context.router.push(const ResultRoute());
                     },
                   ),
                 ),

@@ -15,15 +15,18 @@ class AppRouter extends $AppRouter {
               page: ResortTab.page,
               children: [
                 RedirectRoute(path: '', redirectTo: 'emptyhome/:id'),
-                AutoRoute(
-                  page: Home.page,
-                  path: 'Home',
-                ),
+                AutoRoute(page: Home.page, path: 'Home'),
                 AutoRoute(page: ResortRoute.page, path: 'resortscreen'),
-                AutoRoute(page: ResultRoute.page, path: 'Result'),
               ],
             ),
-            AutoRoute(page: Selection.page, path: 'Selection'),
+            AutoRoute(
+                page: SelectionTab.page,
+                path: 'emptyselection',
+                children: [
+                  RedirectRoute(path: '', redirectTo: 'emptyselection/id:'),
+                  AutoRoute(page: Selection.page, path: 'Selection'),
+                  AutoRoute(page: ResultRoute.page, path: 'ResultSelection'),
+                ]),
             AutoRoute(page: Comparison.page, path: 'Comparison'),
             AutoRoute(page: Selected.page, path: 'Selected'),
             AutoRoute(page: Profile.page, path: 'Profile'),
@@ -35,4 +38,9 @@ class AppRouter extends $AppRouter {
 @RoutePage(name: 'ResortTab')
 class ResortTabPage extends AutoRouter {
   const ResortTabPage({super.key});
+}
+
+@RoutePage(name: 'SelectionTab')
+class SelectionEmptyPage extends AutoRouter {
+  const SelectionEmptyPage({super.key});
 }

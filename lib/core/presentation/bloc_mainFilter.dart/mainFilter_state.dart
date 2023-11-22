@@ -8,3 +8,5 @@ class MainFilterLoaded extends MainFilterState {
   MainFilterLoaded({required this.resortsMainFilter});
   final List<Resorts> resortsMainFilter;
 }
+
+class MainFilterNotFound extends MainFilterState {}

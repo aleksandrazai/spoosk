@@ -66,8 +66,10 @@ class _SelectionScreenBottomSheetLevelState
               buttonText: "Применить",
               color: AppColors.primaryColor,
               onTap: () {
-                Provider.of<SelectedLevelsModel>(context, listen: false)
-                    .selectedLevels;
+                List<String> selectedLevels =
+                    Provider.of<SelectedLevelsModel>(context, listen: false)
+                        .selectedLevels;
+                print("Selected Levels: $selectedLevels");
                 Navigator.pop(context);
               },
             ),

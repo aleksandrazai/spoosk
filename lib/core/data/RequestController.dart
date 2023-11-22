@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:dio/dio.dart';
 import 'package:spoosk/core/data/ApiConfig.dart';
 import 'package:spoosk/core/data/models/ResortById.dart';
@@ -59,14 +61,19 @@ class RequestController {
     }
   }
 
-  //Main filter --пока одно значение
+  //Main filter c множественным выбором
   Future<List<Resorts>?> getMainFilter({
-    required String regions,
-    required String months,
-    required String levels,
+    required List<String> resort_region,
+    required List<String> resort_month,
+    required List<String> resort_level,
   }) async {
     try {
-      final response = await _dio.get(_url + regions + months + levels,
+      final String regionsSelected = resort_region.join(',');
+      final String monthsSelected = resort_month.join(',');
+      final String levelsSelected = resort_level.join(',');
+
+      final response = await _dio.get(
+          '$_url${ApiConfigurate.mainFilter}?resort_region=$regionsSelected&resort_month=$monthsSelected&resort_level=$levelsSelected',
           options: ApiConfigurate.headers);
       final result =
           List<Resorts>.from(response.data.map((x) => Resorts.fromJson(x)));

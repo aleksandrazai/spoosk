@@ -1,6 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spoosk/core/data/ApiConfig.dart';
 import 'package:spoosk/core/data/RequestController.dart';
 import 'package:spoosk/core/data/models/resorts.dart';
 
@@ -17,11 +16,10 @@ class MainFilterBloc extends Bloc<MainFilterEvent, MainFilterState> {
         if (connectivityResult == ConnectivityResult.wifi ||
             connectivityResult == ConnectivityResult.mobile) {
           final List<Resorts>? resorts = await requestController.getMainFilter(
-            regions: '',
-            months: '',
-            levels: '',
-          );
-          if (resorts!.isNotEmpty) {
+              resort_region: event.resort_region,
+              resort_month: event.resort_month,
+              resort_level: event.resort_level);
+          if (resorts != null && resorts.isNotEmpty) {
             emit(MainFilterLoaded(resortsMainFilter: resorts));
           }
         }

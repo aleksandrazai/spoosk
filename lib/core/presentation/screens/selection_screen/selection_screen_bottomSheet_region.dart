@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -82,9 +83,12 @@ class _SelectionScreenBottomSheetRegionState
                 buttonText: "Применить",
                 color: AppColors.primaryColor,
                 onTap: () {
-                  Provider.of<SelectedRegionsModel>(context, listen: false)
-                      .selectedRegions;
-                  Navigator.pop(context);
+                  // Provider.of<SelectedRegionsModel>(context, listen: false)
+                  //     .selectedRegions;
+                  // Navigator.pop(context)
+                  context.router.pop(
+                      Provider.of<SelectedRegionsModel>(context, listen: false)
+                          .selectedRegions);
                 },
               ),
             ],

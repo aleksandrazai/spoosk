@@ -6,9 +6,11 @@ import 'package:spoosk/core/data/models/fliter_models.dart/months.dart';
 import 'package:spoosk/core/data/models/fliter_models.dart/regions.dart';
 import 'package:spoosk/core/generated/l10n.dart';
 import 'package:spoosk/core/presentation/bloc_by_id/resort_by_id_bloc.dart';
+import 'package:spoosk/core/presentation/bloc_mainFilter.dart/mainFilter_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_region/region_bloc.dart';
 import 'package:spoosk/core/presentation/blocs_init/bloc/request_controller_bloc.dart';
 import 'package:spoosk/core/presentation/routes.dart';
+import 'package:spoosk/core/presentation/screens/selection.dart';
 import 'package:spoosk/core/presentation/theme/theme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -42,6 +44,10 @@ class _SpooskAppState extends State<SpooskApp> {
           ),
           ChangeNotifierProvider(
             create: (context) => SelectedLevelsModel(),
+          ),
+          BlocProvider(
+            create: (context) => MainFilterBloc(),
+            child: const Selection(),
           ),
         ],
         child: MaterialApp.router(

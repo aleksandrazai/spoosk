@@ -85,6 +85,12 @@ abstract class $AppRouter extends _i10.RootStackRouter {
         child: const _i9.Selection(),
       );
     },
+    SelectionTab.name: (routeData) {
+      return _i10.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i6.SelectionEmptyPage(),
+      );
+    },
   };
 }
 
@@ -234,6 +240,20 @@ class Selection extends _i10.PageRouteInfo<void> {
         );
 
   static const String name = 'Selection';
+
+  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i6.SelectionEmptyPage]
+class SelectionTab extends _i10.PageRouteInfo<void> {
+  const SelectionTab({List<_i10.PageRouteInfo>? children})
+      : super(
+          SelectionTab.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SelectionTab';
 
   static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
 }
