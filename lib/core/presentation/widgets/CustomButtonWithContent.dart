@@ -9,7 +9,7 @@ class CustomButtonFilter extends StatefulWidget {
   double? spasing;
   bool currentSelected;
   // int? id;
-  void Function() onPress;
+  VoidCallback onPress;
 
   CustomButtonFilter({
     Key? key,

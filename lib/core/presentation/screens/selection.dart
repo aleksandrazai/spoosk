@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:spoosk/core/colors.dart';
-import 'package:spoosk/core/data/models/fliter_models.dart/levels.dart';
-import 'package:spoosk/core/data/models/fliter_models.dart/months.dart';
-import 'package:spoosk/core/data/models/fliter_models.dart/regions.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/main_filter/levels.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/main_filter/months.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/main_filter/regions.dart';
 import 'package:spoosk/core/presentation/bloc_mainFilter.dart/mainFilter_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
@@ -95,9 +95,7 @@ class _SelectionState extends State<Selection> {
                           CustomBottomSheet.customShowModalBottomSheet(
                               height: MediaQuery.sizeOf(context).height,
                               context: context,
-                              children: [
-                                const SelectionScreenBottomSheetFilter()
-                              ]);
+                              children: [SelectionScreenBottomSheetFilter()]);
                         },
                         child: Text(
                             style: Theme.of(context)

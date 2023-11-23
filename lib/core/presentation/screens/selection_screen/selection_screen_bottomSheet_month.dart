@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spoosk/core/colors.dart';
-import 'package:spoosk/core/data/models/fliter_models.dart/months.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/main_filter/months.dart';
 import 'package:spoosk/core/data/models/month.dart';
 
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';

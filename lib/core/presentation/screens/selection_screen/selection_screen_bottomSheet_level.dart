@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spoosk/core/colors.dart';
-import 'package:spoosk/core/data/models/fliter_models.dart/levels.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/main_filter/levels.dart';
 import 'package:spoosk/core/data/models/user_level.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButtonWithContent.dart';

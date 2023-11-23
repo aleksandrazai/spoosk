@@ -2,22 +2,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:spoosk/core/colors.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/advanced_filter/all_filter_params.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/advanced_filter/button_values.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButtonWithContent.dart';
 import 'package:spoosk/core/presentation/widgets/CustomCircle.dart';
 
-enum GroupButtonType {
-  Sort,
-  Trails,
-  Elevator,
-  Instructor,
-  Additionally,
-}
-
 class SelectionScreenBottomSheetFilter extends StatefulWidget {
-  const SelectionScreenBottomSheetFilter({Key? key}) : super(key: key);
+  SelectionScreenBottomSheetFilter({Key? key}) : super(key: key);
 
   @override
   _SelectionScreenBottomSheetFilterState createState() =>
@@ -29,74 +24,6 @@ class _SelectionScreenBottomSheetFilterState
   num sliderValue = 0;
   final List<double> values = [0, 50, 100];
   int selectedIndex = 0;
-
-  List<String> sort_group_button = [];
-  List<String> trails_group_button = [];
-  List<String> elevator_group_button = [];
-  List<String> instructor_group_button = [];
-  List<String> additionally_group_button = [];
-
-  void _setGroupButton(
-      {required GroupButtonType groupButtonType, required String textButton}) {
-    setState(() {
-      switch (groupButtonType) {
-        case GroupButtonType.Sort:
-          setState(() {
-            if (sort_group_button.contains(textButton)) {
-              sort_group_button.remove(textButton);
-            } else {
-              sort_group_button.add(textButton);
-            }
-            sort_group_button = sort_group_button;
-          });
-          print(sort_group_button);
-
-          break;
-        case GroupButtonType.Trails:
-          setState(() {
-            if (trails_group_button.contains(textButton)) {
-              trails_group_button.remove(textButton);
-            } else {
-              trails_group_button.add(textButton);
-            }
-            trails_group_button = trails_group_button;
-          });
-          print(trails_group_button);
-          break;
-        case GroupButtonType.Elevator:
-          setState(() {
-            if (elevator_group_button.contains(textButton)) {
-              elevator_group_button.remove(textButton);
-            } else {
-              elevator_group_button.add(textButton);
-            }
-            elevator_group_button = elevator_group_button;
-          });
-          break;
-        case GroupButtonType.Instructor:
-          setState(() {
-            if (instructor_group_button.contains(textButton)) {
-              instructor_group_button.remove(textButton);
-            } else {
-              instructor_group_button.add(textButton);
-            }
-            instructor_group_button = instructor_group_button;
-          });
-          break;
-        case GroupButtonType.Additionally:
-          setState(() {
-            if (additionally_group_button.contains(textButton)) {
-              additionally_group_button.remove(textButton);
-            } else {
-              additionally_group_button.add(textButton);
-            }
-            additionally_group_button = additionally_group_button;
-          });
-          break;
-      }
-    });
-  }
-
   List<Widget> _buildButtonsList(
       {List<Widget>? icon,
       double? spasing,
@@ -104,17 +31,29 @@ class _SelectionScreenBottomSheetFilterState
       required GroupButtonType groupButtonType,
       required List<String> state}) {
     List<Widget> buttons = [];
-
+    final groupButtonNotifier =
+        Provider.of<GroupButtonNotifierModel>(context, listen: false);
     for (int id = 1; id <= buttonTexts.length; id++) {
+      String buttonText = buttonTexts[id - 1];
       buttons.add(
         CustomButtonFilter(
           margin: const EdgeInsets.only(top: 12),
           spasing: spasing,
           icon: icon?[id - 1],
           // id: id,
-          onPress: () => _setGroupButton(
-              groupButtonType: groupButtonType,
-              textButton: buttonTexts[id - 1]),
+          currentSelected: groupButtonNotifier.isSelected(
+            groupButtonType: groupButtonType,
+            value: buttonText,
+          ),
+          onPress: () {
+            setState(() {
+              groupButtonNotifier.setGroupButton(
+                textButton: buttonText,
+                groupButtonType: groupButtonType,
+              );
+              print('Button $buttonText is selected, List $groupButtonType');
+            });
+          },
           text: buttonTexts[id - 1],
         ),
       );
@@ -127,7 +66,7 @@ class _SelectionScreenBottomSheetFilterState
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: SizedBox(
-        height: MediaQuery.of(context).size.height - 80,
+        height: MediaQuery.of(context).size.height - 50,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -145,13 +84,9 @@ class _SelectionScreenBottomSheetFilterState
               spacing: 8,
               children: _buildButtonsList(
                   groupButtonType: GroupButtonType.Sort,
-                  buttonTexts: [
-                    "Высокий рейтинг",
-                    "Сначала дешевые",
-                    "Сначала дорогие",
-                    "По протяженности трасс",
-                  ],
-                  state: sort_group_button),
+                  buttonTexts: sortByButtonLabels,
+                  state: Provider.of<GroupButtonNotifierModel>(context)
+                      .sortGroupButton),
             ),
             Container(
               margin: const EdgeInsets.only(top: 28),
@@ -174,13 +109,9 @@ class _SelectionScreenBottomSheetFilterState
                     CustomCircle(color: AppColors.chart_black),
                   ],
                   groupButtonType: GroupButtonType.Trails,
-                  buttonTexts: [
-                    "Легкие",
-                    "Средней сложности",
-                    "Повышенной сложности",
-                    "Сложные",
-                  ],
-                  state: trails_group_button),
+                  buttonTexts: trailsButtonLabels,
+                  state: Provider.of<GroupButtonNotifierModel>(context)
+                      .trailsGroupButton),
             ),
             Container(
               margin: const EdgeInsets.only(top: 28),
@@ -207,13 +138,9 @@ class _SelectionScreenBottomSheetFilterState
                   ],
                   spasing: 10,
                   groupButtonType: GroupButtonType.Elevator,
-                  buttonTexts: [
-                    "Бугельные",
-                    "Кресельные",
-                    "Гондольные",
-                    "Детские травалаторы",
-                  ],
-                  state: elevator_group_button),
+                  buttonTexts: elevatorsButtonLabels,
+                  state: Provider.of<GroupButtonNotifierModel>(context)
+                      .elevatorGroupButton),
             ),
             Container(
               margin: const EdgeInsets.only(top: 28),
@@ -229,11 +156,9 @@ class _SelectionScreenBottomSheetFilterState
               spacing: 8,
               children: _buildButtonsList(
                   groupButtonType: GroupButtonType.Instructor,
-                  buttonTexts: [
-                    "Для детей",
-                    "Для взрослых",
-                  ],
-                  state: instructor_group_button),
+                  buttonTexts: instructorsButtonLabels,
+                  state: Provider.of<GroupButtonNotifierModel>(context)
+                      .instructorGroupButton),
             ),
             Container(
               margin: const EdgeInsets.only(top: 28),
@@ -313,14 +238,9 @@ class _SelectionScreenBottomSheetFilterState
               spacing: 8,
               children: _buildButtonsList(
                   groupButtonType: GroupButtonType.Additionally,
-                  buttonTexts: [
-                    "Фрирайд",
-                    "Сноупарк",
-                    "Вечернее катание",
-                    "Прокат оборудования",
-                    "Сезонный ски-пасс",
-                  ],
-                  state: additionally_group_button),
+                  buttonTexts: additionalButtonsLabels,
+                  state: Provider.of<GroupButtonNotifierModel>(context)
+                      .additionallyGroupButton),
             ),
             Expanded(
                 child: Align(
@@ -336,22 +256,52 @@ class _SelectionScreenBottomSheetFilterState
                             .textTheme
                             .headlineMedium
                             ?.copyWith(
-                                color: (sort_group_button.isNotEmpty ||
-                                        trails_group_button.isNotEmpty ||
-                                        elevator_group_button.isNotEmpty ||
-                                        instructor_group_button.isNotEmpty ||
-                                        additionally_group_button.isNotEmpty ||
+                                color: (Provider.of<GroupButtonNotifierModel>(
+                                                context)
+                                            .sortGroupButton
+                                            .isNotEmpty ||
+                                        Provider.of<GroupButtonNotifierModel>(
+                                                context)
+                                            .trailsGroupButton
+                                            .isNotEmpty ||
+                                        Provider.of<GroupButtonNotifierModel>(
+                                                context)
+                                            .elevatorGroupButton
+                                            .isNotEmpty ||
+                                        Provider.of<GroupButtonNotifierModel>(
+                                                context)
+                                            .instructorGroupButton
+                                            .isNotEmpty ||
+                                        Provider.of<GroupButtonNotifierModel>(
+                                                context)
+                                            .additionallyGroupButton
+                                            .isNotEmpty ||
                                         selectedIndex != 0)
                                     ? AppColors.icons_active_blue
                                     : AppColors.icons_not_Active_gray,
                                 fontSize: 16),
                         boxDecoration: BoxDecoration(
                             border: Border.all(
-                                color: (sort_group_button.isNotEmpty ||
-                                        trails_group_button.isNotEmpty ||
-                                        elevator_group_button.isNotEmpty ||
-                                        instructor_group_button.isNotEmpty ||
-                                        additionally_group_button.isNotEmpty ||
+                                color: (Provider.of<GroupButtonNotifierModel>(
+                                                context)
+                                            .sortGroupButton
+                                            .isNotEmpty ||
+                                        Provider.of<GroupButtonNotifierModel>(
+                                                context)
+                                            .trailsGroupButton
+                                            .isNotEmpty ||
+                                        Provider.of<GroupButtonNotifierModel>(
+                                                context)
+                                            .elevatorGroupButton
+                                            .isNotEmpty ||
+                                        Provider.of<GroupButtonNotifierModel>(
+                                                context)
+                                            .instructorGroupButton
+                                            .isNotEmpty ||
+                                        Provider.of<GroupButtonNotifierModel>(
+                                                context)
+                                            .additionallyGroupButton
+                                            .isNotEmpty ||
                                         selectedIndex != 0)
                                     ? AppColors.icons_active_blue
                                     : AppColors.icons_not_Active_gray),
@@ -376,7 +326,13 @@ class _SelectionScreenBottomSheetFilterState
                         height: 40,
                         buttonText: "Применить",
                         color: AppColors.primaryColor,
-                        onTap: () {},
+                        onTap: () {
+                          List<String> allGroupButtons =
+                              Provider.of<GroupButtonNotifierModel>(context)
+                                  .allGroupButtons;
+                          print('Passed to Selection Screen: $allGroupButtons');
+                          Navigator.pop(context);
+                        },
                       )),
                 ],
               ),
@@ -389,13 +345,8 @@ class _SelectionScreenBottomSheetFilterState
 
   _clearAllGroup() {
     setState(() {
-      sort_group_button = [];
-      trails_group_button = [];
-      elevator_group_button = [];
-      instructor_group_button = [];
-      additionally_group_button = [];
-      sliderValue = 0;
-      selectedIndex = 0;
+      Provider.of<GroupButtonNotifierModel>(context, listen: false)
+          .clearAllStates();
     });
   }
 }

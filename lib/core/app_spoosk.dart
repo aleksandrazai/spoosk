@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:spoosk/core/data/models/fliter_models.dart/levels.dart';
-import 'package:spoosk/core/data/models/fliter_models.dart/months.dart';
-import 'package:spoosk/core/data/models/fliter_models.dart/regions.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/advanced_filter/all_filter_params.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/main_filter/levels.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/main_filter/months.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/main_filter/regions.dart';
 import 'package:spoosk/core/generated/l10n.dart';
 import 'package:spoosk/core/presentation/bloc_by_id/resort_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_mainFilter.dart/mainFilter_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_region/region_bloc.dart';
 import 'package:spoosk/core/presentation/blocs_init/bloc/request_controller_bloc.dart';
 import 'package:spoosk/core/presentation/routes.dart';
+import 'package:spoosk/core/presentation/screens/main_screen.dart';
 import 'package:spoosk/core/presentation/screens/selection.dart';
 import 'package:spoosk/core/presentation/theme/theme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,6 +46,10 @@ class _SpooskAppState extends State<SpooskApp> {
           ),
           ChangeNotifierProvider(
             create: (context) => SelectedLevelsModel(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => GroupButtonNotifierModel(),
+            child: const MainScreen(),
           ),
           BlocProvider(
             create: (context) => MainFilterBloc(),
