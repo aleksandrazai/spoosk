@@ -41,84 +41,84 @@ class _SelectionState extends State<Selection> {
         ),
       ),
       body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              Image.asset(image_selection_header_bg),
-              Column(children: [
-                _navigateTo(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          children: [
+            Image.asset(image_selection_header_bg),
+            Column(children: [
+              _navigateTo(
+                onTap: () {
+                  CustomBottomSheet.customShowModalBottomSheet(
+                      height: MediaQuery.sizeOf(context).height * 0.5,
+                      context: context,
+                      children: <Widget>[
+                        const SelectionScreenBottomSheetRegion()
+                      ]);
+                },
+                margin: const EdgeInsets.only(top: 21, left: 20, right: 21),
+                imageName: image_location_blue,
+                text: _getSelectedRegionsText(),
+              ),
+              _navigateTo(
                   onTap: () {
                     CustomBottomSheet.customShowModalBottomSheet(
                         height: MediaQuery.sizeOf(context).height * 0.5,
                         context: context,
                         children: <Widget>[
-                          const SelectionScreenBottomSheetRegion()
+                          const SelectionScreenBottomSheetMonth()
                         ]);
                   },
                   margin: const EdgeInsets.only(top: 21, left: 20, right: 21),
-                  imageName: image_location_blue,
-                  text: _getSelectedRegionsText(),
-                ),
-                _navigateTo(
-                    onTap: () {
-                      CustomBottomSheet.customShowModalBottomSheet(
-                          height: MediaQuery.sizeOf(context).height * 0.5,
-                          context: context,
-                          children: <Widget>[
-                            const SelectionScreenBottomSheetMonth()
-                          ]);
-                    },
-                    margin: const EdgeInsets.only(top: 21, left: 20, right: 21),
-                    imageName: image_calendar,
-                    text: _getSelectedMonthsText(),
-                    color: AppColors.primaryColor),
-                _navigateTo(
-                    onTap: () {
-                      CustomBottomSheet.customShowModalBottomSheet(
-                          height: MediaQuery.sizeOf(context).height * 0.5,
-                          context: context,
-                          children: <Widget>[
-                            const SelectionScreenBottomSheetLevel(),
-                          ]);
-                    },
-                    margin: const EdgeInsets.only(top: 21, left: 20, right: 21),
-                    imageName: image_snowborder,
-                    color: AppColors.primaryColor,
-                    text: _getSelectedLevelsText()),
-                Container(
-                  margin: const EdgeInsets.only(top: 21, left: 20),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      TextButton(
-                        onPressed: () {
-                          CustomBottomSheet.customShowModalBottomSheet(
-                              height: MediaQuery.sizeOf(context).height,
-                              context: context,
-                              children: [SelectionScreenBottomSheetFilter()]);
-                        },
-                        child: Text(
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(color: AppColors.primaryColor),
-                            "Все фильтры"),
-                      ),
-                      const SizedBox(
-                        width: 28,
-                      ),
-                      Text(
+                  imageName: image_calendar,
+                  text: _getSelectedMonthsText(),
+                  color: AppColors.primaryColor),
+              _navigateTo(
+                  onTap: () {
+                    CustomBottomSheet.customShowModalBottomSheet(
+                        height: MediaQuery.sizeOf(context).height * 0.5,
+                        context: context,
+                        children: <Widget>[
+                          const SelectionScreenBottomSheetLevel(),
+                        ]);
+                  },
+                  margin: const EdgeInsets.only(top: 21, left: 20, right: 21),
+                  imageName: image_snowborder,
+                  color: AppColors.primaryColor,
+                  text: _getSelectedLevelsText()),
+              Container(
+                margin: const EdgeInsets.only(top: 21, left: 20),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        CustomBottomSheet.customShowModalBottomSheet(
+                            height: MediaQuery.sizeOf(context).height,
+                            context: context,
+                            children: [SelectionScreenBottomSheetFilter()]);
+                      },
+                      child: Text(
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium!
                               .copyWith(color: AppColors.primaryColor),
-                          "На карте")
-                    ],
-                  ),
-                )
-              ]),
-              Expanded(
-                  child: Align(
+                          "Все фильтры"),
+                    ),
+                    const SizedBox(
+                      width: 28,
+                    ),
+                    Text(
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .copyWith(color: AppColors.primaryColor),
+                        "На карте")
+                  ],
+                ),
+              )
+            ]),
+            Expanded(
+              child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   margin: const EdgeInsets.only(bottom: 20),
@@ -150,14 +150,16 @@ class _SelectionState extends State<Selection> {
                         resort_level: selectedLevelsModel.selectedLevels,
                       ));
                       print(
-                          "Selected filter : ${selectedRegionsModel.selectedRegions},${selectedMonthsModel.selectedMonths},${selectedLevelsModel.selectedLevels} ");
+                          "Selected request to API : ${selectedRegionsModel.selectedRegions},${selectedMonthsModel.selectedMonths},${selectedLevelsModel.selectedLevels} ");
                       context.router.push(const ResultRoute());
                     },
                   ),
                 ),
-              ))
-            ],
-          )),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 
@@ -167,7 +169,7 @@ class _SelectionState extends State<Selection> {
     if (selectedRegions.isNotEmpty) {
       return selectedRegions.join(', ');
     } else {
-      return 'Регион';
+      return 'Регион: Любой';
     }
   }
 
@@ -177,7 +179,7 @@ class _SelectionState extends State<Selection> {
     if (selectedMonths.isNotEmpty) {
       return selectedMonths.join(', ');
     } else {
-      return 'Месяц';
+      return 'Месяц: Любой';
     }
   }
 
@@ -187,7 +189,7 @@ class _SelectionState extends State<Selection> {
     if (selectedLevels.isNotEmpty) {
       return selectedLevels.join(', ');
     } else {
-      return 'Уровень катания';
+      return 'Уровень катания: Любой';
     }
   }
 

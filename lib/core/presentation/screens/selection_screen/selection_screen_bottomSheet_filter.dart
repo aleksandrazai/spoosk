@@ -243,78 +243,79 @@ class _SelectionScreenBottomSheetFilterState
                       .additionallyGroupButton),
             ),
             Expanded(
-                child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Flex(
-                mainAxisAlignment: MainAxisAlignment.center,
-                direction: Axis.horizontal,
-                children: [
-                  Flexible(
-                      flex: 2,
-                      child: CustomButton(
-                        textStyle: Theme.of(context)
-                            .textTheme
-                            .headlineMedium
-                            ?.copyWith(
-                                color: (Provider.of<GroupButtonNotifierModel>(
-                                                context)
-                                            .sortGroupButton
-                                            .isNotEmpty ||
-                                        Provider.of<GroupButtonNotifierModel>(
-                                                context)
-                                            .trailsGroupButton
-                                            .isNotEmpty ||
-                                        Provider.of<GroupButtonNotifierModel>(
-                                                context)
-                                            .elevatorGroupButton
-                                            .isNotEmpty ||
-                                        Provider.of<GroupButtonNotifierModel>(
-                                                context)
-                                            .instructorGroupButton
-                                            .isNotEmpty ||
-                                        Provider.of<GroupButtonNotifierModel>(
-                                                context)
-                                            .additionallyGroupButton
-                                            .isNotEmpty ||
-                                        selectedIndex != 0)
-                                    ? AppColors.icons_active_blue
-                                    : AppColors.icons_not_Active_gray,
-                                fontSize: 16),
-                        boxDecoration: BoxDecoration(
-                            border: Border.all(
-                                color: (Provider.of<GroupButtonNotifierModel>(
-                                                context)
-                                            .sortGroupButton
-                                            .isNotEmpty ||
-                                        Provider.of<GroupButtonNotifierModel>(
-                                                context)
-                                            .trailsGroupButton
-                                            .isNotEmpty ||
-                                        Provider.of<GroupButtonNotifierModel>(
-                                                context)
-                                            .elevatorGroupButton
-                                            .isNotEmpty ||
-                                        Provider.of<GroupButtonNotifierModel>(
-                                                context)
-                                            .instructorGroupButton
-                                            .isNotEmpty ||
-                                        Provider.of<GroupButtonNotifierModel>(
-                                                context)
-                                            .additionallyGroupButton
-                                            .isNotEmpty ||
-                                        selectedIndex != 0)
-                                    ? AppColors.icons_active_blue
-                                    : AppColors.icons_not_Active_gray),
-                            borderRadius: BorderRadius.circular(10)),
-                        height: 40,
-                        buttonText: "Сбросить",
-                        color: AppColors.transparent,
-                        onTap: _clearAllGroup,
-                      )),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Flexible(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Flex(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  direction: Axis.horizontal,
+                  children: [
+                    Flexible(
+                        flex: 2,
+                        child: CustomButton(
+                          textStyle: Theme.of(
+                                  context)
+                              .textTheme
+                              .headlineMedium
+                              ?.copyWith(
+                                  color: (Provider.of<GroupButtonNotifierModel>(
+                                                  context)
+                                              .sortGroupButton
+                                              .isNotEmpty ||
+                                          Provider.of<GroupButtonNotifierModel>(
+                                                  context)
+                                              .trailsGroupButton
+                                              .isNotEmpty ||
+                                          Provider.of<GroupButtonNotifierModel>(
+                                                  context)
+                                              .elevatorGroupButton
+                                              .isNotEmpty ||
+                                          Provider.of<GroupButtonNotifierModel>(
+                                                  context)
+                                              .instructorGroupButton
+                                              .isNotEmpty ||
+                                          Provider.of<GroupButtonNotifierModel>(
+                                                  context)
+                                              .additionallyGroupButton
+                                              .isNotEmpty ||
+                                          selectedIndex != 0)
+                                      ? AppColors.icons_active_blue
+                                      : AppColors.icons_not_Active_gray,
+                                  fontSize: 16),
+                          boxDecoration: BoxDecoration(
+                              border: Border.all(
+                                  color: (Provider.of<GroupButtonNotifierModel>(
+                                                  context)
+                                              .sortGroupButton
+                                              .isNotEmpty ||
+                                          Provider.of<GroupButtonNotifierModel>(
+                                                  context)
+                                              .trailsGroupButton
+                                              .isNotEmpty ||
+                                          Provider.of<GroupButtonNotifierModel>(
+                                                  context)
+                                              .elevatorGroupButton
+                                              .isNotEmpty ||
+                                          Provider.of<GroupButtonNotifierModel>(
+                                                  context)
+                                              .instructorGroupButton
+                                              .isNotEmpty ||
+                                          Provider.of<GroupButtonNotifierModel>(
+                                                  context)
+                                              .additionallyGroupButton
+                                              .isNotEmpty ||
+                                          selectedIndex != 0)
+                                      ? AppColors.icons_active_blue
+                                      : AppColors.icons_not_Active_gray),
+                              borderRadius: BorderRadius.circular(10)),
+                          height: 40,
+                          buttonText: "Сбросить",
+                          color: AppColors.transparent,
+                          onTap: _clearAllGroup,
+                        )),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Flexible(
                       flex: 2,
                       child: CustomButton(
                         textStyle: Theme.of(context)
@@ -328,15 +329,18 @@ class _SelectionScreenBottomSheetFilterState
                         color: AppColors.primaryColor,
                         onTap: () {
                           List<String> allGroupButtons =
-                              Provider.of<GroupButtonNotifierModel>(context)
+                              Provider.of<GroupButtonNotifierModel>(context,
+                                      listen: false)
                                   .allGroupButtons;
                           print('Passed to Selection Screen: $allGroupButtons');
                           Navigator.pop(context);
                         },
-                      )),
-                ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )),
+            ),
           ],
         ),
       ),
