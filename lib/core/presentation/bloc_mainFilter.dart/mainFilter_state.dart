@@ -9,4 +9,6 @@ class MainFilterLoaded extends MainFilterState {
   final List<Resorts> resortsMainFilter;
 }
 
-class MainFilterNotFound extends MainFilterState {}
+class MainFilterNotFound extends MainFilterState {
+  List<Object?> get props => [];
+}

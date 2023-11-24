@@ -39,19 +39,21 @@ class ResultScreen extends StatelessWidget {
                   ),
                 ],
               );
-            } else {
+            } else if (state is MainFilterNotFound) {
               return Column(
                 children: [
                   Text('По указанным параметрам ничего не найдено',
                       style: Theme.of(context).textTheme.headlineMedium),
                   ElevatedButton(
                       onPressed: () {
-                        context.router.push(Selection());
+                        context.router.push(const Selection());
                       },
-                      child: Text('Вернуться к подбору'))
+                      child: const Text('Вернуться к подбору'))
                 ],
               );
             }
+
+            return CircularProgressIndicator();
           }),
         ],
       ),

@@ -21,6 +21,8 @@ class MainFilterBloc extends Bloc<MainFilterEvent, MainFilterState> {
               resort_level: event.resort_level);
           if (resorts != null && resorts.isNotEmpty) {
             emit(MainFilterLoaded(resortsMainFilter: resorts));
+          } else {
+            emit(MainFilterNotFound());
           }
         }
       } catch (e) {
