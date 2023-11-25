@@ -9,6 +9,7 @@ import 'package:spoosk/core/presentation/bloc_mainFilter.dart/mainFilter_bloc.da
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/theme/theme.dart';
+import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
 import 'package:spoosk/core/presentation/widgets/resort_card.dart';
 
 @RoutePage()
@@ -91,13 +92,37 @@ class ResultScreen extends StatelessWidget {
         } else if (state is MainFilterNotFound) {
           return Column(
             children: [
-              Text('По указанным параметрам ничего не найдено',
-                  style: Theme.of(context).textTheme.headlineMedium),
-              ElevatedButton(
-                  onPressed: () {
-                    context.router.push(const Selection());
-                  },
-                  child: const Text('Вернуться к подбору'))
+              Container(
+                alignment: Alignment.topCenter,
+                child: Text(
+                  'К сожалению, мы не нашли ни один курорт, \n подходящий под Ваши параметры. \n Попробуйте изменить параметры поиска.',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(color: AppColors.text_black),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Flexible(
+                  flex: 2,
+                  child: CustomButton(
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .headlineMedium
+                        ?.copyWith(color: AppColors.white, fontSize: 16),
+                    boxDecoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                    height: 40,
+                    buttonText: "К подбору ",
+                    color: AppColors.primaryColor,
+                    onTap: () {
+                      context.router.push(const Selection());
+                    },
+                  ),
+                ),
+              ),
             ],
           );
         }
