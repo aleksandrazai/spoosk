@@ -63,6 +63,9 @@ class _SelectionScreenBottomSheetMonthState
             },
           ),
         ),
+        const SizedBox(
+          height: 52,
+        ),
         Column(
           children: [
             CustomButton(

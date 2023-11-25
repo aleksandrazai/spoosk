@@ -49,7 +49,7 @@ class _SelectionState extends State<Selection> {
               _navigateTo(
                 onTap: () {
                   CustomBottomSheet.customShowModalBottomSheet(
-                      height: MediaQuery.sizeOf(context).height * 0.5,
+                      height: MediaQuery.sizeOf(context).height * 0.4,
                       context: context,
                       children: <Widget>[
                         const SelectionScreenBottomSheetRegion()
@@ -62,7 +62,7 @@ class _SelectionState extends State<Selection> {
               _navigateTo(
                   onTap: () {
                     CustomBottomSheet.customShowModalBottomSheet(
-                        height: MediaQuery.sizeOf(context).height * 0.5,
+                        height: MediaQuery.sizeOf(context).height * 0.4,
                         context: context,
                         children: <Widget>[
                           const SelectionScreenBottomSheetMonth()
@@ -75,7 +75,7 @@ class _SelectionState extends State<Selection> {
               _navigateTo(
                   onTap: () {
                     CustomBottomSheet.customShowModalBottomSheet(
-                        height: MediaQuery.sizeOf(context).height * 0.5,
+                        height: MediaQuery.sizeOf(context).height * 0.3,
                         context: context,
                         children: <Widget>[
                           const SelectionScreenBottomSheetLevel(),

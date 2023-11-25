@@ -72,6 +72,9 @@ class _SelectionScreenBottomSheetRegionState
                   }).toList(),
                 ),
               ),
+              const SizedBox(
+                height: 84,
+              ),
               CustomButton(
                   textStyle: Theme.of(context)
                       .textTheme

@@ -25,37 +25,45 @@ class _SelectionScreenBottomSheetLevelState
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.9,
-          child: Text(
-              style: Theme.of(context).textTheme.headlineMedium,
-              "Оцените ваш уровень катания"),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 60),
-          child: Container(
-            alignment: Alignment.topLeft,
-            child: Wrap(
-                spacing: 7,
-                children: UserLevel.userLevel
-                    .map(
-                      (level) => CustomButtonFilter(
-                          currentSelected: levelsModel.isSelectedLevel(level),
-                          onPress: () {
-                            setState(() {
-                              levelsModel.toggleSelectedLevel(level);
-                            });
-                          },
-                          text: level),
-                    )
-                    .toList()),
+    return SizedBox(
+      child: Column(
+        children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.9,
+            child: Text(
+                style: Theme.of(context).textTheme.headlineMedium,
+                "Оцените ваш уровень катания"),
           ),
-        ),
-        Column(
-          children: [
-            CustomButton(
+          const SizedBox(
+            height: 12,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 60),
+            child: Container(
+              alignment: Alignment.topLeft,
+              child: Wrap(
+                  spacing: 7,
+                  children: UserLevel.userLevel
+                      .map(
+                        (level) => CustomButtonFilter(
+                            margin: const EdgeInsets.only(top: 12),
+                            currentSelected: levelsModel.isSelectedLevel(level),
+                            onPress: () {
+                              setState(() {
+                                levelsModel.toggleSelectedLevel(level);
+                              });
+                            },
+                            text: level),
+                      )
+                      .toList()),
+            ),
+          ),
+          const SizedBox(
+            height: 32,
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: CustomButton(
               textStyle: Theme.of(context)
                   .textTheme
                   .headlineMedium
@@ -74,9 +82,9 @@ class _SelectionScreenBottomSheetLevelState
                 Navigator.pop(context);
               },
             ),
-          ],
-        ),
-      ],
+          ),
+        ],
+      ),
     );
   }
 }

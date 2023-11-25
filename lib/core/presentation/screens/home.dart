@@ -67,13 +67,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: SizedBox(
                     height: 212, //test
-                    width: 256,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: 6,
                       itemBuilder: (context, index) {
                         final resort = state.resortsAll[index];
-                        return ResortCard(resort: resort);
+                        return SizedBox(
+                            width: 285, child: ResortCard(resort: resort));
                       },
                     ),
                   ),
