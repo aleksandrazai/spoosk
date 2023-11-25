@@ -1,8 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:spoosk/core/colors.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/main_filter/regions.dart';
 import 'package:spoosk/core/presentation/bloc_mainFilter.dart/mainFilter_bloc.dart';
+import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
+import 'package:spoosk/core/presentation/theme/theme.dart';
 import 'package:spoosk/core/presentation/widgets/resort_card.dart';
 
 @RoutePage()
@@ -12,51 +18,92 @@ class ResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: [
-          BlocBuilder<MainFilterBloc, MainFilterState>(
-              builder: (context, state) {
-            if (state is MainFilterLoaded) {
-              return Column(
-                children: [
-                  Text('Найдено ${state.resortsMainFilter.length} курортов',
-                      style: Theme.of(context).textTheme.headlineMedium),
-                  SingleChildScrollView(
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      //TODO: надо задать правильную высоту
-                      height: MediaQuery.of(context).size.height - 161,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: state.resortsMainFilter.length,
-                        itemBuilder: (context, index) {
-                          final resort = state.resortsMainFilter[index];
-                          return ResortCard(resort: resort);
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              );
-            } else if (state is MainFilterNotFound) {
-              return Column(
-                children: [
-                  Text('По указанным параметрам ничего не найдено',
-                      style: Theme.of(context).textTheme.headlineMedium),
-                  ElevatedButton(
-                      onPressed: () {
-                        context.router.push(const Selection());
-                      },
-                      child: const Text('Вернуться к подбору'))
-                ],
-              );
-            }
-
-            return CircularProgressIndicator();
-          }),
-        ],
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: AppColors.background,
+        titleTextStyle: TextStyle(
+          color: AppColors.black,
+          fontSize: 18,
+          fontFamily: fontFamily,
+          fontWeight: FontWeight.w700,
+        ),
+        leading: GestureDetector(
+          onTap: () {
+            Feedback.forTap(context);
+            context.router.pop();
+          },
+          child: SvgPicture.asset(
+            fit: BoxFit.scaleDown,
+            image_arrow_left,
+            width: 9.33,
+            height: 16.33,
+          ),
+        ),
+        title: Provider.of<SelectedRegionsModel>(context)
+                .selectedRegions
+                .isNotEmpty
+            ? Text(
+                Provider.of<SelectedRegionsModel>(context)
+                    .selectedRegions
+                    .toString()
+                    .replaceAll('[', '')
+                    .replaceAll(']', ''),
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.start,
+              )
+            : const Text(
+                'Курорты',
+                textAlign: TextAlign.start,
+              ),
       ),
+      body: BlocBuilder<MainFilterBloc, MainFilterState>(
+          builder: (context, state) {
+        if (state is MainFilterLoaded) {
+          return Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8.0),
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Найдено ${state.resortsMainFilter.length} курортов',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineMedium
+                      ?.copyWith(color: AppColors.text_black),
+                  textAlign: TextAlign.start,
+                ),
+              ),
+              Expanded(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.95,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: state.resortsMainFilter.length,
+                    itemBuilder: (context, index) {
+                      final resort = state.resortsMainFilter[index];
+                      return ResortCard(resort: resort);
+                    },
+                  ),
+                ),
+              ),
+            ],
+          );
+        } else if (state is MainFilterNotFound) {
+          return Column(
+            children: [
+              Text('По указанным параметрам ничего не найдено',
+                  style: Theme.of(context).textTheme.headlineMedium),
+              ElevatedButton(
+                  onPressed: () {
+                    context.router.push(const Selection());
+                  },
+                  child: const Text('Вернуться к подбору'))
+            ],
+          );
+        }
+
+        return CircularProgressIndicator();
+      }),
     );
   }
 }
