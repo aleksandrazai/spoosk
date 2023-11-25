@@ -222,19 +222,28 @@ class _SelectionState extends State<Selection> {
               const SizedBox(
                 width: 22,
               ),
-              Text(
-                text,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium!
-                    .copyWith(color: AppColors.text_black),
+              Expanded(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: double.infinity),
+                  child: Text(
+                    text,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(color: AppColors.text_black),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
               ),
-              const Spacer(),
-              Transform(
-                alignment: Alignment.center,
-                transform: Matrix4.rotationY(pi),
-                child: SvgPicture.asset(
-                    color: AppColors.blue_light, image_arrow_left),
+              Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: Transform(
+                  alignment: Alignment.center,
+                  transform: Matrix4.rotationY(pi),
+                  child: SvgPicture.asset(
+                      color: AppColors.blue_light, image_arrow_left),
+                ),
               )
             ],
           ),
