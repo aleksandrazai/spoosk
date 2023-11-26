@@ -22,7 +22,7 @@ class CustomCardImage extends StatelessWidget {
               child: Image.network(
                 resort.image,
                 height: 108,
-                width: 240,
+                width: double.infinity,
                 fit: BoxFit.cover,
               ),
             ),
@@ -45,7 +45,7 @@ class CustomCardImage extends StatelessWidget {
           // ),
           Positioned(
             top: 4,
-            left: 185,
+            right: 2,
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
@@ -63,7 +63,7 @@ class CustomCardImage extends StatelessWidget {
           ),
           Positioned(
             top: 4,
-            right: 35,
+            right: 46,
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(

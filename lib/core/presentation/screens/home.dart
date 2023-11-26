@@ -52,8 +52,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   preferredSize: const Size.fromHeight(15),
                   child: Container(
                     padding: const EdgeInsets.only(top: 16),
-                    child: CustomSearchField(
-                      onTap: () {},
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      child: CustomSearchField(),
                     ),
                   ),
                 ),
@@ -72,14 +73,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: SizedBox(
-                    height: 220, //test
-                    width: 256,
+                    height: 212, //test
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: 6,
                       itemBuilder: (context, index) {
                         final resort = state.resortsAll[index];
-                        return ResortCard(resort: resort);
+                        return SizedBox(
+                            width: 285, child: ResortCard(resort: resort));
                       },
                     ),
                   ),

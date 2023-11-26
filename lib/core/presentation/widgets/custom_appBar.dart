@@ -11,10 +11,13 @@ class CustomAppBar extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Positioned(
-          width: MediaQuery.of(context).size.width * 0.9,
+          width: MediaQuery.of(context).size.width - 32,
+          height: 150,
           top: 20,
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(17),
+            clipBehavior: Clip.hardEdge,
+            // TODO надо уточинть какой BorderRadius тут, в макете картинка закруглённая просто
+            borderRadius: BorderRadius.circular(25),
             child: Image.asset(test_png_header, fit: BoxFit.fill, height: 160),
           ),
         ),

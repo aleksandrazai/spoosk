@@ -7,4 +7,6 @@ class ApiConfigurate {
 
   static String getAllResorts = 'api/resorts/';
   static String getResotrsById = 'api/resorts/';
+  static String getAllRegions = 'api/resorts/regions';
+  static String mainFilter = 'api/resorts/main_filter';
 }

@@ -35,7 +35,7 @@ class ResortCard extends StatelessWidget {
                 width: null,
                 height: null,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       resort.name,
@@ -79,10 +79,10 @@ class ResortCard extends StatelessWidget {
               padding: const EdgeInsets.only(top: 8),
               child: SizedBox(
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(12, 4, 4, 4),
+                      padding: const EdgeInsets.fromLTRB(12, 4, 8, 4),
                       child:
                           SvgPicture.asset(image_trail, height: 18, width: 18),
                     ),

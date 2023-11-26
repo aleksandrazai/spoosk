@@ -15,4 +15,7 @@ class AppColors {
   static Color chart_pink = const Color(0xFFFD546A);
   static Color chart_black = const Color(0xFF504949);
   static Color gray = const Color(0xFFE6E6E6);
+  static Color gray_border = const Color.fromRGBO(175, 175, 175, 0.27);
+  static Color blue_light = const Color(0xFF7CB8FF);
+  static Color background = const Color(0xFFf8f8f8);
 }

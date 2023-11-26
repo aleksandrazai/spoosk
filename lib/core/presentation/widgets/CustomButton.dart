@@ -36,7 +36,7 @@ class _CustomButtonState extends State<CustomButton> {
       child: Container(
         margin: widget.margin,
         decoration: widget.boxDecoration?.copyWith(color: widget.color),
-        color: widget.boxDecoration != null ? null : widget.color,
+        // color: widget.boxDecoration != null ? null : widget.color,
         height: widget.height?.toDouble() ?? null,
         width: widget.width?.toDouble() ?? double.infinity,
         child: Center(
