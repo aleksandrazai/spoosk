@@ -26,6 +26,7 @@ class AppRouter extends $AppRouter {
                   RedirectRoute(path: '', redirectTo: 'emptyselection/id:'),
                   AutoRoute(page: Selection.page, path: 'Selection'),
                   AutoRoute(page: ResultRoute.page, path: 'ResultSelection'),
+                  AutoRoute(page: ResortRoute.page, path: 'resortscreen'),
                 ]),
             AutoRoute(page: Comparison.page, path: 'Comparison'),
             AutoRoute(page: Selected.page, path: 'Selected'),
