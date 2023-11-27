@@ -19,8 +19,9 @@ class RequestController {
     try {
       final response =
           await _dio.get(_url + getAllResorts, options: ApiConfigurate.headers);
+      final data = response.data;
       final result =
-          List<Resorts>.from(response.data.map((x) => Resorts.fromJson(x)));
+          List<Resorts>.from(data['results'].map((x) => Resorts.fromJson(x)));
       return result;
     } catch (e) {
       print(e);
