@@ -76,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 220, //test
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: 6,
+                      itemCount: state.resortsAll.length,
                       itemBuilder: (context, index) {
                         final resort = state.resortsAll[index];
                         return SizedBox(

@@ -1,15 +1,54 @@
+import 'dart:convert';
+
+Resorts resortsFromJson(String str) => Resorts.fromJson(json.decode(str));
+
+String resortsToJson(Resorts data) => json.encode(data.toJson());
+
 class Resorts {
-  String name;
-  String region;
-  String image;
-  num trailLength;
-  num heightDifference;
-  num skipass;
-  num trailNumber;
+  int count;
+  String next;
+  String previous;
+  List<Result> results;
 
   Resorts({
+    required this.count,
+    required this.next,
+    required this.previous,
+    required this.results,
+  });
+
+  factory Resorts.fromJson(Map<String, dynamic> json) => Resorts(
+        count: json["count"],
+        next: json["next"],
+        previous: json["previous"],
+        results:
+            List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "count": count,
+        "next": next,
+        "previous": previous,
+        "results": List<dynamic>.from(results.map((x) => x.toJson())),
+      };
+}
+
+class Result {
+  String idResort;
+  String name;
+  String region;
+  String rating;
+  String image;
+  String trailLength;
+  String heightDifference;
+  String skipass;
+  String trailNumber;
+
+  Result({
+    required this.idResort,
     required this.name,
     required this.region,
+    required this.rating,
     required this.image,
     required this.trailLength,
     required this.heightDifference,
@@ -17,23 +56,27 @@ class Resorts {
     required this.trailNumber,
   });
 
-  factory Resorts.fromJson(Map<String, dynamic> json) => Resorts(
-        trailLength: json["trail_length"],
-        trailNumber: json["trail_number"],
-        skipass: json["skipass"],
-        heightDifference: json["height_difference"],
+  factory Result.fromJson(Map<String, dynamic> json) => Result(
+        idResort: json["id_resort"],
         name: json["name"],
         region: json["region"],
+        rating: json["rating"],
         image: json["image"],
+        trailLength: json["trail_length"],
+        heightDifference: json["height_difference"],
+        skipass: json["skipass"],
+        trailNumber: json["trail_number"],
       );
 
   Map<String, dynamic> toJson() => {
-        "trail_length": trailLength,
-        "trail_number": trailNumber,
-        "skipass": skipass,
-        "height_difference": heightDifference,
+        "id_resort": idResort,
         "name": name,
         "region": region,
+        "rating": rating,
         "image": image,
+        "trail_length": trailLength,
+        "height_difference": heightDifference,
+        "skipass": skipass,
+        "trail_number": trailNumber,
       };
 }
