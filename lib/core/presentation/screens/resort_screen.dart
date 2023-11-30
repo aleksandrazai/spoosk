@@ -23,7 +23,7 @@ import 'package:spoosk/core/presentation/widgets/widgets.dart';
 
 @RoutePage()
 class ResortScreen extends StatefulWidget {
-  Resorts? resort;
+  Result? resort;
   ResortScreen({super.key, required this.resort});
 
   @override

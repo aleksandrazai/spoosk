@@ -4,7 +4,7 @@ import 'package:spoosk/core/data/models/resorts.dart';
 import 'package:spoosk/core/presentation/image.dart';
 
 class MapWidget extends StatefulWidget {
-  Resorts? resorts;
+  Result? resorts;
   MapWidget({Key? key, required this.resorts}) : super(key: key);
 
   @override

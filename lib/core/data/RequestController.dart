@@ -15,17 +15,25 @@ class RequestController {
   // final String _url = _TEST_SEVER ? *тестовый сервер* : "https://spoosk.pnpl.tech/";
   final String _url = "https://spoosk.pnpl.tech/";
 
-  Future<List<Resorts>?> getResortsAll({required getAllResorts}) async {
+  Future<List<Result>?> getResortsAll({required getAllResorts}) async {
     try {
       final response =
           await _dio.get(_url + getAllResorts, options: ApiConfigurate.headers);
-      final data = response.data;
-      final result =
-          List<Resorts>.from(data['results'].map((x) => Resorts.fromJson(x)));
+      final result = List<Result>.from(
+        response.data['results'].map((x) {
+          try {
+            final result = Result.fromJson(x);
+            return result;
+          } catch (e) {
+            print('Error mapping result: $e');
+            return null;
+          }
+        }),
+      );
+
       return result;
     } catch (e) {
-      print(e);
-      Exception(e);
+      print('Error in API call: $e');
       return null;
     }
   }

@@ -8,7 +8,7 @@ class CustomCardImage extends StatelessWidget {
     super.key,
     required this.resort,
   });
-  final Resorts resort;
+  final Result resort;
 
   @override
   Widget build(BuildContext context) {

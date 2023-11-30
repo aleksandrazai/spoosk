@@ -6,5 +6,5 @@ class RequestControllerInitial extends RequestControllerState {}
 
 class RequestControllerLoaded extends RequestControllerState {
   RequestControllerLoaded({required this.resortsAll});
-  final List<Resorts> resortsAll;
+  final List<Result> resortsAll;
 }

@@ -37,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocBuilder<RequestControllerBloc, RequestControllerState>(
       builder: (context, state) {
         if (state is RequestControllerLoaded) {
+          print('Type of resortsAll: ${state.resortsAll.isNotEmpty}');
           return CustomScrollView(
             slivers: [
               SliverAppBar(
@@ -79,6 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemCount: state.resortsAll.length,
                       itemBuilder: (context, index) {
                         final resort = state.resortsAll[index];
+
                         return SizedBox(
                             width: 285, child: ResortCard(resort: resort));
                       },

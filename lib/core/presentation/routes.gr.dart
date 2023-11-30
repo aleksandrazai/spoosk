@@ -155,7 +155,7 @@ class Profile extends _i10.PageRouteInfo<void> {
 class ResortRoute extends _i10.PageRouteInfo<ResortRouteArgs> {
   ResortRoute({
     _i11.Key? key,
-    required _i12.Resorts? resort,
+    required _i12.Result? resort,
     List<_i10.PageRouteInfo>? children,
   }) : super(
           ResortRoute.name,
@@ -180,7 +180,7 @@ class ResortRouteArgs {
 
   final _i11.Key? key;
 
-  final _i12.Resorts? resort;
+  final _i12.Result? resort;
 
   @override
   String toString() {

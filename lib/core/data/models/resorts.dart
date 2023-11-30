@@ -37,12 +37,12 @@ class Result {
   String idResort;
   String name;
   String region;
-  String rating;
+  num rating;
   String image;
-  String trailLength;
-  String heightDifference;
-  String skipass;
-  String trailNumber;
+  num trailLength;
+  num heightDifference;
+  num skipass;
+  num trailNumber;
 
   Result({
     required this.idResort,

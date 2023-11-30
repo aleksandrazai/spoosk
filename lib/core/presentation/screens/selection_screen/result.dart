@@ -82,7 +82,8 @@ class ResultScreen extends StatelessWidget {
                     itemCount: state.resortsMainFilter.length,
                     itemBuilder: (context, index) {
                       final resort = state.resortsMainFilter[index];
-                      return ResortCard(resort: resort);
+                      return Card();
+                      //  ResortCard(resort: resort);
                     },
                   ),
                 ),
