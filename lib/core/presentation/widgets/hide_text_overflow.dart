@@ -3,10 +3,10 @@ import 'package:spoosk/core/colors.dart';
 
 class HideTextOverflow extends StatefulWidget {
   const HideTextOverflow({
-    Key? key,
+    super.key,
     required this.fullText,
     required this.maxSymbols,
-  }) : super(key: key);
+  });
 
   final String fullText;
   final int maxSymbols;
@@ -23,24 +23,29 @@ class _HideTextOverflowState extends State<HideTextOverflow> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          isExpanded
-              ? widget.fullText
-              : widget.fullText.substring(0, widget.maxSymbols),
-          maxLines: isExpanded ? null : widget.maxSymbols,
-          overflow: isExpanded ? TextOverflow.visible : TextOverflow.ellipsis,
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
+        widget.fullText.isNotEmpty
+            ? Text(
+                isExpanded
+                    ? widget.fullText
+                    : widget.fullText.substring(0, widget.maxSymbols),
+                maxLines: isExpanded ? null : widget.maxSymbols,
+                overflow:
+                    isExpanded ? TextOverflow.visible : TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodyMedium,
+              )
+            : const Text(''),
         GestureDetector(
           onTap: () {
             setState(() {
               isExpanded = !isExpanded;
             });
           },
-          child: Text(
-            isExpanded ? "Свернуть" : "Показать полностью",
-            style: TextStyle(color: AppColors.primaryColor),
-          ),
+          child: widget.fullText.isNotEmpty
+              ? Text(
+                  isExpanded ? "Свернуть" : "Показать полностью",
+                  style: TextStyle(color: AppColors.primaryColor),
+                )
+              : null,
         ),
       ],
     );

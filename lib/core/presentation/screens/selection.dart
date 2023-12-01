@@ -95,7 +95,7 @@ class _SelectionState extends State<Selection> {
                         CustomBottomSheet.customShowModalBottomSheet(
                             height: MediaQuery.sizeOf(context).height,
                             context: context,
-                            children: [SelectionScreenBottomSheetFilter()]);
+                            children: [const SelectionScreenBottomSheetFilter()]);
                       },
                       child: Text(
                           style: Theme.of(context)

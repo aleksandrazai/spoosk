@@ -40,7 +40,7 @@ class ReviewCard extends StatelessWidget {
                     child: Image.asset(image_avatar_placeholder),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

@@ -12,7 +12,7 @@ import 'package:spoosk/core/presentation/widgets/CustomButtonWithContent.dart';
 import 'package:spoosk/core/presentation/widgets/CustomCircle.dart';
 
 class SelectionScreenBottomSheetFilter extends StatefulWidget {
-  SelectionScreenBottomSheetFilter({Key? key}) : super(key: key);
+  const SelectionScreenBottomSheetFilter({super.key});
 
   @override
   _SelectionScreenBottomSheetFilterState createState() =>

@@ -5,8 +5,7 @@ class CustomCircle extends StatelessWidget {
   double? width;
   double? height;
 
-  CustomCircle({Key? key, required this.color, this.height, this.width})
-      : super(key: key);
+  CustomCircle({super.key, required this.color, this.height, this.width});
 
   @override
   Widget build(BuildContext context) {

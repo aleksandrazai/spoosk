@@ -3,7 +3,7 @@ import 'package:auto_route/auto_route.dart';
 
 @RoutePage()
 class Selected extends StatefulWidget {
-  const Selected({Key? key}) : super(key: key);
+  const Selected({super.key});
 
   @override
   _SelectedState createState() => _SelectedState();

@@ -4,7 +4,7 @@ import 'package:spoosk/core/data/models/chart.dart';
 
 class ChartWidget extends StatefulWidget {
   Chart chartData;
-  ChartWidget({Key? key, required this.chartData}) : super(key: key);
+  ChartWidget({super.key, required this.chartData});
 
   @override
   _ChartWidgetState createState() => _ChartWidgetState();

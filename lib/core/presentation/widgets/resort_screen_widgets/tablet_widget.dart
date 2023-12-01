@@ -5,7 +5,7 @@ import 'package:spoosk/core/data/models/skipass_type.dart';
 import '../../../colors.dart';
 
 class TabletWidget extends StatelessWidget {
-  const TabletWidget({Key? key, required this.skipasses}) : super(key: key);
+  const TabletWidget({super.key, required this.skipasses});
   final List<Skipass>? skipasses;
 
   @override
@@ -23,7 +23,7 @@ class TabletWidget extends StatelessWidget {
           width: 0.1,
           borderRadius: BorderRadius.circular(12),
         ),
-        headingRowColor: MaterialStatePropertyAll(Color(0xFFBDE3FF)),
+        headingRowColor: const MaterialStatePropertyAll(Color(0xFFBDE3FF)),
         columns: [
           DataColumn(
             label: Center(
@@ -61,10 +61,9 @@ class TabletWidget extends StatelessWidget {
                   )),
                   DataCell(Center(
                     child: Text(
-                        skipass.price.toString().replaceAllMapped(
+                        '${skipass.price.toString().replaceAllMapped(
                                 RegExp(r'(?<=\d)(?=(\d{3})+(?!\d))'),
-                                (match) => ' ') +
-                            ' р',
+                                (match) => ' ')} р',
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             color: AppColors.text_black,
                             fontWeight: FontWeight.w700)),

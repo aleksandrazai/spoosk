@@ -10,7 +10,7 @@ import 'package:spoosk/core/data/RequestController.dart';
 
 @RoutePage()
 class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   preferredSize: const Size.fromHeight(15),
                   child: Container(
                     padding: const EdgeInsets.only(top: 16),
-                    child: Padding(
+                    child: const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.0),
                       child: CustomSearchField(),
                     ),

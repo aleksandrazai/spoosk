@@ -11,7 +11,7 @@ import 'package:spoosk/core/presentation/routes.gr.dart';
 
 @RoutePage()
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  const MainScreen({super.key});
 
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -41,19 +41,19 @@ class _MainScreenState extends State<MainScreen> {
                 onTap: (int index) {
                   if (index == 0) {
                     // Navigate to the Home page.
-                    AutoRouter.of(context).navigate(Home());
+                    AutoRouter.of(context).navigate(const Home());
                   } else if (index == 1) {
                     // Navigate to the Selection page.
-                    AutoRouter.of(context).navigate(Selection());
+                    AutoRouter.of(context).navigate(const Selection());
                   } else if (index == 2) {
                     // Navigate to the Comparison page.
-                    AutoRouter.of(context).navigate(Comparison());
+                    AutoRouter.of(context).navigate(const Comparison());
                   } else if (index == 3) {
                     // Navigate to the Selected page.
-                    AutoRouter.of(context).navigate(Selected());
+                    AutoRouter.of(context).navigate(const Selected());
                   } else if (index == 4) {
                     // Navigate to the Profile page.
-                    AutoRouter.of(context).navigate(Profile());
+                    AutoRouter.of(context).navigate(const Profile());
                   }
                 },
                 items: [

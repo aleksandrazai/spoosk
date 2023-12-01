@@ -5,7 +5,7 @@ import 'package:spoosk/core/presentation/image.dart';
 
 class MapWidget extends StatefulWidget {
   Result? resorts;
-  MapWidget({Key? key, required this.resorts}) : super(key: key);
+  MapWidget({super.key, required this.resorts});
 
   @override
   _MapWidgetState createState() => _MapWidgetState();
@@ -18,7 +18,7 @@ class _MapWidgetState extends State<MapWidget> {
       Container(
         margin: const EdgeInsets.only(bottom: 8),
         child: Container(
-          margin: EdgeInsets.only(top: 20),
+          margin: const EdgeInsets.only(top: 20),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [

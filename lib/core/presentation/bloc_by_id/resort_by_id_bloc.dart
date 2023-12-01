@@ -26,7 +26,7 @@ class ResortByIdBloc extends Bloc<ResortByIdEvent, ResortByIdState> {
           }
         }
       } catch (e) {
-        print("ResortByIdBloc: ${e}");
+        print("ResortByIdBloc: $e");
       }
     });
   }

@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 class ResortById {
@@ -16,6 +15,8 @@ class ResortById {
   num travelatorsSkilift;
   num bugelnySkilift;
   List<Skipass> skipasses;
+  num rating;
+  List<ImageCard> images;
   String name;
   String region;
   String beginSeason;
@@ -33,6 +34,7 @@ class ResortById {
   String image;
   String listMonth;
   String linkOfsite;
+  String linkSkipasses;
   String mainResortImg;
   num maxHeight;
 
@@ -51,6 +53,8 @@ class ResortById {
     required this.travelatorsSkilift,
     required this.bugelnySkilift,
     required this.skipasses,
+    required this.rating,
+    required this.images,
     required this.name,
     required this.region,
     required this.beginSeason,
@@ -68,16 +72,17 @@ class ResortById {
     required this.image,
     required this.listMonth,
     required this.linkOfsite,
+    required this.linkSkipasses,
     required this.mainResortImg,
     required this.maxHeight,
   });
 
-  factory ResortById.fromJson(Map<String, dynamic> json) =>
-      ResortById.fromMap(json);
+  factory ResortById.fromRawJson(String str) =>
+      ResortById.fromJson(json.decode(str));
 
-  String toJson() => json.encode(toMap());
+  String toRawJson() => json.encode(toJson());
 
-  factory ResortById.fromMap(Map<String, dynamic> json) => ResortById(
+  factory ResortById.fromJson(Map<String, dynamic> json) => ResortById(
         idResort: json["id_resort"],
         trailLength: json["trail_length"],
         trailNumber: json["trail_number"],
@@ -92,7 +97,10 @@ class ResortById {
         travelatorsSkilift: json["travelators_skilift"],
         bugelnySkilift: json["bugelny_skilift"],
         skipasses: List<Skipass>.from(
-            json["skipasses"].map((x) => Skipass.fromMap(x))),
+            json["skipasses"].map((x) => Skipass.fromJson(x))),
+        rating: json["rating"],
+        images: List<ImageCard>.from(
+            json["images"].map((x) => ImageCard.fromJson(x))),
         name: json["name"],
         region: json["region"],
         beginSeason: json["begin_season"],
@@ -110,11 +118,12 @@ class ResortById {
         image: json["image"],
         listMonth: json["list_month"],
         linkOfsite: json["link_ofsite"],
+        linkSkipasses: json["link_skipasses"],
         mainResortImg: json["main_resort_img"],
         maxHeight: json["max_height"],
       );
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toJson() => {
         "id_resort": idResort,
         "trail_length": trailLength,
         "trail_number": trailNumber,
@@ -128,7 +137,9 @@ class ResortById {
         "armchair_skilift": armchairSkilift,
         "travelators_skilift": travelatorsSkilift,
         "bugelny_skilift": bugelnySkilift,
-        "skipasses": List<dynamic>.from(skipasses.map((x) => x.toMap())),
+        "skipasses": List<dynamic>.from(skipasses.map((x) => x.toJson())),
+        "rating": rating,
+        "images": List<dynamic>.from(images.map((x) => x.toJson())),
         "name": name,
         "region": region,
         "begin_season": beginSeason,
@@ -146,8 +157,34 @@ class ResortById {
         "image": image,
         "list_month": listMonth,
         "link_ofsite": linkOfsite,
+        "link_skipasses": linkSkipasses,
         "main_resort_img": mainResortImg,
         "max_height": maxHeight,
+      };
+}
+
+class ImageCard {
+  String title;
+  String image;
+
+  ImageCard({
+    required this.title,
+    required this.image,
+  });
+
+  factory ImageCard.fromRawJson(String str) =>
+      ImageCard.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory ImageCard.fromJson(Map<String, dynamic> json) => ImageCard(
+        title: json["title"],
+        image: json["image"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "title": title,
+        "image": image,
       };
 }
 
@@ -160,16 +197,16 @@ class Skipass {
     required this.price,
   });
 
-  factory Skipass.fromJson(String str) => Skipass.fromMap(json.decode(str));
+  factory Skipass.fromRawJson(String str) => Skipass.fromJson(json.decode(str));
 
-  String toJson() => json.encode(toMap());
+  String toRawJson() => json.encode(toJson());
 
-  factory Skipass.fromMap(Map<String, dynamic> json) => Skipass(
+  factory Skipass.fromJson(Map<String, dynamic> json) => Skipass(
         mobType: json["mob_type"],
         price: json["price"],
       );
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toJson() => {
         "mob_type": mobType,
         "price": price,
       };

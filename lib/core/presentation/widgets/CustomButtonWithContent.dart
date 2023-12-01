@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:spoosk/core/colors.dart';
 
 class CustomButtonFilter extends StatefulWidget {
@@ -12,7 +11,7 @@ class CustomButtonFilter extends StatefulWidget {
   VoidCallback onPress;
 
   CustomButtonFilter({
-    Key? key,
+    super.key,
     required this.text,
     required this.onPress,
     this.icon,
@@ -20,7 +19,7 @@ class CustomButtonFilter extends StatefulWidget {
     this.spasing,
     // this.id,
     this.currentSelected = false,
-  }) : super(key: key);
+  });
 
   @override
   _CustomButtonFilterState createState() => _CustomButtonFilterState();

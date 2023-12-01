@@ -22,7 +22,7 @@ class CardsHeaderPopularALL extends StatelessWidget {
           ),
           Text(
             all, //добавить переход на все курорты
-            style: TextStyle(
+            style: const TextStyle(
               color: Color(0xFF005FF9),
               fontSize: 14,
               fontFamily: 'Nunito Sans',

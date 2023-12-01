@@ -3,7 +3,7 @@ import 'package:auto_route/auto_route.dart';
 
 @RoutePage()
 class Comparison extends StatefulWidget {
-  const Comparison({Key? key}) : super(key: key);
+  const Comparison({super.key});
 
   @override
   _ComparisonState createState() => _ComparisonState();

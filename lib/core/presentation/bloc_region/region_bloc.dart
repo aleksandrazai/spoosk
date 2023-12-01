@@ -22,7 +22,7 @@ class RegionBloc extends Bloc<RegionEvent, RegionState> {
           }
         }
       } catch (e) {
-        print("RegionsALL: ${e}");
+        print("RegionsALL: $e");
       }
     });
   }

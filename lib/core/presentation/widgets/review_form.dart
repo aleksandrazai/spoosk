@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spoosk/core/data/models/ResortById.dart';
-import 'package:spoosk/core/presentation/bloc_by_id/resort_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
-import 'package:spoosk/core/presentation/widgets/review_button.dart';
 import 'package:spoosk/core/presentation/widgets/widgets.dart';
 
 class ReviewForm extends StatefulWidget {
@@ -26,7 +24,7 @@ class _ReviewFormState extends State<ReviewForm> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          ModalHandle(),
+          const ModalHandle(),
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Row(
@@ -46,7 +44,7 @@ class _ReviewFormState extends State<ReviewForm> {
                       height: 60,
                       width: 60,
                       fit: BoxFit.fill,
-                      widget.resort!.image),
+                      widget.resort!.mainResortImg),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 16),
@@ -118,7 +116,7 @@ class _ReviewFormState extends State<ReviewForm> {
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            child: Text('Закрыть'))
+                            child: const Text('Закрыть'))
                       ],
                     );
                   }),
@@ -153,7 +151,7 @@ class _ReviewTextFormState extends State<ReviewTextForm> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
-        color: Color(0xFFF6F6F6),
+        color: const Color(0xFFF6F6F6),
       ),
       child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.8,

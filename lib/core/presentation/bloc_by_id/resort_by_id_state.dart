@@ -10,6 +10,7 @@ class ResortByIdState {
 class ResortByIdInitial extends ResortByIdState {}
 
 class StateGetResortById extends ResortByIdState {
+  @override
   ResortById? resortById;
   StateGetResortById({required this.resortById});
 }

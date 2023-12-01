@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 // Просто линия серого цвета
 class Separator extends StatefulWidget {
-  const Separator({Key? key}) : super(key: key);
+  const Separator({super.key});
 
   @override
   _SeparatorState createState() => _SeparatorState();

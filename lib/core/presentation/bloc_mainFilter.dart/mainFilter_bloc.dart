@@ -26,7 +26,7 @@ class MainFilterBloc extends Bloc<MainFilterEvent, MainFilterState> {
           }
         }
       } catch (e) {
-        print("Resorts: ${e}");
+        print("Resorts: $e");
       }
     });
   }

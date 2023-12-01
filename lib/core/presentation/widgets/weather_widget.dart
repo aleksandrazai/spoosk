@@ -4,7 +4,7 @@ import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/presentation/image.dart';
 
 class WeatherWidget extends StatefulWidget {
-  const WeatherWidget({Key? key}) : super(key: key);
+  const WeatherWidget({super.key});
 
   @override
   _WeatherWidgetState createState() => _WeatherWidgetState();
