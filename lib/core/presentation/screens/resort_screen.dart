@@ -19,6 +19,7 @@ import 'package:spoosk/core/presentation/widgets/resort_screen_widgets/tablet_wi
 import 'package:spoosk/core/presentation/widgets/separator.dart';
 import 'package:spoosk/core/presentation/widgets/weather_widget.dart';
 import 'package:spoosk/core/presentation/widgets/widgets.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 @RoutePage()
 class ResortScreen extends StatefulWidget {
@@ -530,14 +531,20 @@ class _ResortScreenState extends State<ResortScreen>
                                         ),
                                       ),
                                     ),
-                                    Text(
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium!
-                                            .copyWith(
-                                                color: AppColors
-                                                    .icons_active_blue),
-                                        "Смотреть все тарифы"),
+                                    TextButton(
+                                      onPressed: () {
+                                        launchUrl(state
+                                            .resortById!.linkSkipasses as Uri);
+                                      },
+                                      child: Text(
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium!
+                                              .copyWith(
+                                                  color: AppColors
+                                                      .icons_active_blue),
+                                          "Смотреть все тарифы"),
+                                    ),
                                     const Spacer(),
                                   ],
                                 ),
@@ -579,20 +586,26 @@ class _ResortScreenState extends State<ResortScreen>
                                           "Дополнительные характеристики")),
                                   AdditionalList(resortById: state.resortById),
                                   Container(
-                                    margin: const EdgeInsets.only(top: 20),
-                                    child: Text(
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium!
-                                            .copyWith(
-                                                color: AppColors
-                                                    .icons_active_blue),
-                                        "Официальный сайт"),
+                                    margin: const EdgeInsets.only(top: 10),
+                                    child: TextButton(
+                                      onPressed: () {
+                                        launchUrl(state.resortById!.linkOfsite
+                                            as Uri);
+                                      },
+                                      child: Text(
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium!
+                                              .copyWith(
+                                                  color: AppColors
+                                                      .icons_active_blue),
+                                          "Официальный сайт"),
+                                    ),
                                   ),
                                 ],
                               ),
                               Container(
-                                  margin: const EdgeInsets.only(top: 20),
+                                  margin: const EdgeInsets.only(top: 10),
                                   child: const Separator()),
                               Container(
                                 margin: const EdgeInsets.only(top: 20),
