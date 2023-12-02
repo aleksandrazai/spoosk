@@ -4,12 +4,16 @@ import 'package:spoosk/core/data/models/skipass_type.dart';
 
 import '../../../colors.dart';
 
-class TabletWidget extends StatelessWidget {
-  const TabletWidget({super.key, required this.skipasses});
+class SkipassTable extends StatelessWidget {
+  const SkipassTable({super.key, required this.skipasses});
   final List<Skipass>? skipasses;
 
   @override
   Widget build(BuildContext context) {
+    List<Skipass> filteredSkipasses =
+        (skipasses ?? []).where((skipass) => skipass.price != '0.00').toList();
+    filteredSkipasses
+        .sort((a, b) => double.parse(a.price).compareTo(double.parse(b.price)));
     return Container(
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
@@ -48,26 +52,33 @@ class TabletWidget extends StatelessWidget {
             ),
           ),
         ],
-        rows: (skipasses ?? [])
+        rows: filteredSkipasses
             .map(
               (skipass) => DataRow(
                 cells: [
-                  DataCell(Center(
-                    child: Text(
+                  DataCell(
+                    Center(
+                      child: Text(
                         SkipassType.type[skipass.mobType] ?? skipass.mobType,
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            color: AppColors.text_black,
-                            fontWeight: FontWeight.w700)),
-                  )),
-                  DataCell(Center(
-                    child: Text(
-                        '${skipass.price.toString().replaceAllMapped(
-                                RegExp(r'(?<=\d)(?=(\d{3})+(?!\d))'),
-                                (match) => ' ')} р',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            color: AppColors.text_black,
-                            fontWeight: FontWeight.w700)),
-                  )),
+                              color: AppColors.text_black,
+                              fontFamily: 'Raleway',
+                            ),
+                      ),
+                    ),
+                  ),
+                  DataCell(
+                    Center(
+                      child: Text(
+                          '${skipass.price.toString().replaceAllMapped(RegExp(r'(?<=\d)(?=(\d{3})+(?!\d))'), (match) => ' ')} р',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(
+                                  color: AppColors.text_black,
+                                  fontFamily: 'Raleway')),
+                    ),
+                  ),
                 ],
               ),
             )

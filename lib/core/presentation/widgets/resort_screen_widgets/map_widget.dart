@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:spoosk/core/data/models/resorts.dart';
+import 'package:spoosk/core/data/models/ResortById.dart';
+
 import 'package:spoosk/core/presentation/image.dart';
 
 class MapWidget extends StatefulWidget {
-  Result? resorts;
+  ResortById? resorts;
   MapWidget({super.key, required this.resorts});
 
   @override

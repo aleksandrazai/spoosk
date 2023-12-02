@@ -51,9 +51,9 @@ class _ReviewFormState extends State<ReviewForm> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Роза Хутор',
+                      Text(widget.resort!.name,
                           style: Theme.of(context).textTheme.headlineMedium),
-                      Text('Краснодарский край',
+                      Text(widget.resort!.region,
                           style: Theme.of(context).textTheme.bodyMedium),
                     ],
                   ),
