@@ -20,8 +20,10 @@ class SkipassTable extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(width: 0.1),
       ),
-      width: MediaQuery.sizeOf(context).width * 0.9,
+      width: MediaQuery.sizeOf(context).width,
       child: DataTable(
+        headingRowHeight: 36,
+        dataRowHeight: 36,
         border: TableBorder.all(
           style: BorderStyle.none,
           width: 0.1,
