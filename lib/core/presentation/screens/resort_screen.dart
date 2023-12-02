@@ -506,41 +506,31 @@ class _ResortScreenState extends State<ResortScreen>
                                       ),
                                     ]),
                               ),
-                              const Separator(),
-                              SizedBox(
-                                height: 420,
-                                width: MediaQuery.of(context).size.width,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                        margin: const EdgeInsets.only(top: 20),
-                                        child: Text(
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headlineMedium,
-                                            "Ски-пасс")),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          0, 16, 0, 20),
-                                      child: Center(
-                                        child: SkipassTable(
-                                          skipasses:
-                                              state.resortById?.skipasses,
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium!
-                                            .copyWith(
-                                                color: AppColors
-                                                    .icons_active_blue),
-                                        "Смотреть все тарифы"),
-                                    const Spacer(),
-                                  ],
-                                ),
+                              Container(
+                                  margin: const EdgeInsets.only(top: 20),
+                                  child: const Separator()),
+                              Container(
+                                  margin: const EdgeInsets.only(top: 20),
+                                  child: Text(
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineMedium,
+                                      "Ски-пасс")),
+                              const SizedBox(
+                                height: 18,
+                              ),
+                              SkipassTable(
+                                skipasses: state.resortById?.skipasses,
+                              ),
+                              Container(
+                                margin: const EdgeInsets.only(top: 20),
+                                child: Text(
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(
+                                            color: AppColors.icons_active_blue),
+                                    "Смотреть все тарифы"),
                               ),
                               Container(
                                   margin: const EdgeInsets.only(top: 10),
