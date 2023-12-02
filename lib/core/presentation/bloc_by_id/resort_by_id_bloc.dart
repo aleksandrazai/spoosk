@@ -11,8 +11,6 @@ part 'resort_by_id_state.dart';
 class ResortByIdBloc extends Bloc<ResortByIdEvent, ResortByIdState> {
   ResortByIdBloc() : super(ResortByIdInitial()) {
     RequestController requestController = RequestController();
-
-    on<ResortByIdEvent>((event, emit) {});
     on<EventLoadByIdResort>((event, emit) async {
       try {
         final connectivityResult = await (Connectivity().checkConnectivity());
@@ -21,8 +19,9 @@ class ResortByIdBloc extends Bloc<ResortByIdEvent, ResortByIdState> {
           final ResortById? resort = await requestController.getResortsById(
               id: event.idResort,
               getResotrsById: ApiConfigurate.getResotrsById);
+
           if (resort != null) {
-            emit(StateGetResortById(resortById: resort));
+            emit(ResortByIdLoaded(resortById: resort));
           }
         }
       } catch (e) {

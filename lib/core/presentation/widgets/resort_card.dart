@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:spoosk/core/data/models/resorts.dart';
+import 'package:spoosk/core/presentation/bloc_by_id/resort_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/widgets/star_icon.dart';
@@ -18,7 +20,12 @@ class ResortCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.router.push(ResortRoute(resort: resort));
+        print('Card tapped');
+        context
+            .read<ResortByIdBloc>()
+            .add(EventLoadByIdResort(idResort: resort.idResort));
+        print('id resort: ${resort.idResort}');
+        context.router.push(ResortRoute(idResort: resort.idResort));
       },
       child: Card(
         color: Colors.white,

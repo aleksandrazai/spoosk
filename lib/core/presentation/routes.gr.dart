@@ -10,7 +10,6 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i10;
 import 'package:flutter/material.dart' as _i11;
-import 'package:spoosk/core/data/models/resorts.dart' as _i12;
 import 'package:spoosk/core/presentation/routes.dart' as _i6;
 import 'package:spoosk/core/presentation/screens/comparison.dart' as _i1;
 import 'package:spoosk/core/presentation/screens/home.dart' as _i2;
@@ -57,7 +56,7 @@ abstract class $AppRouter extends _i10.RootStackRouter {
         routeData: routeData,
         child: _i5.ResortScreen(
           key: args.key,
-          resort: args.resort,
+          idResort: args.idResort,
         ),
       );
     },
@@ -155,13 +154,13 @@ class Profile extends _i10.PageRouteInfo<void> {
 class ResortRoute extends _i10.PageRouteInfo<ResortRouteArgs> {
   ResortRoute({
     _i11.Key? key,
-    required _i12.Result? resort,
+    required String idResort,
     List<_i10.PageRouteInfo>? children,
   }) : super(
           ResortRoute.name,
           args: ResortRouteArgs(
             key: key,
-            resort: resort,
+            idResort: idResort,
           ),
           initialChildren: children,
         );
@@ -175,16 +174,16 @@ class ResortRoute extends _i10.PageRouteInfo<ResortRouteArgs> {
 class ResortRouteArgs {
   const ResortRouteArgs({
     this.key,
-    required this.resort,
+    required this.idResort,
   });
 
   final _i11.Key? key;
 
-  final _i12.Result? resort;
+  final String idResort;
 
   @override
   String toString() {
-    return 'ResortRouteArgs{key: $key, resort: $resort}';
+    return 'ResortRouteArgs{key: $key, idResort: $idResort}';
   }
 }
 

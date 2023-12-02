@@ -19,6 +19,7 @@ class RequestController {
     try {
       final response =
           await _dio.get(_url + getAllResorts, options: ApiConfigurate.headers);
+
       final result = List<Result>.from(
         response.data['results'].map((x) {
           try {
@@ -47,11 +48,11 @@ class RequestController {
     try {
       final response = await _dio.get(_url + getResotrsById + id,
           options: ApiConfigurate.headers);
-
       final result = ResortById.fromJson(response.data);
+      print('ResortByID: ${response.data}');
       return result;
     } catch (e) {
-      print(e);
+      print('Error in API call: $e');
       return null;
     }
   }

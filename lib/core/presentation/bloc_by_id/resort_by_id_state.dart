@@ -9,8 +9,8 @@ class ResortByIdState {
 
 class ResortByIdInitial extends ResortByIdState {}
 
-class StateGetResortById extends ResortByIdState {
+class ResortByIdLoaded extends ResortByIdState {
   @override
   ResortById? resortById;
-  StateGetResortById({required this.resortById});
+  ResortByIdLoaded({required this.resortById});
 }
