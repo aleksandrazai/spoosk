@@ -37,6 +37,15 @@ class _CustomGalleryState extends State<CustomGallery> {
               carouselController: carouselController,
               items: [
                 ...widget.listUrl.map((e) => Image.network(
+                      loadingBuilder: (context, child, loadingProgress) {
+                        return loadingProgress == null
+                            ? child
+                            : Center(
+                                child: CircularProgressIndicator(
+                                  color: AppColors.primaryColor,
+                                ),
+                              );
+                      },
                       width: MediaQuery.of(context).size.width,
                       e,
                       fit: BoxFit.fill,

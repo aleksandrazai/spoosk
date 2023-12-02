@@ -7,3 +7,8 @@ class EventLoadByIdResort extends ResortByIdEvent {
   String? idResort;
   EventLoadByIdResort({required this.idResort});
 }
+
+class EventClearByIdResort extends ResortByIdEvent {
+  String? idResort;
+  EventClearByIdResort({required this.idResort});
+}

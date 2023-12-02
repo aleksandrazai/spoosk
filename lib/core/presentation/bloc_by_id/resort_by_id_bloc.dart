@@ -11,6 +11,11 @@ part 'resort_by_id_state.dart';
 class ResortByIdBloc extends Bloc<ResortByIdEvent, ResortByIdState> {
   ResortByIdBloc() : super(ResortByIdInitial()) {
     RequestController requestController = RequestController();
+
+    on<EventClearByIdResort>((event, emit) {
+      emit(ResortByIdLoaded(resortById: null));
+    });
+
     on<EventLoadByIdResort>((event, emit) async {
       try {
         final connectivityResult = await (Connectivity().checkConnectivity());

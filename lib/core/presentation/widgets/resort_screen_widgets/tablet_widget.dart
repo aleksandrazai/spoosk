@@ -33,12 +33,14 @@ class SkipassTable extends StatelessWidget {
         columns: [
           DataColumn(
             label: Center(
-              child: Text(
-                'Тип скипасса',
-                style: Theme.of(context)
-                    .textTheme
-                    .labelMedium!
-                    .copyWith(color: AppColors.text_black, fontSize: 16),
+              child: Center(
+                child: Text(
+                  'Тип скипасса',
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelMedium!
+                      .copyWith(color: AppColors.text_black, fontSize: 16),
+                ),
               ),
             ),
           ),

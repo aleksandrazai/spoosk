@@ -45,11 +45,10 @@ class _ResortScreenState extends State<ResortScreen>
 
   @override
   Widget build(BuildContext context) {
-    print(resortByIdBloc.state.resortById?.images);
     return BlocBuilder<ResortByIdBloc, ResortByIdState>(
       builder: (context, state) {
         print(state.resortById?.image);
-        if (state is ResortByIdLoaded) {
+        if (state is ResortByIdLoaded && state.resortById != null) {
           return Scaffold(
               backgroundColor: const Color(0xFFf8f8f8),
               appBar: AppBar(
@@ -105,6 +104,9 @@ class _ResortScreenState extends State<ResortScreen>
                 ],
                 leading: GestureDetector(
                     onTap: () {
+                      context
+                          .read<ResortByIdBloc>()
+                          .add(EventClearByIdResort(idResort: null));
                       Feedback.forTap(context);
                       context.router.pop();
                     },
@@ -675,7 +677,12 @@ class _ResortScreenState extends State<ResortScreen>
                     ),
                   )));
         }
-        return CircularProgressIndicator();
+        return Center(
+            heightFactor: 20,
+            widthFactor: 20,
+            child: CircularProgressIndicator(
+              color: AppColors.primaryColor,
+            ));
       },
     );
   }
