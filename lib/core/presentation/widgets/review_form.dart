@@ -28,7 +28,12 @@ class _ReviewFormState extends State<ReviewForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.white,
+      decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          )),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
@@ -122,7 +127,7 @@ class _ReviewFormState extends State<ReviewForm> {
                     decoration: const BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(5))),
                     child: Image.file(
-                        fit: BoxFit.fill, width: 56, height: 56, File(e.path)),
+                        fit: BoxFit.cover, width: 56, height: 56, File(e.path)),
                   );
                 }),
                 Container(
