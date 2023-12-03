@@ -9,13 +9,15 @@ part 'mainFilter_state.dart';
 class MainFilterBloc extends Bloc<MainFilterEvent, MainFilterState> {
   MainFilterBloc() : super(MainFilterInitial()) {
     RequestController requestController = RequestController();
+    int currentPage = 1;
+    bool hasMorePages = true;
 
     on<MainFilterRequest>((event, emit) async {
       try {
         final connectivityResult = await (Connectivity().checkConnectivity());
         if (connectivityResult == ConnectivityResult.wifi ||
             connectivityResult == ConnectivityResult.mobile) {
-          final List<Resorts>? resorts = await requestController.getMainFilter(
+          final List<Result>? resorts = await requestController.getMainFilter(
               resort_region: event.resort_region,
               resort_month: event.resort_month,
               resort_level: event.resort_level);
