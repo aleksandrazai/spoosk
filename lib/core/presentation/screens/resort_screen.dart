@@ -549,16 +549,21 @@ class _ResortScreenState extends State<ResortScreen>
                                     skipasses: state.resortById?.skipasses,
                                   ),
                                   Container(
-                                    margin: const EdgeInsets.only(top: 20),
-                                    child: Text(
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium!
-                                            .copyWith(
-                                                color: AppColors
-                                                    .icons_active_blue),
-                                        "Смотреть все тарифы"),
-                                  ),
+                                      margin: const EdgeInsets.only(top: 20),
+                                      child: TextButton(
+                                        onPressed: () {
+                                          _launchInAppBrowserView(Uri.parse(
+                                              state.resortById!.linkSkipasses));
+                                        },
+                                        child: Text(
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium!
+                                                .copyWith(
+                                                    color: AppColors
+                                                        .icons_active_blue),
+                                            "Смотреть все тарифы"),
+                                      )),
                                   Container(
                                       margin: const EdgeInsets.only(top: 10),
                                       child: const Separator()),
@@ -603,8 +608,8 @@ class _ResortScreenState extends State<ResortScreen>
                                         margin: const EdgeInsets.only(top: 10),
                                         child: TextButton(
                                           onPressed: () {
-                                            launchUrl(state
-                                                .resortById!.linkOfsite as Uri);
+                                            _launchInAppBrowserView(Uri.parse(
+                                                state.resortById!.linkOfsite));
                                           },
                                           child: Text(
                                               style: Theme.of(context)
@@ -739,5 +744,11 @@ class _ResortScreenState extends State<ResortScreen>
             resort: state.resortById,
           );
         });
+  }
+
+  Future<void> _launchInAppBrowserView(Uri url) async {
+    if (!await launchUrl(url, mode: LaunchMode.inAppBrowserView)) {
+      throw Exception('Could not launch $url');
+    }
   }
 }
