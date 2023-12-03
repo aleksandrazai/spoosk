@@ -8,7 +8,6 @@ import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/data/models/chart.dart';
 import 'package:spoosk/core/presentation/bloc_by_id/resort_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
-import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/theme/theme.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
 import 'package:spoosk/core/presentation/widgets/hide_text_overflow.dart';
@@ -56,7 +55,8 @@ class _ResortScreenState extends State<ResortScreen>
                 context
                     .read<ResortByIdBloc>()
                     .add(EventClearByIdResort(idResort: null));
-                AutoRouter.of(context).navigate(const Home());
+
+                Navigator.pop(context);
               },
               child: Scaffold(
                   backgroundColor: const Color(0xFFf8f8f8),
@@ -549,21 +549,16 @@ class _ResortScreenState extends State<ResortScreen>
                                     skipasses: state.resortById?.skipasses,
                                   ),
                                   Container(
-                                      margin: const EdgeInsets.only(top: 20),
-                                      child: TextButton(
-                                        onPressed: () {
-                                          _launchInAppBrowserView(Uri.parse(
-                                              state.resortById!.linkSkipasses));
-                                        },
-                                        child: Text(
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium!
-                                                .copyWith(
-                                                    color: AppColors
-                                                        .icons_active_blue),
-                                            "Смотреть все тарифы"),
-                                      )),
+                                    margin: const EdgeInsets.only(top: 20),
+                                    child: Text(
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(
+                                                color: AppColors
+                                                    .icons_active_blue),
+                                        "Смотреть все тарифы"),
+                                  ),
                                   Container(
                                       margin: const EdgeInsets.only(top: 10),
                                       child: const Separator()),
@@ -608,8 +603,8 @@ class _ResortScreenState extends State<ResortScreen>
                                         margin: const EdgeInsets.only(top: 10),
                                         child: TextButton(
                                           onPressed: () {
-                                            _launchInAppBrowserView(Uri.parse(
-                                                state.resortById!.linkOfsite));
+                                            launchUrl(state
+                                                .resortById!.linkOfsite as Uri);
                                           },
                                           child: Text(
                                               style: Theme.of(context)
@@ -744,11 +739,5 @@ class _ResortScreenState extends State<ResortScreen>
             resort: state.resortById,
           );
         });
-  }
-
-  Future<void> _launchInAppBrowserView(Uri url) async {
-    if (!await launchUrl(url, mode: LaunchMode.inAppBrowserView)) {
-      throw Exception('Could not launch $url');
-    }
   }
 }

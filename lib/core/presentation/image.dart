@@ -36,3 +36,4 @@ const String image_selection_header_bg = 'assets/img/selection_header_bg.png';
 const String image_snowborder = 'assets/img/snowborder.svg';
 const String image_location_blue = 'assets/img/location_blue.svg';
 const String image_clear = 'assets/img/сlear.svg';
+const String image_cross = 'assets/img/image_cross.svg';

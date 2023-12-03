@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/data/models/ResortById.dart';
 import 'package:spoosk/core/presentation/image.dart';
+import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
+import 'package:spoosk/core/presentation/widgets/Image_picker.dart';
 import 'package:spoosk/core/presentation/widgets/widgets.dart';
 
 class ReviewForm extends StatefulWidget {
@@ -17,17 +22,26 @@ class ReviewForm extends StatefulWidget {
 }
 
 class _ReviewFormState extends State<ReviewForm> {
+  List<File> selectedImage = [];
+
   _ReviewFormState();
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const ModalHandle(),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Row(
+    return Container(
+      color: AppColors.white,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ModalHandle(),
+              ],
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
@@ -60,71 +74,114 @@ class _ReviewFormState extends State<ReviewForm> {
                 ),
               ],
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              'Как бы вы оценили курорт?',
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            Container(
+              alignment: Alignment.topLeft,
+              child: RatingBar.builder(
+                  initialRating: 0,
+                  direction: Axis.horizontal,
+                  allowHalfRating: false,
+                  itemCount: 5,
+                  itemPadding: const EdgeInsets.all(10),
+                  itemBuilder: (context, index) {
+                    return SvgPicture.asset(
+                      image_star,
+                      height: 32,
+                      width: 32,
+                    );
+                  },
+                  onRatingUpdate: (rating) {
+                    print(rating);
+                  }),
+            ),
+            const ReviewTextForm(),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.primaryFontLight),
+                "Дополни свой отзыв фотографиями"),
+            Wrap(
+              spacing: 12,
               children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'Как бы вы оценили курорт?',
-                    style: Theme.of(context).textTheme.bodyMedium,
+                ...selectedImage.map((e) {
+                  return Container(
+                    clipBehavior: Clip.hardEdge,
+                    margin: const EdgeInsets.only(top: 12),
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                    child: Image.file(
+                        fit: BoxFit.fill, width: 56, height: 56, File(e.path)),
+                  );
+                }),
+                Container(
+                  margin: const EdgeInsets.only(top: 12),
+                  child: ImagePicker(
+                    getImage: (listImage) {
+                      final List<File> result =
+                          // ignore: prefer_collection_literals
+                          Set<File>.from([...selectedImage, ...listImage])
+                              .toList();
+
+                      setState(() {
+                        selectedImage = result;
+                      });
+                    },
                   ),
                 ),
               ],
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            alignment: Alignment.topLeft,
-            child: RatingBar.builder(
-                initialRating: 0,
-                direction: Axis.horizontal,
-                allowHalfRating: false,
-                itemCount: 5,
-                itemPadding: const EdgeInsets.all(10),
-                itemBuilder: (context, index) {
-                  return SvgPicture.asset(
-                    image_star,
-                    height: 32,
-                    width: 32,
+            const SizedBox(
+              height: 24,
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.9,
+              height: 36,
+              child: CustomButton(
+                textStyle: Theme.of(context)
+                    .textTheme
+                    .headlineMedium
+                    ?.copyWith(color: AppColors.white, fontSize: 16),
+                boxDecoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                height: 36,
+                color: AppColors.primaryColor,
+                buttonText: "Отправить отзыв",
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    barrierDismissible: true,
+                    builder: ((BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Спасибо за Ваш отзыв!'),
+                        content: const Text(
+                            'После модерации Ваш отзыв будет опубликован на странице курорта.'),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('Закрыть'))
+                        ],
+                      );
+                    }),
                   );
                 },
-                onRatingUpdate: (rating) {
-                  print(rating);
-                }),
-          ),
-          const ReviewTextForm(),
-          SizedBox(
-            width: MediaQuery.of(context).size.width * 0.9,
-            height: 36,
-            child: ReviewButton(
-              buttonText: 'Отправить отзыв',
-              onPressedCallback: () {
-                showDialog(
-                  context: context,
-                  barrierDismissible: true,
-                  builder: ((BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Спасибо за Ваш отзыв!'),
-                      content: const Text(
-                          'После модерации Ваш отзыв будет опубликован на странице курорта.'),
-                      actions: [
-                        TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text('Закрыть'))
-                      ],
-                    );
-                  }),
-                );
-              },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
