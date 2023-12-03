@@ -8,6 +8,7 @@ import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/data/models/chart.dart';
 import 'package:spoosk/core/presentation/bloc_by_id/resort_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
+import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/theme/theme.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
 import 'package:spoosk/core/presentation/widgets/hide_text_overflow.dart';
@@ -56,7 +57,7 @@ class _ResortScreenState extends State<ResortScreen>
                     .read<ResortByIdBloc>()
                     .add(EventClearByIdResort(idResort: null));
 
-                Navigator.pop(context);
+                AutoRouter.of(context).navigate(const Home());
               },
               child: Scaffold(
                   backgroundColor: const Color(0xFFf8f8f8),
