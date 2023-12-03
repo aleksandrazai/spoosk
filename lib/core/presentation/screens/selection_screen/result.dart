@@ -10,6 +10,7 @@ import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/theme/theme.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
+import 'package:spoosk/core/presentation/widgets/resort_card.dart';
 
 @RoutePage()
 class ResultScreen extends StatelessWidget {
@@ -81,8 +82,7 @@ class ResultScreen extends StatelessWidget {
                     itemCount: state.resortsMainFilter.length,
                     itemBuilder: (context, index) {
                       final resort = state.resortsMainFilter[index];
-                      return const Card();
-                      //  ResortCard(resort: resort);
+                      return ResortCard(resort: resort);
                     },
                   ),
                 ),
@@ -126,7 +126,6 @@ class ResultScreen extends StatelessWidget {
             ],
           );
         }
-
         return const CircularProgressIndicator();
       }),
     );

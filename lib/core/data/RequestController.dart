@@ -72,23 +72,37 @@ class RequestController {
     }
   }
 
-  //Main filter c множественным выбором
-  Future<List<Resorts>?> getMainFilter({
+  //Filter c множественным выбором
+  Future<List<Result>?> getMainFilter({
     required List<String> resort_region,
     required List<String> resort_month,
     required List<String> resort_level,
   }) async {
     try {
-      final String regionsSelected = resort_region.join(',');
-      final String monthsSelected = resort_month.join(',');
-      final String levelsSelected =
-          UserLevel.mapLevelsToColors(resort_level).join(',');
+      final String regionsSelected = resort_region.isNotEmpty
+          ? 'resort_region=${resort_region.join(',')}'
+          : '';
+      final String monthsSelected = resort_month.isNotEmpty
+          ? 'resort_month=${resort_month.join(',')}'
+          : '';
+      final String levelsSelected = resort_level.isNotEmpty
+          ? 'resort_level=${UserLevel.mapLevelsToColors(resort_level).join(',')}'
+          : '';
 
-      final response = await _dio.get(
-          '$_url${ApiConfigurate.mainFilter}?resort_region=$regionsSelected&resort_month=$monthsSelected&resort_level=$levelsSelected',
-          options: ApiConfigurate.headers);
-      final result =
-          List<Resorts>.from(response.data.map((x) => Resorts.fromJson(x)));
+      final String parameters = [
+        regionsSelected,
+        monthsSelected,
+        levelsSelected
+      ].where((param) => param.isNotEmpty).join('&');
+
+      final String url =
+          '$_url${ApiConfigurate.mainFilter}${parameters.isNotEmpty ? '?' : ''}$parameters';
+      print('Filter Request: $url');
+
+      final response = await _dio.get(url, options: ApiConfigurate.headers);
+
+      final result = List<Result>.from(
+          response.data['results'].map((x) => Result.fromJson(x)));
       return result;
     } catch (e) {
       print(e);
