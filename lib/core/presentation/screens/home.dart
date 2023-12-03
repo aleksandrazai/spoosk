@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spoosk/core/colors.dart';
 
 import 'package:spoosk/core/presentation/blocs_init/bloc/request_controller_bloc.dart';
+import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
 import '../widgets/widgets.dart';
 import 'package:spoosk/core/data/RequestController.dart';
@@ -52,9 +53,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   preferredSize: const Size.fromHeight(15),
                   child: Container(
                     padding: const EdgeInsets.only(top: 16),
-                    child: const Padding(
+                    child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.0),
-                      child: CustomSearchField(),
+                      child: CustomSearchField(
+                        disabled: true,
+                        onTap: () {
+                          AutoRouter.of(context).navigate(const SearchRoute());
+                        },
+                      ),
                     ),
                   ),
                 ),
