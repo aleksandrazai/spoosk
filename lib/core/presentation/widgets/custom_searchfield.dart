@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:spoosk/core/colors.dart';
+import 'package:spoosk/core/presentation/bloc_search/search_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
 
 class CustomSearchField extends StatefulWidget {
@@ -18,6 +20,13 @@ class CustomSearchField extends StatefulWidget {
 class _CustomSearchFieldState extends State<CustomSearchField> {
   final TextEditingController _textEditingController = TextEditingController();
   String? value;
+  late SearchResortBloc _searchResortBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _searchResortBloc = SearchResortBloc();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +35,14 @@ class _CustomSearchFieldState extends State<CustomSearchField> {
       child: GestureDetector(
         onTap: widget.onTap,
         child: TextField(
+          textInputAction: TextInputAction.search,
           cursorColor: AppColors.primaryColor,
           onChanged: _onChange,
           controller: _textEditingController,
           autofocus: widget.autofocus ?? false,
+          onSubmitted: (query) {
+            _searchResortBloc.add(SearchTextInput(searchText: query));
+          },
           decoration: InputDecoration(
             filled: true,
             fillColor: AppColors.white,
@@ -64,6 +77,13 @@ class _CustomSearchFieldState extends State<CustomSearchField> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    _searchResortBloc.close();
+    super.dispose();
   }
 
   void _onChange(String text) {

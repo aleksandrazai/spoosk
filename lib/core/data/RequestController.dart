@@ -31,10 +31,26 @@ class RequestController {
           }
         }),
       );
-
       return result;
     } catch (e) {
       print('Error in API call: $e');
+      return null;
+    }
+  }
+
+//Поиск курорта
+  Future<List<Result>?> searchResort({
+    required text,
+    required searchResort,
+  }) async {
+    try {
+      final response = await _dio.get(_url + searchResort + text,
+          options: ApiConfigurate.headers);
+      final result = List<Result>.from(
+          response.data['results'].map((x) => Result.fromJson(x)));
+      return result;
+    } catch (e) {
+      print('Error in SearchAPI call: $e');
       return null;
     }
   }
