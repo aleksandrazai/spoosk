@@ -9,6 +9,7 @@ import 'package:spoosk/core/data/models/user_level.dart';
 
 class RequestController {
   final Dio _dio = Dio();
+
   RequestController();
   // Если вдруг появится тестовый сервер
   //  final bool _TEST_SEVER = false;
@@ -40,14 +41,15 @@ class RequestController {
 
 //Поиск курорта
   Future<List<Result>?> searchResort({
-    required text,
-    required searchResort,
+    required String text,
+    required String searchResort,
   }) async {
     try {
-      final response = await _dio.get(_url + searchResort + text,
+      final response = await _dio.get('$_url$searchResort?search=$text',
           options: ApiConfigurate.headers);
       final result = List<Result>.from(
           response.data['results'].map((x) => Result.fromJson(x)));
+      print('Filter Result: ${response.data}');
       return result;
     } catch (e) {
       print('Error in SearchAPI call: $e');

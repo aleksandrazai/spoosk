@@ -9,5 +9,5 @@ class ApiConfigurate {
   static String getResotrsById = 'api/resorts/';
   static String getAllRegions = 'api/resorts/regions';
   static String mainFilter = 'api/resorts/filter';
-  static String searchResort = 'api/resorts/?search=';
+  static String searchResort = 'api/resorts/';
 }
