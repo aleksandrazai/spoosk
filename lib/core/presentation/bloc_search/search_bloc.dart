@@ -21,6 +21,7 @@ class SearchResortBloc extends Bloc<SearchResortEvent, SearchResortState> {
 
           if (resorts!.isNotEmpty) {
             print('Resorts found: ${resorts.length}');
+            emit(SearchResortLoaded(resortsFound: resorts));
           } else {
             print('No resorts found');
             emit(SearchResortNotFound());

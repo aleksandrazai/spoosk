@@ -25,7 +25,7 @@ class _CustomSearchFieldState extends State<CustomSearchField> {
   @override
   void initState() {
     super.initState();
-    _searchResortBloc = SearchResortBloc();
+    _searchResortBloc = context.read<SearchResortBloc>();
   }
 
   @override
