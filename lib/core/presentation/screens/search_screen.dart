@@ -75,12 +75,18 @@ class _SearchResultState extends State<SearchResult> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: widget.state.resortsFound.length,
-      itemBuilder: (context, index) {
-        final resort = widget.state.resortsFound[index];
-        return SizedBox(width: 285, child: ResortCard(resort: resort));
-      },
-    );
+    if (widget.state is SearchResortLoaded) {
+      return ListView.builder(
+        itemCount: widget.state.resortsFound.length,
+        itemBuilder: (context, index) {
+          final resort = widget.state.resortsFound[index];
+          return SizedBox(width: 285, child: ResortCard(resort: resort));
+        },
+      );
+    }
+    if (widget.state is SearchResortNotFound) {
+      return const Text('По вашему запросу ничего не найдено');
+    }
+    return const Text('Введите запрос');
   }
 }
