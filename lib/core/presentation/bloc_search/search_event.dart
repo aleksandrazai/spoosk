@@ -7,3 +7,5 @@ class SearchTextInput extends SearchResortEvent {
 
   SearchTextInput({required this.searchText});
 }
+
+class ClearText extends SearchResortEvent {}

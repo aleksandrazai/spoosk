@@ -79,23 +79,27 @@ class _CustomSearchFieldState extends State<CustomSearchField> {
     );
   }
 
-  @override
-  void dispose() {
-    _textEditingController.dispose();
-    _searchResortBloc.close();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _textEditingController.dispose();
+  //   _searchResortBloc.close();
+  //   super.dispose();
+  // }
 
   void _onChange(String text) {
     if (text.isEmpty) {
       _clearText();
     } else {
       _updateValue(text);
+      if (text.length >= 3) {
+        _searchResortBloc.add(SearchTextInput(searchText: text));
+      }
     }
   }
 
   void _clearText() {
     _textEditingController.clear();
+    _searchResortBloc.add(ClearText());
     _updateValue(null);
   }
 

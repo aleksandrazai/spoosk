@@ -27,6 +27,7 @@ class _SearchScreenState extends State<SearchScreen> {
           padding: const EdgeInsets.only(left: 8.0),
           child: GestureDetector(
             onTap: () {
+              context.read<SearchResortBloc>().add(ClearText());
               AutoRouter.of(context).navigate(const Home());
             },
             child: SvgPicture.asset(
