@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:spoosk/core/presentation/bloc_search/search_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
+import 'package:spoosk/core/presentation/screens/search_screen/search_result.dart';
 import 'package:spoosk/core/presentation/widgets/widgets.dart';
 
 @RoutePage()
@@ -46,47 +47,13 @@ class _SearchScreenState extends State<SearchScreen> {
       ),
       body: BlocBuilder<SearchResortBloc, SearchResortState>(
         builder: (context, state) {
-          return SearchResult(state: state);
+          return Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 20).copyWith(top: 8),
+            child: SearchResult(state: state),
+          );
         },
       ),
     );
-  }
-}
-
-class SearchResult extends StatefulWidget {
-  const SearchResult({
-    super.key,
-    required this.state,
-  });
-  final SearchResortState state;
-
-  @override
-  State<SearchResult> createState() => _SearchResultState();
-}
-
-class _SearchResultState extends State<SearchResult> {
-  late final SearchResortBloc searchResortBloc;
-
-  @override
-  void initState() {
-    super.initState();
-    searchResortBloc = context.read<SearchResortBloc>();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (widget.state is SearchResortLoaded) {
-      return ListView.builder(
-        itemCount: widget.state.resortsFound.length,
-        itemBuilder: (context, index) {
-          final resort = widget.state.resortsFound[index];
-          return SizedBox(width: 285, child: ResortCard(resort: resort));
-        },
-      );
-    }
-    if (widget.state is SearchResortNotFound) {
-      return const Text('По вашему запросу ничего не найдено');
-    }
-    return const Text('Введите запрос');
   }
 }
