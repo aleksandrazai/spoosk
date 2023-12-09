@@ -5,6 +5,7 @@ import 'package:spoosk/core/data/ApiConfig.dart';
 import 'package:spoosk/core/data/models/ResortById.dart';
 import 'package:spoosk/core/data/models/regions.dart';
 import 'package:spoosk/core/data/models/resorts.dart';
+import 'package:spoosk/core/data/models/reviews.dart';
 import 'package:spoosk/core/data/models/user_level.dart';
 
 class RequestController {
@@ -125,6 +126,24 @@ class RequestController {
     } catch (e) {
       print(e);
       Exception(e);
+      return null;
+    }
+  }
+
+  Future<List<Reviews>?> getReviews({
+    required getReviews,
+  }) async {
+    try {
+      print('URL Reviews: $_url$getReviews');
+      final response =
+          await _dio.get(_url + getReviews, options: ApiConfigurate.headers);
+
+      final result = List<Reviews>.from(
+          response.data['results'].map((x) => Reviews.fromJson(x)));
+      print('Reviews Result: ${response.data}');
+      return result;
+    } catch (e) {
+      print('Error in GetReviews call: $e');
       return null;
     }
   }
