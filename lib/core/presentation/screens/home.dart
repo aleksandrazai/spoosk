@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spoosk/core/colors.dart';
-
+import 'package:spoosk/core/presentation/bloc_reviews/reviews_bloc.dart';
 import 'package:spoosk/core/presentation/blocs_init/bloc/request_controller_bloc.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
@@ -35,9 +35,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RequestControllerBloc, RequestControllerState>(
-      builder: (context, state) {
-        if (state is RequestControllerLoaded) {
+    return Builder(
+      builder: (context) {
+        final stateResorts = context.watch<RequestControllerBloc>().state;
+        final stateReviews = context.watch<ReviewsBloc>().state;
+        if (stateResorts is RequestControllerLoaded &&
+            stateReviews is ReviewsLoaded) {
           return CustomScrollView(
             slivers: [
               SliverAppBar(
@@ -54,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Container(
                     padding: const EdgeInsets.only(top: 16),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: CustomSearchField(
                         disabled: true,
                         onTap: () {
@@ -82,9 +85,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 220, //test
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: state.resortsAll.length,
+                      itemCount: stateResorts.resortsAll.length,
                       itemBuilder: (context, index) {
-                        final resort = state.resortsAll[index];
+                        final resort = stateResorts.resortsAll[index];
                         return SizedBox(
                             width: 285, child: ResortCard(resort: resort));
                       },
@@ -102,14 +105,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-              SliverToBoxAdapter(
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(
-                    children: <ReviewCard>[
-                      ...List.filled(6, false).map((e) => const ReviewCard())
-                    ],
-                  ),
+
+              //reviews
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  childCount: 6,
+                  (context, index) {
+                    final reviews = stateReviews.reviewsAll[index];
+                    return ReviewCard(reviews: reviews);
+                  },
                 ),
               ),
               SliverToBoxAdapter(
@@ -134,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           );
         }
-        return const Center(child: CircularProgressIndicator());
+        return CircularProgressIndicator();
       },
     );
   }

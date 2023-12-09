@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spoosk/core/colors.dart';
+import 'package:spoosk/core/presentation/bloc_reviews/reviews_bloc.dart';
 import 'package:spoosk/core/presentation/blocs_init/bloc/request_controller_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
@@ -136,5 +137,6 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
     requestControllerBloc = context.read<RequestControllerBloc>();
     requestControllerBloc.add(LoadAllResorts());
+    context.read<ReviewsBloc>().add(LoadReviews());
   }
 }
