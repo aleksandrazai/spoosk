@@ -18,6 +18,19 @@ class HideTextOverflow extends StatefulWidget {
 class _HideTextOverflowState extends State<HideTextOverflow> {
   bool isExpanded = false;
 
+  String getTrimmedText() {
+    if (widget.fullText.length <= widget.maxSymbols) {
+      return widget.fullText;
+    }
+
+    int lastSpaceIndex = widget.fullText.lastIndexOf(' ', widget.maxSymbols);
+    if (lastSpaceIndex > 0) {
+      return widget.fullText.substring(0, lastSpaceIndex);
+    } else {
+      return widget.fullText.substring(0, widget.maxSymbols);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -25,9 +38,7 @@ class _HideTextOverflowState extends State<HideTextOverflow> {
       children: [
         widget.fullText.isNotEmpty
             ? Text(
-                isExpanded
-                    ? widget.fullText
-                    : widget.fullText.substring(0, widget.maxSymbols),
+                isExpanded ? widget.fullText : getTrimmedText(),
                 maxLines: isExpanded ? null : widget.maxSymbols,
                 overflow:
                     isExpanded ? TextOverflow.visible : TextOverflow.ellipsis,

@@ -1,17 +1,24 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:spoosk/core/data/models/reviews.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/widgets/hide_text_overflow.dart';
-import 'package:spoosk/core/presentation/widgets/star_icon.dart';
+import 'package:spoosk/core/presentation/widgets/rating_stars.dart';
 
 class ReviewCard extends StatelessWidget {
   const ReviewCard({
     super.key,
+    required this.reviews,
   });
-  final reviewText =
-      'Горнолыжный курорт Роза Хутор оставил у меня невероятно яркие впечатления! Это место идеально подходит как для опытных лыжников, так и для новичков. Отлично подготовленные трассы, красивейшие пейзажи и современная инфраструктура, включая уютные рестораны и гостиницы, создают идеальные условия для отдыха на горнолыжных склонах. Роза Хутор - это место, где можно насладиться зимними видами спорта и природой, не ощущая ни малейшего дискомфорта.';
+
+  final Reviews reviews;
+
   @override
   Widget build(BuildContext context) {
+    DateTime? addAt = reviews.addAt;
+
+    String formattedDate = DateFormat('dd.MM.yy').format(addAt!);
     return Card(
       margin: context.router.current.name == "Home"
           ? const EdgeInsets.fromLTRB(16, 8, 16, 8)
@@ -45,11 +52,11 @@ class ReviewCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Александр В.',
+                          '${reviews.authorName} ${reviews.authorLastname}',
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         Text(
-                          '23.12.2023',
+                          formattedDate,
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ],
@@ -63,27 +70,18 @@ class ReviewCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: Text(
-                      'Роза хутор',
+                      reviews.resortName,
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        StarIcon(),
-                        StarIcon(),
-                        StarIcon(),
-                        StarIcon(),
-                        StarIcon(),
-                      ],
-                    ),
-                  ),
+                  Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: RatingStars(rating: reviews.rating)),
                 ],
               ),
               SizedBox(
-                child: HideTextOverflow(fullText: reviewText, maxSymbols: 170),
+                child:
+                    HideTextOverflow(fullText: reviews.text, maxSymbols: 170),
               ),
             ],
           ),

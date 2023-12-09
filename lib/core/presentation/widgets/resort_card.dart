@@ -50,7 +50,7 @@ class ResortCard extends StatelessWidget {
                     ),
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 4),
-                      child: StarIcon(),
+                      child: StarIcon(filled: true),
                     ),
                     //rating нет в API
                     Text(

@@ -3,12 +3,16 @@ import 'package:flutter_svg/svg.dart';
 import 'package:spoosk/core/presentation/image.dart';
 
 class StarIcon extends StatelessWidget {
+  final bool filled;
+
   const StarIcon({
     super.key,
+    required this.filled,
   });
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset(image_star, width: 14, height: 14);
+    return SvgPicture.asset((filled ? image_star : image_gray_star),
+        height: 14, width: 14);
   }
 }

@@ -11,6 +11,7 @@ const String image_png_header_size_xxl = 'assets/img/PNG_header_size_xxl.png';
 const String image_trail = 'assets/img/trail.svg';
 const String image_skipass = 'assets/img/credit-card.svg';
 const String image_star = 'assets/img/star.svg';
+const String image_gray_star = 'assets/img/star_gray.svg';
 const String image_avatar_placeholder = 'assets/img/placeholder_avatar.png';
 const String image_arrow_left = 'assets/img/arrow_left.svg';
 const String image_share = 'assets/img/share.svg';
