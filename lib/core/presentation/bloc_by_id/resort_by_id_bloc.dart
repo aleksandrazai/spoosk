@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:meta/meta.dart';
@@ -11,11 +13,7 @@ part 'resort_by_id_state.dart';
 class ResortByIdBloc extends Bloc<ResortByIdEvent, ResortByIdState> {
   ResortByIdBloc() : super(ResortByIdInitial()) {
     RequestController requestController = RequestController();
-
-    on<EventClearByIdResort>((event, emit) {
-      emit(ResortByIdLoaded(resortById: null));
-    });
-
+    on<EventClearByIdResort>(_onEventCleared);
     on<EventLoadByIdResort>((event, emit) async {
       try {
         final connectivityResult = await (Connectivity().checkConnectivity());
@@ -33,5 +31,10 @@ class ResortByIdBloc extends Bloc<ResortByIdEvent, ResortByIdState> {
         print("ResortByIdBloc: $e");
       }
     });
+  }
+
+  void _onEventCleared(
+      EventClearByIdResort event, Emitter<ResortByIdState> emit) {
+    emit(ResortByIdInitial());
   }
 }
