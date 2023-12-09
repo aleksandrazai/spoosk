@@ -11,4 +11,5 @@ class ApiConfigurate {
   static String mainFilter = 'api/resorts/filter';
   static String searchResort = 'api/resorts/';
   static String getReviews = 'api/reviews/';
+  static String getReviewsById = 'api/resorts/';
 }

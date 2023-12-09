@@ -147,4 +147,23 @@ class RequestController {
       return null;
     }
   }
+
+  Future<List<Reviews>?> getReviewsById({
+    required getReviewsById,
+    required id,
+  }) async {
+    try {
+      print('URL Reviews: $_url$getReviewsById');
+      final response = await _dio.get('$_url$getReviewsById$id/reviews/',
+          options: ApiConfigurate.headers);
+
+      final result = List<Reviews>.from(
+          response.data['results'].map((x) => Reviews.fromJson(x)));
+      print('ReviewsByID Result: ${response.data}');
+      return result;
+    } catch (e) {
+      print('Error in GetReviewsByID call: $e');
+      return null;
+    }
+  }
 }
