@@ -6,8 +6,8 @@ import 'package:spoosk/core/data/RequestController.dart';
 import 'package:spoosk/core/data/models/ResortById.dart';
 import 'package:spoosk/core/data/models/reviews.dart';
 
-part 'resort_by_id_event.dart';
-part 'resort_by_id_state.dart';
+part 'reviews_by_id_event.dart';
+part 'reviews_by_id_state.dart';
 
 class ReviewsByIdBloc extends Bloc<ReviewsByIdEvent, ReviewsByIdState> {
   ReviewsByIdBloc() : super(ReviewsByIdInitial()) {

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:spoosk/core/data/models/resorts.dart';
 import 'package:spoosk/core/presentation/bloc_by_id/resort_by_id_bloc.dart';
+import 'package:spoosk/core/presentation/bloc_reviews_by_id/reviews_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/widgets/star_icon.dart';
@@ -21,10 +22,15 @@ class ResortCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         print('Card tapped');
+
+        context
+            .read<ReviewsByIdBloc>()
+            .add(EventLoadByIdReviews(idResort: resort.idResort));
         context
             .read<ResortByIdBloc>()
             .add(EventLoadByIdResort(idResort: resort.idResort));
         print('id resort: ${resort.idResort}');
+
         context.router.push(ResortRoute(idResort: resort.idResort));
       },
       child: Card(
@@ -52,9 +58,8 @@ class ResortCard extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 4),
                       child: StarIcon(filled: true),
                     ),
-                    //rating нет в API
                     Text(
-                      '5,0',
+                      resort.rating.toString(),
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
                     //reviews нет в API

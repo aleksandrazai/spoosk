@@ -1,4 +1,4 @@
-part of 'resort_by_id_bloc.dart';
+part of 'reviews_by_id_bloc.dart';
 
 @immutable
 sealed class ReviewsByIdEvent {}
