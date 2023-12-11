@@ -7,3 +7,5 @@ class EventLoadByIdReviews extends ReviewsByIdEvent {
   String? idResort;
   EventLoadByIdReviews({required this.idResort});
 }
+
+class ClearReviewsById extends ReviewsByIdEvent {}

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/data/models/resorts.dart';
 import 'package:spoosk/core/presentation/bloc_by_id/resort_by_id_bloc.dart';
+import 'package:spoosk/core/presentation/bloc_reviews_by_id/reviews_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
 
 class SearchMiniCard extends StatelessWidget {
@@ -15,6 +16,9 @@ class SearchMiniCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        context
+            .read<ReviewsByIdBloc>()
+            .add(EventLoadByIdReviews(idResort: resort.idResort));
         context
             .read<ResortByIdBloc>()
             .add(EventLoadByIdResort(idResort: resort.idResort));
