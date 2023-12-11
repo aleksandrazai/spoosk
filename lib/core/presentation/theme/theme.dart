@@ -34,7 +34,7 @@ class CustomTheme {
         color: AppColors.primaryFontLight,
         fontSize: 14,
         fontFamily: fontFamily,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w600,
       ),
       //Caption
       bodySmall: const TextStyle(
