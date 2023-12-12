@@ -13,6 +13,7 @@ import 'package:spoosk/core/presentation/bloc_reviews/reviews_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_reviews_by_id/reviews_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_search/search_bloc.dart';
 import 'package:spoosk/core/presentation/blocs_init/bloc/request_controller_bloc.dart';
+import 'package:spoosk/core/presentation/connected_bloc/connected_bloc.dart';
 import 'package:spoosk/core/presentation/routes.dart';
 import 'package:spoosk/core/presentation/screens/main_screen.dart';
 import 'package:spoosk/core/presentation/screens/search_screen.dart';
@@ -33,6 +34,9 @@ class _SpooskAppState extends State<SpooskApp> {
     AppRouter appRouter = AppRouter();
     return MultiProvider(
         providers: [
+          BlocProvider(
+            create: (context) => ConnectedBloc(),
+          ),
           BlocProvider(
             create: (context) => RequestControllerBloc(),
           ),

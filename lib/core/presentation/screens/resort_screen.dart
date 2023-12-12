@@ -59,7 +59,6 @@ class _ResortScreenState extends State<ResortScreen>
             canPop: false,
             onPopInvoked: (didPop) {
               context.read<ResortByIdBloc>().add(EventClearByIdResort());
-              context.read<ReviewsByIdBloc>().add(ClearReviewsById());
               AutoRouter.of(context).navigate(const Home());
             },
             child: Scaffold(
@@ -640,7 +639,7 @@ class _ResortScreenState extends State<ResortScreen>
                                             .copyWith(
                                                 color: AppColors
                                                     .icons_active_blue),
-                                        "Все отзывы")
+                                        "256 отзывов")
                                   ],
                                 ),
                               ),
@@ -665,7 +664,7 @@ class _ResortScreenState extends State<ResortScreen>
                           children: [
                             ListView.builder(
                                 shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
+                                physics: NeverScrollableScrollPhysics(),
                                 itemCount: stateReviews.reviews!.length,
                                 itemBuilder: (context, index) {
                                   final reviews = stateReviews.reviews![index];
