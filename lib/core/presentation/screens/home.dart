@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,104 +43,111 @@ class _HomeScreenState extends State<HomeScreen> {
         final stateReviews = context.watch<ReviewsBloc>().state;
         if (stateResorts is RequestControllerLoaded &&
             stateReviews is ReviewsLoaded) {
-          return CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                expandedHeight: MediaQuery.of(context).size.height * 0.3,
-                floating: false,
-                pinned: true,
-                backgroundColor: const Color(0xFFf8f8f8),
-                elevation: 0,
-                flexibleSpace: const FlexibleSpaceBar(
-                  background: CustomAppBar(),
+          return Scaffold(
+            backgroundColor: AppColors.background,
+            body: CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  expandedHeight: MediaQuery.of(context).size.height * 0.3,
+                  floating: false,
+                  pinned: true,
+                  backgroundColor: const Color(0xFFf8f8f8),
+                  elevation: 0,
+                  flexibleSpace: Container(
+                    color: AppColors.background,
+                    child: const FlexibleSpaceBar(
+                      background: CustomAppBar(),
+                    ),
+                  ),
+                  bottom: PreferredSize(
+                    preferredSize: const Size.fromHeight(15),
+                    child: Container(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: CustomSearchField(
+                          disabled: true,
+                          onTap: () {
+                            AutoRouter.of(context)
+                                .navigate(const SearchRoute());
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-                bottom: PreferredSize(
-                  preferredSize: const Size.fromHeight(15),
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 16),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: CustomSearchField(
-                        disabled: true,
-                        onTap: () {
-                          AutoRouter.of(context).navigate(const SearchRoute());
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0)
+                        .copyWith(top: 20, bottom: 8),
+                    child: const CardsHeaderPopularALL(
+                      header: 'Популярные курорты',
+                      all: 'Все',
+                    ),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: SizedBox(
+                      height: 220, //test
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 6,
+                        itemBuilder: (context, index) {
+                          final resort = stateResorts.resortsAll[index];
+                          return SizedBox(
+                              width: 285, child: ResortCard(resort: resort));
                         },
                       ),
                     ),
                   ),
                 ),
-              ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0)
-                      .copyWith(top: 20, bottom: 8),
-                  child: const CardsHeaderPopularALL(
-                    header: 'Популярные курорты',
-                    all: 'Все',
-                  ),
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: SizedBox(
-                    height: 220, //test
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 6,
-                      itemBuilder: (context, index) {
-                        final resort = stateResorts.resortsAll[index];
-                        return SizedBox(
-                            width: 285, child: ResortCard(resort: resort));
-                      },
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16)
+                        .copyWith(top: 28, bottom: 8),
+                    child: const CardsHeaderPopularALL(
+                      header: 'Последние отзывы',
+                      all: '',
                     ),
                   ),
                 ),
-              ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16)
-                      .copyWith(top: 28, bottom: 8),
-                  child: const CardsHeaderPopularALL(
-                    header: 'Последние отзывы',
-                    all: '',
-                  ),
-                ),
-              ),
 
-              //reviews
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  childCount: 6,
-                  (context, index) {
-                    final reviews = stateReviews.reviewsAll[index];
-                    return ReviewCard(reviews: reviews);
-                  },
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.all(
-                    16.0,
-                  ).copyWith(bottom: 16),
-                  child: CustomButton(
-                    boxDecoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(8)),
-                    textStyle: Theme.of(context)
-                        .textTheme
-                        .labelMedium
-                        ?.copyWith(color: AppColors.white),
-                    height: 40,
-                    color: AppColors.primaryColor,
-                    onTap: () {},
-                    buttonText: "Написать отзыв",
+                //reviews
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    childCount: 6,
+                    (context, index) {
+                      final reviews = stateReviews.reviewsAll[index];
+                      return ReviewCard(reviews: reviews);
+                    },
                   ),
                 ),
-              ),
-            ],
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.all(
+                      16.0,
+                    ).copyWith(bottom: 16),
+                    child: CustomButton(
+                      boxDecoration:
+                          BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                      textStyle: Theme.of(context)
+                          .textTheme
+                          .labelMedium
+                          ?.copyWith(color: AppColors.white),
+                      height: 40,
+                      color: AppColors.primaryColor,
+                      onTap: () {},
+                      buttonText: "Написать отзыв",
+                    ),
+                  ),
+                ),
+              ],
+            ),
           );
         }
-        return CircularProgressIndicator();
+        return Center(child: const CircularProgressIndicator());
       },
     );
   }

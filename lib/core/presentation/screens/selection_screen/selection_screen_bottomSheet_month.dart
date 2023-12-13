@@ -37,7 +37,8 @@ class _SelectionScreenBottomSheetMonthState
               "В каком месяце вы планируете покататься?"),
         ),
         Padding(
-          padding: const EdgeInsets.only(right: 60),
+          padding:
+              EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.16),
           child: GridView.builder(
             shrinkWrap: true,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
