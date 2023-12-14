@@ -8,30 +8,40 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i12;
-import 'package:flutter/material.dart' as _i13;
-import 'package:spoosk/core/data/models/reviews.dart' as _i14;
-import 'package:spoosk/core/presentation/routes.dart' as _i7;
+import 'package:auto_route/auto_route.dart' as _i18;
+import 'package:flutter/material.dart' as _i19;
+import 'package:spoosk/core/data/models/reviews.dart' as _i20;
+import 'package:spoosk/core/presentation/routes.dart' as _i6;
 import 'package:spoosk/core/presentation/screens/all_reviews_by_id.dart' as _i1;
-import 'package:spoosk/core/presentation/screens/comparison.dart' as _i2;
-import 'package:spoosk/core/presentation/screens/home.dart' as _i3;
-import 'package:spoosk/core/presentation/screens/main_screen.dart' as _i4;
-import 'package:spoosk/core/presentation/screens/profile.dart' as _i5;
-import 'package:spoosk/core/presentation/screens/resort_screen.dart' as _i6;
-import 'package:spoosk/core/presentation/screens/search_screen.dart' as _i9;
-import 'package:spoosk/core/presentation/screens/selected.dart' as _i10;
-import 'package:spoosk/core/presentation/screens/selection.dart' as _i11;
+import 'package:spoosk/core/presentation/screens/auth.dart/change_password.dart'
+    as _i2;
+import 'package:spoosk/core/presentation/screens/auth.dart/code.dart' as _i4;
+import 'package:spoosk/core/presentation/screens/auth.dart/login.dart' as _i7;
+import 'package:spoosk/core/presentation/screens/auth.dart/register.dart'
+    as _i10;
+import 'package:spoosk/core/presentation/screens/auth.dart/reset_password.dart'
+    as _i11;
+import 'package:spoosk/core/presentation/screens/auth.dart/user_profile.dart'
+    as _i17;
+import 'package:spoosk/core/presentation/screens/comparison.dart' as _i3;
+import 'package:spoosk/core/presentation/screens/home.dart' as _i5;
+import 'package:spoosk/core/presentation/screens/main_screen.dart' as _i8;
+import 'package:spoosk/core/presentation/screens/profile.dart' as _i9;
+import 'package:spoosk/core/presentation/screens/resort_screen.dart' as _i12;
+import 'package:spoosk/core/presentation/screens/search_screen.dart' as _i14;
+import 'package:spoosk/core/presentation/screens/selected.dart' as _i15;
+import 'package:spoosk/core/presentation/screens/selection.dart' as _i16;
 import 'package:spoosk/core/presentation/screens/selection_screen/result.dart'
-    as _i8;
+    as _i13;
 
-abstract class $AppRouter extends _i12.RootStackRouter {
+abstract class $AppRouter extends _i18.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i12.PageFactory> pagesMap = {
+  final Map<String, _i18.PageFactory> pagesMap = {
     AllReviewsById.name: (routeData) {
       final args = routeData.argsAs<AllReviewsByIdArgs>();
-      return _i12.AutoRoutePage<dynamic>(
+      return _i18.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i1.AllReviewsById(
           key: args.key,
@@ -39,74 +49,116 @@ abstract class $AppRouter extends _i12.RootStackRouter {
         ),
       );
     },
-    Comparison.name: (routeData) {
-      return _i12.AutoRoutePage<dynamic>(
+    ChangePasswordRoute.name: (routeData) {
+      return _i18.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i2.Comparison(),
+        child: const _i2.ChangePasswordScreen(),
+      );
+    },
+    Comparison.name: (routeData) {
+      return _i18.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i3.Comparison(),
+      );
+    },
+    EnterCodeRoute.name: (routeData) {
+      return _i18.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i4.EnterCodeScreen(),
       );
     },
     Home.name: (routeData) {
-      return _i12.AutoRoutePage<dynamic>(
+      return _i18.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i3.Home(),
+        child: const _i5.Home(),
+      );
+    },
+    LoginEmptyRoute.name: (routeData) {
+      return _i18.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i6.LoginEmptyPage(),
+      );
+    },
+    LoginRoute.name: (routeData) {
+      return _i18.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i7.LoginScreen(),
       );
     },
     MainRoute.name: (routeData) {
-      return _i12.AutoRoutePage<dynamic>(
+      return _i18.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i4.MainScreen(),
+        child: const _i8.MainScreen(),
       );
     },
     Profile.name: (routeData) {
-      return _i12.AutoRoutePage<dynamic>(
+      return _i18.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i5.Profile(),
+        child: const _i9.Profile(),
+      );
+    },
+    RegisterRoute.name: (routeData) {
+      return _i18.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i10.RegisterScreen(),
+      );
+    },
+    ResetPasswordRoute.name: (routeData) {
+      return _i18.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i11.ResetPasswordScreen(),
       );
     },
     ResortRoute.name: (routeData) {
       final args = routeData.argsAs<ResortRouteArgs>();
-      return _i12.AutoRoutePage<dynamic>(
+      return _i18.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i6.ResortScreen(
+        child: _i12.ResortScreen(
           key: args.key,
           idResort: args.idResort,
         ),
       );
     },
     ResortTab.name: (routeData) {
-      return _i12.AutoRoutePage<dynamic>(
+      return _i18.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i7.ResortTabPage(),
+        child: const _i6.ResortTabPage(),
       );
     },
     ResultRoute.name: (routeData) {
-      return _i12.AutoRoutePage<dynamic>(
+      return _i18.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i8.ResultScreen(),
+        child: const _i13.ResultScreen(),
       );
     },
     SearchRoute.name: (routeData) {
-      return _i12.AutoRoutePage<dynamic>(
+      return _i18.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i9.SearchScreen(),
+        child: const _i14.SearchScreen(),
       );
     },
     Selected.name: (routeData) {
-      return _i12.AutoRoutePage<dynamic>(
+      return _i18.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i10.Selected(),
+        child: const _i15.Selected(),
       );
     },
     Selection.name: (routeData) {
-      return _i12.AutoRoutePage<dynamic>(
+      return _i18.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i11.Selection(),
+        child: const _i16.Selection(),
       );
     },
     SelectionTab.name: (routeData) {
-      return _i12.AutoRoutePage<dynamic>(
+      return _i18.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i7.SelectionEmptyPage(),
+        child: const _i6.SelectionEmptyPage(),
+      );
+    },
+    UserProfileRoute.name: (routeData) {
+      return _i18.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i17.UserProfileScreen(),
       );
     },
   };
@@ -114,11 +166,11 @@ abstract class $AppRouter extends _i12.RootStackRouter {
 
 /// generated route for
 /// [_i1.AllReviewsById]
-class AllReviewsById extends _i12.PageRouteInfo<AllReviewsByIdArgs> {
+class AllReviewsById extends _i18.PageRouteInfo<AllReviewsByIdArgs> {
   AllReviewsById({
-    _i13.Key? key,
-    required _i14.Reviews reviews,
-    List<_i12.PageRouteInfo>? children,
+    _i19.Key? key,
+    required _i20.Reviews reviews,
+    List<_i18.PageRouteInfo>? children,
   }) : super(
           AllReviewsById.name,
           args: AllReviewsByIdArgs(
@@ -130,8 +182,8 @@ class AllReviewsById extends _i12.PageRouteInfo<AllReviewsByIdArgs> {
 
   static const String name = 'AllReviewsById';
 
-  static const _i12.PageInfo<AllReviewsByIdArgs> page =
-      _i12.PageInfo<AllReviewsByIdArgs>(name);
+  static const _i18.PageInfo<AllReviewsByIdArgs> page =
+      _i18.PageInfo<AllReviewsByIdArgs>(name);
 }
 
 class AllReviewsByIdArgs {
@@ -140,9 +192,9 @@ class AllReviewsByIdArgs {
     required this.reviews,
   });
 
-  final _i13.Key? key;
+  final _i19.Key? key;
 
-  final _i14.Reviews reviews;
+  final _i20.Reviews reviews;
 
   @override
   String toString() {
@@ -151,9 +203,23 @@ class AllReviewsByIdArgs {
 }
 
 /// generated route for
-/// [_i2.Comparison]
-class Comparison extends _i12.PageRouteInfo<void> {
-  const Comparison({List<_i12.PageRouteInfo>? children})
+/// [_i2.ChangePasswordScreen]
+class ChangePasswordRoute extends _i18.PageRouteInfo<void> {
+  const ChangePasswordRoute({List<_i18.PageRouteInfo>? children})
+      : super(
+          ChangePasswordRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ChangePasswordRoute';
+
+  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i3.Comparison]
+class Comparison extends _i18.PageRouteInfo<void> {
+  const Comparison({List<_i18.PageRouteInfo>? children})
       : super(
           Comparison.name,
           initialChildren: children,
@@ -161,13 +227,27 @@ class Comparison extends _i12.PageRouteInfo<void> {
 
   static const String name = 'Comparison';
 
-  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
+  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i3.Home]
-class Home extends _i12.PageRouteInfo<void> {
-  const Home({List<_i12.PageRouteInfo>? children})
+/// [_i4.EnterCodeScreen]
+class EnterCodeRoute extends _i18.PageRouteInfo<void> {
+  const EnterCodeRoute({List<_i18.PageRouteInfo>? children})
+      : super(
+          EnterCodeRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'EnterCodeRoute';
+
+  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i5.Home]
+class Home extends _i18.PageRouteInfo<void> {
+  const Home({List<_i18.PageRouteInfo>? children})
       : super(
           Home.name,
           initialChildren: children,
@@ -175,13 +255,41 @@ class Home extends _i12.PageRouteInfo<void> {
 
   static const String name = 'Home';
 
-  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
+  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i4.MainScreen]
-class MainRoute extends _i12.PageRouteInfo<void> {
-  const MainRoute({List<_i12.PageRouteInfo>? children})
+/// [_i6.LoginEmptyPage]
+class LoginEmptyRoute extends _i18.PageRouteInfo<void> {
+  const LoginEmptyRoute({List<_i18.PageRouteInfo>? children})
+      : super(
+          LoginEmptyRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'LoginEmptyRoute';
+
+  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i7.LoginScreen]
+class LoginRoute extends _i18.PageRouteInfo<void> {
+  const LoginRoute({List<_i18.PageRouteInfo>? children})
+      : super(
+          LoginRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'LoginRoute';
+
+  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i8.MainScreen]
+class MainRoute extends _i18.PageRouteInfo<void> {
+  const MainRoute({List<_i18.PageRouteInfo>? children})
       : super(
           MainRoute.name,
           initialChildren: children,
@@ -189,13 +297,13 @@ class MainRoute extends _i12.PageRouteInfo<void> {
 
   static const String name = 'MainRoute';
 
-  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
+  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i5.Profile]
-class Profile extends _i12.PageRouteInfo<void> {
-  const Profile({List<_i12.PageRouteInfo>? children})
+/// [_i9.Profile]
+class Profile extends _i18.PageRouteInfo<void> {
+  const Profile({List<_i18.PageRouteInfo>? children})
       : super(
           Profile.name,
           initialChildren: children,
@@ -203,16 +311,44 @@ class Profile extends _i12.PageRouteInfo<void> {
 
   static const String name = 'Profile';
 
-  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
+  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i6.ResortScreen]
-class ResortRoute extends _i12.PageRouteInfo<ResortRouteArgs> {
+/// [_i10.RegisterScreen]
+class RegisterRoute extends _i18.PageRouteInfo<void> {
+  const RegisterRoute({List<_i18.PageRouteInfo>? children})
+      : super(
+          RegisterRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'RegisterRoute';
+
+  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i11.ResetPasswordScreen]
+class ResetPasswordRoute extends _i18.PageRouteInfo<void> {
+  const ResetPasswordRoute({List<_i18.PageRouteInfo>? children})
+      : super(
+          ResetPasswordRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ResetPasswordRoute';
+
+  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i12.ResortScreen]
+class ResortRoute extends _i18.PageRouteInfo<ResortRouteArgs> {
   ResortRoute({
-    _i13.Key? key,
+    _i19.Key? key,
     required String idResort,
-    List<_i12.PageRouteInfo>? children,
+    List<_i18.PageRouteInfo>? children,
   }) : super(
           ResortRoute.name,
           args: ResortRouteArgs(
@@ -224,8 +360,8 @@ class ResortRoute extends _i12.PageRouteInfo<ResortRouteArgs> {
 
   static const String name = 'ResortRoute';
 
-  static const _i12.PageInfo<ResortRouteArgs> page =
-      _i12.PageInfo<ResortRouteArgs>(name);
+  static const _i18.PageInfo<ResortRouteArgs> page =
+      _i18.PageInfo<ResortRouteArgs>(name);
 }
 
 class ResortRouteArgs {
@@ -234,7 +370,7 @@ class ResortRouteArgs {
     required this.idResort,
   });
 
-  final _i13.Key? key;
+  final _i19.Key? key;
 
   final String idResort;
 
@@ -245,9 +381,9 @@ class ResortRouteArgs {
 }
 
 /// generated route for
-/// [_i7.ResortTabPage]
-class ResortTab extends _i12.PageRouteInfo<void> {
-  const ResortTab({List<_i12.PageRouteInfo>? children})
+/// [_i6.ResortTabPage]
+class ResortTab extends _i18.PageRouteInfo<void> {
+  const ResortTab({List<_i18.PageRouteInfo>? children})
       : super(
           ResortTab.name,
           initialChildren: children,
@@ -255,13 +391,13 @@ class ResortTab extends _i12.PageRouteInfo<void> {
 
   static const String name = 'ResortTab';
 
-  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
+  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i8.ResultScreen]
-class ResultRoute extends _i12.PageRouteInfo<void> {
-  const ResultRoute({List<_i12.PageRouteInfo>? children})
+/// [_i13.ResultScreen]
+class ResultRoute extends _i18.PageRouteInfo<void> {
+  const ResultRoute({List<_i18.PageRouteInfo>? children})
       : super(
           ResultRoute.name,
           initialChildren: children,
@@ -269,13 +405,13 @@ class ResultRoute extends _i12.PageRouteInfo<void> {
 
   static const String name = 'ResultRoute';
 
-  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
+  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i9.SearchScreen]
-class SearchRoute extends _i12.PageRouteInfo<void> {
-  const SearchRoute({List<_i12.PageRouteInfo>? children})
+/// [_i14.SearchScreen]
+class SearchRoute extends _i18.PageRouteInfo<void> {
+  const SearchRoute({List<_i18.PageRouteInfo>? children})
       : super(
           SearchRoute.name,
           initialChildren: children,
@@ -283,13 +419,13 @@ class SearchRoute extends _i12.PageRouteInfo<void> {
 
   static const String name = 'SearchRoute';
 
-  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
+  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i10.Selected]
-class Selected extends _i12.PageRouteInfo<void> {
-  const Selected({List<_i12.PageRouteInfo>? children})
+/// [_i15.Selected]
+class Selected extends _i18.PageRouteInfo<void> {
+  const Selected({List<_i18.PageRouteInfo>? children})
       : super(
           Selected.name,
           initialChildren: children,
@@ -297,13 +433,13 @@ class Selected extends _i12.PageRouteInfo<void> {
 
   static const String name = 'Selected';
 
-  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
+  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i11.Selection]
-class Selection extends _i12.PageRouteInfo<void> {
-  const Selection({List<_i12.PageRouteInfo>? children})
+/// [_i16.Selection]
+class Selection extends _i18.PageRouteInfo<void> {
+  const Selection({List<_i18.PageRouteInfo>? children})
       : super(
           Selection.name,
           initialChildren: children,
@@ -311,13 +447,13 @@ class Selection extends _i12.PageRouteInfo<void> {
 
   static const String name = 'Selection';
 
-  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
+  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i7.SelectionEmptyPage]
-class SelectionTab extends _i12.PageRouteInfo<void> {
-  const SelectionTab({List<_i12.PageRouteInfo>? children})
+/// [_i6.SelectionEmptyPage]
+class SelectionTab extends _i18.PageRouteInfo<void> {
+  const SelectionTab({List<_i18.PageRouteInfo>? children})
       : super(
           SelectionTab.name,
           initialChildren: children,
@@ -325,5 +461,19 @@ class SelectionTab extends _i12.PageRouteInfo<void> {
 
   static const String name = 'SelectionTab';
 
-  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
+  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i17.UserProfileScreen]
+class UserProfileRoute extends _i18.PageRouteInfo<void> {
+  const UserProfileRoute({List<_i18.PageRouteInfo>? children})
+      : super(
+          UserProfileRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'UserProfileRoute';
+
+  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
 }

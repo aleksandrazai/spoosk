@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:spoosk/core/presentation/routes.gr.dart';
+import 'package:spoosk/core/presentation/screens/auth.dart/login.dart';
 
 @RoutePage()
 class Profile extends StatefulWidget {
@@ -12,8 +14,20 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Profile"),
+    //TODO: убрать временную заглушку
+    return Center(
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        ElevatedButton(
+            onPressed: () {
+              context.router.push(LoginRoute());
+            },
+            child: Text('Экран авторизации')),
+        ElevatedButton(
+            onPressed: () {
+              context.router.push(UserProfileRoute());
+            },
+            child: Text('Профиль'))
+      ]),
     );
   }
 }
