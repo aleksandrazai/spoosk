@@ -13,15 +13,14 @@ import 'package:flutter/material.dart' as _i19;
 import 'package:spoosk/core/data/models/reviews.dart' as _i20;
 import 'package:spoosk/core/presentation/routes.dart' as _i6;
 import 'package:spoosk/core/presentation/screens/all_reviews_by_id.dart' as _i1;
-import 'package:spoosk/core/presentation/screens/auth.dart/change_password.dart'
+import 'package:spoosk/core/presentation/screens/auth/change_password.dart'
     as _i2;
-import 'package:spoosk/core/presentation/screens/auth.dart/code.dart' as _i4;
-import 'package:spoosk/core/presentation/screens/auth.dart/login.dart' as _i7;
-import 'package:spoosk/core/presentation/screens/auth.dart/register.dart'
-    as _i10;
-import 'package:spoosk/core/presentation/screens/auth.dart/reset_password.dart'
+import 'package:spoosk/core/presentation/screens/auth/code.dart' as _i4;
+import 'package:spoosk/core/presentation/screens/auth/login.dart' as _i7;
+import 'package:spoosk/core/presentation/screens/auth/register.dart' as _i10;
+import 'package:spoosk/core/presentation/screens/auth/reset_password.dart'
     as _i11;
-import 'package:spoosk/core/presentation/screens/auth.dart/user_profile.dart'
+import 'package:spoosk/core/presentation/screens/auth/user_profile.dart'
     as _i17;
 import 'package:spoosk/core/presentation/screens/comparison.dart' as _i3;
 import 'package:spoosk/core/presentation/screens/home.dart' as _i5;

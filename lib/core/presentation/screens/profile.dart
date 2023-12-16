@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
-import 'package:spoosk/core/presentation/screens/auth.dart/login.dart';
+import 'package:spoosk/core/presentation/screens/auth/login.dart';
 
 @RoutePage()
 class Profile extends StatefulWidget {
