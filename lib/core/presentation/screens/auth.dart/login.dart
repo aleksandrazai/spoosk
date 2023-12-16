@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spoosk/core/colors.dart';
+import 'package:spoosk/core/presentation/bloc_login/login_bloc.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/theme/theme.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
@@ -8,8 +10,17 @@ import 'package:spoosk/core/presentation/widgets/custom_leading.dart';
 import 'package:spoosk/core/presentation/widgets/custom_login_field.dart';
 
 @RoutePage()
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,48 +40,94 @@ class LoginScreen extends StatelessWidget {
             title: Text('Вход в аккаунт',
                 style: Theme.of(context).textTheme.headlineMedium)),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //добавить варианты текста для разных экранов
-              const Text('Зарегистрируйся и войди'),
-              const Text('Адрес эл. почты'),
-              LoginField(),
-              const Text('Пароль'),
-              LoginField(),
-              TextButton(
-                  onPressed: () {
-                    context.router.push(ChangePasswordRoute());
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Form(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //TODO: добавить варианты текста для разных экранов
+                const Text('Зарегистрируйся и войди'),
+                const Text('Адрес эл. почты'),
+                LoginField(
+                    hintText: 'Почта',
+                    controller: _emailController,
+                    obscureText: false,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Укажите адрес эл. почты';
+                      } else if (!_isValidEmail(value)) {
+                        return 'Некорректный формат';
+                      }
+                      return null;
+                    }),
+                const Text('Пароль'),
+                LoginField(
+                  hintText: 'Пароль',
+                  controller: _passwordController,
+                  obscureText: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Введите пароль';
+                    } else if (!RegExp(r'^[a-zA-Z0-9!#.$%&+=?^_`{|}~-]{8,128}$')
+                        .hasMatch(value)) {
+                      return 'Пароль должен содержать не менее 8 символов';
+                    }
+                    return null;
                   },
-                  child: const Text('Забыли пароль?')),
-              CustomButton(
-                  textStyle: Theme.of(context)
-                      .textTheme
-                      .headlineMedium
-                      ?.copyWith(color: AppColors.white, fontSize: 16),
-                  boxDecoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                  height: 36,
-                  buttonText: 'Войти',
-                  color: AppColors.primaryColor,
-                  onTap: () {
-                    context.router.push(UserProfileRoute());
-                  }),
-              SizedBox(height: 16),
-              CustomButton(
-                  textStyle: Theme.of(context)
-                      .textTheme
-                      .headlineMedium
-                      ?.copyWith(fontSize: 16, color: AppColors.primaryColor),
-                  height: 36,
-                  buttonText: 'Зарегистрироваться',
-                  color: AppColors.gray,
-                  onTap: () {
-                    context.router.push(const RegisterRoute());
-                  }),
-            ],
+                ),
+                TextButton(
+                    onPressed: () {
+                      context.router.push(const ChangePasswordRoute());
+                    },
+                    child: const Text('Забыли пароль?')),
+                CustomButton(
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .headlineMedium
+                        ?.copyWith(color: AppColors.white, fontSize: 16),
+                    boxDecoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                    height: 36,
+                    buttonText: 'Войти',
+                    color: AppColors.primaryColor,
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        context.read<LoginBloc>().add(FilledFormEvent(
+                            email: _emailController.text,
+                            password: _passwordController.text));
+                        _onLoginPressed();
+                      }
+                    }),
+                const SizedBox(height: 16),
+                CustomButton(
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .headlineMedium
+                        ?.copyWith(fontSize: 16, color: AppColors.primaryColor),
+                    height: 36,
+                    buttonText: 'Зарегистрироваться',
+                    color: AppColors.gray,
+                    onTap: () {
+                      // if (_formKey.currentState!.validate()) {
+                      //   _onLoginPressed();
+                      // }
+                    }),
+              ],
+            ),
           ),
         ));
+  }
+
+  bool _isValidEmail(String value) {
+    final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+    return emailRegex.hasMatch(value);
+  }
+
+  void _onLoginPressed() {
+    print('Login button pressed');
+
+    context.router.push(UserProfileRoute());
   }
 }

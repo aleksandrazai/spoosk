@@ -156,9 +156,11 @@ abstract class $AppRouter extends _i18.RootStackRouter {
       );
     },
     UserProfileRoute.name: (routeData) {
+      final args = routeData.argsAs<UserProfileRouteArgs>(
+          orElse: () => const UserProfileRouteArgs());
       return _i18.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i17.UserProfileScreen(),
+        child: _i17.UserProfileScreen(key: args.key),
       );
     },
   };
@@ -466,14 +468,29 @@ class SelectionTab extends _i18.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i17.UserProfileScreen]
-class UserProfileRoute extends _i18.PageRouteInfo<void> {
-  const UserProfileRoute({List<_i18.PageRouteInfo>? children})
-      : super(
+class UserProfileRoute extends _i18.PageRouteInfo<UserProfileRouteArgs> {
+  UserProfileRoute({
+    _i19.Key? key,
+    List<_i18.PageRouteInfo>? children,
+  }) : super(
           UserProfileRoute.name,
+          args: UserProfileRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'UserProfileRoute';
 
-  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+  static const _i18.PageInfo<UserProfileRouteArgs> page =
+      _i18.PageInfo<UserProfileRouteArgs>(name);
+}
+
+class UserProfileRouteArgs {
+  const UserProfileRouteArgs({this.key});
+
+  final _i19.Key? key;
+
+  @override
+  String toString() {
+    return 'UserProfileRouteArgs{key: $key}';
+  }
 }

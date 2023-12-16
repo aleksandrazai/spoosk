@@ -43,7 +43,7 @@ class EnterCodeScreen extends StatelessWidget {
               buttonText: 'Зарегистрироваться',
               color: AppColors.primaryColor,
               onTap: () {
-                context.router.push(const UserProfileRoute());
+                context.router.push(UserProfileRoute());
               }),
         ],
       ),

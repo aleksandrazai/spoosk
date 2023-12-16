@@ -7,6 +7,8 @@ import 'package:spoosk/core/data/models/regions.dart';
 import 'package:spoosk/core/data/models/resorts.dart';
 import 'package:spoosk/core/data/models/reviews.dart';
 import 'package:spoosk/core/data/models/user_level.dart';
+import 'package:spoosk/core/data/models/user_login.dart';
+import 'package:spoosk/core/data/models/user_profile.dart';
 
 class RequestController {
   final Dio _dio = Dio();
@@ -156,13 +158,61 @@ class RequestController {
       print('URL Reviews: $_url$getReviewsById');
       final response = await _dio.get('$_url$getReviewsById$id/reviews/',
           options: ApiConfigurate.headers);
-
       final result = List<Reviews>.from(
           response.data['results'].map((x) => Reviews.fromJson(x)));
       print('ReviewsByID Result: ${response.data}');
       return result;
     } catch (e) {
       print('Error in GetReviewsByID call: $e');
+      return null;
+    }
+  }
+
+//авторизация пользователя
+  Future<UserData?> postUserLogin({
+    required userLogin,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final requestData = {
+        'email': email,
+        'password': password,
+      };
+
+      print('Request Data: $requestData');
+      final response = await _dio.post(
+          'https://spoosk.pnpl.tech/api/users/login/',
+          data: requestData,
+          options: ApiConfigurate.postHeaders);
+      if (response.statusCode == 200) {
+        final result = UserLogin.fromJson(response.data);
+        print('UserLogin Result: ${response.data}');
+        return result.data;
+      } else {
+        print('Non-200 status code: ${response.statusCode}');
+        return null;
+      }
+    } catch (e) {
+      print('Error in userLogin call: $e');
+      return null;
+    }
+  }
+
+//получение данных пользователя по ID
+  Future<UserProfile?> getUserProfile({
+    required getUserProfile,
+    required id,
+  }) async {
+    try {
+      print('URL UserProfile: $_url$getUserProfile$id');
+      final response = await _dio.get('$_url$getUserProfile$id',
+          options: ApiConfigurate.headers);
+      final result = UserProfile.fromJson(response.data);
+      print('UserProfile Result: ${response.data}');
+      return result;
+    } catch (e) {
+      print('Error in UserProfile call: $e');
       return null;
     }
   }

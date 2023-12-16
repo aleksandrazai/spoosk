@@ -2,7 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:spoosk/core/colors.dart';
 
 class LoginField extends StatefulWidget {
-  const LoginField({super.key});
+  final String hintText;
+  final TextEditingController controller;
+  final bool obscureText;
+  final String? Function(String?)? validator;
+
+  const LoginField(
+      {super.key,
+      required this.hintText,
+      required this.controller,
+      required this.obscureText,
+      required this.validator});
 
   @override
   State<LoginField> createState() => _LoginFieldState();
@@ -29,8 +39,11 @@ class _LoginFieldState extends State<LoginField> {
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: AppColors.primaryColor, width: 1.0),
         ),
-        hintText: "Почта",
+        hintText: widget.hintText,
       ),
+      controller: widget.controller,
+      obscureText: widget.obscureText,
+      validator: widget.validator,
     );
   }
 }
