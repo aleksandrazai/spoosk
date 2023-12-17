@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spoosk/core/colors.dart';
+import 'package:spoosk/core/data/DBController.dart';
+import 'package:spoosk/core/data/models/UserAuth.dart';
 import 'package:spoosk/core/presentation/bloc_reviews/reviews_bloc.dart';
 import 'package:spoosk/core/presentation/blocs_init/bloc/request_controller_bloc.dart';
 import 'package:spoosk/core/presentation/connected_bloc/connected_bloc.dart';
@@ -22,6 +24,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   late final RequestControllerBloc requestControllerBloc;
+  DBController dbController = DBController();
   bool dialog = false;
 
   @override
@@ -160,6 +163,13 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
+    dbController.initDatabase();
+    dbController.insert(UserAuth(id: 1, token: "123"));
+    dbController
+        .getDataList()
+        .then((value) => print('\x1B[33m${value.toList()}\x1B[0m'));
+
+    dbController.updateQuantity(UserAuth(id: 1, token: "we;fmwpoef321"));
     requestControllerBloc = context.read<RequestControllerBloc>();
     requestControllerBloc.add(LoadAllResorts());
     context.read<ReviewsBloc>().add(LoadReviews());
