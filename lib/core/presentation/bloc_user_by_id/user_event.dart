@@ -3,7 +3,7 @@ part of 'user_bloc.dart';
 class UserProfileEvent {}
 
 class GetUserInfo extends UserProfileEvent {
-  final UserProfile userProfile;
+  final int userId;
 
-  GetUserInfo({required this.userProfile});
+  GetUserInfo({required this.userId});
 }

@@ -12,8 +12,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     on<GetUserInfo>(
       (event, emit) async {
         final UserProfile? userProfile = await requestController.getUserProfile(
-            getUserProfile: ApiConfigurate.getUserProfile,
-            id: event.userProfile.id);
+            getUserProfile: ApiConfigurate.getUserProfile, id: event.userId);
         if (userProfile != null) {
           emit(UserProfileLoaded(userProfile: userProfile));
         } else {

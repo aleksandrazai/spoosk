@@ -15,7 +15,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           email: event.email,
           password: event.password);
       if (userData != null) {
-        emit(LoginSuccessfull(userData: userData));
+        emit(LoginSuccessfull(userData: userData, id: userData.id));
       }
     });
   }
