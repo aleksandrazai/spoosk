@@ -1,8 +1,5 @@
-import 'dart:math';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/data/models/fliter_models.dart/main_filter/levels.dart';
@@ -17,6 +14,7 @@ import 'package:spoosk/core/presentation/screens/selection_screen/selection_scre
 import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet_month.dart';
 import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet_region.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
+import 'package:spoosk/core/presentation/widgets/resort_screen_widgets/line_button_w_icons.dart';
 
 @RoutePage()
 class Selection extends StatefulWidget {
@@ -46,7 +44,7 @@ class _SelectionState extends State<Selection> {
           children: [
             Image.asset(image_selection_header_bg),
             Column(children: [
-              _navigateTo(
+              LineButtonWithIcons(
                 onTap: () {
                   CustomBottomSheet.customShowModalBottomSheet(
                       height: MediaQuery.sizeOf(context).height * 0.4,
@@ -59,7 +57,7 @@ class _SelectionState extends State<Selection> {
                 imageName: image_location_blue,
                 text: _getSelectedRegionsText(),
               ),
-              _navigateTo(
+              LineButtonWithIcons(
                   onTap: () {
                     CustomBottomSheet.customShowModalBottomSheet(
                         height: MediaQuery.sizeOf(context).height * 0.4,
@@ -72,7 +70,7 @@ class _SelectionState extends State<Selection> {
                   imageName: image_calendar,
                   text: _getSelectedMonthsText(),
                   color: AppColors.primaryColor),
-              _navigateTo(
+              LineButtonWithIcons(
                   onTap: () {
                     CustomBottomSheet.customShowModalBottomSheet(
                         height: MediaQuery.sizeOf(context).height * 0.3,
@@ -95,7 +93,9 @@ class _SelectionState extends State<Selection> {
                         CustomBottomSheet.customShowModalBottomSheet(
                             height: MediaQuery.sizeOf(context).height,
                             context: context,
-                            children: [const SelectionScreenBottomSheetFilter()]);
+                            children: [
+                              const SelectionScreenBottomSheetFilter()
+                            ]);
                       },
                       child: Text(
                           style: Theme.of(context)
@@ -191,64 +191,5 @@ class _SelectionState extends State<Selection> {
     } else {
       return 'Уровень катания: Любой';
     }
-  }
-
-  Widget _navigateTo(
-      {required void Function() onTap,
-      required String imageName,
-      required String text,
-      Color? color,
-      EdgeInsets? margin}) {
-    return InkWell(
-      child: Container(
-        margin: margin,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(10),
-          splashColor: AppColors.blue_light,
-          onTap: () {
-            onTap();
-          },
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                width: 38,
-                height: 38,
-                decoration: BoxDecoration(
-                    color: AppColors.white,
-                    borderRadius: const BorderRadius.all(Radius.circular(10))),
-                child: Center(child: SvgPicture.asset(color: color, imageName)),
-              ),
-              const SizedBox(
-                width: 22,
-              ),
-              Expanded(
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: double.infinity),
-                  child: Text(
-                    text,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
-                        .copyWith(color: AppColors.text_black),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 16),
-                child: Transform(
-                  alignment: Alignment.center,
-                  transform: Matrix4.rotationY(pi),
-                  child: SvgPicture.asset(
-                      color: AppColors.blue_light, image_arrow_left),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }
