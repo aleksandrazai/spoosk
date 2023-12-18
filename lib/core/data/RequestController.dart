@@ -9,6 +9,7 @@ import 'package:spoosk/core/data/models/reviews.dart';
 import 'package:spoosk/core/data/models/user_level.dart';
 import 'package:spoosk/core/data/models/user_login.dart';
 import 'package:spoosk/core/data/models/user_profile.dart';
+import 'package:spoosk/core/presentation/bloc_login/login_bloc.dart';
 
 class RequestController {
   final Dio _dio = Dio();
@@ -189,14 +190,11 @@ class RequestController {
         final result = UserLogin.fromJson(response.data);
         print('UserLogin Result: ${response.data}');
         return result.data;
-      } else {
-        print('Non-200 status code: ${response.statusCode}');
-        return null;
       }
-    } catch (e) {
+    } on DioException catch (e) {
       print('Error in userLogin call: $e');
-      return null;
     }
+    return null;
   }
 
 //получение данных пользователя по ID
