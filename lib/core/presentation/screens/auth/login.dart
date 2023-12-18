@@ -25,6 +25,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String errorMessage = '';
+
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccessfull) {
@@ -34,12 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
         }
         if (state is LoginError) {
           print('Login Error state received');
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return const Text('Неправильно введены учетные данные');
-            },
-          );
+          errorMessage = 'Ошибка. Вы ввели неверные данные авторизации';
         }
       },
       child: Scaffold(
@@ -78,24 +75,25 @@ class _LoginScreenState extends State<LoginScreen> {
                         } else if (!_isValidEmail(value)) {
                           return 'Некорректный формат';
                         }
-                        return null;
+                        return errorMessage;
                       }),
                   const Text('Пароль'),
                   LoginField(
-                    hintText: 'Пароль',
-                    controller: _passwordController,
-                    obscureText: true,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Введите пароль';
-                      } else if (!RegExp(
-                              r'^[a-zA-Z0-9!#.$%&+=?^_`{|}~-]{8,128}$')
-                          .hasMatch(value)) {
-                        return 'Пароль должен содержать не менее 8 символов';
-                      }
-                      return null;
-                    },
-                  ),
+                      hintText: 'Пароль',
+                      controller: _passwordController,
+                      obscureText: true,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Введите пароль';
+                        } else if (value.length < 8) {
+                          return 'Пароль должен содержать не менее 8 символов';
+                        } else if (!RegExp(
+                                r'^[a-zA-Z0-9!#.$%&+=?^_`{|}~-]{8,128}$')
+                            .hasMatch(value)) {
+                          return 'Пароль содержит запрещенные символы';
+                        }
+                        return null;
+                      }),
                   TextButton(
                       onPressed: () {
                         context.router.push(const ChangePasswordRoute());
