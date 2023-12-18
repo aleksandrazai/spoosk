@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
+import 'package:spoosk/core/presentation/widgets/resort_screen_widgets/line_button_w_icons.dart';
 
 @RoutePage()
 class UserProfileScreen extends StatefulWidget {
@@ -29,28 +30,40 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         if (state is UserProfileLoaded) {
           return Scaffold(
             body: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 104,
-                    width: 104,
-                    clipBehavior: Clip.antiAlias,
-                    decoration: ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(84),
+              child: Padding(
+                padding: const EdgeInsets.all(28.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 104,
+                      width: 104,
+                      clipBehavior: Clip.antiAlias,
+                      decoration: ShapeDecoration(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(84),
+                        ),
                       ),
+                      child: Image.asset(image_avatar_placeholder,
+                          fit: BoxFit.cover),
                     ),
-                    child: Image.asset(image_avatar_placeholder,
-                        fit: BoxFit.cover),
-                  ),
-                  Text(state.userProfile.firstName,
-                      style: Theme.of(context).textTheme.headlineMedium),
-                  Text(state.userProfile.email,
-                      style: Theme.of(context).textTheme.bodyMedium),
-                  Text('Редактировать профиль'),
-                  Text('Мои отзывы'),
-                ],
+                    Text(state.userProfile.firstName,
+                        style: Theme.of(context).textTheme.headlineMedium),
+                    Text(state.userProfile.email,
+                        style: Theme.of(context).textTheme.bodyMedium),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 28),
+                      child: LineButtonWithIcons(
+                          onTap: () {},
+                          imageName: image_edit,
+                          text: 'Редактировать профиль'),
+                    ),
+                    LineButtonWithIcons(
+                        onTap: () {},
+                        imageName: image_reviews,
+                        text: 'Мои отзывы'),
+                  ],
+                ),
               ),
             ),
           );

@@ -10,12 +10,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoginInitial()) {
     RequestController requestController = RequestController();
     on<FilledFormEvent>((event, emit) async {
-      final UserData? userData = await requestController.postUserLogin(
-          userLogin: ApiConfigurate.userLogin,
-          email: event.email,
-          password: event.password);
-      if (userData != null) {
-        emit(LoginSuccessfull(userData: userData, id: userData.id));
+      try {
+        final UserData? userData = await requestController.postUserLogin(
+            userLogin: ApiConfigurate.userLogin,
+            email: event.email,
+            password: event.password);
+        if (userData != null) {
+          emit(LoginSuccessfull(userData: userData, id: userData.id));
+        } else {
+          emit(LoginError());
+        }
+      } catch (error) {
+        print('Error in login: $error');
+        emit(LoginError());
       }
     });
   }

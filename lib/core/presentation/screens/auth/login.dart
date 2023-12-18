@@ -32,7 +32,15 @@ class _LoginScreenState extends State<LoginScreen> {
           context.read<UserProfileBloc>().add(GetUserInfo(userId: userId));
           context.router.push(UserProfileRoute());
         }
-        //TODO: добавить ошибку
+        if (state is LoginError) {
+          print('Login Error state received');
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return const Text('Неправильно введены учетные данные');
+            },
+          );
+        }
       },
       child: Scaffold(
           appBar: AppBar(
@@ -108,7 +116,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           context.read<LoginBloc>().add(FilledFormEvent(
                               email: _emailController.text,
                               password: _passwordController.text));
-                          _onLoginPressed();
                         }
                       }),
                   const SizedBox(height: 16),
@@ -136,9 +143,5 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isValidEmail(String value) {
     final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
     return emailRegex.hasMatch(value);
-  }
-
-  void _onLoginPressed() {
-    print('Login button pressed');
   }
 }
