@@ -22,11 +22,24 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  String errorMessage = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _emailController.addListener(_clearErrorMessage);
+  }
+
+  void _clearErrorMessage() {
+    if (errorMessage.isNotEmpty) {
+      setState(() {
+        errorMessage = '';
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    String errorMessage = '';
-
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccessfull) {
@@ -34,9 +47,11 @@ class _LoginScreenState extends State<LoginScreen> {
           context.read<UserProfileBloc>().add(GetUserInfo(userId: userId));
           context.router.push(UserProfileRoute());
         }
-        if (state is LoginError) {
+        if (state is LoginFailed) {
           print('Login Error state received');
-          errorMessage = 'Ошибка. Вы ввели неверные данные авторизации';
+          setState(() {
+            errorMessage = 'Ошибка. Вы ввели неверные данные авторизации';
+          });
         }
       },
       child: Scaffold(
@@ -74,8 +89,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           return 'Укажите адрес эл. почты';
                         } else if (!_isValidEmail(value)) {
                           return 'Некорректный формат';
+                        } else if (errorMessage.isNotEmpty) {
+                          return errorMessage;
                         }
-                        return errorMessage;
+                        return null;
                       }),
                   const Text('Пароль'),
                   LoginField(
@@ -111,6 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: AppColors.primaryColor,
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
+                          Feedback.forTap(context);
                           context.read<LoginBloc>().add(FilledFormEvent(
                               email: _emailController.text,
                               password: _passwordController.text));
@@ -127,9 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       buttonText: 'Зарегистрироваться',
                       color: AppColors.gray,
                       onTap: () {
-                        // if (_formKey.currentState!.validate()) {
-                        //   _onLoginPressed();
-                        // }
+                        context.router.push(const RegisterRoute());
                       }),
                 ],
               ),

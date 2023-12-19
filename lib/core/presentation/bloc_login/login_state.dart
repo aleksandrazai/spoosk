@@ -11,4 +11,6 @@ class LoginSuccessfull extends LoginState {
   LoginSuccessfull({required this.userData, required this.id});
 }
 
+class LoginFailed extends LoginState {}
+
 class LoginError extends LoginState {}

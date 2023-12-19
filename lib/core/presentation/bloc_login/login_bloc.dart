@@ -3,7 +3,6 @@ import 'package:spoosk/core/data/ApiConfig.dart';
 import 'package:spoosk/core/data/DB/DBController_history_search.dart';
 import 'package:spoosk/core/data/DB/DBController_user_auth.dart';
 import 'package:spoosk/core/data/RequestController.dart';
-import 'package:spoosk/core/data/models/UserAuth.dart';
 import 'package:spoosk/core/data/models/user_login.dart';
 
 part 'login_event.dart';
@@ -20,14 +19,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<FilledFormEvent>((event, emit) async {
       try {
         final UserData? userData = await requestController.postUserLogin(
-            userLogin: ApiConfigurate.userLogin,
             email: event.email,
-            password: event.password);
+            password: event.password,
+            userLogin: ApiConfigurate.postHeaders);
         if (userData != null) {
           await initDataBase(userData: userData);
           emit(LoginSuccessfull(userData: userData, id: userData.id));
         } else {
-          emit(LoginError());
+          emit(LoginFailed());
         }
       } catch (error) {
         print('Error in login: $error');
