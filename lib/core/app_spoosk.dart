@@ -10,6 +10,7 @@ import 'package:spoosk/core/presentation/bloc_by_id/resort_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_login/login_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_mainFilter.dart/mainFilter_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_region/region_bloc.dart';
+import 'package:spoosk/core/presentation/bloc_register/register_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_reviews/reviews_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_reviews_by_id/reviews_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_search/search_bloc.dart';
@@ -80,6 +81,9 @@ class _SpooskAppState extends State<SpooskApp> {
           ),
           BlocProvider(
             create: (context) => UserProfileBloc(),
+          ),
+          BlocProvider(
+            create: (context) => RegisterBloc(),
           ),
         ],
         child: MaterialApp.router(

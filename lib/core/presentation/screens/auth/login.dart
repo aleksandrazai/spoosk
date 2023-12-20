@@ -155,7 +155,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   bool _isValidEmail(String value) {
-    final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+    final emailRegex = RegExp(
+        r'^[a-zA-Z0-9._%+-]+(\.[a-zA-Z0-9._%+-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z]{2,7})+$');
     return emailRegex.hasMatch(value);
   }
 }

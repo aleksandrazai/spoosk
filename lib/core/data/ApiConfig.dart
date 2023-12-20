@@ -17,5 +17,6 @@ class ApiConfigurate {
   static String getReviews = 'api/reviews/';
   static String getReviewsById = 'api/resorts/';
   static String userLogin = 'api/users/login';
-  static String getUserProfile = 'api/users/';
+  static String getUserProfile = 'api/users/login';
+  static String userRegister = 'api/users/';
 }
