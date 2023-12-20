@@ -214,4 +214,36 @@ class RequestController {
       return null;
     }
   }
+
+//регистрация нового пользователя
+  Future<UserProfile?> userRegister({
+    required userRegister,
+    required String name,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final requestData = {
+        'first_name': name,
+        'email': email,
+        'password': password,
+      };
+
+      print('Request Data: $requestData');
+      final response = await _dio.post(_url + userRegister,
+          data: requestData, options: ApiConfigurate.postHeaders);
+      if (response.statusCode == 200) {
+        if (response.data.containsKey("id")) {
+          final result = UserProfile.fromJson(response.data);
+          print('UserRegister Result: ${response}');
+          return result;
+        }
+      } else if (response.data.containsKey("email")) {
+        print('UserRegister Error: ${response.data["email"]}');
+      }
+    } on DioException catch (e) {
+      print('Error in Register call: ${e.message}');
+    }
+    return null;
+  }
 }
