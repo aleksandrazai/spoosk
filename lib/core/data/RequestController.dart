@@ -230,7 +230,7 @@ class RequestController {
       };
 
       print('Request Data: $requestData');
-      final response = await _dio.post(_url + userRegister,
+      final response = await _dio.post('https://spoosk.pnpl.tech/api/users/',
           data: requestData, options: ApiConfigurate.postHeaders);
       if (response.statusCode == 200) {
         if (response.data.containsKey("id")) {

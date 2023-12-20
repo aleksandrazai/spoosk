@@ -8,10 +8,6 @@ part 'register_event.dart';
 part 'register_state.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
-  // DBController_user_auth dbController_user_auth = DBController_user_auth();
-  // DBController_history_search dbController_history_search =
-  //     DBController_history_search();
-
   RegisterBloc() : super(RegisterInitial()) {
     RequestController requestController = RequestController();
     on<RegisterFormFilled>((event, emit) async {
@@ -22,7 +18,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
             name: event.name,
             userRegister: ApiConfigurate.postHeaders);
         if (userProfile != null) {
-          // await initDataBase(userData: userData);
           emit(RegisterSuccessfull(
               userProfile: userProfile, id: userProfile.id));
         } else {
@@ -34,11 +29,4 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       }
     });
   }
-
-  // Future<void> initDataBase({UserData? userData}) async {
-  //   // final List<UserData> data = await dbController_user_auth.getDataList();
-  //   // print(data);
-  //   await dbController_user_auth
-  //       .insert(UserData(token: userData!.token, id: userData.id));
-  // }
 }

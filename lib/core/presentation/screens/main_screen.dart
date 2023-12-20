@@ -25,7 +25,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  AuthUseCase authUseCase = AuthUseCase();
+  // AuthUseCase authUseCase = AuthUseCase();
 
   late final RequestControllerBloc requestControllerBloc;
   bool dialog = false;
@@ -169,6 +169,6 @@ class _MainScreenState extends State<MainScreen> {
     requestControllerBloc = context.read<RequestControllerBloc>();
     requestControllerBloc.add(LoadAllResorts());
     context.read<ReviewsBloc>().add(LoadReviews());
-    authUseCase.checkDB(context.read<UserProfileBloc>());
+    // authUseCase.checkDB(context.read<UserProfileBloc>());
   }
 }
