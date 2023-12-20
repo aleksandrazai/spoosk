@@ -3,16 +3,20 @@ class UserProfile {
   String email;
   String firstName;
   String lastName;
-  DateTime dateJoined;
   dynamic avatar;
+  String nickname;
+  String city;
+  String country;
 
   UserProfile({
     required this.id,
     required this.email,
     required this.firstName,
     required this.lastName,
-    required this.dateJoined,
     required this.avatar,
+    required this.nickname,
+    required this.city,
+    required this.country,
   });
 
   factory UserProfile.fromJson(Map<String, dynamic> json) => UserProfile(
@@ -20,8 +24,10 @@ class UserProfile {
         email: json["email"],
         firstName: json["first_name"],
         lastName: json["last_name"],
-        dateJoined: DateTime.parse(json["date_joined"]),
         avatar: json["avatar"],
+        nickname: json["nickname"],
+        city: json["city"],
+        country: json["country"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -29,7 +35,9 @@ class UserProfile {
         "email": email,
         "first_name": firstName,
         "last_name": lastName,
-        "date_joined": dateJoined.toIso8601String(),
         "avatar": avatar,
+        "nickname": nickname,
+        "city": city,
+        "country": country,
       };
 }
