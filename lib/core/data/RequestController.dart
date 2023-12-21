@@ -9,7 +9,7 @@ import 'package:spoosk/core/data/models/reviews.dart';
 import 'package:spoosk/core/data/models/user_level.dart';
 import 'package:spoosk/core/data/models/user_login.dart';
 import 'package:spoosk/core/data/models/user_profile.dart';
-import 'package:spoosk/core/presentation/bloc_login/login_bloc.dart';
+import 'package:spoosk/core/data/models/user_register.dart';
 
 class RequestController {
   final Dio _dio = Dio();
@@ -216,7 +216,7 @@ class RequestController {
   }
 
 //регистрация нового пользователя
-  Future<UserProfile?> userRegister({
+  Future<UserRegister?> userRegister({
     required userRegister,
     required String name,
     required String email,
@@ -232,17 +232,42 @@ class RequestController {
       print('Request Data: $requestData');
       final response = await _dio.post('https://spoosk.pnpl.tech/api/users/',
           data: requestData, options: ApiConfigurate.postHeaders);
-      if (response.statusCode == 200) {
-        if (response.data.containsKey("id")) {
-          final result = UserProfile.fromJson(response.data);
-          print('UserRegister Result: ${response}');
-          return result;
-        }
-      } else if (response.data.containsKey("email")) {
-        print('UserRegister Error: ${response.data["email"]}');
-      }
+      final result = UserRegister.fromJson(response.data);
+      print('UserRegister Result: ${response.data}');
+      return result;
     } on DioException catch (e) {
       print('Error in Register call: ${e.message}');
+      print('Error Details: ${e.response?.toString()}');
+    }
+    return null;
+  }
+
+//верификация пользователя по коду
+  Future<UserData?> verifyCode({
+    required verifyCode,
+    required code,
+    required id,
+  }) async {
+    try {
+      final requestData = {
+        'code': code,
+      };
+      print('Request data: $requestData');
+      print(
+          'URL UserProfile:  https://spoosk.pnpl.tech/api/users/id/verify_code/');
+
+      final response = await _dio.post(
+          'https://spoosk.pnpl.tech/api/users/$id/verify_code/',
+          data: requestData,
+          options: ApiConfigurate.headers);
+      if (response.statusCode == 200) {
+        final result = UserLogin.fromJson(response.data);
+        print('VerifyCode Result: ${response.data}');
+        return result.data;
+      }
+    } on DioException catch (e) {
+      print('Error in UserProfile call: $e');
+      return null;
     }
     return null;
   }

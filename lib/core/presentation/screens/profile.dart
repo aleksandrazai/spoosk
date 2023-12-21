@@ -25,7 +25,12 @@ class _ProfileState extends State<Profile> {
             onPressed: () {
               context.router.push(UserProfileRoute());
             },
-            child: Text('Профиль'))
+            child: Text('Профиль')),
+        ElevatedButton(
+            onPressed: () {
+              context.router.push(EnterCodeRoute());
+            },
+            child: Text('Код')),
       ]),
     );
   }

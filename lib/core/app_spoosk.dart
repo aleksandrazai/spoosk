@@ -5,6 +5,7 @@ import 'package:spoosk/core/data/models/fliter_models.dart/advanced_filter/all_f
 import 'package:spoosk/core/data/models/fliter_models.dart/main_filter/levels.dart';
 import 'package:spoosk/core/data/models/fliter_models.dart/main_filter/months.dart';
 import 'package:spoosk/core/data/models/fliter_models.dart/main_filter/regions.dart';
+import 'package:spoosk/core/data/models/user_id_notifier.dart';
 import 'package:spoosk/core/generated/l10n.dart';
 import 'package:spoosk/core/presentation/bloc_by_id/resort_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_login/login_bloc.dart';
@@ -15,6 +16,7 @@ import 'package:spoosk/core/presentation/bloc_reviews/reviews_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_reviews_by_id/reviews_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_search/search_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
+import 'package:spoosk/core/presentation/bloc_verify_code/verify_code_bloc.dart';
 import 'package:spoosk/core/presentation/blocs_init/bloc/request_controller_bloc.dart';
 import 'package:spoosk/core/presentation/connected_bloc/connected_bloc.dart';
 import 'package:spoosk/core/presentation/routes.dart';
@@ -68,6 +70,9 @@ class _SpooskAppState extends State<SpooskApp> {
             create: (context) => GroupButtonNotifierModel(),
             child: const MainScreen(),
           ),
+          ChangeNotifierProvider(
+            create: (context) => UserDataProvider(),
+          ),
           BlocProvider(
             create: (context) => MainFilterBloc(),
             child: const Selection(),
@@ -84,6 +89,9 @@ class _SpooskAppState extends State<SpooskApp> {
           ),
           BlocProvider(
             create: (context) => RegisterBloc(),
+          ),
+          BlocProvider(
+            create: (context) => VerifyCodeBloc(),
           ),
         ],
         child: MaterialApp.router(

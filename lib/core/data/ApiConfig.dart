@@ -19,4 +19,5 @@ class ApiConfigurate {
   static String userLogin = 'api/users/login';
   static String getUserProfile = 'api/users/';
   static String userRegister = 'api/users/';
+  static String verifyCode = 'api/users/';
 }

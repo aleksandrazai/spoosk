@@ -5,10 +5,10 @@ class RegisterState {}
 class RegisterInitial extends RegisterState {}
 
 class RegisterSuccessfull extends RegisterState {
-  final UserProfile userProfile;
+  final UserRegister userRegister;
   final int id;
 
-  RegisterSuccessfull({required this.userProfile, required this.id});
+  RegisterSuccessfull({required this.userRegister, required this.id});
 }
 
 class RegisterFailed extends RegisterState {}

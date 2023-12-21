@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spoosk/core/data/ApiConfig.dart';
 import 'package:spoosk/core/data/RequestController.dart';
-import 'package:spoosk/core/data/models/user_profile.dart';
+import 'package:spoosk/core/data/models/user_register.dart';
 
 part 'register_event.dart';
 
@@ -12,14 +12,14 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     RequestController requestController = RequestController();
     on<RegisterFormFilled>((event, emit) async {
       try {
-        final UserProfile? userProfile = await requestController.userRegister(
+        final UserRegister? userRegister = await requestController.userRegister(
             email: event.email,
             password: event.password,
             name: event.name,
             userRegister: ApiConfigurate.postHeaders);
-        if (userProfile != null) {
+        if (userRegister != null) {
           emit(RegisterSuccessfull(
-              userProfile: userProfile, id: userProfile.id));
+              id: userRegister.id, userRegister: userRegister));
         } else {
           emit(RegisterFailed());
         }
