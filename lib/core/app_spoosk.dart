@@ -14,6 +14,7 @@ import 'package:spoosk/core/presentation/bloc_register/register_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_reviews/reviews_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_reviews_by_id/reviews_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_search/search_bloc.dart';
+import 'package:spoosk/core/presentation/bloc_search_history/search_history_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
 import 'package:spoosk/core/presentation/blocs_init/bloc/request_controller_bloc.dart';
 import 'package:spoosk/core/presentation/connected_bloc/connected_bloc.dart';
@@ -84,6 +85,9 @@ class _SpooskAppState extends State<SpooskApp> {
           ),
           BlocProvider(
             create: (context) => RegisterBloc(),
+          ),
+          BlocProvider(
+            create: (context) => SearchHistoryBloc(),
           ),
         ],
         child: MaterialApp.router(

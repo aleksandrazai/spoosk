@@ -22,14 +22,14 @@ class Resorts {
         next: json["next"],
         previous: json["previous"],
         results:
-            List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
+            List<Result>.from(json["results"].map((x) => Result.fromMap(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "count": count,
         "next": next,
         "previous": previous,
-        "results": List<dynamic>.from(results.map((x) => x.toJson())),
+        "results": List<dynamic>.from(results.map((x) => x.toMap())),
       };
 }
 
@@ -56,7 +56,7 @@ class Result {
     required this.trailNumber,
   });
 
-  factory Result.fromJson(Map<String, dynamic> json) => Result(
+  factory Result.fromMap(Map<String, dynamic> json) => Result(
         idResort: json["id_resort"],
         name: json["name"],
         region: json["region"],
@@ -68,7 +68,7 @@ class Result {
         trailNumber: json["trail_number"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
         "id_resort": idResort,
         "name": name,
         "region": region,

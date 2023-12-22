@@ -28,7 +28,7 @@ class RequestController {
       final result = List<Result>.from(
         response.data['results'].map((x) {
           try {
-            final result = Result.fromJson(x);
+            final result = Result.fromMap(x);
             return result;
           } catch (e) {
             print('Error mapping result: $e');
@@ -52,7 +52,7 @@ class RequestController {
       final response = await _dio.get('$_url$searchResort?search=$text',
           options: ApiConfigurate.headers);
       final result = List<Result>.from(
-          response.data['results'].map((x) => Result.fromJson(x)));
+          response.data['results'].map((x) => Result.fromMap(x)));
       print('Filter Result: ${response.data}');
       return result;
     } catch (e) {
@@ -70,7 +70,7 @@ class RequestController {
     try {
       final response = await _dio.get(_url + getResotrsById + id,
           options: ApiConfigurate.headers);
-      final result = ResortById.fromJson(response.data);
+      final result = ResortById.fromMap(response.data);
       print('ResortByID: ${response.data}');
       return result;
     } catch (e) {
@@ -124,7 +124,7 @@ class RequestController {
       final response = await _dio.get(url, options: ApiConfigurate.headers);
 
       final result = List<Result>.from(
-          response.data['results'].map((x) => Result.fromJson(x)));
+          response.data['results'].map((x) => Result.fromMap(x)));
       return result;
     } catch (e) {
       print(e);

@@ -78,11 +78,11 @@ class ResortById {
   });
 
   factory ResortById.fromRawJson(String str) =>
-      ResortById.fromJson(json.decode(str));
+      ResortById.fromMap(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toMap());
 
-  factory ResortById.fromJson(Map<String, dynamic> json) => ResortById(
+  factory ResortById.fromMap(Map<String, dynamic> json) => ResortById(
         idResort: json["id_resort"],
         trailLength: json["trail_length"],
         trailNumber: json["trail_number"],
@@ -123,7 +123,7 @@ class ResortById {
         maxHeight: json["max_height"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
         "id_resort": idResort,
         "trail_length": trailLength,
         "trail_number": trailNumber,

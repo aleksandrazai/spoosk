@@ -60,6 +60,10 @@ class _ReviewFormState extends State<ReviewForm> {
                       ),
                       color: Colors.blue),
                   child: Image.network(
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Center(
+                            child: Icon(Icons.close_rounded),
+                          ),
                       height: 60,
                       width: 60,
                       fit: BoxFit.fill,

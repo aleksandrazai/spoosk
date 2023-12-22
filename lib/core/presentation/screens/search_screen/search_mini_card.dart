@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,15 +7,21 @@ import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/data/models/resorts.dart';
 import 'package:spoosk/core/presentation/bloc_by_id/resort_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_reviews_by_id/reviews_by_id_bloc.dart';
+import 'package:spoosk/core/presentation/bloc_search/search_bloc.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
 
-class SearchMiniCard extends StatelessWidget {
-  const SearchMiniCard({super.key, required this.resort});
+import '../../../data/DB/DBController_history_search.dart';
 
+class SearchMiniCard extends StatelessWidget {
   final Result resort;
+
+  const SearchMiniCard({super.key, required this.resort});
 
   @override
   Widget build(BuildContext context) {
+    DBController_history_search dbController_history_search =
+        DBController_history_search();
+
     return GestureDetector(
       onTap: () {
         context
@@ -22,8 +30,10 @@ class SearchMiniCard extends StatelessWidget {
         context
             .read<ResortByIdBloc>()
             .add(EventLoadByIdResort(idResort: resort.idResort));
-        print('id resort: ${resort.idResort}');
+        _insert(dbController_history_search);
         context.router.push(ResortRoute(idResort: resort.idResort));
+
+        context.read<SearchResortBloc>().add(ClearText());
       },
       child: Card(
         elevation: 0,
@@ -35,6 +45,9 @@ class SearchMiniCard extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image.network(
+                  errorBuilder: (context, error, stackTrace) => const Center(
+                    child: Icon(Icons.close_rounded),
+                  ),
                   resort.image,
                   height: 58,
                   width: 58,
@@ -67,5 +80,9 @@ class SearchMiniCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _insert(DBController_history_search dbController_history_search) async {
+    await dbController_history_search.insert(resort);
   }
 }

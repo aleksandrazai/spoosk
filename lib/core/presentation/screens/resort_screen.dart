@@ -120,7 +120,7 @@ class _ResortScreenState extends State<ResortScreen>
                           .read<ResortByIdBloc>()
                           .add(EventClearByIdResort());
                       Feedback.forTap(context);
-                      AutoRouter.of(context).navigate(const Home());
+                      AutoRouter.of(context).pop();
                     },
                     child: SvgPicture.asset(
                       fit: BoxFit.scaleDown,
