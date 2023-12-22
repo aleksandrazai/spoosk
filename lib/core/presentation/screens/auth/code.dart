@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:spoosk/core/colors.dart';
@@ -23,6 +24,21 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
   final pinController = TextEditingController();
   final focusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
+  String errorMessage = '';
+
+  @override
+  void initState() {
+    super.initState();
+    pinController.addListener(_clearErrorMessage);
+  }
+
+  void _clearErrorMessage() {
+    if (errorMessage.isNotEmpty) {
+      setState(() {
+        errorMessage = '';
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -63,84 +79,95 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
           ),
           title: Text('Введите код',
               style: Theme.of(context).textTheme.headlineMedium)),
-      body: Column(
-        children: [
-          Form(
-              key: formKey,
-              child: Column(
-                children: [
-                  Directionality(
-                    textDirection: TextDirection.ltr,
-                    child: Pinput(
-                      controller: pinController,
-                      focusNode: focusNode,
-                      defaultPinTheme: defaultPinTheme,
-                      pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-                      validator: (value) {
-                        if (value?.length == 4) {
-                          return null;
-                        }
-                        return 'Введите код';
-                      },
-                      hapticFeedbackType: HapticFeedbackType.lightImpact,
-                      onCompleted: (pin) {},
-                      onChanged: (value) {},
-                      cursor: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 9),
-                            width: 22,
-                            height: 1,
-                            color: focusedBorderColor,
+      body: BlocListener<VerifyCodeBloc, VerifyCodeState>(
+        listener: (context, state) {
+          if (state is VerifyCodeSuccessfull) {
+            context.read<UserProfileBloc>().add(GetUserInfo(
+                userId: Provider.of<UserDataProvider>(context, listen: false)
+                    .userId));
+            context.router.push(UserProfileRoute());
+          }
+          if (state is VerifyCodeFailed) {
+            errorMessage = 'Введен неверный код';
+          }
+        },
+        child: Column(
+          children: [
+            Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: Pinput(
+                        controller: pinController,
+                        focusNode: focusNode,
+                        defaultPinTheme: defaultPinTheme,
+                        pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+                        validator: (value) {
+                          if (value?.length == 4) {
+                            return null;
+                          } else if (errorMessage.isNotEmpty) {
+                            return errorMessage;
+                          }
+                          return 'Введите код';
+                        },
+                        hapticFeedbackType: HapticFeedbackType.lightImpact,
+                        onCompleted: (pin) {},
+                        onChanged: (value) {},
+                        cursor: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(bottom: 9),
+                              width: 22,
+                              height: 1,
+                              color: focusedBorderColor,
+                            ),
+                          ],
+                        ),
+                        focusedPinTheme: defaultPinTheme.copyWith(
+                          decoration: defaultPinTheme.decoration!.copyWith(
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: focusedBorderColor),
                           ),
-                        ],
-                      ),
-                      focusedPinTheme: defaultPinTheme.copyWith(
-                        decoration: defaultPinTheme.decoration!.copyWith(
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: focusedBorderColor),
                         ),
-                      ),
-                      submittedPinTheme: defaultPinTheme.copyWith(
-                        decoration: defaultPinTheme.decoration!.copyWith(
-                          color: fillColor,
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: focusedBorderColor),
+                        submittedPinTheme: defaultPinTheme.copyWith(
+                          decoration: defaultPinTheme.decoration!.copyWith(
+                            color: fillColor,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: focusedBorderColor),
+                          ),
                         ),
-                      ),
-                      errorPinTheme: defaultPinTheme.copyBorderWith(
-                        border: Border.all(color: Colors.redAccent),
+                        errorPinTheme: defaultPinTheme.copyBorderWith(
+                          border: Border.all(color: Colors.redAccent),
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              )),
-          CustomButton(
-              textStyle: Theme.of(context)
-                  .textTheme
-                  .headlineMedium
-                  ?.copyWith(fontSize: 16, color: AppColors.white),
-              boxDecoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
-              height: 36,
-              buttonText: 'Зарегистрироваться',
-              color: AppColors.primaryColor,
-              onTap: () {
-                if (formKey.currentState!.validate()) {
-                  Feedback.forTap(context);
-                  context.read<VerifyCodeBloc>().add(EnterCode(
-                      code: pinController.text,
-                      id: Provider.of<UserDataProvider>(context, listen: false)
-                          .userId));
-                  context.read<UserProfileBloc>().add(GetUserInfo(
-                      userId:
-                          Provider.of<UserDataProvider>(context, listen: false)
-                              .userId));
-                  context.router.push(UserProfileRoute());
-                }
-              }),
-        ],
+                  ],
+                )),
+            CustomButton(
+                textStyle: Theme.of(context)
+                    .textTheme
+                    .headlineMedium
+                    ?.copyWith(fontSize: 16, color: AppColors.white),
+                boxDecoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                height: 36,
+                buttonText: 'Зарегистрироваться',
+                color: AppColors.primaryColor,
+                onTap: () {
+                  if (formKey.currentState!.validate()) {
+                    Feedback.forTap(context);
+                    context.read<VerifyCodeBloc>().add(EnterCode(
+                        code: pinController.text,
+                        id: Provider.of<UserDataProvider>(context,
+                                listen: false)
+                            .userId));
+                  }
+                }),
+          ],
+        ),
       ),
     );
   }

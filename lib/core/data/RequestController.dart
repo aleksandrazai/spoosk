@@ -232,12 +232,18 @@ class RequestController {
       print('Request Data: $requestData');
       final response = await _dio.post('https://spoosk.pnpl.tech/api/users/',
           data: requestData, options: ApiConfigurate.postHeaders);
-      final result = UserRegister.fromJson(response.data);
-      print('UserRegister Result: ${response.data}');
-      return result;
+      if (response.statusCode == 200) {
+        final result = UserRegister.fromJson(response.data);
+        print('UserRegister Result: ${response.data}');
+        return result;
+      }
     } on DioException catch (e) {
       print('Error in Register call: ${e.message}');
       print('Error Details: ${e.response?.toString()}');
+      if (e.response?.statusCode == 400) {
+        final errorData = e.response?.statusMessage;
+        throw RegistrationException(errorData!);
+      }
     }
     return null;
   }
@@ -271,4 +277,13 @@ class RequestController {
     }
     return null;
   }
+}
+
+class RegistrationException {
+  final String message;
+
+  RegistrationException(this.message);
+
+  @override
+  String toString() => 'RegistrationException: $message';
 }

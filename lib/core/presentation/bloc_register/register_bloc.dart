@@ -17,15 +17,14 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
             password: event.password,
             name: event.name,
             userRegister: ApiConfigurate.postHeaders);
+        emit(RegisterLoading());
         if (userRegister != null) {
           emit(RegisterSuccessfull(
               id: userRegister.id, userRegister: userRegister));
-        } else {
-          emit(RegisterFailed());
         }
       } catch (error) {
         print('Error in register: $error');
-        emit(RegisterError());
+        emit(RegisterFailed(errorMessage: error.toString()));
       }
     });
   }
