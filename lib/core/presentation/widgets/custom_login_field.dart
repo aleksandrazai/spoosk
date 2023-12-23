@@ -25,7 +25,7 @@ class _LoginFieldState extends State<LoginField> {
       decoration: InputDecoration(
         filled: true,
         fillColor: AppColors.white,
-        contentPadding: const EdgeInsets.all(0),
+        contentPadding: const EdgeInsets.all(10),
         hintStyle: const TextStyle(color: Color(0xFFC3C3C3)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),

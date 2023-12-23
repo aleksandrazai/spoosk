@@ -64,9 +64,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 fontFamily: fontFamily,
                 fontWeight: FontWeight.w700,
               ),
-              leading: CustomLeadingIcon(
-                onTapped: () {},
-              ),
+              // leading: CustomLeadingIcon(
+              //   onTapped: () {},
+              // ),
               title: Text('Вход в аккаунт',
                   style: Theme.of(context).textTheme.headlineMedium)),
           body: Padding(
@@ -74,80 +74,100 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Form(
               autovalidateMode: AutovalidateMode.onUserInteraction,
               key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  //TODO: добавить варианты текста для разных экранов
-                  const Text('Зарегистрируйся и войди'),
-                  const Text('Адрес эл. почты'),
-                  LoginField(
-                      hintText: 'Почта',
-                      controller: _emailController,
-                      obscureText: false,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Укажите адрес эл. почты';
-                        } else if (!_isValidEmail(value)) {
-                          return 'Некорректный формат';
-                        } else if (errorMessage.isNotEmpty) {
-                          return errorMessage;
-                        }
-                        return null;
-                      }),
-                  const Text('Пароль'),
-                  LoginField(
-                      hintText: 'Пароль',
-                      controller: _passwordController,
-                      obscureText: true,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Введите пароль';
-                        } else if (value.length < 8) {
-                          return 'Пароль должен содержать не менее 8 символов';
-                        } else if (!RegExp(
-                                r'^[a-zA-Z0-9!#.$%&+=?^_`{|}~-]{8,128}$')
-                            .hasMatch(value)) {
-                          return 'Пароль содержит запрещенные символы';
-                        }
-                        return null;
-                      }),
-                  TextButton(
-                      onPressed: () {
-                        context.router.push(const ChangePasswordRoute());
-                      },
-                      child: const Text('Забыли пароль?')),
-                  CustomButton(
-                      textStyle: Theme.of(context)
-                          .textTheme
-                          .headlineMedium
-                          ?.copyWith(color: AppColors.white, fontSize: 16),
-                      boxDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10)),
-                      height: 36,
-                      buttonText: 'Войти',
-                      color: AppColors.primaryColor,
-                      onTap: () {
-                        if (_formKey.currentState!.validate()) {
-                          Feedback.forTap(context);
-                          context.read<LoginBloc>().add(FilledFormEvent(
-                              email: _emailController.text,
-                              password: _passwordController.text));
-                        }
-                      }),
-                  const SizedBox(height: 16),
-                  CustomButton(
-                      textStyle: Theme.of(context)
-                          .textTheme
-                          .headlineMedium
-                          ?.copyWith(
-                              fontSize: 16, color: AppColors.primaryColor),
-                      height: 36,
-                      buttonText: 'Зарегистрироваться',
-                      color: AppColors.gray,
-                      onTap: () {
-                        context.router.push(const RegisterRoute());
-                      }),
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //TODO: добавить варианты текста для разных экранов
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 24.0),
+                      child: Text(
+                        'Используй все возможности Spoosk.\nЗарегистрируйся и добавляй свои любимые курорты в избранное, а также оставляй отзывы и делись впечатлениями о курортах с другими пользователями',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ),
+                    const Text('Адрес эл. почты'),
+                    LoginField(
+                        hintText: 'Почта',
+                        controller: _emailController,
+                        obscureText: false,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Укажите адрес эл. почты';
+                          } else if (!_isValidEmail(value)) {
+                            return 'Некорректный формат';
+                          } else if (errorMessage.isNotEmpty) {
+                            return errorMessage;
+                          }
+                          return null;
+                        }),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 12.0),
+                      child: Text('Пароль'),
+                    ),
+                    LoginField(
+                        hintText: 'Пароль',
+                        controller: _passwordController,
+                        obscureText: true,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Введите пароль';
+                          } else if (value.length < 8) {
+                            return 'Пароль должен содержать не менее 8 символов';
+                          } else if (!RegExp(
+                                  r'^[a-zA-Z0-9!#.$%&+=?^_`{|}~-]{8,128}$')
+                              .hasMatch(value)) {
+                            return 'Пароль содержит запрещенные символы';
+                          }
+                          return null;
+                        }),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: TextButton(
+                          style: ButtonStyle(
+                              iconColor: MaterialStatePropertyAll(
+                                  AppColors.primaryColor)),
+                          onPressed: () {
+                            context.router.push(const ChangePasswordRoute());
+                          },
+                          child: Text('Забыли пароль?',
+                              style: TextStyle(color: AppColors.primaryColor))),
+                    ),
+                    const SizedBox(height: 8),
+                    CustomButton(
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .headlineMedium
+                            ?.copyWith(color: AppColors.white, fontSize: 16),
+                        boxDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10)),
+                        height: 36,
+                        buttonText: 'Войти',
+                        color: AppColors.primaryColor,
+                        onTap: () {
+                          if (_formKey.currentState!.validate()) {
+                            Feedback.forTap(context);
+                            context.read<LoginBloc>().add(FilledFormEvent(
+                                email: _emailController.text,
+                                password: _passwordController.text));
+                          }
+                        }),
+                    const SizedBox(height: 16),
+                    CustomButton(
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .headlineMedium
+                            ?.copyWith(
+                                fontSize: 16, color: AppColors.primaryColor),
+                        height: 36,
+                        buttonText: 'Зарегистрироваться',
+                        color: AppColors.gray,
+                        onTap: () {
+                          context.router.push(const RegisterRoute());
+                        }),
+                  ],
+                ),
               ),
             ),
           )),

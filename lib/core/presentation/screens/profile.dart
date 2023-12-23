@@ -26,11 +26,11 @@ class _ProfileState extends State<Profile> {
               context.router.push(UserProfileRoute());
             },
             child: Text('Профиль')),
-        ElevatedButton(
-            onPressed: () {
-              context.router.push(EnterCodeRoute());
-            },
-            child: Text('Код')),
+        // ElevatedButton(
+        //     onPressed: () {
+        //       context.router.push(EnterCodeRoute());
+        //     },
+        //     child: Text('Код')),
       ]),
     );
   }
