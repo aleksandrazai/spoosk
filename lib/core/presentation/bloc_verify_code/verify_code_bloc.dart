@@ -10,13 +10,15 @@ class VerifyCodeBloc extends Bloc<VerifyCodeEvent, VerifyCodeState> {
   RequestController requestController = RequestController();
   VerifyCodeBloc() : super(VerifyCodeInitial()) {
     on<EnterCode>((event, emit) async {
-      final UserData? userData = await requestController.verifyCode(
-          verifyCode: ApiConfigurate.verifyCode,
-          code: event.code,
-          id: event.id);
-      if (userData != null) {
-        emit(VerifyCodeSuccessfull(id: userData.id, userdata: userData));
-      } else {
+      try {
+        final UserData? userData = await requestController.verifyCode(
+            verifyCode: ApiConfigurate.verifyCode,
+            code: event.code,
+            id: event.id);
+        if (userData != null) {
+          emit(VerifyCodeSuccessfull(id: userData.id, userdata: userData));
+        }
+      } catch (error) {
         emit(VerifyCodeFailed());
       }
     });

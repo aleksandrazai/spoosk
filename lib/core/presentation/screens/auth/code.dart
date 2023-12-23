@@ -40,12 +40,12 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
     }
   }
 
-  @override
-  void dispose() {
-    pinController.dispose();
-    focusNode.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   pinController.dispose();
+  //   focusNode.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -88,12 +88,24 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
             context.router.push(UserProfileRoute());
           }
           if (state is VerifyCodeFailed) {
-            errorMessage = 'Введен неверный код';
+            setState(() {
+              errorMessage = 'Введен неверный код';
+            });
           }
         },
-        child: Column(
-          children: [
-            Form(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 48.0),
+                //TODO: добавить почту пользователя
+                child: Text(
+                  'Для завершения регистрации введите код, который мы выслали на вашу электронную почту',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Form(
                 key: formKey,
                 child: Column(
                   children: [
@@ -145,28 +157,41 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
                       ),
                     ),
                   ],
-                )),
-            CustomButton(
-                textStyle: Theme.of(context)
-                    .textTheme
-                    .headlineMedium
-                    ?.copyWith(fontSize: 16, color: AppColors.white),
-                boxDecoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                height: 36,
-                buttonText: 'Зарегистрироваться',
-                color: AppColors.primaryColor,
-                onTap: () {
-                  if (formKey.currentState!.validate()) {
-                    Feedback.forTap(context);
-                    context.read<VerifyCodeBloc>().add(EnterCode(
-                        code: pinController.text,
-                        id: Provider.of<UserDataProvider>(context,
-                                listen: false)
-                            .userId));
-                  }
-                }),
-          ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 32.0),
+                child: CustomButton(
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .headlineMedium
+                        ?.copyWith(fontSize: 16, color: AppColors.white),
+                    boxDecoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                    height: 36,
+                    buttonText: 'Зарегистрироваться',
+                    color: AppColors.primaryColor,
+                    onTap: () {
+                      if (formKey.currentState!.validate()) {
+                        Feedback.forTap(context);
+                        context.read<VerifyCodeBloc>().add(EnterCode(
+                            code: pinController.text,
+                            id: Provider.of<UserDataProvider>(context,
+                                    listen: false)
+                                .userId));
+                      }
+                    }),
+              ),
+              Text(
+                errorMessage,
+                style: const TextStyle(color: Colors.red),
+              ),
+              const Text(
+                'Если код не пришел, проверьте, корректно ли указан адрес электронной почты',
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
         ),
       ),
     );
