@@ -232,11 +232,10 @@ class RequestController {
       print('Request Data: $requestData');
       final response = await _dio.post('https://spoosk.pnpl.tech/api/users/',
           data: requestData, options: ApiConfigurate.postHeaders);
-      if (response.statusCode == 200) {
-        final result = UserRegister.fromJson(response.data);
-        print('UserRegister Result: ${response.data}');
-        return result;
-      }
+
+      final result = UserRegister.fromJson(response.data);
+      print('UserRegister Result: ${response.data}');
+      return result;
     } on DioException catch (e) {
       print('Error in Register call: ${e.message}');
       print('Error Details: ${e.response?.toString()}');
@@ -258,24 +257,20 @@ class RequestController {
       final requestData = {
         'code': code,
       };
-      print('Request data: $requestData');
-      print(
-          'URL UserProfile:  https://spoosk.pnpl.tech/api/users/id/verify_code/');
+      print('Request data: $requestData, id: $id');
 
       final response = await _dio.post(
           'https://spoosk.pnpl.tech/api/users/$id/verify_code/',
           data: requestData,
           options: ApiConfigurate.headers);
-      if (response.statusCode == 200) {
-        final result = UserLogin.fromJson(response.data);
-        print('VerifyCode Result: ${response.data}');
-        return result.data;
-      }
+
+      final result = UserLogin.fromJson(response.data);
+      print('VerifyCode Result: ${response.data}');
+      return result.data;
     } on DioException catch (e) {
       print('Error in UserProfile call: $e');
       return null;
     }
-    return null;
   }
 }
 
