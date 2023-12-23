@@ -20,5 +20,11 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
         }
       },
     );
+
+    on<UserLogOut>(
+      (event, emit) {
+        emit(UserProfileInitial());
+      },
+    );
   }
 }

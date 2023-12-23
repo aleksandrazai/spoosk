@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
+import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/widgets/resort_screen_widgets/line_button_w_icons.dart';
 
 @RoutePage()
@@ -62,13 +63,27 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         onTap: () {},
                         imageName: image_reviews,
                         text: 'Мои отзывы'),
+                    TextButton(
+                      child: const Text('Выйти'),
+                      onPressed: () {
+                        userProfileBloc.add(UserLogOut());
+                        context.router.push(const LoginRoute());
+                      },
+                    )
                   ],
                 ),
               ),
             ),
           );
         }
-        return Text('Личный кабинет');
+        return Center(
+          child: ElevatedButton(
+              onPressed: () {
+                context.router.push(const LoginRoute());
+              },
+              child: const Text(
+                  'Пользователь не авторизирован, Вернуться к странице авторизации')),
+        );
       },
     );
   }
