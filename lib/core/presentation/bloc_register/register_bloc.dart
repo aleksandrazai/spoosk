@@ -16,7 +16,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
             email: event.email,
             password: event.password,
             name: event.name,
-            userRegister: ApiConfigurate.postHeaders);
+            userRegister: ApiConfigPost.userRegister);
         if (userRegister != null) {
           emit(RegisterSuccessfull(
               id: userRegister.id, userRegister: userRegister));

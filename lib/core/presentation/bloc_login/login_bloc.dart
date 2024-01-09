@@ -20,10 +20,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         final UserData? userData = await requestController.postUserLogin(
             email: event.email,
             password: event.password,
-            userLogin: ApiConfigurate.postHeaders);
+            userLogin: ApiConfigPost.userLogin);
         if (userData != null) {
           // await initDataBase(userData: userData);
-          emit(LoginSuccessfull(userData: userData, id: userData.id));
+          emit(LoginSuccessfull(userData: userData, id: userData.id!));
         } else {
           emit(LoginFailed());
         }
