@@ -51,7 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           final userId = state.id;
           Provider.of<UserDataProvider>(context, listen: false)
               .setUserId(userId);
-          context.router.push(const EnterCodeRoute());
+          context.router.push(EnterCodeRoute(sourcePage: 'Регистрация'));
         }
         if (state is RegisterFailed) {
           // _loadingOverlay.hide();

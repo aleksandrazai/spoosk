@@ -18,19 +18,14 @@ class _ProfileState extends State<Profile> {
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         ElevatedButton(
             onPressed: () {
-              context.router.push(LoginRoute());
+              context.router.push(const LoginRoute());
             },
-            child: Text('Экран авторизации')),
+            child: const Text('Вход')),
         ElevatedButton(
             onPressed: () {
               context.router.push(UserProfileRoute());
             },
-            child: Text('Профиль')),
-        // ElevatedButton(
-        //     onPressed: () {
-        //       context.router.push(EnterCodeRoute());
-        //     },
-        //     child: Text('Код')),
+            child: const Text('Профиль')),
       ]),
     );
   }

@@ -61,9 +61,13 @@ abstract class $AppRouter extends _i18.RootStackRouter {
       );
     },
     EnterCodeRoute.name: (routeData) {
+      final args = routeData.argsAs<EnterCodeRouteArgs>();
       return _i18.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i4.EnterCodeScreen(),
+        child: _i4.EnterCodeScreen(
+          key: args.key,
+          sourcePage: args.sourcePage,
+        ),
       );
     },
     Home.name: (routeData) {
@@ -233,16 +237,40 @@ class Comparison extends _i18.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.EnterCodeScreen]
-class EnterCodeRoute extends _i18.PageRouteInfo<void> {
-  const EnterCodeRoute({List<_i18.PageRouteInfo>? children})
-      : super(
+class EnterCodeRoute extends _i18.PageRouteInfo<EnterCodeRouteArgs> {
+  EnterCodeRoute({
+    _i19.Key? key,
+    required String sourcePage,
+    List<_i18.PageRouteInfo>? children,
+  }) : super(
           EnterCodeRoute.name,
+          args: EnterCodeRouteArgs(
+            key: key,
+            sourcePage: sourcePage,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'EnterCodeRoute';
 
-  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+  static const _i18.PageInfo<EnterCodeRouteArgs> page =
+      _i18.PageInfo<EnterCodeRouteArgs>(name);
+}
+
+class EnterCodeRouteArgs {
+  const EnterCodeRouteArgs({
+    this.key,
+    required this.sourcePage,
+  });
+
+  final _i19.Key? key;
+
+  final String sourcePage;
+
+  @override
+  String toString() {
+    return 'EnterCodeRouteArgs{key: $key, sourcePage: $sourcePage}';
+  }
 }
 
 /// generated route for

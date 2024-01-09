@@ -40,7 +40,11 @@ class AppRouter extends $AppRouter {
                 AutoRoute(page: LoginRoute.page, path: 'login'),
                 AutoRoute(page: RegisterRoute.page, path: 'register'),
                 AutoRoute(page: EnterCodeRoute.page, path: 'code'),
-                AutoRoute(page: ResetPasswordRoute.page, path: 'reset'),
+                AutoRoute(
+                  page: ResetPasswordRoute.page,
+                  path: 'reset',
+                ),
+                AutoRoute(page: EnterCodeRoute.page, path: 'code'),
                 AutoRoute(
                     page: ChangePasswordRoute.page, path: 'changepassword'),
               ],
