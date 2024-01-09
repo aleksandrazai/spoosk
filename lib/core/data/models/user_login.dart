@@ -1,7 +1,7 @@
 class UserLogin {
   int status;
   String message;
-  UserData data;
+  UserData? data;
 
   UserLogin({
     required this.status,
@@ -18,13 +18,13 @@ class UserLogin {
   Map<String, dynamic> toJson() => {
         "status": status,
         "message": message,
-        "data": data.toJson(),
+        "data": data?.toJson(),
       };
 }
 
 class UserData {
-  int id;
-  String token;
+  int? id;
+  String? token;
 
   UserData({
     required this.id,
