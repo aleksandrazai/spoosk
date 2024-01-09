@@ -10,6 +10,8 @@ import 'package:spoosk/core/generated/l10n.dart';
 import 'package:spoosk/core/presentation/bloc_by_id/resort_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_login/login_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_mainFilter.dart/mainFilter_bloc.dart';
+import 'package:spoosk/core/presentation/bloc_password_new.dart%20/new_password_bloc.dart';
+import 'package:spoosk/core/presentation/bloc_password_reset.dart/reset_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_region/region_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_register/register_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_reviews/reviews_bloc.dart';
@@ -92,6 +94,12 @@ class _SpooskAppState extends State<SpooskApp> {
           ),
           BlocProvider(
             create: (context) => VerifyCodeBloc(),
+          ),
+          BlocProvider(
+            create: (context) => ResetBloc(),
+          ),
+          BlocProvider(
+            create: (context) => NewPasswordBloc(),
           ),
         ],
         child: MaterialApp.router(

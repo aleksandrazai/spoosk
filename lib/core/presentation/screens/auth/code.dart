@@ -5,6 +5,7 @@ import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/data/models/user_id_notifier.dart';
+import 'package:spoosk/core/presentation/bloc_password_new.dart%20/new_password_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_verify_code/verify_code_bloc.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
@@ -14,7 +15,8 @@ import 'package:spoosk/core/presentation/widgets/custom_leading.dart';
 
 @RoutePage()
 class EnterCodeScreen extends StatefulWidget {
-  const EnterCodeScreen({super.key});
+  EnterCodeScreen({super.key, required this.sourcePage});
+  String sourcePage;
 
   @override
   State<EnterCodeScreen> createState() => _EnterCodeScreenState();
@@ -40,15 +42,43 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
     }
   }
 
-  // @override
-  // void dispose() {
-  //   pinController.dispose();
-  //   focusNode.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    pinController.dispose();
+    focusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    String messageText;
+    String buttonText;
+    late VoidCallback route;
+    late VoidCallback bloc;
+
+    const String registerText =
+        'Для завершения регистрации введите код, который мы выслали на вашу электронную почту';
+    const String resetText =
+        'Для сброса пароля введите код, который мы выслали на вашу электронную почту';
+    const String registerButton = 'Зарегистрироваться';
+    const String resetButton = 'Сбосить пароль';
+
+    if (widget.sourcePage == 'Регистрация') {
+      messageText = registerText;
+      buttonText = registerButton;
+      route = () => context.router.push(UserProfileRoute());
+      bloc = () => context.read<UserProfileBloc>().add(GetUserInfo(
+          userId:
+              Provider.of<UserDataProvider>(context, listen: false).userId));
+    } else {
+      messageText = resetText;
+      buttonText = resetButton;
+      route = () {
+        context.router.push(const ChangePasswordRoute());
+      };
+      bloc = () {};
+    }
+
     const focusedBorderColor = Color(0xFF005FF9);
     const fillColor = Color.fromRGBO(243, 246, 249, 0);
     const borderColor = Color.fromRGBO(15, 15, 220, 0.4);
@@ -82,10 +112,8 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
       body: BlocListener<VerifyCodeBloc, VerifyCodeState>(
         listener: (context, state) {
           if (state is VerifyCodeSuccessfull) {
-            context.read<UserProfileBloc>().add(GetUserInfo(
-                userId: Provider.of<UserDataProvider>(context, listen: false)
-                    .userId));
-            context.router.push(UserProfileRoute());
+            route;
+            bloc;
           }
           if (state is VerifyCodeFailed) {
             setState(() {
@@ -97,11 +125,11 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
             children: [
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(vertical: 48.0),
                 //TODO: добавить почту пользователя
                 child: Text(
-                  'Для завершения регистрации введите код, который мы выслали на вашу электронную почту',
+                  messageText,
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -169,7 +197,7 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
                     boxDecoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(10)),
                     height: 36,
-                    buttonText: 'Зарегистрироваться',
+                    buttonText: buttonText,
                     color: AppColors.primaryColor,
                     onTap: () {
                       if (formKey.currentState!.validate()) {
@@ -180,6 +208,7 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
                                     listen: false)
                                 .userId));
                       }
+                      route();
                     }),
               ),
               Text(
