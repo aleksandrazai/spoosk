@@ -1,12 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+final String token = dotenv.env['API_TOKEN']!;
 
 class ApiConfigurate {
   static final Options headers = Options(method: "GET", headers: {
-    "Authorization": 'Token 73db87ee63c266cf0455fbb4ec891580aab3406b',
-  });
-
-  static final Options postHeaders = Options(method: "POST", headers: {
-    "Authorization": 'Token 73db87ee63c266cf0455fbb4ec891580aab3406b',
+    "Authorization": token,
   });
 
   static String getAllResorts = 'api/resorts/';
@@ -16,8 +15,17 @@ class ApiConfigurate {
   static String searchResort = 'api/resorts/';
   static String getReviews = 'api/reviews/';
   static String getReviewsById = 'api/resorts/';
-  static String userLogin = 'api/users/login';
   static String getUserProfile = 'api/users/';
+}
+
+class ApiConfigPost {
+  static final Options postHeaders = Options(method: "POST", headers: {
+    "Authorization": token,
+  });
+
   static String userRegister = 'api/users/';
   static String verifyCode = 'api/users/';
+  static String userLogin = 'api/users/login/';
+  static String passwordReset = 'api/users/reset_password_request/';
+  static String setPassword = 'api/users/';
 }

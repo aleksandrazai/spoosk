@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:spoosk/core/data/ApiConfig.dart';
 import 'package:spoosk/core/data/models/ResortById.dart';
 import 'package:spoosk/core/data/models/regions.dart';
@@ -15,10 +16,8 @@ class RequestController {
   final Dio _dio = Dio();
 
   RequestController();
-  // Если вдруг появится тестовый сервер
-  //  final bool _TEST_SEVER = false;
-  // final String _url = _TEST_SEVER ? *тестовый сервер* : "https://spoosk.pnpl.tech/";
-  final String _url = "https://spoosk.pnpl.tech/";
+
+  final String _url = dotenv.env['API_URL']!;
 
   Future<List<Result>?> getResortsAll({required getAllResorts}) async {
     try {
@@ -182,10 +181,9 @@ class RequestController {
       };
 
       print('Request Data: $requestData');
-      final response = await _dio.post(
-          'https://spoosk.pnpl.tech/api/users/login/',
-          data: requestData,
-          options: ApiConfigurate.postHeaders);
+      print('$_url + $userLogin');
+      final response = await _dio.post(_url + userLogin,
+          data: requestData, options: ApiConfigPost.postHeaders);
       if (response.statusCode == 200) {
         final result = UserLogin.fromJson(response.data);
         print('UserLogin Result: ${response.data}');
@@ -230,8 +228,8 @@ class RequestController {
       };
 
       print('Request Data: $requestData');
-      final response = await _dio.post('https://spoosk.pnpl.tech/api/users/',
-          data: requestData, options: ApiConfigurate.postHeaders);
+      final response = await _dio.post(_url + userRegister,
+          data: requestData, options: ApiConfigPost.postHeaders);
 
       final result = UserRegister.fromJson(response.data);
       print('UserRegister Result: ${response.data}');
@@ -257,12 +255,11 @@ class RequestController {
       final requestData = {
         'code': code,
       };
+
       print('Request data: $requestData, id: $id');
 
-      final response = await _dio.post(
-          'https://spoosk.pnpl.tech/api/users/$id/verify_code/',
-          data: requestData,
-          options: ApiConfigurate.headers);
+      final response = await _dio.post('$_url$verifyCode$id/verify_code/',
+          data: requestData, options: ApiConfigPost.postHeaders);
 
       final result = UserLogin.fromJson(response.data);
       print('VerifyCode Result: ${response.data}');
@@ -271,6 +268,53 @@ class RequestController {
       print('Error in UserProfile call: $e');
       return null;
     }
+  }
+
+  //cброс пароля
+  Future<UserData?> passwordReset({
+    required passwordReset,
+    required String email,
+  }) async {
+    try {
+      final requestData = {
+        'email': email,
+      };
+      print('Request Data: $requestData');
+      final response = await _dio.post(_url + passwordReset,
+          data: requestData, options: ApiConfigPost.postHeaders);
+      if (response.statusCode == 200) {
+        final result = UserLogin.fromJson(response.data);
+        print('UserLogin Result: ${response.data}');
+        return result.data;
+      }
+    } on DioException catch (e) {
+      print('Error in userLogin call: $e');
+    }
+    return null;
+  }
+
+//установить новый пароль
+  Future<UserLogin?> setPassword({
+    required setPassword,
+    required id,
+    required String password,
+  }) async {
+    try {
+      final requestData = {
+        'password': password,
+      };
+      print('Request Data: $requestData, $id');
+      final response = await _dio.post('$_url$setPassword$id/change_password/',
+          data: requestData, options: ApiConfigPost.postHeaders);
+      if (response.statusCode == 200) {
+        final result = UserLogin.fromJson(response.data);
+        print('New Password Result: ${response.data}');
+        return result;
+      }
+    } on DioException catch (e) {
+      print('Error in userLogin call: $e');
+    }
+    return null;
   }
 }
 
