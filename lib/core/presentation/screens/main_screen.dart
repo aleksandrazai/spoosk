@@ -1,15 +1,12 @@
 // ignore_for_file: deprecated_member_use
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spoosk/core/colors.dart';
-import 'package:spoosk/core/data/DB/DBController_user_auth.dart';
-import 'package:spoosk/core/data/models/UserAuth.dart';
-import 'package:spoosk/core/domain/usecases/AuthUseCase.dart';
+import 'package:spoosk/core/domain/useCases/SearchHistoryUseCase.dart';
 import 'package:spoosk/core/presentation/bloc_reviews/reviews_bloc.dart';
-import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
+import 'package:spoosk/core/presentation/bloc_search_history/search_history_bloc.dart';
 import 'package:spoosk/core/presentation/blocs_init/bloc/request_controller_bloc.dart';
 import 'package:spoosk/core/presentation/connected_bloc/connected_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
@@ -169,6 +166,6 @@ class _MainScreenState extends State<MainScreen> {
     requestControllerBloc = context.read<RequestControllerBloc>();
     requestControllerBloc.add(LoadAllResorts());
     context.read<ReviewsBloc>().add(LoadReviews());
-    // authUseCase.checkDB(context.read<UserProfileBloc>());
+    SearchHistoryUseCase().checkDB(context.read<SearchHistoryBloc>());
   }
 }

@@ -7,6 +7,7 @@ import 'package:spoosk/core/data/RequestController.dart';
 import 'package:spoosk/core/data/models/resorts.dart';
 
 part 'search_event.dart';
+
 part 'search_state.dart';
 
 class SearchResortBloc extends Bloc<SearchResortEvent, SearchResortState> {

@@ -1,8 +1,8 @@
 import 'package:sqflite/sqflite.dart';
 
 abstract class DBController_abst<T> {
-  late String tableName;
-  late String path;
+  late String _tableName;
+  late String _path;
   Database? _db;
 
   Future<Database?> get db async {
@@ -15,11 +15,11 @@ abstract class DBController_abst<T> {
 
   initDatabase() async {
     var db = await openDatabase(
-      path,
+      _path,
       version: 1,
       onCreate: (db, version) async {
         await db.execute(
-          'CREATE TABLE $tableName (id INTEGER PRIMARY KEY AUTOINCREMENT, token TEXT )',
+          'CREATE TABLE $_tableName (id INTEGER PRIMARY KEY AUTOINCREMENT, token TEXT )',
         );
       },
     );
@@ -30,7 +30,7 @@ abstract class DBController_abst<T> {
 
   Future<List<T>> getDataList();
 
-  Future<int> update(T model);
+  Future<void> update(T model);
 
   Future<void> closeDatabase() async {
     var dbClient = await db;

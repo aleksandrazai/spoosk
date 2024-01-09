@@ -4,7 +4,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spoosk/core/colors.dart';
+import 'package:spoosk/core/domain/useCases/SearchHistoryUseCase.dart';
 import 'package:spoosk/core/presentation/bloc_reviews/reviews_bloc.dart';
+import 'package:spoosk/core/presentation/bloc_search_history/search_history_bloc.dart';
 import 'package:spoosk/core/presentation/blocs_init/bloc/request_controller_bloc.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
@@ -68,6 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: CustomSearchField(
                           disabled: true,
                           onTap: () {
+                            SearchHistoryUseCase()
+                                .checkDB(context.read<SearchHistoryBloc>());
                             AutoRouter.of(context)
                                 .navigate(const SearchRoute());
                           },

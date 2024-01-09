@@ -1,9 +1,10 @@
-import 'package:sqflite/sqflite.dart';
+import 'package:spoosk/core/data/models/ResortById.dart';
 
-import '../models/UserAuth.dart';
+import 'package:sqflite/sqflite.dart';
+import '../models/resorts.dart';
 import 'DBController_abst.dart';
 
-class DBController_history_search extends DBController_abst<UserAuth> {
+class DBController_history_search extends DBController_abst<Result> {
   static const String _tableName = "search_history";
   Database? _db;
   static const String _path = "search_history.db";
@@ -24,9 +25,21 @@ class DBController_history_search extends DBController_abst<UserAuth> {
         _path,
         version: 1,
         onCreate: (db, version) async {
-          await db.execute(
-            'CREATE TABLE $_tableName (id INTEGER PRIMARY KEY AUTOINCREMENT, search TEXT )',
-          );
+          await db.execute('''
+  CREATE TABLE ${_tableName} (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_resort TEXT,
+    name TEXT,
+    region TEXT,
+    rating INTEGER,
+    image TEXT,
+    trail_length REAL,
+    height_difference REAL,
+    skipass REAL,
+    trail_number INTEGER
+    CONSTRAINT max_rows CHECK (id <= 3)    
+  )
+''');
         },
       );
       return db;
@@ -36,33 +49,37 @@ class DBController_history_search extends DBController_abst<UserAuth> {
   }
 
   @override
-  Future<UserAuth> insert(UserAuth userAuthModel) async {
-    var dbClient = await db;
-    await dbClient!.insert(_tableName, userAuthModel.toMap());
-    return userAuthModel;
+  Future<Result> insert(Result resultModel) async {
+    final dbClient = await db;
+    final List<Result> oldData = await getDataList();
+    final List<Result> newData = [resultModel, ...oldData];
+
+    newData.removeLast();
+    print(oldData.length);
+    if (oldData.length == 3) {
+      for (int i = 0; i < 3; i++) {
+        print("KEK ${i}");
+        await dbClient!
+            .update(_tableName, newData[i].toMap(), where: 'id = ${i + 1}');
+      }
+    } else {
+      await dbClient!.insert(_tableName, resultModel.toMap());
+    }
+    return resultModel;
   }
 
   @override
-  Future<List<UserAuth>> getDataList() async {
+  Future<List<Result>> getDataList() async {
     try {
       var dbClient = await db;
       final List<Map<String, dynamic>> queryResult =
           await dbClient!.query(_tableName);
-      return queryResult.map((e) => UserAuth.fromMap(e)).toList();
+      return queryResult.map((e) => Result.fromMap(e)).toList();
     } catch (e) {
-      Exception(e);
+      throw Exception(e);
     }
-    return [];
   }
 
   @override
-  Future<int> update(UserAuth model) async {
-    var dbClient = await db;
-    return await dbClient!.update(
-      _tableName,
-      model.toMap(),
-      where: 'id = ?',
-      whereArgs: [model.id],
-    );
-  }
+  Future<void> update(Result model) async {}
 }
