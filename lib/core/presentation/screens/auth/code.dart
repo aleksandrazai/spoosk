@@ -5,7 +5,6 @@ import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/data/models/user_id_notifier.dart';
-import 'package:spoosk/core/presentation/bloc_password_new.dart%20/new_password_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_verify_code/verify_code_bloc.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
