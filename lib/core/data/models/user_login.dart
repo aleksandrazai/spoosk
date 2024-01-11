@@ -41,11 +41,11 @@ class UserData {
         "Token": token,
       };
 
-  // UserData.fromMap(Map<String, dynamic> res)
-  //     : id = res['id'],
-  //       token = res['token'];
+  UserData.fromMap(Map<String, dynamic> res)
+      : id = res['id'],
+        token = res['token'];
 
-  // Map<String, Object?> toMap() {
-  //   return {'id': id, 'token': token};
-  // }
+  Map<String, Object?> toMap() {
+    return {'id': id, 'token': token};
+  }
 }

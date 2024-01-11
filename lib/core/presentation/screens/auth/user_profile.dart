@@ -76,14 +76,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             ),
           );
         }
-        return Center(
-          child: ElevatedButton(
-              onPressed: () {
-                context.router.push(const LoginRoute());
-              },
-              child: const Text(
-                  'Пользователь не авторизирован, Вернуться к странице авторизации')),
-        );
+        return CircularProgressIndicator();
       },
     );
   }

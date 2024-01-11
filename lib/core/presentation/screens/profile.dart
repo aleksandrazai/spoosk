@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:spoosk/core/presentation/routes.gr.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
+import 'package:spoosk/core/presentation/screens/auth/login.dart';
+import 'package:spoosk/core/presentation/screens/auth/user_profile.dart';
 
 @RoutePage()
 class Profile extends StatefulWidget {
@@ -13,20 +16,13 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-    //TODO: убрать временную заглушку
-    return Center(
-      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        ElevatedButton(
-            onPressed: () {
-              context.router.push(const LoginRoute());
-            },
-            child: const Text('Вход')),
-        ElevatedButton(
-            onPressed: () {
-              context.router.push(UserProfileRoute());
-            },
-            child: const Text('Профиль')),
-      ]),
+    return BlocBuilder<UserProfileBloc, UserProfileState>(
+      builder: (context, state) {
+        if (state is UserProfileLoaded) {
+          return UserProfileScreen();
+        }
+        return const LoginScreen();
+      },
     );
   }
 }
