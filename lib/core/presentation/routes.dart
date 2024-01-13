@@ -35,7 +35,16 @@ class AppRouter extends $AppRouter {
               path: 'emptylogin',
               children: [
                 RedirectRoute(path: '', redirectTo: 'emptylogin'),
-                AutoRoute(page: UserProfileRoute.page, path: 'userprofile'),
+                AutoRoute(
+                    page: ProfileEmptyRoute.page,
+                    path: 'emptyprofile',
+                    children: [
+                      RedirectRoute(path: '', redirectTo: 'emptyprofile'),
+                      AutoRoute(page: UserEditProfile.page, path: 'edit'),
+                      AutoRoute(page: UserReviews.page, path: 'reviews'),
+                      AutoRoute(
+                          page: UserProfileRoute.page, path: 'userprofile'),
+                    ]),
                 AutoRoute(page: Profile.page, path: 'profile'),
                 AutoRoute(page: LoginRoute.page, path: 'login'),
                 AutoRoute(page: RegisterRoute.page, path: 'register'),
@@ -69,4 +78,9 @@ class SelectionEmptyPage extends AutoRouter {
 @RoutePage()
 class LoginEmptyPage extends AutoRouter {
   const LoginEmptyPage({super.key});
+}
+
+@RoutePage()
+class ProfileEmptyPage extends AutoRouter {
+  const ProfileEmptyPage({super.key});
 }

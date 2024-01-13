@@ -3,7 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
 import 'package:spoosk/core/presentation/screens/auth/login.dart';
-import 'package:spoosk/core/presentation/screens/auth/user_profile.dart';
+import 'package:spoosk/core/presentation/screens/user_lk/user_profile.dart';
 
 @RoutePage()
 class Profile extends StatefulWidget {

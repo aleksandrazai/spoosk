@@ -29,3 +29,11 @@ class ApiConfigPost {
   static String passwordReset = 'api/users/reset_password_request/';
   static String setPassword = 'api/users/';
 }
+
+class ApiConfigPatch {
+  static final Options patchHeaders = Options(method: "PATCH", headers: {
+    "Authorization": token,
+  });
+
+  static String editProfile = 'api/users/';
+}

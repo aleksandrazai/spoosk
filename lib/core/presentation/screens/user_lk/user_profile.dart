@@ -5,6 +5,7 @@ import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/widgets/resort_screen_widgets/line_button_w_icons.dart';
+import 'package:spoosk/core/presentation/widgets/user_avatar.dart';
 
 @RoutePage()
 class UserProfileScreen extends StatefulWidget {
@@ -15,19 +16,10 @@ class UserProfileScreen extends StatefulWidget {
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
-  late final UserProfileBloc userProfileBloc;
-
-  @override
-  void initState() {
-    super.initState();
-    userProfileBloc = context.read<UserProfileBloc>();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        final state = context.watch<UserProfileBloc>().state;
+    return BlocBuilder<UserProfileBloc, UserProfileState>(
+      builder: (context, state) {
         if (state is UserProfileLoaded) {
           return Scaffold(
             body: Center(
@@ -36,18 +28,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      height: 104,
-                      width: 104,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: ShapeDecoration(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(84),
-                        ),
-                      ),
-                      child: Image.asset(image_avatar_placeholder,
-                          fit: BoxFit.cover),
-                    ),
+                    const UserAvatar(),
                     Text(state.userProfile.firstName,
                         style: Theme.of(context).textTheme.headlineMedium),
                     Text(state.userProfile.email,
@@ -55,18 +36,24 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 28),
                       child: LineButtonWithIcons(
-                          onTap: () {},
+                          onTap: () {
+                            final userProfile = state.userProfile;
+                            context.router.push(
+                                UserEditProfile(userProfile: userProfile));
+                          },
                           imageName: image_edit,
                           text: 'Редактировать профиль'),
                     ),
                     LineButtonWithIcons(
-                        onTap: () {},
+                        onTap: () {
+                          context.router.push(const UserReviews());
+                        },
                         imageName: image_reviews,
                         text: 'Мои отзывы'),
                     TextButton(
                       child: const Text('Выйти'),
                       onPressed: () {
-                        userProfileBloc.add(UserLogOut());
+                        context.read<UserProfileBloc>().add(UserLogOut());
                         context.router.push(const LoginRoute());
                       },
                     )

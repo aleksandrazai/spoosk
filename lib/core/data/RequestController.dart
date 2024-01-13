@@ -316,6 +316,42 @@ class RequestController {
     }
     return null;
   }
+
+//редактирование профиля
+  Future<UserProfile?> editProfile({
+    required editProfile,
+    required id,
+    required String firstName,
+    required String lastName,
+    required String nickName,
+    required String country,
+    required String city,
+    // required Object avatar,
+  }) async {
+    try {
+      final requestData = {
+        if (firstName.isNotEmpty) "first_name": firstName,
+        if (lastName.isNotEmpty) "last_name": lastName,
+        if (nickName.isNotEmpty) "nickname": nickName,
+        if (city.isNotEmpty) "city": city,
+        if (country.isNotEmpty) "country": country,
+        // "avatar": avatar,
+      };
+
+      print('Request Data: $requestData, $id');
+      print('$_url$editProfile$id');
+      final response = await _dio.patch('$_url$editProfile$id/',
+          data: requestData, options: ApiConfigPatch.patchHeaders);
+      if (response.statusCode == 200) {
+        final result = UserProfile.fromJson(response.data['data']);
+        print('New Profile: ${response.data}');
+        return result;
+      }
+    } on DioException catch (e) {
+      print('Error in editProfile call: $e');
+    }
+    return null;
+  }
 }
 
 class RegistrationException {

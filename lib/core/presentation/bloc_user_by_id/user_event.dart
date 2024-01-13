@@ -9,3 +9,20 @@ class GetUserInfo extends UserProfileEvent {
 }
 
 class UserLogOut extends UserProfileEvent {}
+
+class EditUserProfile extends UserProfileEvent {
+  final int userId;
+  final String firstName;
+  final String lastName;
+  final String nickName;
+  final String country;
+  final String city;
+
+  EditUserProfile(
+      {required this.userId,
+      required this.firstName,
+      required this.lastName,
+      required this.nickName,
+      required this.country,
+      required this.city});
+}
