@@ -1,7 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spoosk/core/data/RequestController.dart';
-import 'package:spoosk/core/data/models/resorts.dart';
+import 'package:spoosk/core/data/API/RequestController.dart';
+import '../../data/models/resorts.dart';
 
 part 'mainFilter_event.dart';
 part 'mainFilter_state.dart';

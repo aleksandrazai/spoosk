@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:spoosk/core/data/ApiConfig.dart';
-import 'package:spoosk/core/data/RequestController.dart';
-import 'package:spoosk/core/data/models/resorts.dart';
+import 'package:spoosk/core/data/API/RequestController.dart';
+import '../../../data/API/ApiConfig.dart';
+import '../../../data/models/resorts.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 part 'request_controller_event.dart';
@@ -17,7 +17,7 @@ class RequestControllerBloc
         if (connectivityResult == ConnectivityResult.wifi ||
             connectivityResult == ConnectivityResult.mobile) {
           final List<Result>? resorts = await requestController.getResortsAll(
-              getAllResorts: ApiConfigurate.getAllResorts);
+              getAllResorts: ApiConfigurateGet.getAllResorts);
 
           if (resorts!.isNotEmpty) {
             emit(RequestControllerLoaded(resortsAll: resorts));

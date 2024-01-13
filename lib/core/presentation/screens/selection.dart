@@ -1,20 +1,20 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:spoosk/core/colors.dart';
-import 'package:spoosk/core/data/models/fliter_models.dart/main_filter/levels.dart';
-import 'package:spoosk/core/data/models/fliter_models.dart/main_filter/months.dart';
-import 'package:spoosk/core/data/models/fliter_models.dart/main_filter/regions.dart';
-import 'package:spoosk/core/presentation/bloc_mainFilter.dart/mainFilter_bloc.dart';
-import 'package:spoosk/core/presentation/image.dart';
-import 'package:spoosk/core/presentation/routes.gr.dart';
-import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet.dart';
-import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet_filter.dart';
-import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet_level.dart';
-import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet_month.dart';
-import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet_region.dart';
-import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
-import 'package:spoosk/core/presentation/widgets/resort_screen_widgets/line_button_w_icons.dart';
+import '../../colors.dart';
+import '../../data/models/fliter_models.dart/main_filter/levels.dart';
+import '../../data/models/fliter_models.dart/main_filter/months.dart';
+import '../../data/models/fliter_models.dart/main_filter/regions.dart';
+import '../bloc_mainFilter.dart/mainFilter_bloc.dart';
+import '../image.dart';
+import '../routes.gr.dart';
+import 'selection_screen/selection_screen_bottomSheet.dart';
+import 'selection_screen/selection_screen_bottomSheet_filter.dart';
+import 'selection_screen/selection_screen_bottomSheet_level.dart';
+import 'selection_screen/selection_screen_bottomSheet_month.dart';
+import 'selection_screen/selection_screen_bottomSheet_region.dart';
+import '../widgets/CustomButton.dart';
+import '../widgets/resort_screen_widgets/line_button_w_icons.dart';
 
 @RoutePage()
 class Selection extends StatefulWidget {

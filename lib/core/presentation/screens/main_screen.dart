@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/domain/useCases/SearchHistoryUseCase.dart';
 import 'package:spoosk/core/presentation/bloc_reviews/reviews_bloc.dart';
+import 'package:spoosk/core/presentation/bloc_reviews_home/reviews_home_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_search_history/search_history_bloc.dart';
 import 'package:spoosk/core/presentation/blocs_init/bloc/request_controller_bloc.dart';
 import 'package:spoosk/core/presentation/connected_bloc/connected_bloc.dart';
@@ -24,7 +25,9 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   // AuthUseCase authUseCase = AuthUseCase();
 
+  late final ReviewsHomeBloc reviewsHomeBloc;
   late final RequestControllerBloc requestControllerBloc;
+
   bool dialog = false;
 
   @override
@@ -165,7 +168,8 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
     requestControllerBloc = context.read<RequestControllerBloc>();
     requestControllerBloc.add(LoadAllResorts());
-    context.read<ReviewsBloc>().add(LoadReviews());
+    reviewsHomeBloc = context.read<ReviewsHomeBloc>();
+    context.read<ReviewsHomeBloc>().add(GetReviewsHomeEvent());
     SearchHistoryUseCase().checkDB(context.read<SearchHistoryBloc>());
   }
 }

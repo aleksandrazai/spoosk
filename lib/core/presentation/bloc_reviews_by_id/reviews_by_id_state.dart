@@ -3,13 +3,13 @@
 part of 'reviews_by_id_bloc.dart';
 
 class ReviewsByIdState {
-  List<Reviews>? reviews;
+  List<Review>? reviews;
   ReviewsByIdState({List<Reviews>? reviews});
 }
 
 class ReviewsByIdInitial extends ReviewsByIdState {}
 
 class ReviewsByIdLoaded extends ReviewsByIdState {
-  List<Reviews>? reviews;
+  List<Review>? reviews;
   ReviewsByIdLoaded({required this.reviews});
 }

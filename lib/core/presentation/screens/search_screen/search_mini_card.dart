@@ -3,12 +3,12 @@ import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spoosk/core/colors.dart';
-import 'package:spoosk/core/data/models/resorts.dart';
-import 'package:spoosk/core/presentation/bloc_by_id/resort_by_id_bloc.dart';
-import 'package:spoosk/core/presentation/bloc_reviews_by_id/reviews_by_id_bloc.dart';
-import 'package:spoosk/core/presentation/bloc_search/search_bloc.dart';
-import 'package:spoosk/core/presentation/routes.gr.dart';
+import '../../../colors.dart';
+import '../../../data/models/resorts.dart';
+import '../../bloc_by_id/resort_by_id_bloc.dart';
+import '../../bloc_reviews_by_id/reviews_by_id_bloc.dart';
+import '../../bloc_search/search_bloc.dart';
+import '../../routes.gr.dart';
 
 import '../../../data/DB/DBController_history_search.dart';
 

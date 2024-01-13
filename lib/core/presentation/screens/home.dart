@@ -4,14 +4,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spoosk/core/colors.dart';
+import 'package:spoosk/core/data/API/RequestController.dart';
 import 'package:spoosk/core/domain/useCases/SearchHistoryUseCase.dart';
-import 'package:spoosk/core/presentation/bloc_reviews/reviews_bloc.dart';
+import 'package:spoosk/core/presentation/bloc_reviews_home/reviews_home_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_search_history/search_history_bloc.dart';
 import 'package:spoosk/core/presentation/blocs_init/bloc/request_controller_bloc.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
+
 import '../widgets/widgets.dart';
-import 'package:spoosk/core/data/RequestController.dart';
 
 @RoutePage()
 class Home extends StatelessWidget {
@@ -42,9 +43,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Builder(
       builder: (context) {
         final stateResorts = context.watch<RequestControllerBloc>().state;
-        final stateReviews = context.watch<ReviewsBloc>().state;
+        final stateReviews = context.watch<ReviewsHomeBloc>().state;
+        print(stateResorts is RequestControllerLoaded);
+        print(stateResorts);
         if (stateResorts is RequestControllerLoaded &&
-            stateReviews is ReviewsLoaded) {
+            stateReviews is ReviewsHomeLoaded) {
           return Scaffold(
             backgroundColor: AppColors.background,
             body: CustomScrollView(
@@ -117,13 +120,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-
-                //reviews
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
-                    childCount: 6,
+                    childCount: stateReviews.reviews!.results.length,
                     (context, index) {
-                      final reviews = stateReviews.reviewsAll[index];
+                      final reviews = stateReviews.reviews!.results[index];
                       return ReviewCard(reviews: reviews);
                     },
                   ),

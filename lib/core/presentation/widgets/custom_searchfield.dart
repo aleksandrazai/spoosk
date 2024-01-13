@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:spoosk/core/colors.dart';
-import 'package:spoosk/core/presentation/bloc_search/search_bloc.dart';
-import 'package:spoosk/core/presentation/image.dart';
+import '../../colors.dart';
+import '../bloc_search/search_bloc.dart';
+import '../image.dart';
 
 class CustomSearchField extends StatefulWidget {
   final bool? autofocus;

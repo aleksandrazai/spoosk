@@ -2,15 +2,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:spoosk/core/colors.dart';
-import 'package:spoosk/core/data/models/user_id_notifier.dart';
-import 'package:spoosk/core/presentation/bloc_register/register_bloc.dart';
-import 'package:spoosk/core/presentation/routes.gr.dart';
-import 'package:spoosk/core/presentation/theme/theme.dart';
-import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
-import 'package:spoosk/core/presentation/widgets/custom_leading.dart';
-import 'package:spoosk/core/presentation/widgets/custom_login_field.dart';
-import 'package:spoosk/core/presentation/widgets/loading_overlay.dart';
+import '../../../colors.dart';
+import '../../../data/models/user_id_notifier.dart';
+import '../../bloc_register/register_bloc.dart';
+import '../../routes.gr.dart';
+import '../../theme/theme.dart';
+import '../../widgets/CustomButton.dart';
+import '../../widgets/custom_leading.dart';
+import '../../widgets/custom_login_field.dart';
+import '../../widgets/loading_overlay.dart';
 
 @RoutePage()
 class RegisterScreen extends StatefulWidget {

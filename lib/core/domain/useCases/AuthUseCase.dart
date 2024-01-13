@@ -1,7 +1,7 @@
-import 'package:spoosk/core/data/DB/DBController_history_search.dart';
-import 'package:spoosk/core/data/DB/DBController_user_auth.dart';
-import 'package:spoosk/core/data/models/user_login.dart';
-import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
+import '../../data/DB/DBController_history_search.dart';
+import '../../data/DB/DBController_user_auth.dart';
+import '../../data/models/user_login.dart';
+import '../../presentation/bloc_user_by_id/user_bloc.dart';
 
 // class AuthUseCase {
 //   static DBController_user_auth dbController_user_auth =

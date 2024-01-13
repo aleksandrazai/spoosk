@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spoosk/core/data/DB/DBController_history_search.dart';
-import 'package:spoosk/core/data/models/resorts.dart';
-import 'package:spoosk/core/presentation/bloc_search_history/search_history_bloc.dart';
-import 'package:spoosk/core/presentation/screens/search_screen/search_mini_card.dart';
+import '../../../data/DB/DBController_history_search.dart';
+import '../../../data/models/resorts.dart';
+import '../../bloc_search_history/search_history_bloc.dart';
+import 'search_mini_card.dart';
 
 class SearchHistory extends StatefulWidget {
   const SearchHistory({Key? key}) : super(key: key);

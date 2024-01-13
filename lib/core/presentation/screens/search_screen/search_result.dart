@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spoosk/core/presentation/bloc_search/search_bloc.dart';
-import 'package:spoosk/core/presentation/screens/search_screen/search_history.dart';
-import 'package:spoosk/core/presentation/screens/search_screen/search_mini_card.dart';
+import '../../bloc_search/search_bloc.dart';
+import 'search_history.dart';
+import 'search_mini_card.dart';
 
 class SearchResult extends StatefulWidget {
   const SearchResult({

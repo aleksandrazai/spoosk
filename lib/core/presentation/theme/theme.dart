@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spoosk/core/colors.dart';
+import '../../colors.dart';
 
 const fontFamily = 'Nunito Sans';
 

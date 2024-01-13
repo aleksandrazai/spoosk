@@ -5,7 +5,7 @@ class ReviewsState {}
 class ReviewsInitial extends ReviewsState {}
 
 class ReviewsLoaded extends ReviewsState {
-  final List<Reviews> reviewsAll;
+  final List<Review> reviewsAll;
 
   ReviewsLoaded({required this.reviewsAll});
 }

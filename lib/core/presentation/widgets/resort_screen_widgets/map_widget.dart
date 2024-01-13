@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:spoosk/core/data/models/ResortById.dart';
+import '../../../data/models/ResortById.dart';
 
-import 'package:spoosk/core/presentation/image.dart';
+import '../../image.dart';
 
 class MapWidget extends StatefulWidget {
   ResortById? resorts;

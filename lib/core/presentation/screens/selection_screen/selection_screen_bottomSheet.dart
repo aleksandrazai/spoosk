@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spoosk/core/presentation/widgets/widgets.dart';
+import '../../widgets/widgets.dart';
 
 class CustomBottomSheet {
   static customShowModalBottomSheet(

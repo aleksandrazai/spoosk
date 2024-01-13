@@ -2,13 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:spoosk/core/presentation/bloc_reviews_by_id/reviews_by_id_bloc.dart';
-import 'package:spoosk/core/presentation/bloc_search/search_bloc.dart';
-import 'package:spoosk/core/presentation/image.dart';
-import 'package:spoosk/core/presentation/routes.gr.dart';
-import 'package:spoosk/core/presentation/screens/search_screen/search_history.dart';
-import 'package:spoosk/core/presentation/screens/search_screen/search_result.dart';
-import 'package:spoosk/core/presentation/widgets/widgets.dart';
+import '../bloc_reviews_by_id/reviews_by_id_bloc.dart';
+import '../bloc_search/search_bloc.dart';
+import '../image.dart';
+import '../routes.gr.dart';
+import 'search_screen/search_history.dart';
+import 'search_screen/search_result.dart';
+import '../widgets/widgets.dart';
 
 @RoutePage()
 class SearchScreen extends StatefulWidget {

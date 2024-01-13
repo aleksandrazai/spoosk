@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:spoosk/core/presentation/image.dart';
+import '../image.dart';
 
 class StarIcon extends StatelessWidget {
   final bool filled;

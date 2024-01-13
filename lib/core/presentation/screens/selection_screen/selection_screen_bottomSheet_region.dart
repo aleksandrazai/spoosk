@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:spoosk/core/colors.dart';
-import 'package:spoosk/core/data/models/fliter_models.dart/main_filter/regions.dart';
-import 'package:spoosk/core/presentation/bloc_region/region_bloc.dart';
-import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
-import 'package:spoosk/core/presentation/widgets/CustomButtonWithContent.dart';
+import '../../../colors.dart';
+import '../../../data/models/fliter_models.dart/main_filter/regions.dart';
+import '../../bloc_region/region_bloc.dart';
+import '../../widgets/CustomButton.dart';
+import '../../widgets/CustomButtonWithContent.dart';
 
 class SelectionScreenBottomSheetRegion extends StatefulWidget {
   const SelectionScreenBottomSheetRegion({

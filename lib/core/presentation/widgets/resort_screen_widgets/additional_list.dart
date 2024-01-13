@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:spoosk/core/data/models/ResortById.dart';
-import 'package:spoosk/core/presentation/image.dart';
+import '../../../data/models/ResortById.dart';
+import '../../image.dart';
 
 class AdditionalList extends StatelessWidget {
   AdditionalList({super.key, required this.resortById});

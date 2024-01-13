@@ -1,7 +1,4 @@
-import 'package:spoosk/core/data/models/user_login.dart';
-import 'package:sqflite/sqflite.dart';
 
-import 'DBController_abst.dart';
 
 // class DBController_user_auth extends DBController_abst<UserData> {
 //   static const String _tableName = "user_auth";

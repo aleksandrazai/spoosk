@@ -52,7 +52,7 @@ class _ResortScreenState extends State<ResortScreen>
         final state = context.watch<ResortByIdBloc>().state;
         final stateReviews = context.watch<ReviewsByIdBloc>().state;
 
-        print('ResortByID image: ${state.resortById?.image}');
+        print('ResortByID image: ${stateReviews.reviews}');
         if (state is ResortByIdLoaded ||
             stateReviews is ReviewsByIdLoaded && state.resortById != null) {
           return PopScope(

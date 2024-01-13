@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:spoosk/core/colors.dart';
+
+import '../../colors.dart';
 
 class HideTextOverflow extends StatefulWidget {
   const HideTextOverflow({

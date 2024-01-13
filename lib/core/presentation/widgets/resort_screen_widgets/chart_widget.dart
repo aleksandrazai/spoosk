@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:spoosk/core/colors.dart';
-import 'package:spoosk/core/data/models/chart.dart';
+import '../../../colors.dart';
+import '../../../data/models/chart.dart';
 
 class ChartWidget extends StatefulWidget {
   Chart chartData;

@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spoosk/core/data/ApiConfig.dart';
-import 'package:spoosk/core/data/RequestController.dart';
-import 'package:spoosk/core/data/models/user_register.dart';
+import 'package:spoosk/core/data/API/RequestController.dart';
+import '../../data/API/ApiConfig.dart';
+import '../../data/models/user_register.dart';
 
 part 'register_event.dart';
 

@@ -1,7 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spoosk/core/data/ApiConfig.dart';
-import 'package:spoosk/core/data/RequestController.dart';
-import 'package:spoosk/core/data/models/user_login.dart';
+import 'package:spoosk/core/data/API/ApiConfig.dart';
+
+import '../../data/API/RequestController.dart';
+import '../../data/models/user_login.dart';
 
 part 'new_password_event.dart';
 part 'new_password_state.dart';
