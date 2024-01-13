@@ -10,4 +10,10 @@ class UserProfileLoaded extends UserProfileState {
   UserProfileLoaded({required this.userProfile});
 }
 
+class UserProfileEdited extends UserProfileState {
+  final UserProfile userProfile;
+
+  UserProfileEdited({required this.userProfile});
+}
+
 class UserProfileFailed extends UserProfileState {}

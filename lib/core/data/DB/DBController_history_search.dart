@@ -1,6 +1,5 @@
-import 'package:spoosk/core/data/models/ResortById.dart';
-
 import 'package:sqflite/sqflite.dart';
+
 import '../models/resorts.dart';
 import 'DBController_abst.dart';
 

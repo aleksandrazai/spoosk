@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spoosk/core/data/ApiConfig.dart';
-import 'package:spoosk/core/data/RequestController.dart';
-import 'package:spoosk/core/data/models/resorts.dart';
+import 'package:spoosk/core/data/API/ApiConfig.dart';
+import 'package:spoosk/core/data/API/RequestController.dart';
+import '../../data/models/resorts.dart';
 
 part 'search_event.dart';
 
@@ -24,7 +24,8 @@ class SearchResortBloc extends Bloc<SearchResortEvent, SearchResortState> {
       if (connectivityResult == ConnectivityResult.wifi ||
           connectivityResult == ConnectivityResult.mobile) {
         final List<Result>? resorts = await requestController.searchResort(
-            searchResort: ApiConfigurate.getAllResorts, text: event.searchText);
+            searchResort: ApiConfigurateGet.getAllResorts,
+            text: event.searchText);
 
         if (resorts!.isNotEmpty) {
           print('Resorts found: ${resorts.length}');

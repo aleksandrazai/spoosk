@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:spoosk/core/colors.dart';
-import 'package:spoosk/core/presentation/image.dart';
+import '../../colors.dart';
+import '../image.dart';
 
 class WeatherWidget extends StatefulWidget {
   const WeatherWidget({super.key});

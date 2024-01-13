@@ -1,11 +1,14 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, avoid_print
+
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:spoosk/core/data/ApiConfig.dart';
+import 'package:spoosk/core/data/API/ApiConfig.dart';
 import 'package:spoosk/core/data/models/ResortById.dart';
 import 'package:spoosk/core/data/models/regions.dart';
 import 'package:spoosk/core/data/models/resorts.dart';
+import 'package:spoosk/core/data/models/reviewPhoto.dart';
 import 'package:spoosk/core/data/models/reviews.dart';
 import 'package:spoosk/core/data/models/user_level.dart';
 import 'package:spoosk/core/data/models/user_login.dart';
@@ -17,12 +20,12 @@ class RequestController {
 
   RequestController();
 
-  final String _url = dotenv.env['API_URL']!;
+  final String _baseUrl = dotenv.env['API_URL']!;
 
   Future<List<Result>?> getResortsAll({required getAllResorts}) async {
     try {
-      final response =
-          await _dio.get(_url + getAllResorts, options: ApiConfigurate.headers);
+      final response = await _dio.get(_baseUrl + getAllResorts,
+          options: ApiConfigurateGet.headers);
 
       final result = List<Result>.from(
         response.data['results'].map((x) {
@@ -48,8 +51,8 @@ class RequestController {
     required String searchResort,
   }) async {
     try {
-      final response = await _dio.get('$_url$searchResort?search=$text',
-          options: ApiConfigurate.headers);
+      final response = await _dio.get('$_baseUrl$searchResort?search=$text',
+          options: ApiConfigurateGet.headers);
       final result = List<Result>.from(
           response.data['results'].map((x) => Result.fromMap(x)));
       print('Filter Result: ${response.data}');
@@ -65,10 +68,10 @@ class RequestController {
     required id,
     required String getResotrsById,
   }) async {
-    print("URL ${_url + getResotrsById + id}");
+    print("URL ${_baseUrl + getResotrsById + id}");
     try {
-      final response = await _dio.get(_url + getResotrsById + id,
-          options: ApiConfigurate.headers);
+      final response = await _dio.get(_baseUrl + getResotrsById + id,
+          options: ApiConfigurateGet.headers);
       final result = ResortById.fromMap(response.data);
       print('ResortByID: ${response.data}');
       return result;
@@ -81,8 +84,8 @@ class RequestController {
   //Get regions
   Future<List<Regions>?> getRegionsAll({required getAllRegions}) async {
     try {
-      final response =
-          await _dio.get(_url + getAllRegions, options: ApiConfigurate.headers);
+      final response = await _dio.get(_baseUrl + getAllRegions,
+          options: ApiConfigurateGet.headers);
       final result =
           List<Regions>.from(response.data.map((x) => Regions.fromJson(x)));
       return result;
@@ -117,10 +120,10 @@ class RequestController {
       ].where((param) => param.isNotEmpty).join('&');
 
       final String url =
-          '$_url${ApiConfigurate.mainFilter}${parameters.isNotEmpty ? '?' : ''}$parameters';
+          '$_baseUrl${ApiConfigurateGet.mainFilter}${parameters.isNotEmpty ? '?' : ''}$parameters';
       print('Filter Request: $url');
 
-      final response = await _dio.get(url, options: ApiConfigurate.headers);
+      final response = await _dio.get(url, options: ApiConfigurateGet.headers);
 
       final result = List<Result>.from(
           response.data['results'].map((x) => Result.fromMap(x)));
@@ -132,16 +135,16 @@ class RequestController {
     }
   }
 
-  Future<List<Reviews>?> getReviews({
+  Future<List<Review>?> getReviews({
     required getReviews,
   }) async {
     try {
-      print('URL Reviews: $_url$getReviews');
-      final response =
-          await _dio.get(_url + getReviews, options: ApiConfigurate.headers);
+      print('URL Reviews: $_baseUrl$getReviews');
+      final response = await _dio.get(_baseUrl + getReviews,
+          options: ApiConfigurateGet.headers);
 
-      final result = List<Reviews>.from(
-          response.data['results'].map((x) => Reviews.fromJson(x)));
+      final result = List<Review>.from(
+          response.data['results'].map((x) => Review.fromJson(x)));
       print('Reviews Result: ${response.data}');
       return result;
     } catch (e) {
@@ -150,16 +153,16 @@ class RequestController {
     }
   }
 
-  Future<List<Reviews>?> getReviewsById({
+  Future<List<Review>?> getReviewsById({
     required getReviewsById,
     required id,
   }) async {
     try {
-      print('URL Reviews: $_url$getReviewsById');
-      final response = await _dio.get('$_url$getReviewsById$id/reviews/',
-          options: ApiConfigurate.headers);
-      final result = List<Reviews>.from(
-          response.data['results'].map((x) => Reviews.fromJson(x)));
+      print('URL Reviews: $_baseUrl$getReviewsById');
+      final response = await _dio.get('$_baseUrl$getReviewsById$id/reviews/',
+          options: ApiConfigurateGet.headers);
+      final result = List<Review>.from(
+          response.data['results'].map((x) => Review.fromJson(x)));
       print('ReviewsByID Result: ${response.data}');
       return result;
     } catch (e) {
@@ -181,8 +184,8 @@ class RequestController {
       };
 
       print('Request Data: $requestData');
-      print('$_url + $userLogin');
-      final response = await _dio.post(_url + userLogin,
+      print('$_baseUrl + $userLogin');
+      final response = await _dio.post(_baseUrl + userLogin,
           data: requestData, options: ApiConfigPost.postHeaders);
       if (response.statusCode == 200) {
         final result = UserLogin.fromJson(response.data);
@@ -201,9 +204,9 @@ class RequestController {
     required id,
   }) async {
     try {
-      print('URL UserProfile: $_url$getUserProfile$id');
-      final response = await _dio.get('$_url$getUserProfile$id',
-          options: ApiConfigurate.headers);
+      print('URL UserProfile: $_baseUrl$getUserProfile$id');
+      final response = await _dio.get('$_baseUrl$getUserProfile$id',
+          options: ApiConfigurateGet.headers);
       final result = UserProfile.fromJson(response.data);
       print('UserProfile Result: ${response.data}');
       return result;
@@ -228,7 +231,7 @@ class RequestController {
       };
 
       print('Request Data: $requestData');
-      final response = await _dio.post(_url + userRegister,
+      final response = await _dio.post(_baseUrl + userRegister,
           data: requestData, options: ApiConfigPost.postHeaders);
 
       final result = UserRegister.fromJson(response.data);
@@ -258,7 +261,7 @@ class RequestController {
 
       print('Request data: $requestData, id: $id');
 
-      final response = await _dio.post('$_url$verifyCode$id/verify_code/',
+      final response = await _dio.post('$_baseUrl$verifyCode$id/verify_code/',
           data: requestData, options: ApiConfigPost.postHeaders);
 
       final result = UserLogin.fromJson(response.data);
@@ -280,7 +283,7 @@ class RequestController {
         'email': email,
       };
       print('Request Data: $requestData');
-      final response = await _dio.post(_url + passwordReset,
+      final response = await _dio.post(_baseUrl + passwordReset,
           data: requestData, options: ApiConfigPost.postHeaders);
       if (response.statusCode == 200) {
         final result = UserLogin.fromJson(response.data);
@@ -304,8 +307,10 @@ class RequestController {
         'password': password,
       };
       print('Request Data: $requestData, $id');
-      final response = await _dio.post('$_url$setPassword$id/change_password/',
-          data: requestData, options: ApiConfigPost.postHeaders);
+      final response = await _dio.post(
+          '$_baseUrl$setPassword$id/change_password/',
+          data: requestData,
+          options: ApiConfigPost.postHeaders);
       if (response.statusCode == 200) {
         final result = UserLogin.fromJson(response.data);
         print('New Password Result: ${response.data}');
@@ -317,7 +322,67 @@ class RequestController {
     return null;
   }
 
-//редактирование профиля
+  Future<Reviews?> getReviewsHome() async {
+    print("getReviewsHome");
+    try {
+      final response = await _dio.get(
+          _baseUrl + ApiConfigurateGet.getReviewsHomeScreen,
+          options: ApiConfigurateGet.headers);
+      if (response.statusCode == 200) {
+        final result = Reviews.fromJson(response.data);
+        return result;
+      }
+    } catch (e) {
+      print('getReviewsHome ERROR $e');
+    }
+    return null;
+  }
+
+  Future<Review?> postReviews(Review data) async {
+    try {
+      final response = await _dio.request(
+        _baseUrl + ApiConfigPost.postReviews,
+        options: ApiConfigPost.postHeaders,
+        data: data.toJson(),
+      );
+      print(' post reviews ${response.data}');
+    } catch (e) {
+      print('postReviews ERROR $e');
+    }
+    return null;
+  }
+
+  Future<void> deleteReviews(int id) async {
+    print("$_baseUrl${ApiConfigDelete.deleteReviews}$id/");
+    try {
+      final response = await _dio.request(
+          "$_baseUrl${ApiConfigDelete.deleteReviews}$id/",
+          options: ApiConfigDelete.deleteHeaders);
+      print(response.data);
+    } catch (e) {
+      print('deleteReviews ERROR $e');
+    }
+  }
+
+  //отзыв пользователя
+  Future<Reviews?> getUserReviews(
+      {required int id, required getUserReviews}) async {
+    print('$_baseUrl$getUserReviews$id/reviews/');
+    try {
+      final response = await _dio.get('$_baseUrl$getUserReviews$id/reviews/',
+          options: ApiConfigurateGet.headers);
+      if (response.statusCode == 200) {
+        final result = Reviews.fromJson(response.data);
+        print('User Reviews result: ${response.data}');
+        return result;
+      }
+    } catch (e) {
+      print('getReviewsUser ERROR $e');
+    }
+    return null;
+  }
+
+  //редактирование профиля
   Future<UserProfile?> editProfile({
     required editProfile,
     required id,
@@ -339,8 +404,8 @@ class RequestController {
       };
 
       print('Request Data: $requestData, $id');
-      print('$_url$editProfile$id');
-      final response = await _dio.patch('$_url$editProfile$id/',
+      print('$_baseUrl$editProfile$id');
+      final response = await _dio.patch('$_baseUrl$editProfile$id/',
           data: requestData, options: ApiConfigPatch.patchHeaders);
       if (response.statusCode == 200) {
         final result = UserProfile.fromJson(response.data['data']);

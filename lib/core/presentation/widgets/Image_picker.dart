@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:spoosk/core/domain/usecases/galleryController.dart';
-import 'package:spoosk/core/presentation/image.dart';
+import '../../domain/usecases/galleryController.dart';
+import '../image.dart';
 
 class ImagePicker extends StatefulWidget {
   void Function(List<File> listImage) getImage;

@@ -3,12 +3,16 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:spoosk/core/colors.dart';
-import 'package:spoosk/core/data/models/ResortById.dart';
-import 'package:spoosk/core/presentation/image.dart';
-import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
-import 'package:spoosk/core/presentation/widgets/Image_picker.dart';
-import 'package:spoosk/core/presentation/widgets/widgets.dart';
+import 'package:spoosk/core/data/API/RequestController.dart';
+import 'package:spoosk/core/data/models/reviewPhoto.dart';
+import '../../colors.dart';
+import '../../data/models/ResortById.dart';
+import '../../data/models/reviews.dart';
+import '../image.dart';
+import 'CustomButton.dart';
+import 'Image_picker.dart';
+import 'widgets.dart';
+import '../../utils/context.dart';
 
 class ReviewForm extends StatefulWidget {
   ResortById? resort;
@@ -23,6 +27,10 @@ class ReviewForm extends StatefulWidget {
 
 class _ReviewFormState extends State<ReviewForm> {
   List<File> selectedImage = [];
+
+  final TextEditingController _textEditingController = TextEditingController();
+  double _rating = 1;
+  final RequestController _requestController = RequestController();
 
   _ReviewFormState();
   @override
@@ -108,11 +116,43 @@ class _ReviewFormState extends State<ReviewForm> {
                       width: 32,
                     );
                   },
-                  onRatingUpdate: (rating) {
-                    print(rating);
-                  }),
+                  onRatingUpdate: _setRating),
             ),
-            const ReviewTextForm(),
+            Container(
+              alignment: Alignment.topLeft,
+              padding: const EdgeInsets.all(20),
+              height: 105,
+              width: MediaQuery.of(context).size.width * 0.9,
+              decoration: ShapeDecoration(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                color: const Color(0xFFF6F6F6),
+              ),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: TextField(
+                  controller: _textEditingController,
+                  maxLines: null,
+                  expands: true,
+                  keyboardType: TextInputType.multiline,
+                  decoration: const InputDecoration(
+                    fillColor: Color(0xFFF6F6F6),
+                    border: InputBorder.none,
+                    filled: true,
+                    hintText:
+                        'Дополни свою оценку отзывом - это поможет другим райдерам определится с выбором курорта',
+                    hintMaxLines: 5,
+                    hintStyle: TextStyle(
+                      color: Color(0xFF9B9CA0),
+                      fontSize: 14,
+                      fontFamily: 'Nunito Sans',
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+              ),
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -137,7 +177,7 @@ class _ReviewFormState extends State<ReviewForm> {
                 Container(
                   margin: const EdgeInsets.only(top: 12),
                   child: ImagePicker(
-                    getImage: (listImage) {
+                    getImage: (listImage) async {
                       final List<File> result =
                           // ignore: prefer_collection_literals
                           Set<File>.from([...selectedImage, ...listImage])
@@ -167,26 +207,7 @@ class _ReviewFormState extends State<ReviewForm> {
                 height: 36,
                 color: AppColors.primaryColor,
                 buttonText: "Отправить отзыв",
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    barrierDismissible: true,
-                    builder: ((BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('Спасибо за Ваш отзыв!'),
-                        content: const Text(
-                            'После модерации Ваш отзыв будет опубликован на странице курорта.'),
-                        actions: [
-                          TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text('Закрыть'))
-                        ],
-                      );
-                    }),
-                  );
-                },
+                onTap: () => _sendReviews(context),
               ),
             ),
           ],
@@ -194,53 +215,56 @@ class _ReviewFormState extends State<ReviewForm> {
       ),
     );
   }
-}
 
-class ReviewTextForm extends StatefulWidget {
-  const ReviewTextForm({
-    super.key,
-  });
+  _setRating(double rating) {
+    setState(() {
+      _rating = rating;
+    });
+  }
 
-  @override
-  State<ReviewTextForm> createState() => _ReviewTextFormState();
-}
+  void _sendReviews(BuildContext context) {
+    print(context.userInfo.getUserInfo());
 
-class _ReviewTextFormState extends State<ReviewTextForm> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.topLeft,
-      padding: const EdgeInsets.all(20),
-      height: 105,
-      width: MediaQuery.of(context).size.width * 0.9,
-      decoration: ShapeDecoration(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        color: const Color(0xFFF6F6F6),
-      ),
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.8,
-        child: const TextField(
-          maxLines: null,
-          expands: true,
-          keyboardType: TextInputType.multiline,
-          decoration: InputDecoration(
-            fillColor: Color(0xFFF6F6F6),
-            border: InputBorder.none,
-            filled: true,
-            hintText:
-                'Дополни свою оценку отзывом - это поможет другим райдерам определится с выбором курорта',
-            hintMaxLines: 5,
-            hintStyle: TextStyle(
-              color: Color(0xFF9B9CA0),
-              fontSize: 14,
-              fontFamily: 'Nunito Sans',
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        ),
-      ),
+    if (context.userInfo.getUserInfo() != null &&
+        _textEditingController.text.isNotEmpty) {
+      Review reviews = Review(
+          addAt: DateTime.now(),
+          approved: false,
+          authorLastname: context.userInfo.getUserInfo()!.userProfile.lastName,
+          authorName: context.userInfo.getUserInfo()!.userProfile.firstName,
+          id: context.userInfo.getUserInfo()!.userProfile.id,
+          rating: _rating.toInt(),
+          resort: widget.resort!.idResort,
+          images: [],
+          resortName: widget.resort!.name,
+          resortRegion: widget.resort!.region,
+          text: _textEditingController.text);
+      _requestController.postReviews(reviews);
+    } else if (context.userInfo.getUserInfo() == null) {
+      _showDialog(content: "Требуется авторизация", title: "Ошибка");
+    } else if (_textEditingController.text.isEmpty) {
+      _showDialog(content: "Введите отзыв", title: "Ошибка");
+    }
+  }
+
+  _showDialog(
+      {required String content, String title = 'Спасибо за Ваш отзыв!'}) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: ((BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(content),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Закрыть'))
+          ],
+        );
+      }),
     );
   }
 }

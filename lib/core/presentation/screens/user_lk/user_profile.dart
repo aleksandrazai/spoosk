@@ -6,10 +6,11 @@ import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/widgets/resort_screen_widgets/line_button_w_icons.dart';
 import 'package:spoosk/core/presentation/widgets/user_avatar.dart';
+import 'package:spoosk/core/utils/context.dart';
 
 @RoutePage()
 class UserProfileScreen extends StatefulWidget {
-  UserProfileScreen({super.key});
+  const UserProfileScreen({super.key});
 
   @override
   State<UserProfileScreen> createState() => _UserProfileScreenState();
@@ -20,6 +21,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<UserProfileBloc, UserProfileState>(
       builder: (context, state) {
+        if (state is UserProfileEdited) {
+          context.read<UserProfileBloc>().add(
+                GetUserInfo(
+                  userId: context.userInfo.getUserInfo()!.userProfile.id,
+                ),
+              );
+        }
         if (state is UserProfileLoaded) {
           return Scaffold(
             body: Center(
@@ -31,15 +39,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     const UserAvatar(),
                     Text(state.userProfile.firstName,
                         style: Theme.of(context).textTheme.headlineMedium),
-                    Text(state.userProfile.email,
+                    Text(state.userProfile.email ?? '',
                         style: Theme.of(context).textTheme.bodyMedium),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 28),
                       child: LineButtonWithIcons(
                           onTap: () {
-                            final userProfile = state.userProfile;
-                            context.router.push(
-                                UserEditProfile(userProfile: userProfile));
+                            context.router.push(const UserEditProfile());
                           },
                           imageName: image_edit,
                           text: 'Редактировать профиль'),

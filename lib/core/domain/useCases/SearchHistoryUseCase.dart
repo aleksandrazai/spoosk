@@ -1,8 +1,8 @@
-import 'package:spoosk/core/data/DB/DBController_history_search.dart';
-import 'package:spoosk/core/data/models/ResortById.dart';
-import 'package:spoosk/core/data/models/resorts.dart';
-import 'package:spoosk/core/presentation/bloc_search/search_bloc.dart';
-import 'package:spoosk/core/presentation/bloc_search_history/search_history_bloc.dart';
+import '../../data/DB/DBController_history_search.dart';
+import '../../data/models/ResortById.dart';
+import '../../data/models/resorts.dart';
+import '../../presentation/bloc_search/search_bloc.dart';
+import '../../presentation/bloc_search_history/search_history_bloc.dart';
 
 class SearchHistoryUseCase {
   DBController_history_search dbController_history_search =

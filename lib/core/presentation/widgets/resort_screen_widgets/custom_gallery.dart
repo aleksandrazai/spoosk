@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:spoosk/core/colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
+
+import '../../../colors.dart';
 
 class CustomGallery extends StatefulWidget {
   List<String> listUrl;

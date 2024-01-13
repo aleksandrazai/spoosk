@@ -3,7 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 final String token = dotenv.env['API_TOKEN']!;
 
-class ApiConfigurate {
+class ApiConfigurateGet {
   static final Options headers = Options(method: "GET", headers: {
     "Authorization": token,
   });
@@ -16,6 +16,8 @@ class ApiConfigurate {
   static String getReviews = 'api/reviews/';
   static String getReviewsById = 'api/resorts/';
   static String getUserProfile = 'api/users/';
+  static String getReviewsHomeScreen = 'api/reviews/';
+  static String getUserReviews = 'api/users/';
 }
 
 class ApiConfigPost {
@@ -28,6 +30,15 @@ class ApiConfigPost {
   static String userLogin = 'api/users/login/';
   static String passwordReset = 'api/users/reset_password_request/';
   static String setPassword = 'api/users/';
+  static String postReviews = 'api/reviews/';
+}
+
+class ApiConfigDelete {
+  static final Options deleteHeaders = Options(method: "DELETE", headers: {
+    'accept': 'application/json',
+    "Authorization": token,
+  });
+  static String deleteReviews = 'api/reviews/';
 }
 
 class ApiConfigPatch {

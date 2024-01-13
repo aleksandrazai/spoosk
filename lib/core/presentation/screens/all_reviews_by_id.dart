@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:spoosk/core/data/models/reviews.dart';
-import 'package:spoosk/core/presentation/image.dart';
-import 'package:spoosk/core/presentation/routes.gr.dart';
-import 'package:spoosk/core/presentation/widgets/widgets.dart';
+import '../../data/models/reviews.dart';
+import '../image.dart';
+import '../routes.gr.dart';
+import '../widgets/widgets.dart';
 
 @RoutePage()
 class AllReviewsById extends StatefulWidget {
@@ -43,7 +43,7 @@ class _AllReviewsByIdState extends State<AllReviewsById> {
       body: Column(
         children: [
           ListView.builder(itemBuilder: (context, index) {
-            final review = widget.reviews;
+            final review = widget.reviews.results[index];
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: ReviewCard(reviews: review),

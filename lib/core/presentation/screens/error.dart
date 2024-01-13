@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spoosk/core/colors.dart';
-import 'package:spoosk/core/presentation/connected_bloc/connected_bloc.dart';
+import '../../colors.dart';
+import '../connected_bloc/connected_bloc.dart';
 
 class ErrorScreen extends StatefulWidget {
   const ErrorScreen({Key? key}) : super(key: key);

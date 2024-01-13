@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:spoosk/core/presentation/routes.gr.dart';
+import 'routes.gr.dart';
 
 @AutoRouterConfig()
 class AppRouter extends $AppRouter {

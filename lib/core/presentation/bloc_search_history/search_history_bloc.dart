@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:spoosk/core/data/models/resorts.dart';
+import '../../data/models/resorts.dart';
 
 part 'search_history_event.dart';
 part 'search_history_state.dart';

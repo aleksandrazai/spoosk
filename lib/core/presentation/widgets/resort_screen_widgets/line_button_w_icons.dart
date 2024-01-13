@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:spoosk/core/colors.dart';
-import 'package:spoosk/core/presentation/image.dart';
+import '../../../colors.dart';
+import '../../image.dart';
 
 class LineButtonWithIcons extends StatelessWidget {
   LineButtonWithIcons(

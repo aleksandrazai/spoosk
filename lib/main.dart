@@ -2,8 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:spoosk/core/app_spoosk.dart';
-import 'package:spoosk/core/Infrastructure/firebase_options.dart';
+import 'core/app_spoosk.dart';
+import 'core/Infrastructure/firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

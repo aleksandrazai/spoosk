@@ -11,7 +11,6 @@
 import 'package:auto_route/auto_route.dart' as _i20;
 import 'package:flutter/material.dart' as _i21;
 import 'package:spoosk/core/data/models/reviews.dart' as _i22;
-import 'package:spoosk/core/data/models/user_profile.dart' as _i23;
 import 'package:spoosk/core/presentation/routes.dart' as _i6;
 import 'package:spoosk/core/presentation/screens/all_reviews_by_id.dart' as _i1;
 import 'package:spoosk/core/presentation/screens/auth/change_password.dart'
@@ -170,13 +169,9 @@ abstract class $AppRouter extends _i20.RootStackRouter {
       );
     },
     UserEditProfile.name: (routeData) {
-      final args = routeData.argsAs<UserEditProfileArgs>();
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i17.UserEditProfile(
-          key: args.key,
-          userProfile: args.userProfile,
-        ),
+        child: const _i17.UserEditProfile(),
       );
     },
     UserProfileRoute.name: (routeData) {
@@ -536,40 +531,16 @@ class SelectionTab extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i17.UserEditProfile]
-class UserEditProfile extends _i20.PageRouteInfo<UserEditProfileArgs> {
-  UserEditProfile({
-    _i21.Key? key,
-    required _i23.UserProfile userProfile,
-    List<_i20.PageRouteInfo>? children,
-  }) : super(
+class UserEditProfile extends _i20.PageRouteInfo<void> {
+  const UserEditProfile({List<_i20.PageRouteInfo>? children})
+      : super(
           UserEditProfile.name,
-          args: UserEditProfileArgs(
-            key: key,
-            userProfile: userProfile,
-          ),
           initialChildren: children,
         );
 
   static const String name = 'UserEditProfile';
 
-  static const _i20.PageInfo<UserEditProfileArgs> page =
-      _i20.PageInfo<UserEditProfileArgs>(name);
-}
-
-class UserEditProfileArgs {
-  const UserEditProfileArgs({
-    this.key,
-    required this.userProfile,
-  });
-
-  final _i21.Key? key;
-
-  final _i23.UserProfile userProfile;
-
-  @override
-  String toString() {
-    return 'UserEditProfileArgs{key: $key, userProfile: $userProfile}';
-  }
+  static const _i20.PageInfo<void> page = _i20.PageInfo<void>(name);
 }
 
 /// generated route for

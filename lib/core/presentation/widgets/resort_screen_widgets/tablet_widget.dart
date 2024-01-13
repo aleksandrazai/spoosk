@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:spoosk/core/data/models/ResortById.dart';
-import 'package:spoosk/core/data/models/skipass_type.dart';
 
 import '../../../colors.dart';
+import '../../../data/models/ResortById.dart';
+import '../../../data/models/skipass_type.dart';
 
 class SkipassTable extends StatelessWidget {
   const SkipassTable({super.key, required this.skipasses});

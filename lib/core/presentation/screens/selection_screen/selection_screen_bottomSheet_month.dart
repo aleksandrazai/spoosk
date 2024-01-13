@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:spoosk/core/colors.dart';
-import 'package:spoosk/core/data/models/fliter_models.dart/main_filter/months.dart';
-import 'package:spoosk/core/data/models/month.dart';
+import '../../../colors.dart';
+import '../../../data/models/fliter_models.dart/main_filter/months.dart';
+import '../../../data/models/month.dart';
 
-import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
-import 'package:spoosk/core/presentation/widgets/CustomButtonWithContent.dart';
+import '../../widgets/CustomButton.dart';
+import '../../widgets/CustomButtonWithContent.dart';
 
 class SelectionScreenBottomSheetMonth extends StatefulWidget {
   const SelectionScreenBottomSheetMonth({super.key});

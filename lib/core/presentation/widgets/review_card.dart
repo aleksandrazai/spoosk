@@ -1,24 +1,24 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:spoosk/core/data/models/reviews.dart';
-import 'package:spoosk/core/presentation/image.dart';
-import 'package:spoosk/core/presentation/widgets/hide_text_overflow.dart';
-import 'package:spoosk/core/presentation/widgets/rating_stars.dart';
+import '../../data/models/reviews.dart';
+import '../image.dart';
+import 'hide_text_overflow.dart';
+import 'rating_stars.dart';
 
 class ReviewCard extends StatelessWidget {
+  final Review reviews;
   const ReviewCard({
     super.key,
     required this.reviews,
   });
 
-  final Reviews reviews;
-
   @override
   Widget build(BuildContext context) {
     DateTime? addAt = reviews.addAt;
 
-    String formattedDate = DateFormat('dd.MM.yy').format(addAt!);
+    String formattedDate =
+        addAt != null ? DateFormat('dd.MM.yy').format(addAt!) : '';
     return Card(
       margin: context.router.current.name == "Home"
           ? const EdgeInsets.fromLTRB(16, 8, 16, 8)
@@ -28,23 +28,26 @@ class ReviewCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(17),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.symmetric(vertical: 12.0),
         child: SizedBox(
           child: Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Container(
-                    width: 41,
-                    height: 41,
-                    clipBehavior: Clip.antiAlias,
-                    decoration: ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(84),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Container(
+                      width: 41,
+                      height: 41,
+                      clipBehavior: Clip.antiAlias,
+                      decoration: ShapeDecoration(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(84),
+                        ),
                       ),
+                      child: Image.asset(image_avatar_placeholder),
                     ),
-                    child: Image.asset(image_avatar_placeholder),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -64,25 +67,52 @@ class ReviewCard extends StatelessWidget {
                   ),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: Text(
-                      reviews.resortName,
-                      style: Theme.of(context).textTheme.headlineMedium,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Text(
+                        reviews.resortName ?? "",
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
                     ),
+                    Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: RatingStars(rating: reviews.rating ?? 0)),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: SizedBox(
+                  child: HideTextOverflow(
+                      fullText: reviews.text ?? "", maxSymbols: 170),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 6),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      ...(reviews.images ?? []).map((e) => Container(
+                            clipBehavior: Clip.hardEdge,
+                            margin: const EdgeInsets.symmetric(horizontal: 6),
+                            decoration: const BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5)),
+                            ),
+                            height: 72,
+                            width: 120,
+                            child: Image.network(e!.image, fit: BoxFit.cover),
+                          ))
+                    ],
                   ),
-                  Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: RatingStars(rating: reviews.rating)),
-                ],
-              ),
-              SizedBox(
-                child:
-                    HideTextOverflow(fullText: reviews.text, maxSymbols: 170),
-              ),
+                ),
+              )
             ],
           ),
         ),

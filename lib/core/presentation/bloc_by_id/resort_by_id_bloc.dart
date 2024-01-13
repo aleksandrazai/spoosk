@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:meta/meta.dart';
-import 'package:spoosk/core/data/ApiConfig.dart';
-import 'package:spoosk/core/data/RequestController.dart';
-import 'package:spoosk/core/data/models/ResortById.dart';
+import 'package:spoosk/core/data/API/ApiConfig.dart';
+import '../../data/API/RequestController.dart';
+import '../../data/models/ResortById.dart';
 
 part 'resort_by_id_event.dart';
 part 'resort_by_id_state.dart';
@@ -21,7 +21,7 @@ class ResortByIdBloc extends Bloc<ResortByIdEvent, ResortByIdState> {
             connectivityResult == ConnectivityResult.mobile) {
           final ResortById? resort = await requestController.getResortsById(
               id: event.idResort,
-              getResotrsById: ApiConfigurate.getResotrsById);
+              getResotrsById: ApiConfigurateGet.getResotrsById);
 
           if (resort != null) {
             emit(ResortByIdLoaded(resortById: resort));

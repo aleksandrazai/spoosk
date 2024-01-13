@@ -1,6 +1,6 @@
 class UserProfile {
   int id;
-  String email;
+  String? email;
   String firstName;
   String lastName;
   dynamic avatar;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:spoosk/core/colors.dart';
+
+import '../../colors.dart';
 
 class LoginField extends StatefulWidget {
   final String hintText;

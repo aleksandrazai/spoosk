@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:spoosk/core/colors.dart';
-import 'package:spoosk/core/data/models/fliter_models.dart/main_filter/regions.dart';
-import 'package:spoosk/core/presentation/bloc_mainFilter.dart/mainFilter_bloc.dart';
-import 'package:spoosk/core/presentation/image.dart';
-import 'package:spoosk/core/presentation/routes.gr.dart';
-import 'package:spoosk/core/presentation/theme/theme.dart';
-import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
-import 'package:spoosk/core/presentation/widgets/resort_card.dart';
+import '../../../colors.dart';
+import '../../../data/models/fliter_models.dart/main_filter/regions.dart';
+import '../../bloc_mainFilter.dart/mainFilter_bloc.dart';
+import '../../image.dart';
+import '../../routes.gr.dart';
+import '../../theme/theme.dart';
+import '../../widgets/CustomButton.dart';
+import '../../widgets/resort_card.dart';
 
 @RoutePage()
 class ResultScreen extends StatelessWidget {
