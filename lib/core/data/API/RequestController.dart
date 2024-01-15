@@ -340,13 +340,13 @@ class RequestController {
 
   Future<Review?> postReviews(Review data) async {
     try {
-      final response = await _dio.request(
-        _baseUrl + ApiConfigPost.postReviews,
-        options: ApiConfigPost.postHeaders,
+      final response = await _dio.post(
+        _baseUrl + ApiConfigUser.postReviews,
+        options: ApiConfigUser.userHeaders,
         data: data.toJson(),
       );
       print(' post reviews ${response.data}');
-    } catch (e) {
+    } on DioException catch (e) {
       print('postReviews ERROR $e');
     }
     return null;
