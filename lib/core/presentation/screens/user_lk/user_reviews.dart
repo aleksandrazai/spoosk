@@ -55,52 +55,54 @@ class _UserReviewsState extends State<UserReviews> {
               List<Review>? unapprovedReviews = state.reviews?.results
                   .where((review) => review.approved == false)
                   .toList();
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Ожидают публикации',
-                        style: Theme.of(context).textTheme.headlineMedium),
-                    Expanded(
-                      flex: 1,
-                      child: ListView.builder(
+              return SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Ожидают публикации',
+                          style: Theme.of(context).textTheme.headlineMedium),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
                         itemCount: unapprovedReviews!.length,
                         itemBuilder: (context, index) {
                           final reviews = unapprovedReviews[index];
                           return ReviewCard(reviews: reviews);
                         },
                       ),
-                    ),
-                    Text('Опубликованы',
-                        style: Theme.of(context).textTheme.headlineMedium),
-                    Expanded(
-                      child: ListView.builder(
+                      SizedBox(height: 12),
+                      Text('Опубликованы',
+                          style: Theme.of(context).textTheme.headlineMedium),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
                         itemCount: approvedReviews!.length,
                         itemBuilder: (context, index) {
                           final reviews = approvedReviews[index];
                           return ReviewCard(reviews: reviews);
                         },
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(
-                        16.0,
-                      ).copyWith(bottom: 16),
-                      child: CustomButton(
-                        boxDecoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8)),
-                        textStyle: Theme.of(context)
-                            .textTheme
-                            .labelMedium
-                            ?.copyWith(color: AppColors.white),
-                        height: 40,
-                        color: AppColors.primaryColor,
-                        onTap: () {},
-                        buttonText: "Написать отзыв",
+                      Padding(
+                        padding: const EdgeInsets.all(
+                          16.0,
+                        ).copyWith(bottom: 16),
+                        child: CustomButton(
+                          boxDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8)),
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .labelMedium
+                              ?.copyWith(color: AppColors.white),
+                          height: 40,
+                          color: AppColors.primaryColor,
+                          onTap: () {},
+                          buttonText: "Написать отзыв",
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               );
             }

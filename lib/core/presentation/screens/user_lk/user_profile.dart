@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
+import 'package:spoosk/core/presentation/screens/auth/login.dart';
 import 'package:spoosk/core/presentation/widgets/resort_screen_widgets/line_button_w_icons.dart';
 import 'package:spoosk/core/presentation/widgets/user_avatar.dart';
 import 'package:spoosk/core/utils/context.dart';
@@ -69,7 +70,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             ),
           );
         }
-        return CircularProgressIndicator();
+        return const LoginScreen();
       },
     );
   }

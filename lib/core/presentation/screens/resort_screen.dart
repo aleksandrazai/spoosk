@@ -59,7 +59,7 @@ class _ResortScreenState extends State<ResortScreen>
             canPop: false,
             onPopInvoked: (didPop) {
               context.read<ResortByIdBloc>().add(EventClearByIdResort());
-              AutoRouter.of(context).navigate(const Home());
+              context.router.navigate(const Home());
             },
             child: Scaffold(
               backgroundColor: const Color(0xFFf8f8f8),
@@ -120,7 +120,7 @@ class _ResortScreenState extends State<ResortScreen>
                           .read<ResortByIdBloc>()
                           .add(EventClearByIdResort());
                       Feedback.forTap(context);
-                      AutoRouter.of(context).pop();
+                      context.back();
                     },
                     child: SvgPicture.asset(
                       fit: BoxFit.scaleDown,

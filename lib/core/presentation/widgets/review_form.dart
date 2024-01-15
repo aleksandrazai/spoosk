@@ -1,10 +1,13 @@
 import 'dart:io';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spoosk/core/data/API/RequestController.dart';
 import 'package:spoosk/core/data/models/reviewPhoto.dart';
+import 'package:spoosk/core/presentation/routes.gr.dart';
+import 'package:spoosk/core/presentation/screens/resort_screen.dart';
 import '../../colors.dart';
 import '../../data/models/ResortById.dart';
 import '../../data/models/reviews.dart';
@@ -16,9 +19,12 @@ import '../../utils/context.dart';
 
 class ReviewForm extends StatefulWidget {
   ResortById? resort;
+  Key? scaffoldKey;
+
   ReviewForm({
-    required this.resort,
     super.key,
+    required this.resort,
+    this.scaffoldKey,
   });
 
   @override
@@ -225,26 +231,28 @@ class _ReviewFormState extends State<ReviewForm> {
   void _sendReviews(BuildContext context) {
     print(context.userInfo.getUserInfo());
 
-    if (context.userInfo.getUserInfo() != null &&
-        _textEditingController.text.isNotEmpty) {
-      Review reviews = Review(
-          addAt: DateTime.now(),
-          approved: false,
-          authorLastname: context.userInfo.getUserInfo()!.userProfile.lastName,
-          authorName: context.userInfo.getUserInfo()!.userProfile.firstName,
-          id: context.userInfo.getUserInfo()!.userProfile.id,
-          rating: _rating.toInt(),
-          resort: widget.resort!.idResort,
-          images: [],
-          resortName: widget.resort!.name,
-          resortRegion: widget.resort!.region,
-          text: _textEditingController.text);
-      _requestController.postReviews(reviews);
-    } else if (context.userInfo.getUserInfo() == null) {
-      _showDialog(content: "Требуется авторизация", title: "Ошибка");
-    } else if (_textEditingController.text.isEmpty) {
-      _showDialog(content: "Введите отзыв", title: "Ошибка");
-    }
+    // if (context.userInfo.getUserInfo() != null &&
+    //     _textEditingController.text.isNotEmpty) {
+    Review reviews = Review(
+        addAt: DateTime.now(),
+        approved: false,
+        authorLastname: context.userInfo.getUserInfo()!.userProfile.lastName,
+        authorName: context.userInfo.getUserInfo()!.userProfile.firstName,
+        id: context.userInfo.getUserInfo()!.userProfile.id,
+        rating: _rating.toInt(),
+        resort: widget.resort!.idResort,
+        images: [],
+        resortName: widget.resort!.name,
+        resortRegion: widget.resort!.region,
+        text: _textEditingController.text);
+    // _requestController.postReviews(reviews);
+    _showDialog(
+        content:
+            'После модерации Ваш отзыв будет опубликован на странице курорта.',
+        title: 'Спасибо за ваш отзыв!');
+    // } else if (_textEditingController.text.isEmpty) {
+    //   _showDialog(content: "Введите отзыв", title: "Ошибка");
+    // }
   }
 
   _showDialog(
@@ -259,7 +267,10 @@ class _ReviewFormState extends State<ReviewForm> {
           actions: [
             TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  context.router
+                      .push(ResortRoute(idResort: widget.resort!.idResort));
+                  FocusScope.of(context).unfocus();
+                  context.back();
                 },
                 child: const Text('Закрыть'))
           ],

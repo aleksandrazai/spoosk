@@ -25,7 +25,7 @@ class _ProfileState extends State<Profile> {
         if (state is UserProfileFailed) {
           return const LoginScreen();
         }
-        return const Center(child: CircularProgressIndicator());
+        return LoginScreen();
       },
     );
   }
