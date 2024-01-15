@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 final String token = dotenv.env['API_TOKEN']!;
+final String userToken = dotenv.env['USER_TOKEN']!;
 
 class ApiConfigurateGet {
   static final Options headers = Options(method: "GET", headers: {
@@ -30,7 +31,6 @@ class ApiConfigPost {
   static String userLogin = 'api/users/login/';
   static String passwordReset = 'api/users/reset_password_request/';
   static String setPassword = 'api/users/';
-  static String postReviews = 'api/reviews/';
 }
 
 class ApiConfigDelete {
@@ -47,4 +47,11 @@ class ApiConfigPatch {
   });
 
   static String editProfile = 'api/users/';
+}
+
+class ApiConfigUser {
+  static final Options userHeaders =
+      Options(method: "POST", headers: {"Authorization": userToken});
+
+  static String postReviews = 'api/reviews/';
 }
