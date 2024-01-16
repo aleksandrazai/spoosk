@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, avoid_print
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -338,20 +339,6 @@ class RequestController {
     return null;
   }
 
-  Future<Review?> postReviews(Review data) async {
-    try {
-      final response = await _dio.post(
-        _baseUrl + ApiConfigUser.postReviews,
-        options: ApiConfigUser.userHeaders,
-        data: data.toJson(),
-      );
-      print(' post reviews ${response.data}');
-    } on DioException catch (e) {
-      print('postReviews ERROR $e');
-    }
-    return null;
-  }
-
   Future<void> deleteReviews(int id) async {
     print("$_baseUrl${ApiConfigDelete.deleteReviews}$id/");
     try {
@@ -414,6 +401,33 @@ class RequestController {
       }
     } on DioException catch (e) {
       print('Error in editProfile call: $e');
+    }
+    return null;
+  }
+
+  Future<Review?> postReviews(ReviewPhoto data, List<File> photos) async {
+    try {
+      FormData formData = FormData();
+
+      // Добавляем изображения в FormData
+      for (int i = 0; i < photos.length; i++) {
+        String fileName = photos[i].path.split('/').last;
+        MultipartFile file = await MultipartFile.fromFile(
+          photos[i].path,
+          filename: fileName,
+        );
+        formData.files.add(MapEntry('file$i', file));
+      }
+      data.images = formData;
+      final response = await _dio.post(
+        _baseUrl + ApiConfigPost.postReviews,
+        options: ApiConfigPost.postHeaders,
+        data: data.toJson(),
+      );
+
+      print(response.data);
+    } catch (e) {
+      print('postReviews ERROR $e');
     }
     return null;
   }

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spoosk/core/data/API/ApiConfig.dart';
-import 'package:spoosk/core/data/API/RequestController.dart';
 import 'package:spoosk/core/data/DB/DBController_user_auth.dart';
 import 'package:spoosk/core/data/models/user_login.dart';
-
-import 'package:spoosk/core/data/models/user_profile.dart';
+import '../../data/API/RequestController.dart';
+import '../../data/models/user_profile.dart';
 
 part 'user_event.dart';
 part 'user_state.dart';

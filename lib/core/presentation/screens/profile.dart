@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
 import '../bloc_user_by_id/user_bloc.dart';
-import 'package:spoosk/core/presentation/screens/auth/login.dart';
+
+import '../screens/auth/login.dart';
 import 'package:spoosk/core/presentation/screens/user_lk/user_profile.dart';
 
 @RoutePage()
