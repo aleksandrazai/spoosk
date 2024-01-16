@@ -420,8 +420,8 @@ class RequestController {
       }
       data.images = formData;
       final response = await _dio.post(
-        _baseUrl + ApiConfigPost.postReviews,
-        options: ApiConfigPost.postHeaders,
+        _baseUrl + ApiConfigUser.postReviews,
+        options: ApiConfigUser.userHeaders,
         data: data.toJson(),
       );
 
