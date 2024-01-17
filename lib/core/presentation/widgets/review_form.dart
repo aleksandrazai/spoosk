@@ -1,15 +1,12 @@
 import 'dart:io';
 
-import 'package:dio/dio.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spoosk/core/data/API/RequestController.dart';
-import 'package:spoosk/core/data/models/reviewPhoto.dart';
+import 'package:spoosk/core/data/models/test_reviews.dart';
 import '../../colors.dart';
 import '../../data/models/ResortById.dart';
-import '../../data/models/reviews.dart';
 import '../image.dart';
 import 'CustomButton.dart';
 import 'Image_picker.dart';
@@ -232,39 +229,22 @@ class _ReviewFormState extends State<ReviewForm> {
 
     if (context.userInfo.getUserInfo() != null &&
         _textEditingController.text.isNotEmpty) {
-      Review reviews = Review(
-          addAt: DateTime.now(),
-          approved: false,
-          authorLastname: context.userInfo.getUserInfo()!.userProfile.lastName,
-          authorName: context.userInfo.getUserInfo()!.userProfile.firstName,
-          id: context.userInfo.getUserInfo()!.userProfile.id,
-          rating: _rating.toInt(),
-          resort: widget.resort!.idResort,
-          images: [],
-          resortName: widget.resort!.name,
-          resortRegion: widget.resort!.region,
-          text: "( ͡⊙ ͜ʖ ͡⊙)");
-
-      _requestController.postReviews(
-          ReviewPhoto(
-            addAt: DateTime.now(),
-            approved: false,
-            authorLastname:
-                context.userInfo.getUserInfo()!.userProfile.lastName,
-            authorName: context.userInfo.getUserInfo()!.userProfile.firstName,
-            id: context.userInfo.getUserInfo()!.userProfile.id,
-            rating: _rating.toInt(),
+      if (selectedImage.isNotEmpty) {
+        TestReviews reviews = TestReviews(
             resort: widget.resort!.idResort,
-            resortName: widget.resort!.name,
-            resortRegion: widget.resort!.region,
-            text: "( ͡⊙ ͜ʖ ͡⊙)",
-            images: [],
-          ),
-          selectedImage);
-    } else if (context.userInfo.getUserInfo() == null) {
-      _showDialog(content: "Требуется авторизация", title: "Ошибка");
-    } else if (_textEditingController.text.isEmpty) {
-      _showDialog(content: "Введите отзыв", title: "Ошибка");
+            text: _textEditingController.text,
+            rating: _rating.toInt(),
+            images: selectedImage);
+
+        _requestController.postReviews(reviews);
+        _showDialog(content: "Отзыв на модерации");
+      } else if (context.userInfo.getUserInfo() == null) {
+        _showDialog(content: "Требуется авторизация", title: "Ошибка");
+      } else if (_textEditingController.text.isEmpty) {
+        _showDialog(content: "Введите отзыв", title: "Ошибка");
+      } else {
+        print("Error: No images selected");
+      }
     }
   }
 

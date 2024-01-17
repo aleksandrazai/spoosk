@@ -11,6 +11,7 @@ import 'package:spoosk/core/data/models/regions.dart';
 import 'package:spoosk/core/data/models/resorts.dart';
 import 'package:spoosk/core/data/models/reviewPhoto.dart';
 import 'package:spoosk/core/data/models/reviews.dart';
+import 'package:spoosk/core/data/models/test_reviews.dart';
 import 'package:spoosk/core/data/models/user_level.dart';
 import 'package:spoosk/core/data/models/user_login.dart';
 import 'package:spoosk/core/data/models/user_profile.dart';
@@ -405,28 +406,38 @@ class RequestController {
     return null;
   }
 
-  Future<Review?> postReviews(ReviewPhoto data, List<File> photos) async {
+  Future<Review?> postReviews(TestReviews data) async {
     try {
       FormData formData = FormData();
 
-      // Добавляем изображения в FormData
-      for (int i = 0; i < photos.length; i++) {
-        String fileName = photos[i].path.split('/').last;
-        MultipartFile file = await MultipartFile.fromFile(
-          photos[i].path,
-          filename: fileName,
-        );
-        formData.files.add(MapEntry('file$i', file));
+      try {
+        for (int i = 0; i < data.images.length; i++) {
+          String filePath = data.images[i].path;
+          String fileName = filePath.split('/').last;
+          MultipartFile file = await MultipartFile.fromFile(
+            filePath,
+            filename: fileName,
+          );
+          formData.files.add(MapEntry('images', file));
+        }
+      } catch (e) {
+        print("Error uploading image: $e");
       }
-      data.images = formData;
+      formData.fields.add(MapEntry('resort', data.resort));
+      formData.fields.add(MapEntry('text', data.text));
+      formData.fields.add(MapEntry('rating', data.rating.toString()));
+
+      // Добавляем изображения в FormData
+
+      print(formData);
       final response = await _dio.post(
         _baseUrl + ApiConfigUser.postReviews,
         options: ApiConfigUser.userHeaders,
-        data: data.toJson(),
+        data: formData,
       );
-
       print(response.data);
-    } catch (e) {
+      print(response.statusCode);
+    } on DioException catch (e) {
       print('postReviews ERROR $e');
     }
     return null;
