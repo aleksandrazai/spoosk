@@ -6,7 +6,7 @@ final String userToken = dotenv.env['USER_TOKEN']!;
 
 class ApiConfigurateGet {
   static final Options headers = Options(method: "GET", headers: {
-    "Authorization": token,
+    "API-key": token,
   });
 
   static String getAllResorts = 'api/resorts/';
@@ -23,7 +23,7 @@ class ApiConfigurateGet {
 
 class ApiConfigPost {
   static final Options postHeaders = Options(method: "POST", headers: {
-    "Authorization": token,
+    "API-key": token,
   });
 
   static String userRegister = 'api/users/';
@@ -36,22 +36,22 @@ class ApiConfigPost {
 class ApiConfigDelete {
   static final Options deleteHeaders = Options(method: "DELETE", headers: {
     'accept': 'application/json',
-    "Authorization": token,
+    "API-key": token,
   });
   static String deleteReviews = 'api/reviews/';
 }
 
 class ApiConfigPatch {
   static final Options patchHeaders = Options(method: "PATCH", headers: {
-    "Authorization": token,
+    "API-key": token,
   });
 
   static String editProfile = 'api/users/';
 }
 
 class ApiConfigUser {
-  static final Options userHeaders =
-      Options(method: "POST", headers: {"Authorization": userToken});
+  static final Options userHeaders = Options(
+      method: "POST", headers: {"API-key": token, "Authorization": userToken});
 
   static String postReviews = 'api/reviews/';
 }
