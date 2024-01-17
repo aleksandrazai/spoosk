@@ -632,14 +632,21 @@ class _ResortScreenState extends State<ResortScreen>
                                             state.resortById!.rating
                                                 .toString())),
                                     const Spacer(),
-                                    Text(
+                                    TextButton(
+                                      onPressed: () {
+                                        context.router.navigate(AllReviewsById(
+                                            reviews: stateReviews.reviews));
+                                      },
+                                      child: Text(
+                                        '${stateReviews.reviews?.length} отзывов',
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyMedium!
                                             .copyWith(
                                                 color: AppColors
                                                     .icons_active_blue),
-                                        "256 отзывов")
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),

@@ -89,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         .copyWith(top: 20, bottom: 8),
                     child: const CardsHeaderPopularALL(
                       header: 'Популярные курорты',
-                      all: 'Все',
+                      showButton: true,
                     ),
                   ),
                 ),
@@ -116,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         .copyWith(top: 28, bottom: 8),
                     child: const CardsHeaderPopularALL(
                       header: 'Последние отзывы',
-                      all: '',
+                      showButton: false,
                     ),
                   ),
                 ),

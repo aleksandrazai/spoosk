@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:spoosk/core/presentation/screens/all_resorts.dart';
 import 'routes.gr.dart';
 
 @AutoRouterConfig()
@@ -19,6 +20,7 @@ class AppRouter extends $AppRouter {
                 AutoRoute(page: ResortRoute.page, path: 'resortscreen'),
                 AutoRoute(page: SearchRoute.page, path: 'search'),
                 AutoRoute(page: AllReviewsById.page, path: 'allreviews'),
+                AutoRoute(page: AllResortsRoute.page, path: 'allresorts'),
               ],
             ),
             AutoRoute(

@@ -32,7 +32,7 @@ class _SearchScreenState extends State<SearchScreen> {
             onTap: () {
               context.read<SearchResortBloc>().add(ClearText());
               context.read<ReviewsByIdBloc>().add(ClearReviewsById());
-              AutoRouter.of(context).navigate(const Home());
+              context.router.back();
             },
             child: SvgPicture.asset(
               fit: BoxFit.scaleDown,

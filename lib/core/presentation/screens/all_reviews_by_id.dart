@@ -9,7 +9,7 @@ import '../widgets/widgets.dart';
 @RoutePage()
 class AllReviewsById extends StatefulWidget {
   const AllReviewsById({super.key, required this.reviews});
-  final Reviews reviews;
+  final List<Review>? reviews;
 
   @override
   State<AllReviewsById> createState() => _AllReviewsByIdState();
@@ -42,13 +42,18 @@ class _AllReviewsByIdState extends State<AllReviewsById> {
           )),
       body: Column(
         children: [
-          ListView.builder(itemBuilder: (context, index) {
-            final review = widget.reviews.results[index];
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: ReviewCard(reviews: review),
-            );
-          })
+          Expanded(
+            child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: widget.reviews?.length,
+                itemBuilder: (context, index) {
+                  final review = widget.reviews![index];
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: ReviewCard(reviews: review),
+                  );
+                }),
+          ),
         ],
       ),
     );

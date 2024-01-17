@@ -41,7 +41,7 @@ class _UserReviewsState extends State<UserReviews> {
             ),
             leading: CustomLeadingIcon(
               onTapped: () {
-                AutoRouter.of(context).navigate(UserProfileRoute());
+                context.router.back();
               },
             ),
             title: Text('Мои отзывы',
