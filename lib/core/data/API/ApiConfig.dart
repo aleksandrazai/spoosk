@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-final String token = dotenv.env['API_TOKEN']!;
+final String token = dotenv.env['API-key']!;
 final String userToken = dotenv.env['USER_TOKEN']!;
 
 class ApiConfigurateGet {
