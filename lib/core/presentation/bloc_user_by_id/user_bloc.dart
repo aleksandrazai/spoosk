@@ -38,15 +38,23 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     }
   }
 
-  void _onGetUserInfo(GetUserInfo event, Emitter<UserProfileState> emit) async {
+  void _onGetUserInfo(
+    GetUserInfo event,
+    Emitter<UserProfileState> emit,
+  ) async {
+    print("_onGetUserInfo ${event.userId}");
     RequestController requestController = RequestController();
-    List<UserData> userInfo = await dbcontrollerUserAuth.getDataList();
-    for (UserData user in userInfo) {
-      userId = user.id;
+    if (event.userId == null) {
+      List<UserData> userInfo = await dbcontrollerUserAuth.getDataList();
+      for (UserData user in userInfo) {
+        userId = user.id;
+      }
     }
     final UserProfile? userProfile = await requestController.getUserProfile(
-        getUserProfile: ApiConfigurateGet.getUserProfile, id: userId);
+        getUserProfile: ApiConfigurateGet.getUserProfile,
+        id: event.userId ?? userId);
     if (userProfile != null) {
+      print("UserProfileLoaded");
       emit(UserProfileLoaded(userProfile: userProfile));
     } else {
       emit(UserProfileFailed());
