@@ -38,8 +38,8 @@ class _MapWidgetState extends State<MapWidget> {
           ),
         ),
       ),
-      Image.asset(
-        image_map,
+      Image.network(
+        widget.resorts!.resortMap,
         fit: BoxFit.fitHeight,
       )
     ]);

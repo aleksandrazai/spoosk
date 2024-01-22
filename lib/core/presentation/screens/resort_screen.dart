@@ -175,41 +175,26 @@ class _ResortScreenState extends State<ResortScreen>
                               ),
                               const Spacer(),
                               Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Container(
-                                    height: 20,
-                                    width: 41,
+                                  SvgPicture.asset(image_star),
+                                  Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 1),
-                                    decoration: BoxDecoration(
-                                        color: AppColors.white,
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(12))),
-                                    child: Row(
-                                      children: [
-                                        SvgPicture.asset(image_star),
-                                        const Spacer(),
-                                        Text(
-                                          state.resortById!.rating.toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelMedium,
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.only(left: 4),
+                                        horizontal: 4),
                                     child: Text(
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(fontSize: 14),
-                                        "(${stateReviews.reviews?.length.toString()})"),
-                                  ),
+                                      state.resortById!.rating.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelMedium,
+                                    ),
+                                  )
                                 ],
                               ),
+                              Text(
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(fontSize: 14),
+                                  "(${stateReviews.reviews?.length.toString()})"),
                             ],
                           ),
                         ),

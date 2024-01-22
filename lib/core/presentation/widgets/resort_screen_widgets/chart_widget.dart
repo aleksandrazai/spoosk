@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:spoosk/core/data/models/ResortById.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../colors.dart';
 import '../../../data/models/chart.dart';
 
 class ChartWidget extends StatefulWidget {
   Chart chartData;
+  ResortById? resorts;
   ChartWidget({super.key, required this.chartData});
 
   @override
@@ -56,17 +59,26 @@ class _ChartWidgetState extends State<ChartWidget> {
             ],
           ),
         ),
-        Container(
-          margin: const EdgeInsets.only(top: 20),
+        TextButton(
           child: Text(
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(color: AppColors.icons_active_blue),
-              "Смотреть карту курорта"),
+            "Смотреть карту курорта",
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium!
+                .copyWith(color: AppColors.icons_active_blue),
+          ),
+          onPressed: () {
+            _launchInAppBrowserView(Uri.parse(widget.resorts!.linkMap));
+          },
         )
       ],
     );
+  }
+
+  Future<void> _launchInAppBrowserView(Uri url) async {
+    if (!await launchUrl(url, mode: LaunchMode.inAppBrowserView)) {
+      throw Exception('Could not launch $url');
+    }
   }
 
   Widget _buildContainer(
