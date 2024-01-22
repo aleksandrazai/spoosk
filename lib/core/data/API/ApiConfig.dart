@@ -1,8 +1,21 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:spoosk/core/data/DB/DBController_user_auth.dart';
+import 'package:spoosk/core/data/models/user_login.dart';
+
+final DBController_user_auth dbcontrollerUserAuth = DBController_user_auth();
+String? userTokenDb;
+
+void getUserToken() async {
+  List<UserData> userInfo = await dbcontrollerUserAuth.getDataList();
+  for (UserData user in userInfo) {
+    userTokenDb = user.token;
+  }
+  userTokenDb ??= "";
+}
 
 final String token = dotenv.env['API-key']!;
-final String userToken = dotenv.env['USER_TOKEN']!;
+final String? userToken = userTokenDb;
 
 class ApiConfigurateGet {
   static final Options headers = Options(method: "GET", headers: {
@@ -37,6 +50,7 @@ class ApiConfigDelete {
   static final Options deleteHeaders = Options(method: "DELETE", headers: {
     'accept': 'application/json',
     "API-key": token,
+    "Authorization": userToken,
   });
   static String deleteReviews = 'api/reviews/';
 }
@@ -44,6 +58,7 @@ class ApiConfigDelete {
 class ApiConfigPatch {
   static final Options patchHeaders = Options(method: "PATCH", headers: {
     "API-key": token,
+    "Authorization": userToken,
   });
 
   static String editProfile = 'api/users/';
