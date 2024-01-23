@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:spoosk/core/data/API/RequestController.dart';
 import '../../data/models/resorts.dart';
 import '../image.dart';
 
-class CustomCardImage extends StatelessWidget {
+class CustomCardImage extends StatefulWidget {
   const CustomCardImage({
     super.key,
     required this.resort,
-  });
+  }) : super();
   final Result resort;
 
+  @override
+  _CustomCardImageState createState() => _CustomCardImageState();
+}
+
+class _CustomCardImageState extends State<CustomCardImage> {
+  final RequestController _requestController = RequestController();
+  bool fovoriteIsSelected = false;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,7 +31,7 @@ class CustomCardImage extends StatelessWidget {
                 errorBuilder: (context, error, stackTrace) => const Center(
                   child: Icon(Icons.close_rounded),
                 ),
-                resort.image,
+                widget.resort.image,
                 height: 108,
                 width: double.infinity,
                 fit: BoxFit.cover,
@@ -50,7 +58,7 @@ class CustomCardImage extends StatelessWidget {
             top: 4,
             right: 2,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () => _setFavorites(),
               style: ElevatedButton.styleFrom(
                 shape: const CircleBorder(),
                 elevation: 0,
@@ -60,7 +68,7 @@ class CustomCardImage extends StatelessWidget {
                 image_selected,
                 width: 18,
                 height: 18,
-                color: Colors.white,
+                color: fovoriteIsSelected ? Colors.red : Colors.white,
               ),
             ),
           ),
@@ -84,5 +92,20 @@ class CustomCardImage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _setFavorites() async {
+    bool? favorite = await _requestController.getAddToFavorites(
+        resortId: widget.resort.idResort);
+
+    if (favorite != null && favorite == true) {
+      setState(() {
+        fovoriteIsSelected = false;
+      });
+    } else {
+      setState(() {
+        fovoriteIsSelected = false;
+      });
+    }
   }
 }

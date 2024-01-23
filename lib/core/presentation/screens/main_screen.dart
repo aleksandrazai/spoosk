@@ -166,10 +166,12 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    requestControllerBloc = context.read<RequestControllerBloc>();
-    requestControllerBloc.add(LoadAllResorts());
-    reviewsHomeBloc = context.read<ReviewsHomeBloc>();
-    context.read<ReviewsHomeBloc>().add(GetReviewsHomeEvent());
-    SearchHistoryUseCase().checkDB(context.read<SearchHistoryBloc>());
+    Future.microtask(() {
+      requestControllerBloc = context.read<RequestControllerBloc>();
+      requestControllerBloc.add(LoadAllResorts());
+      reviewsHomeBloc = context.read<ReviewsHomeBloc>();
+      context.read<ReviewsHomeBloc>().add(GetReviewsHomeEvent());
+      SearchHistoryUseCase().checkDB(context.read<SearchHistoryBloc>());
+    });
   }
 }

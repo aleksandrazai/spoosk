@@ -19,6 +19,10 @@ class ApiConfigurateGet {
   static String getUserProfile = 'api/users/';
   static String getReviewsHomeScreen = 'api/reviews/';
   static String getUserReviews = 'api/users/';
+  static String Function({required String resortId}) getAddToFavorites =
+      ({required String resortId}) {
+    return 'resorts/$resortId/add_to_favorites/';
+  };
 }
 
 class ApiConfigPost {

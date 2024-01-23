@@ -1,15 +1,11 @@
 // ignore_for_file: non_constant_identifier_names, avoid_print
 
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:spoosk/core/data/API/ApiConfig.dart';
 import 'package:spoosk/core/data/models/ResortById.dart';
 import 'package:spoosk/core/data/models/regions.dart';
 import 'package:spoosk/core/data/models/resorts.dart';
-import 'package:spoosk/core/data/models/reviewPhoto.dart';
 import 'package:spoosk/core/data/models/reviews.dart';
 import 'package:spoosk/core/data/models/test_reviews.dart';
 import 'package:spoosk/core/data/models/user_level.dart';
@@ -439,6 +435,28 @@ class RequestController {
       print(response.statusCode);
     } on DioException catch (e) {
       print('postReviews ERROR $e');
+    }
+    return null;
+  }
+
+// TODO Добавить запрос на изменение отзывов
+  Future<Review?> pathReviews(TestReviews data) async {
+    return null;
+  }
+
+  Future<bool?> getAddToFavorites({required String resortId}) async {
+    try {
+      print(resortId);
+      final response = await _dio.request(
+        _baseUrl + ApiConfigurateGet.getAddToFavorites(resortId: resortId),
+        options: ApiConfigurateGet.headers,
+      );
+      if (response.statusCode == 200) {
+        return true;
+      }
+    } catch (e) {
+      print("ERROR getAddToFavorites: $e");
+      return false;
     }
     return null;
   }
