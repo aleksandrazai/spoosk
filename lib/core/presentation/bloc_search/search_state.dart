@@ -1,15 +1,15 @@
 part of 'search_bloc.dart';
 
 class SearchResortState {
-  List<Result> resortsFound = [];
+  List<Resort> resortsFound = [];
 }
 
 class SearchResortInitial extends SearchResortState {
-  List<Result> resortsFound = [];
+  List<Resort> resortsFound = [];
 }
 
 class SearchResortLoaded extends SearchResortState {
-  final List<Result> resortsFound;
+  final List<Resort> resortsFound;
 
   SearchResortLoaded({required this.resortsFound});
 }

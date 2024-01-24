@@ -3,7 +3,7 @@ import 'package:sqflite/sqflite.dart';
 import '../models/resorts.dart';
 import 'DBController_abst.dart';
 
-class DBController_history_search extends DBController_abst<Result> {
+class DBController_history_search extends DBController_abst<Resort> {
   static const String _tableName = "search_history";
   Database? _db;
   static const String _path = "search_history.db";
@@ -48,10 +48,10 @@ class DBController_history_search extends DBController_abst<Result> {
   }
 
   @override
-  Future<Result> insert(Result resultModel) async {
+  Future<Resort> insert(Resort resultModel) async {
     final dbClient = await db;
-    final List<Result> oldData = await getDataList();
-    final List<Result> newData = [resultModel, ...oldData];
+    final List<Resort> oldData = await getDataList();
+    final List<Resort> newData = [resultModel, ...oldData];
 
     newData.removeLast();
     print(oldData.length);
@@ -68,17 +68,17 @@ class DBController_history_search extends DBController_abst<Result> {
   }
 
   @override
-  Future<List<Result>> getDataList() async {
+  Future<List<Resort>> getDataList() async {
     try {
       var dbClient = await db;
       final List<Map<String, dynamic>> queryResult =
           await dbClient!.query(_tableName);
-      return queryResult.map((e) => Result.fromMap(e)).toList();
+      return queryResult.map((e) => Resort.fromMap(e)).toList();
     } catch (e) {
       throw Exception(e);
     }
   }
 
   @override
-  Future<void> update(Result model) async {}
+  Future<void> update(Resort model) async {}
 }

@@ -13,7 +13,7 @@ import '../../routes.gr.dart';
 import '../../../data/DB/DBController_history_search.dart';
 
 class SearchMiniCard extends StatelessWidget {
-  final Result resort;
+  final Resort resort;
 
   const SearchMiniCard({super.key, required this.resort});
 

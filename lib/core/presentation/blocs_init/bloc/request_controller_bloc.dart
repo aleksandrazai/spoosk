@@ -16,7 +16,7 @@ class RequestControllerBloc
         final connectivityResult = await (Connectivity().checkConnectivity());
         if (connectivityResult == ConnectivityResult.wifi ||
             connectivityResult == ConnectivityResult.mobile) {
-          final List<Result>? resorts = await requestController.getResortsAll(
+          final List<Resort>? resorts = await requestController.getResortsAll(
               getAllResorts: ApiConfigurateGet.getAllResorts);
 
           if (resorts!.isNotEmpty) {

@@ -4,11 +4,11 @@ part of 'search_history_bloc.dart';
 sealed class SearchHistoryState {}
 
 final class SearchHistoryInitial extends SearchHistoryState {
-  final List<Result> resortsFound;
+  final List<Resort> resortsFound;
   SearchHistoryInitial({required this.resortsFound});
 }
 
 class SearchHistoryDB extends SearchHistoryState {
-  final List<Result> data;
+  final List<Resort> data;
   SearchHistoryDB({required this.data});
 }

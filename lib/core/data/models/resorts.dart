@@ -1,14 +1,11 @@
+import 'package:meta/meta.dart';
 import 'dart:convert';
-
-Resorts resortsFromJson(String str) => Resorts.fromJson(json.decode(str));
-
-String resortsToJson(Resorts data) => json.encode(data.toJson());
 
 class Resorts {
   int count;
-  String next;
-  String previous;
-  List<Result> results;
+  dynamic next;
+  dynamic previous;
+  List<Resort> results;
 
   Resorts({
     required this.count,
@@ -17,15 +14,19 @@ class Resorts {
     required this.results,
   });
 
-  factory Resorts.fromJson(Map<String, dynamic> json) => Resorts(
+  factory Resorts.fromJson(String str) => Resorts.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory Resorts.fromMap(Map<String, dynamic> json) => Resorts(
         count: json["count"],
         next: json["next"],
         previous: json["previous"],
         results:
-            List<Result>.from(json["results"].map((x) => Result.fromMap(x))),
+            List<Resort>.from(json["results"].map((x) => Resort.fromMap(x))),
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
         "count": count,
         "next": next,
         "previous": previous,
@@ -33,39 +34,49 @@ class Resorts {
       };
 }
 
-class Result {
+class Resort {
   String idResort;
   String name;
   String region;
-  num rating;
+  int rating;
+  int numberReviews;
   String image;
   num trailLength;
   num heightDifference;
   num skipass;
-  num trailNumber;
+  int trailNumber;
+  bool inFavorites;
 
-  Result({
+  Resort({
     required this.idResort,
     required this.name,
     required this.region,
     required this.rating,
+    required this.numberReviews,
     required this.image,
     required this.trailLength,
     required this.heightDifference,
     required this.skipass,
     required this.trailNumber,
+    required this.inFavorites,
   });
 
-  factory Result.fromMap(Map<String, dynamic> json) => Result(
+  factory Resort.fromJson(String str) => Resort.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory Resort.fromMap(Map<String, dynamic> json) => Resort(
         idResort: json["id_resort"],
         name: json["name"],
         region: json["region"],
         rating: json["rating"],
+        numberReviews: json["number_reviews"],
         image: json["image"],
         trailLength: json["trail_length"],
         heightDifference: json["height_difference"],
         skipass: json["skipass"],
         trailNumber: json["trail_number"],
+        inFavorites: json["in_favorites"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -73,10 +84,12 @@ class Result {
         "name": name,
         "region": region,
         "rating": rating,
+        "number_reviews": numberReviews,
         "image": image,
         "trail_length": trailLength,
         "height_difference": heightDifference,
         "skipass": skipass,
         "trail_number": trailNumber,
+        "in_favorites": inFavorites,
       };
 }

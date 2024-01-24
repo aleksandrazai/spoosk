@@ -20,15 +20,15 @@ class RequestController {
 
   final String _baseUrl = dotenv.env['API_URL']!;
 
-  Future<List<Result>?> getResortsAll({required getAllResorts}) async {
+  Future<List<Resort>?> getResortsAll({required getAllResorts}) async {
     try {
       final response = await _dio.get(_baseUrl + getAllResorts,
           options: ApiConfigurateGet.headers);
 
-      final result = List<Result>.from(
+      final result = List<Resort>.from(
         response.data['results'].map((x) {
           try {
-            final result = Result.fromMap(x);
+            final result = Resort.fromMap(x);
             return result;
           } catch (e) {
             print('Error mapping result: $e');
@@ -44,15 +44,15 @@ class RequestController {
   }
 
 //Поиск курорта
-  Future<List<Result>?> searchResort({
+  Future<List<Resort>?> searchResort({
     required String text,
     required String searchResort,
   }) async {
     try {
       final response = await _dio.get('$_baseUrl$searchResort?search=$text',
           options: ApiConfigurateGet.headers);
-      final result = List<Result>.from(
-          response.data['results'].map((x) => Result.fromMap(x)));
+      final result = List<Resort>.from(
+          response.data['results'].map((x) => Resort.fromMap(x)));
       print('Filter Result: ${response.data}');
       return result;
     } catch (e) {
@@ -95,7 +95,7 @@ class RequestController {
   }
 
   //Filter c множественным выбором
-  Future<List<Result>?> getMainFilter({
+  Future<List<Resort>?> getMainFilter({
     required List<String> resort_region,
     required List<String> resort_month,
     required List<String> resort_level,
@@ -123,8 +123,8 @@ class RequestController {
 
       final response = await _dio.get(url, options: ApiConfigurateGet.headers);
 
-      final result = List<Result>.from(
-          response.data['results'].map((x) => Result.fromMap(x)));
+      final result = List<Resort>.from(
+          response.data['results'].map((x) => Resort.fromMap(x)));
       return result;
     } catch (e) {
       print(e);
@@ -427,8 +427,8 @@ class RequestController {
 
       print(formData);
       final response = await _dio.post(
-        _baseUrl + ApiConfigUser.postReviews,
-        options: ApiConfigUser.userHeaders,
+        _baseUrl + ApiConfigUserPost.postReviews,
+        options: ApiConfigUserPost.userHeaders,
         data: formData,
       );
       print(response.data);
@@ -446,17 +446,41 @@ class RequestController {
 
   Future<bool?> getAddToFavorites({required String resortId}) async {
     try {
-      print(resortId);
       final response = await _dio.request(
-        _baseUrl + ApiConfigurateGet.getAddToFavorites(resortId: resortId),
-        options: ApiConfigurateGet.headers,
+        _baseUrl + ApiConfigUserGet.getAddToFavorites(resortId: resortId),
+        options: ApiConfigUserGet.headers,
       );
       if (response.statusCode == 200) {
+        print(response.data);
         return true;
       }
     } catch (e) {
       print("ERROR getAddToFavorites: $e");
-      return false;
+    }
+    return null;
+  }
+
+  Future<List<Resort>?> getAddedFavorites({required int? userId}) async {
+    print("getAddedFavorites WORK");
+    try {
+      final response = await _dio.request(
+        _baseUrl + ApiConfigUserGet.getAddedFavorites(userId: userId!),
+        options: ApiConfigUserGet.headers,
+      );
+      final List<Resort> result = List<Resort>.from(
+        response.data['results'].map((x) {
+          try {
+            final result = Resort.fromMap(x);
+            return result;
+          } catch (e) {
+            print('Error mapping result: $e');
+            return null;
+          }
+        }),
+      );
+      return result;
+    } catch (e) {
+      print("ERROR getAddedFavorites: $e, userId: $userId ");
     }
     return null;
   }

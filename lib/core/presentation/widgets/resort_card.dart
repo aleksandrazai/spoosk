@@ -15,22 +15,18 @@ class ResortCard extends StatelessWidget {
     super.key,
     required this.resort,
   });
-  final Result resort;
+  final Resort resort;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('Card tapped');
-
         context
             .read<ReviewsByIdBloc>()
             .add(EventLoadByIdReviews(idResort: resort.idResort));
         context
             .read<ResortByIdBloc>()
             .add(EventLoadByIdResort(idResort: resort.idResort));
-        print('id resort: ${resort.idResort}');
-
         context.router.push(ResortRoute(idResort: resort.idResort));
       },
       child: Card(

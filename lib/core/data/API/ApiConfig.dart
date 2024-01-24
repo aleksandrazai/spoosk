@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+// ------ Read me ------
+// userToken имеет структуру - "Token l1k23jlkj4lk3jk54yijyi5jyoi5"
+
 final String token = dotenv.env['API-key']!;
 final String userToken = dotenv.env['USER_TOKEN']!;
 
@@ -19,10 +22,6 @@ class ApiConfigurateGet {
   static String getUserProfile = 'api/users/';
   static String getReviewsHomeScreen = 'api/reviews/';
   static String getUserReviews = 'api/users/';
-  static String Function({required String resortId}) getAddToFavorites =
-      ({required String resortId}) {
-    return 'resorts/$resortId/add_to_favorites/';
-  };
 }
 
 class ApiConfigPost {
@@ -53,9 +52,24 @@ class ApiConfigPatch {
   static String editProfile = 'api/users/';
 }
 
-class ApiConfigUser {
+class ApiConfigUserPost {
   static final Options userHeaders = Options(
       method: "POST", headers: {"API-key": token, "Authorization": userToken});
 
   static String postReviews = 'api/reviews/';
+}
+
+class ApiConfigUserGet {
+  static final Options headers = Options(
+      method: "GET", headers: {"API-key": token, "Authorization": userToken});
+  // Добавляет/ удаляет избранные
+  static String Function({required String resortId}) getAddToFavorites =
+      ({required String resortId}) {
+    return 'api/resorts/$resortId/add_to_favorites/';
+  };
+// Получает список избронных у пользователя
+  static String Function({required int userId}) getAddedFavorites =
+      ({required int userId}) {
+    return 'api/users/${userId}/favorites/';
+  };
 }

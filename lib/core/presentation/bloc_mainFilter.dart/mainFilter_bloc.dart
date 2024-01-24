@@ -17,7 +17,7 @@ class MainFilterBloc extends Bloc<MainFilterEvent, MainFilterState> {
         final connectivityResult = await (Connectivity().checkConnectivity());
         if (connectivityResult == ConnectivityResult.wifi ||
             connectivityResult == ConnectivityResult.mobile) {
-          final List<Result>? resorts = await requestController.getMainFilter(
+          final List<Resort>? resorts = await requestController.getMainFilter(
               resort_region: event.resort_region,
               resort_month: event.resort_month,
               resort_level: event.resort_level);

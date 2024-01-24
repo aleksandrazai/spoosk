@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/domain/useCases/SearchHistoryUseCase.dart';
-import 'package:spoosk/core/presentation/bloc_reviews/reviews_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_reviews_home/reviews_home_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_search_history/search_history_bloc.dart';
 import 'package:spoosk/core/presentation/blocs_init/bloc/request_controller_bloc.dart';
@@ -27,13 +26,15 @@ class _MainScreenState extends State<MainScreen> {
 
   late final ReviewsHomeBloc reviewsHomeBloc;
   late final RequestControllerBloc requestControllerBloc;
+  // add this on your main class
 
   bool dialog = false;
 
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter(
-      routes: const [Home(), Selection(), Comparison(), Selected(), Profile()],
+      inheritNavigatorObservers: true,
+      routes: const [Home(), Selection(), Comparison(), Favorites(), Profile()],
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);
         return BlocBuilder<RequestControllerBloc, RequestControllerState>(
@@ -80,7 +81,9 @@ class _MainScreenState extends State<MainScreen> {
                         AutoRouter.of(context).navigate(const Comparison());
                       } else if (index == 3) {
                         // Navigate to the Selected page.
-                        AutoRouter.of(context).navigate(const Selected());
+                        AutoRouter.of(context).navigate(
+                          const Favorites(),
+                        );
                       } else if (index == 4) {
                         // Navigate to the Profile page.
                         AutoRouter.of(context).navigate(const Profile());

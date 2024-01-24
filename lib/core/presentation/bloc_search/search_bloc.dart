@@ -23,7 +23,7 @@ class SearchResortBloc extends Bloc<SearchResortEvent, SearchResortState> {
       RequestController requestController = RequestController();
       if (connectivityResult == ConnectivityResult.wifi ||
           connectivityResult == ConnectivityResult.mobile) {
-        final List<Result>? resorts = await requestController.searchResort(
+        final List<Resort>? resorts = await requestController.searchResort(
             searchResort: ApiConfigurateGet.getAllResorts,
             text: event.searchText);
 

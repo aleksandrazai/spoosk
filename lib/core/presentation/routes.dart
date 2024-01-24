@@ -61,7 +61,10 @@ class AppRouter extends $AppRouter {
               ],
             ),
             AutoRoute(page: Comparison.page, path: 'Comparison'),
-            AutoRoute(page: Selected.page, path: 'Selected'),
+            AutoRoute(
+                page: Favorites.page,
+                path: 'Favorites',
+                allowSnapshotting: true),
           ],
         ),
       ];

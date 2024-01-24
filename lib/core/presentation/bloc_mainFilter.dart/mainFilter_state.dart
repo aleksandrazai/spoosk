@@ -6,7 +6,7 @@ class MainFilterInitial extends MainFilterState {}
 
 class MainFilterLoaded extends MainFilterState {
   MainFilterLoaded({required this.resortsMainFilter});
-  final List<Result> resortsMainFilter;
+  final List<Resort> resortsMainFilter;
 }
 
 class MainFilterNotFound extends MainFilterState {

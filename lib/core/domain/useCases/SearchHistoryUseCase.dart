@@ -11,11 +11,11 @@ class SearchHistoryUseCase {
   SearchHistoryUseCase();
 
   void checkDB(SearchHistoryBloc searchResortBloc) async {
-    final List<Result> result = await _checkDB();
+    final List<Resort> result = await _checkDB();
     searchResortBloc.add(SearchResortHistory(history: result));
   }
 
-  Future<List<Result>> _checkDB() async {
+  Future<List<Resort>> _checkDB() async {
     await dbController_history_search.initDatabase();
     try {
       return await dbController_history_search.getDataList();

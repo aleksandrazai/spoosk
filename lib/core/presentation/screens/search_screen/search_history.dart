@@ -21,7 +21,7 @@ class _SearchHistoryState extends State<SearchHistory> {
     print("+_+_+_+_+_+_+_+_");
     return BlocBuilder<SearchHistoryBloc, SearchHistoryState>(
       builder: (context, state) {
-        final List<Result>? data = state is SearchHistoryDB ? state.data : null;
+        final List<Resort>? data = state is SearchHistoryDB ? state.data : null;
         print("Воркает ${data?.length}");
         return data != null
             ? SingleChildScrollView(

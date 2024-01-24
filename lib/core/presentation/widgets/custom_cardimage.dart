@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/data/API/RequestController.dart';
+import 'package:spoosk/core/presentation/bloc_favorites_users/favorites_users_bloc.dart';
+import 'package:spoosk/core/utils/context.dart';
 import '../../data/models/resorts.dart';
 import '../image.dart';
 
@@ -9,7 +13,7 @@ class CustomCardImage extends StatefulWidget {
     super.key,
     required this.resort,
   }) : super();
-  final Result resort;
+  final Resort resort;
 
   @override
   _CustomCardImageState createState() => _CustomCardImageState();
@@ -17,7 +21,7 @@ class CustomCardImage extends StatefulWidget {
 
 class _CustomCardImageState extends State<CustomCardImage> {
   final RequestController _requestController = RequestController();
-  bool fovoriteIsSelected = false;
+  late bool fovoriteIsSelected;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -58,17 +62,19 @@ class _CustomCardImageState extends State<CustomCardImage> {
             top: 4,
             right: 2,
             child: ElevatedButton(
-              onPressed: () => _setFavorites(),
+              onPressed: () => _setFavorites(context),
               style: ElevatedButton.styleFrom(
                 shape: const CircleBorder(),
                 elevation: 0,
-                backgroundColor: const Color.fromARGB(77, 0, 0, 61),
+                backgroundColor: fovoriteIsSelected
+                    ? AppColors.primaryColor
+                    : const Color.fromARGB(77, 0, 0, 61),
               ),
               child: SvgPicture.asset(
                 image_selected,
                 width: 18,
                 height: 18,
-                color: fovoriteIsSelected ? Colors.red : Colors.white,
+                color: Colors.white,
               ),
             ),
           ),
@@ -94,17 +100,29 @@ class _CustomCardImageState extends State<CustomCardImage> {
     );
   }
 
-  _setFavorites() async {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print("widget.resort.inFavorites ${widget.resort.inFavorites}");
+    setState(() {
+      fovoriteIsSelected = widget.resort.inFavorites;
+    });
+  }
+
+  _setFavorites(BuildContext context) async {
+    if (context.userInfo.userId != null) {
+      print("FavoritesUsersBloc in _setFavorites");
+      context
+          .read<FavoritesUsersBloc>()
+          .add(FavoritesUsersGet(userId: context.userInfo.userId!));
+    }
+
     bool? favorite = await _requestController.getAddToFavorites(
         resortId: widget.resort.idResort);
-
     if (favorite != null && favorite == true) {
       setState(() {
-        fovoriteIsSelected = false;
-      });
-    } else {
-      setState(() {
-        fovoriteIsSelected = false;
+        fovoriteIsSelected = !fovoriteIsSelected;
       });
     }
   }

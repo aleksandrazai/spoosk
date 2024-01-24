@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:spoosk/core/presentation/bloc_favorites_users/favorites_users_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_user_reviews/user_reviews_bloc.dart';
 import 'data/models/fliter_models.dart/advanced_filter/all_filter_params.dart';
 import 'data/models/fliter_models.dart/main_filter/levels.dart';
@@ -117,6 +119,9 @@ class _SpooskAppState extends State<SpooskApp> {
           BlocProvider(
             create: (context) => UserReviewsBloc(),
           ),
+          BlocProvider(
+            create: (context) => FavoritesUsersBloc(),
+          ),
         ],
         child: MaterialApp.router(
           theme: CustomTheme.lightTheme,
@@ -129,7 +134,9 @@ class _SpooskAppState extends State<SpooskApp> {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: S.delegate.supportedLocales,
-          routerConfig: appRouter.config(),
+          routerConfig: appRouter.config(
+            navigatorObservers: () => [AutoRouteObserver()],
+          ),
         ));
   }
 }

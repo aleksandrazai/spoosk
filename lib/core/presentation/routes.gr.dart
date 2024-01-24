@@ -11,26 +11,26 @@
 import 'package:auto_route/auto_route.dart' as _i21;
 import 'package:flutter/material.dart' as _i22;
 import 'package:spoosk/core/data/models/reviews.dart' as _i23;
-import 'package:spoosk/core/presentation/routes.dart' as _i7;
+import 'package:spoosk/core/presentation/routes.dart' as _i8;
 import 'package:spoosk/core/presentation/screens/all_resorts.dart' as _i1;
 import 'package:spoosk/core/presentation/screens/all_reviews_by_id.dart' as _i2;
 import 'package:spoosk/core/presentation/screens/auth/change_password.dart'
     as _i3;
 import 'package:spoosk/core/presentation/screens/auth/code.dart' as _i5;
-import 'package:spoosk/core/presentation/screens/auth/login.dart' as _i8;
-import 'package:spoosk/core/presentation/screens/auth/register.dart' as _i11;
+import 'package:spoosk/core/presentation/screens/auth/login.dart' as _i9;
+import 'package:spoosk/core/presentation/screens/auth/register.dart' as _i12;
 import 'package:spoosk/core/presentation/screens/auth/reset_password.dart'
-    as _i12;
+    as _i13;
 import 'package:spoosk/core/presentation/screens/comparison.dart' as _i4;
-import 'package:spoosk/core/presentation/screens/home.dart' as _i6;
-import 'package:spoosk/core/presentation/screens/main_screen.dart' as _i9;
-import 'package:spoosk/core/presentation/screens/profile.dart' as _i10;
-import 'package:spoosk/core/presentation/screens/resort_screen.dart' as _i13;
-import 'package:spoosk/core/presentation/screens/search_screen.dart' as _i15;
-import 'package:spoosk/core/presentation/screens/selected.dart' as _i16;
+import 'package:spoosk/core/presentation/screens/favorites.dart' as _i6;
+import 'package:spoosk/core/presentation/screens/home.dart' as _i7;
+import 'package:spoosk/core/presentation/screens/main_screen.dart' as _i10;
+import 'package:spoosk/core/presentation/screens/profile.dart' as _i11;
+import 'package:spoosk/core/presentation/screens/resort_screen.dart' as _i14;
+import 'package:spoosk/core/presentation/screens/search_screen.dart' as _i16;
 import 'package:spoosk/core/presentation/screens/selection.dart' as _i17;
 import 'package:spoosk/core/presentation/screens/selection_screen/result.dart'
-    as _i14;
+    as _i15;
 import 'package:spoosk/core/presentation/screens/user_lk/user_edit.dart'
     as _i18;
 import 'package:spoosk/core/presentation/screens/user_lk/user_profile.dart'
@@ -81,59 +81,65 @@ abstract class $AppRouter extends _i21.RootStackRouter {
         ),
       );
     },
+    Favorites.name: (routeData) {
+      return _i21.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i6.Favorites(),
+      );
+    },
     Home.name: (routeData) {
       return _i21.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i6.Home(),
+        child: const _i7.Home(),
       );
     },
     LoginEmptyRoute.name: (routeData) {
       return _i21.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i7.LoginEmptyPage(),
+        child: const _i8.LoginEmptyPage(),
       );
     },
     LoginRoute.name: (routeData) {
       return _i21.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i8.LoginScreen(),
+        child: const _i9.LoginScreen(),
       );
     },
     MainRoute.name: (routeData) {
       return _i21.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i9.MainScreen(),
+        child: const _i10.MainScreen(),
       );
     },
     Profile.name: (routeData) {
       return _i21.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i10.Profile(),
+        child: const _i11.Profile(),
       );
     },
     ProfileEmptyRoute.name: (routeData) {
       return _i21.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i7.ProfileEmptyPage(),
+        child: const _i8.ProfileEmptyPage(),
       );
     },
     RegisterRoute.name: (routeData) {
       return _i21.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i11.RegisterScreen(),
+        child: const _i12.RegisterScreen(),
       );
     },
     ResetPasswordRoute.name: (routeData) {
       return _i21.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i12.ResetPasswordScreen(),
+        child: const _i13.ResetPasswordScreen(),
       );
     },
     ResortRoute.name: (routeData) {
       final args = routeData.argsAs<ResortRouteArgs>();
       return _i21.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i13.ResortScreen(
+        child: _i14.ResortScreen(
           key: args.key,
           idResort: args.idResort,
         ),
@@ -142,25 +148,19 @@ abstract class $AppRouter extends _i21.RootStackRouter {
     ResortTab.name: (routeData) {
       return _i21.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i7.ResortTabPage(),
+        child: const _i8.ResortTabPage(),
       );
     },
     ResultRoute.name: (routeData) {
       return _i21.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i14.ResultScreen(),
+        child: const _i15.ResultScreen(),
       );
     },
     SearchRoute.name: (routeData) {
       return _i21.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i15.SearchScreen(),
-      );
-    },
-    Selected.name: (routeData) {
-      return _i21.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i16.Selected(),
+        child: const _i16.SearchScreen(),
       );
     },
     Selection.name: (routeData) {
@@ -172,7 +172,7 @@ abstract class $AppRouter extends _i21.RootStackRouter {
     SelectionTab.name: (routeData) {
       return _i21.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i7.SelectionEmptyPage(),
+        child: const _i8.SelectionEmptyPage(),
       );
     },
     UserEditProfile.name: (routeData) {
@@ -315,7 +315,21 @@ class EnterCodeRouteArgs {
 }
 
 /// generated route for
-/// [_i6.Home]
+/// [_i6.Favorites]
+class Favorites extends _i21.PageRouteInfo<void> {
+  const Favorites({List<_i21.PageRouteInfo>? children})
+      : super(
+          Favorites.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'Favorites';
+
+  static const _i21.PageInfo<void> page = _i21.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i7.Home]
 class Home extends _i21.PageRouteInfo<void> {
   const Home({List<_i21.PageRouteInfo>? children})
       : super(
@@ -329,7 +343,7 @@ class Home extends _i21.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.LoginEmptyPage]
+/// [_i8.LoginEmptyPage]
 class LoginEmptyRoute extends _i21.PageRouteInfo<void> {
   const LoginEmptyRoute({List<_i21.PageRouteInfo>? children})
       : super(
@@ -343,7 +357,7 @@ class LoginEmptyRoute extends _i21.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i8.LoginScreen]
+/// [_i9.LoginScreen]
 class LoginRoute extends _i21.PageRouteInfo<void> {
   const LoginRoute({List<_i21.PageRouteInfo>? children})
       : super(
@@ -357,7 +371,7 @@ class LoginRoute extends _i21.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i9.MainScreen]
+/// [_i10.MainScreen]
 class MainRoute extends _i21.PageRouteInfo<void> {
   const MainRoute({List<_i21.PageRouteInfo>? children})
       : super(
@@ -371,7 +385,7 @@ class MainRoute extends _i21.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.Profile]
+/// [_i11.Profile]
 class Profile extends _i21.PageRouteInfo<void> {
   const Profile({List<_i21.PageRouteInfo>? children})
       : super(
@@ -385,7 +399,7 @@ class Profile extends _i21.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.ProfileEmptyPage]
+/// [_i8.ProfileEmptyPage]
 class ProfileEmptyRoute extends _i21.PageRouteInfo<void> {
   const ProfileEmptyRoute({List<_i21.PageRouteInfo>? children})
       : super(
@@ -399,7 +413,7 @@ class ProfileEmptyRoute extends _i21.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i11.RegisterScreen]
+/// [_i12.RegisterScreen]
 class RegisterRoute extends _i21.PageRouteInfo<void> {
   const RegisterRoute({List<_i21.PageRouteInfo>? children})
       : super(
@@ -413,7 +427,7 @@ class RegisterRoute extends _i21.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i12.ResetPasswordScreen]
+/// [_i13.ResetPasswordScreen]
 class ResetPasswordRoute extends _i21.PageRouteInfo<void> {
   const ResetPasswordRoute({List<_i21.PageRouteInfo>? children})
       : super(
@@ -427,7 +441,7 @@ class ResetPasswordRoute extends _i21.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i13.ResortScreen]
+/// [_i14.ResortScreen]
 class ResortRoute extends _i21.PageRouteInfo<ResortRouteArgs> {
   ResortRoute({
     _i22.Key? key,
@@ -465,7 +479,7 @@ class ResortRouteArgs {
 }
 
 /// generated route for
-/// [_i7.ResortTabPage]
+/// [_i8.ResortTabPage]
 class ResortTab extends _i21.PageRouteInfo<void> {
   const ResortTab({List<_i21.PageRouteInfo>? children})
       : super(
@@ -479,7 +493,7 @@ class ResortTab extends _i21.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i14.ResultScreen]
+/// [_i15.ResultScreen]
 class ResultRoute extends _i21.PageRouteInfo<void> {
   const ResultRoute({List<_i21.PageRouteInfo>? children})
       : super(
@@ -493,7 +507,7 @@ class ResultRoute extends _i21.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i15.SearchScreen]
+/// [_i16.SearchScreen]
 class SearchRoute extends _i21.PageRouteInfo<void> {
   const SearchRoute({List<_i21.PageRouteInfo>? children})
       : super(
@@ -502,20 +516,6 @@ class SearchRoute extends _i21.PageRouteInfo<void> {
         );
 
   static const String name = 'SearchRoute';
-
-  static const _i21.PageInfo<void> page = _i21.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i16.Selected]
-class Selected extends _i21.PageRouteInfo<void> {
-  const Selected({List<_i21.PageRouteInfo>? children})
-      : super(
-          Selected.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'Selected';
 
   static const _i21.PageInfo<void> page = _i21.PageInfo<void>(name);
 }
@@ -535,7 +535,7 @@ class Selection extends _i21.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.SelectionEmptyPage]
+/// [_i8.SelectionEmptyPage]
 class SelectionTab extends _i21.PageRouteInfo<void> {
   const SelectionTab({List<_i21.PageRouteInfo>? children})
       : super(
