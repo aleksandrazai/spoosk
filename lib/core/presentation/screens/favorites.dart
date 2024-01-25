@@ -32,6 +32,13 @@ class _FavoritesState extends State<Favorites>
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print("initState _FavoritesState: ${context.userInfo}");
+  }
+
+  @override
   void didChangeTabRoute(TabPageRoute previousRoute) {
     if (context.userInfo.userId != null) {
       context

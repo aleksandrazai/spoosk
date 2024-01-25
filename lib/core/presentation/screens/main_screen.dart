@@ -26,10 +26,9 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   AuthUseCase authUseCase = AuthUseCase();
 
-  late final ReviewsHomeBloc reviewsHomeBloc;
-  late final RequestControllerBloc requestControllerBloc;
-  late final UserProfileBloc userProfileBloc;
-
+  late ReviewsHomeBloc reviewsHomeBloc;
+  late RequestControllerBloc requestControllerBloc;
+  late UserProfileBloc userProfileBloc;
   bool dialog = false;
 
   @override

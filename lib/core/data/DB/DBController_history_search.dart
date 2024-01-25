@@ -3,7 +3,7 @@ import 'package:sqflite/sqflite.dart';
 import '../models/resorts.dart';
 import 'DBController_abst.dart';
 
-class DBController_history_search extends DBController_abst<Resort> {
+class DBController_history_search extends DBControllerAbsrt<Resort> {
   static const String _tableName = "search_history";
   Database? _db;
   static const String _path = "search_history.db";

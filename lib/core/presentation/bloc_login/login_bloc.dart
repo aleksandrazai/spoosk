@@ -11,7 +11,7 @@ part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  DBController_user_auth dbController_user_auth = DBController_user_auth();
+  DBControllerUserAuth dbController_user_auth = DBControllerUserAuth();
   DBController_history_search dbController_history_search =
       DBController_history_search();
 

@@ -11,7 +11,7 @@ part 'user_state.dart';
 
 class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   int? userId;
-  final DBController_user_auth dbcontrollerUserAuth = DBController_user_auth();
+  final DBControllerUserAuth dbcontrollerUserAuth = DBControllerUserAuth();
   UserProfileLoaded? getUserInfo() {
     if (state is UserProfileLoaded) {
       return (state as UserProfileLoaded);
@@ -21,7 +21,6 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
 
   static UserProfileBloc bloc(BuildContext context) =>
       context.read<UserProfileBloc>();
-
   UserProfileBloc() : super(UserProfileInitial()) {
     _initUserInfo();
     on<GetUserInfo>(_onGetUserInfo);

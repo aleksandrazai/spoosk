@@ -3,7 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:spoosk/core/data/DB/DBController_user_auth.dart';
 import 'package:spoosk/core/data/models/user_login.dart';
 
-final DBController_user_auth dbcontrollerUserAuth = DBController_user_auth();
+final DBControllerUserAuth dbcontrollerUserAuth = DBControllerUserAuth();
 String? userTokenDb;
 
 void getUserToken() async {

@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 
-abstract class DBController_abst<T> {
+abstract class DBControllerAbsrt<T> {
   late String _tableName;
   late String _path;
   Database? _db;

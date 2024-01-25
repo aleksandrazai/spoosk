@@ -45,12 +45,12 @@ class _SpooskAppState extends State<SpooskApp> {
   @override
   Widget build(BuildContext context) {
     AppRouter appRouter = AppRouter();
-    return MultiProvider(
+    return MultiBlocProvider(
         providers: [
           BlocProvider(
             create: (context) => ConnectedBloc(),
           ),
-          BlocProvider(
+          BlocProvider<RequestControllerBloc>(
             create: (context) => RequestControllerBloc(),
           ),
           BlocProvider(
