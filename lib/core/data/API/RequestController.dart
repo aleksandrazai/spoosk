@@ -380,10 +380,10 @@ class RequestController {
     try {
       final requestData = {
         if (firstName.isNotEmpty) "first_name": firstName,
-        if (lastName.isNotEmpty) "last_name": lastName,
-        if (nickName.isNotEmpty) "nickname": nickName,
-        if (city.isNotEmpty) "city": city,
-        if (country.isNotEmpty) "country": country,
+        "last_name": lastName,
+        "nickname": nickName,
+        "city": city,
+        "country": country,
         // "avatar": avatar,
       };
 
