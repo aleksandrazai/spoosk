@@ -37,45 +37,48 @@ class ResortById {
   String linkSkipasses;
   String mainResortImg;
   num maxHeight;
+  String linkMap;
+  String resortMap;
 
-  ResortById({
-    required this.idResort,
-    required this.trailLength,
-    required this.trailNumber,
-    required this.skipass,
-    required this.heightDifference,
-    required this.greenTrails,
-    required this.blueTrails,
-    required this.redTrails,
-    required this.blackTrails,
-    required this.gondolaSkilift,
-    required this.armchairSkilift,
-    required this.travelatorsSkilift,
-    required this.bugelnySkilift,
-    required this.skipasses,
-    required this.rating,
-    required this.images,
-    required this.name,
-    required this.region,
-    required this.beginSeason,
-    required this.endSeason,
-    required this.freeride,
-    required this.snowpark,
-    required this.eveningSkiing,
-    required this.school,
-    required this.indTraining,
-    required this.childrenSchool,
-    required this.equipRental,
-    required this.distanceAirport,
-    required this.distanceRailway,
-    required this.info,
-    required this.image,
-    required this.listMonth,
-    required this.linkOfsite,
-    required this.linkSkipasses,
-    required this.mainResortImg,
-    required this.maxHeight,
-  });
+  ResortById(
+      {required this.idResort,
+      required this.trailLength,
+      required this.trailNumber,
+      required this.skipass,
+      required this.heightDifference,
+      required this.greenTrails,
+      required this.blueTrails,
+      required this.redTrails,
+      required this.blackTrails,
+      required this.gondolaSkilift,
+      required this.armchairSkilift,
+      required this.travelatorsSkilift,
+      required this.bugelnySkilift,
+      required this.skipasses,
+      required this.rating,
+      required this.images,
+      required this.name,
+      required this.region,
+      required this.beginSeason,
+      required this.endSeason,
+      required this.freeride,
+      required this.snowpark,
+      required this.eveningSkiing,
+      required this.school,
+      required this.indTraining,
+      required this.childrenSchool,
+      required this.equipRental,
+      required this.distanceAirport,
+      required this.distanceRailway,
+      required this.info,
+      required this.image,
+      required this.listMonth,
+      required this.linkOfsite,
+      required this.linkSkipasses,
+      required this.mainResortImg,
+      required this.maxHeight,
+      required this.linkMap,
+      required this.resortMap});
 
   factory ResortById.fromRawJson(String str) =>
       ResortById.fromMap(json.decode(str));
@@ -121,6 +124,8 @@ class ResortById {
         linkSkipasses: json["link_skipasses"],
         mainResortImg: json["main_resort_img"],
         maxHeight: json["max_height"],
+        linkMap: json["link_map"],
+        resortMap: json["resort_map"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -160,6 +165,8 @@ class ResortById {
         "link_skipasses": linkSkipasses,
         "main_resort_img": mainResortImg,
         "max_height": maxHeight,
+        "link_map": linkMap,
+        "resort_map": resortMap,
       };
 }
 
