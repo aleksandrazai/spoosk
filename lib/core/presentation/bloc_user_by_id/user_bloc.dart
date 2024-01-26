@@ -45,6 +45,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     RequestController requestController = RequestController();
     if (event.userId == null) {
       List<UserData> userInfo = await dbcontrollerUserAuth.getDataList();
+      userToken = userInfo[0].token;
       for (UserData user in userInfo) {
         userId = user.id;
       }
@@ -52,8 +53,8 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     final UserProfile? userProfile = await requestController.getUserProfile(
         getUserProfile: ApiConfigurateGet.getUserProfile,
         id: event.userId ?? userId);
+    emit(UserProfileLoad());
     if (userProfile != null) {
-      print("UserProfileLoaded");
       emit(UserProfileLoaded(userProfile: userProfile));
     } else {
       emit(UserProfileFailed());
@@ -62,6 +63,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
 
   void _onUserLogout(UserLogOut event, Emitter<UserProfileState> emit) {
     dbcontrollerUserAuth.delete(userId!);
+    userId = null;
     emit(UserProfileInitial());
   }
 

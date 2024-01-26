@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/data/API/RequestController.dart';
 import 'package:spoosk/core/presentation/bloc_favorites_users/favorites_users_bloc.dart';
+import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
 import 'package:spoosk/core/utils/context.dart';
 import '../../data/models/resorts.dart';
 import '../image.dart';
@@ -24,6 +25,7 @@ class _CustomCardImageState extends State<CustomCardImage> {
   late bool fovoriteIsSelected;
   @override
   Widget build(BuildContext context) {
+    print(fovoriteIsSelected);
     return Container(
       padding: const EdgeInsets.all(8.0),
       child: Stack(
@@ -111,11 +113,11 @@ class _CustomCardImageState extends State<CustomCardImage> {
   }
 
   _setFavorites(BuildContext context) async {
+    UserProfileBloc userBloc = context.read<UserProfileBloc>();
     if (context.userInfo.userId != null) {
-      print("FavoritesUsersBloc in _setFavorites");
       context
           .read<FavoritesUsersBloc>()
-          .add(FavoritesUsersGet(userId: context.userInfo.userId!));
+          .add(FavoritesUsersGet(userId: userBloc.userId!));
     }
 
     bool? favorite = await _requestController.getAddToFavorites(

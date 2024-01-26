@@ -18,7 +18,7 @@ void getUserToken() async {
 // userToken имеет структуру - "Token l1k23jlkj4lk3jk54yijyi5jyoi5"
 
 final String token = dotenv.env['API-key']!;
-final String? userToken = userTokenDb;
+String? userToken = userTokenDb;
 
 class ApiConfigurateGet {
   static final Options headers = Options(method: "GET", headers: {

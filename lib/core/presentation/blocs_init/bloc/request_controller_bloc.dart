@@ -7,24 +7,21 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 part 'request_controller_event.dart';
 part 'request_controller_state.dart';
 
-class RequestControllerBloc
-    extends Bloc<RequestControllerEvent, RequestControllerState> {
+class PorularResortBloc extends Bloc<PorularResortEvent, PorularResortState> {
   RequestController requestController = RequestController();
-  RequestControllerBloc() : super(RequestControllerInitial()) {
-    on<LoadAllResorts>((event, emit) async {
+  PorularResortBloc() : super(PorularResortInitial()) {
+    on<LoadAllPorularResorts>((event, emit) async {
       try {
         final connectivityResult = await (Connectivity().checkConnectivity());
         if (connectivityResult == ConnectivityResult.wifi ||
             connectivityResult == ConnectivityResult.mobile) {
-          final List<Resort>? resorts = await requestController.getResortsAll(
-              getAllResorts: ApiConfigurateGet.getAllResorts);
-
-          if (resorts!.isNotEmpty) {
-            emit(RequestControllerLoaded(resortsAll: resorts));
+          final List<Resort>? resorts = await requestController.getResortsAll();
+          if (resorts != null) {
+            emit(PorularResortLoaded(resortsAll: resorts));
           }
         }
       } catch (e) {
-        emit(RequestControllerLoaded(resortsAll: []));
+        emit(PorularResortLoaded(resortsAll: []));
       }
     });
   }

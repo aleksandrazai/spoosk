@@ -50,8 +50,8 @@ class _SpooskAppState extends State<SpooskApp> {
           BlocProvider(
             create: (context) => ConnectedBloc(),
           ),
-          BlocProvider<RequestControllerBloc>(
-            create: (context) => RequestControllerBloc(),
+          BlocProvider<PorularResortBloc>(
+            create: (context) => PorularResortBloc(),
           ),
           BlocProvider(
             create: (context) => ReviewsBloc(),

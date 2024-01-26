@@ -1,5 +1,7 @@
 part of 'request_controller_bloc.dart';
 
-abstract class RequestControllerEvent {}
+abstract class PorularResortEvent {}
 
-class LoadAllResorts extends RequestControllerEvent {}
+class InitPorularResorts extends PorularResortEvent {}
+
+class LoadAllPorularResorts extends PorularResortEvent {}

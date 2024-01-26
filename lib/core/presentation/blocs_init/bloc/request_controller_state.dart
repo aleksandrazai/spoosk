@@ -1,10 +1,10 @@
 part of 'request_controller_bloc.dart';
 
-abstract class RequestControllerState {}
+abstract class PorularResortState {}
 
-class RequestControllerInitial extends RequestControllerState {}
+class PorularResortInitial extends PorularResortState {}
 
-class RequestControllerLoaded extends RequestControllerState {
-  RequestControllerLoaded({required this.resortsAll});
+class PorularResortLoaded extends PorularResortState {
+  PorularResortLoaded({required this.resortsAll});
   final List<Resort> resortsAll;
 }

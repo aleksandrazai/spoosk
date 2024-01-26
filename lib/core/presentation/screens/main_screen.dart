@@ -25,10 +25,6 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   AuthUseCase authUseCase = AuthUseCase();
-
-  late ReviewsHomeBloc reviewsHomeBloc;
-  late RequestControllerBloc requestControllerBloc;
-  late UserProfileBloc userProfileBloc;
   bool dialog = false;
 
   @override
@@ -38,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
       routes: const [Home(), Selection(), Comparison(), Favorites(), Profile()],
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);
-        return BlocBuilder<RequestControllerBloc, RequestControllerState>(
+        return BlocBuilder<PorularResortBloc, PorularResortState>(
           builder: (context, state) {
             return BlocConsumer<ConnectedBloc, ConnectedState>(
               listener: (context, state) async {
@@ -165,15 +161,5 @@ class _MainScreenState extends State<MainScreen> {
         );
       },
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    requestControllerBloc = context.read<RequestControllerBloc>();
-    requestControllerBloc.add(LoadAllResorts());
-    reviewsHomeBloc = context.read<ReviewsHomeBloc>();
-    context.read<ReviewsHomeBloc>().add(GetReviewsHomeEvent());
-    SearchHistoryUseCase().checkDB(context.read<SearchHistoryBloc>());
   }
 }

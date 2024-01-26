@@ -24,6 +24,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             password: event.password,
             userLogin: ApiConfigPost.userLogin);
         if (userData != null) {
+          userToken = userData.token;
           await initDataBase(userData: userData);
           emit(LoginSuccessfull(userData: userData, id: userData.id!));
         } else {

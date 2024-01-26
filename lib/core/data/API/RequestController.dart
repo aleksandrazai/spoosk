@@ -12,33 +12,35 @@ import 'package:spoosk/core/data/models/user_level.dart';
 import 'package:spoosk/core/data/models/user_login.dart';
 import 'package:spoosk/core/data/models/user_profile.dart';
 import 'package:spoosk/core/data/models/user_register.dart';
+import 'package:spoosk/core/domain/useCases/AuthUseCase.dart';
+import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
 
 class RequestController {
   final Dio _dio = Dio();
+  AuthUseCase authUseCase = AuthUseCase();
+  late String _baseUrl;
 
-  RequestController();
+  RequestController() {
+    _baseUrl = dotenv.env['API_URL']!;
+  }
 
-  final String _baseUrl = dotenv.env['API_URL']!;
-
-  Future<List<Resort>?> getResortsAll({required getAllResorts}) async {
+  Future<List<Resort>?> getResortsAll() async {
     try {
-      final response = await _dio.get(_baseUrl + getAllResorts,
-          options: ApiConfigurateGet.headers);
-
-      final result = List<Resort>.from(
-        response.data['results'].map((x) {
-          try {
-            final result = Resort.fromMap(x);
-            return result;
-          } catch (e) {
-            print('Error mapping result: $e');
-            return null;
-          }
-        }),
+      final Response<Map<String, dynamic>> response = await _dio.request(
+        _baseUrl + ApiConfigurateGet.getAllResorts,
+        options: ApiConfigurateGet.headers,
       );
-      return result;
+
+      final Map<String, dynamic>? responseData = response.data;
+
+      if (responseData != null) {
+        final Resorts resorts = Resorts.fromMap(responseData);
+        return resorts.results;
+      } else {
+        return null;
+      }
     } catch (e) {
-      print('Error in API call: $e');
+      print('Error getResortsAll: $e');
       return null;
     }
   }
@@ -186,7 +188,7 @@ class RequestController {
       final response = await _dio.post(_baseUrl + userLogin,
           data: requestData, options: ApiConfigPost.postHeaders);
       if (response.statusCode == 200) {
-        final result = UserLogin.fromJson(response.data);
+        final UserLogin result = UserLogin.fromJson(response.data);
         print('UserLogin Result: ${response.data}');
         return result.data;
       }
@@ -445,6 +447,7 @@ class RequestController {
   }
 
   Future<bool?> getAddToFavorites({required String resortId}) async {
+    print(userToken);
     try {
       final response = await _dio.request(
         _baseUrl + ApiConfigUserGet.getAddToFavorites(resortId: resortId),

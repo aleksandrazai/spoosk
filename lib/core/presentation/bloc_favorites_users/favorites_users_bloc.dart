@@ -1,6 +1,7 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'package:bloc/bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:dio/src/response.dart';
 import 'package:meta/meta.dart';
 import 'package:spoosk/core/data/API/RequestController.dart';
 import 'package:spoosk/core/data/models/resorts.dart';
@@ -12,8 +13,6 @@ class FavoritesUsersBloc
     extends Bloc<FavoritesUsersEvent, FavoritesUsersState> {
   FavoritesUsersBloc() : super(FavoritesUsersInitial()) {
     RequestController _requestController = RequestController();
-
-    on<FavoritesUsersEvent>((event, emit) {});
     on<FavoritesUsersGet>((event, emit) async {
       try {
         final connectivityResult = await (Connectivity().checkConnectivity());

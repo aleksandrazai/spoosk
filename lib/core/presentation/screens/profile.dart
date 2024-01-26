@@ -20,13 +20,18 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return BlocBuilder<UserProfileBloc, UserProfileState>(
       builder: (context, state) {
+        print(state);
         if (state is UserProfileLoaded) {
-          return UserProfileScreen();
+          return const UserProfileScreen();
         }
         if (state is UserProfileFailed) {
           return const LoginScreen();
         }
-        return LoginScreen();
+
+        if (state is UserProfileLoad) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        return const LoginScreen();
       },
     );
   }

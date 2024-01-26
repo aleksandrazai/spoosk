@@ -1,3 +1,5 @@
+import 'package:spoosk/core/data/API/ApiConfig.dart';
+
 import '../../data/DB/DBController_history_search.dart';
 import '../../data/DB/DBController_user_auth.dart';
 import '../../data/models/user_login.dart';
@@ -14,6 +16,7 @@ class AuthUseCase {
 
       if (userData[0].id != null && userData.isNotEmpty) {
         userProfileBloc.add(GetUserInfo(userId: userData[0].id!));
+        userToken = userData[0].token;
       }
     } catch (e) {
       print("AuthUseCase checkDB: ${e}");

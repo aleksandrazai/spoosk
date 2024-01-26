@@ -4,6 +4,8 @@ class UserProfileState {}
 
 class UserProfileInitial extends UserProfileState {}
 
+class UserProfileLoad extends UserProfileState {}
+
 class UserProfileLoaded extends UserProfileState {
   final UserProfile userProfile;
 

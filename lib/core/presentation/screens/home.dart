@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/data/API/RequestController.dart';
+import 'package:spoosk/core/domain/useCases/AuthUseCase.dart';
 import 'package:spoosk/core/domain/useCases/SearchHistoryUseCase.dart';
 import 'package:spoosk/core/presentation/bloc_reviews_home/reviews_home_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_search_history/search_history_bloc.dart';
+import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
 import 'package:spoosk/core/presentation/blocs_init/bloc/request_controller_bloc.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
@@ -36,17 +38,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  AuthUseCase authUseCase = AuthUseCase();
+
   RequestController requestController = RequestController();
 
   @override
   Widget build(BuildContext context) {
+    UserProfileBloc userBloc = context.read<UserProfileBloc>();
+
     return Builder(
       builder: (context) {
-        final stateResorts = context.watch<RequestControllerBloc>().state;
+        final stateResorts = context.watch<PorularResortBloc>().state;
         final stateReviews = context.watch<ReviewsHomeBloc>().state;
-        print(stateResorts is RequestControllerLoaded);
-        print(stateResorts);
-        if (stateResorts is RequestControllerLoaded &&
+        if (stateResorts is PorularResortLoaded &&
             stateReviews is ReviewsHomeLoaded) {
           return Scaffold(
             backgroundColor: AppColors.background,
@@ -155,5 +159,19 @@ class _HomeScreenState extends State<HomeScreen> {
         return Center(child: const CircularProgressIndicator());
       },
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initData();
+  }
+
+// Возможно это можно будет перенести в main_screen и инициализировать вместе с навигацией
+  initData() async {
+    authUseCase.checkDB(context.read<UserProfileBloc>());
+    context.read<PorularResortBloc>().add(LoadAllPorularResorts());
+    context.read<ReviewsHomeBloc>().add(GetReviewsHomeEvent());
+    SearchHistoryUseCase().checkDB(context.read<SearchHistoryBloc>());
   }
 }

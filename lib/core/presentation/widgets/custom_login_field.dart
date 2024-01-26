@@ -23,6 +23,7 @@ class _LoginFieldState extends State<LoginField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         filled: true,
         fillColor: AppColors.white,
