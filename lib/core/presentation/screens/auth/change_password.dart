@@ -8,7 +8,6 @@ import '../../bloc_password_new/new_password_bloc.dart';
 import '../../routes.gr.dart';
 import '../../theme/theme.dart';
 import '../../widgets/CustomButton.dart';
-import '../../widgets/custom_leading.dart';
 import '../../widgets/custom_login_field.dart';
 
 @RoutePage()
@@ -34,11 +33,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             fontSize: 18,
             fontFamily: fontFamily,
             fontWeight: FontWeight.w700,
-          ),
-          leading: CustomLeadingIcon(
-            onTapped: () {
-              context.router.pop();
-            },
           ),
           title: Text('Восстановление пароля',
               style: Theme.of(context).textTheme.headlineMedium)),
@@ -124,7 +118,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         password: _passwordController.text,
                         id: Provider.of<UserDataProvider>(context,
                                 listen: false)
-                            .userId));
+                            .userId,
+                        token: Provider.of<UserDataProvider>(context,
+                                listen: false)
+                            .userToken));
                   }
                 },
               ),

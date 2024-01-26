@@ -15,7 +15,8 @@ class NewPasswordBloc extends Bloc<NewPasswordEvent, NewPasswordState> {
         final UserLogin? serverResponse = await requestController.setPassword(
             password: event.password,
             id: event.id,
-            setPassword: ApiConfigPost.setPassword);
+            setPassword: ApiConfigResetPassword.setPassword,
+            userToken: event.token);
         if (serverResponse!.status == 200) {
           emit(NewPasswordSuccessfull());
         }

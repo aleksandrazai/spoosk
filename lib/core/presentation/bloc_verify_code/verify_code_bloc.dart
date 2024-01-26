@@ -17,6 +17,8 @@ class VerifyCodeBloc extends Bloc<VerifyCodeEvent, VerifyCodeState> {
             id: event.id);
         if (userData != null) {
           emit(VerifyCodeSuccessfull(id: userData.id!, userdata: userData));
+        } else {
+          emit(VerifyCodeFailed());
         }
       } catch (error) {
         emit(VerifyCodeFailed());

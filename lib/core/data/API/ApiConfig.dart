@@ -46,7 +46,6 @@ class ApiConfigPost {
   static String verifyCode = 'api/users/';
   static String userLogin = 'api/users/login/';
   static String passwordReset = 'api/users/reset_password_request/';
-  static String setPassword = 'api/users/';
 }
 
 class ApiConfigDelete {
@@ -86,5 +85,21 @@ class ApiConfigUserGet {
   static String Function({required int userId}) getAddedFavorites =
       ({required int userId}) {
     return 'api/users/${userId}/favorites/';
+  };
+}
+
+class ApiConfigResetPassword {
+  static Options getHeaders({required String userTokenPassword}) {
+    return Options(
+      method: "POST",
+      headers: {
+        "API-key": token,
+        "Authorization": userTokenPassword,
+      },
+    );
+  }
+
+  static String Function({required num id}) setPassword = ({required num id}) {
+    return 'api/users/$id/change_password/';
   };
 }
