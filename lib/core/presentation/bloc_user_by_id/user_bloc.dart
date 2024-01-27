@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:spoosk/core/data/API/ApiConfig.dart';
 import 'package:spoosk/core/data/DB/DBController_user_auth.dart';
-import 'package:spoosk/core/domain/useCases/AuthUseCase.dart';
 
 import '../../data/API/RequestController.dart';
 import '../../data/models/user_profile.dart';

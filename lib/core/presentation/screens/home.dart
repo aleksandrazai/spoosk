@@ -8,6 +8,7 @@ import 'package:spoosk/core/data/API/RequestController.dart';
 import 'package:spoosk/core/data/DB/DBController_user_auth.dart';
 import 'package:spoosk/core/data/DB/DBController_user_auth.dart';
 import 'package:spoosk/core/data/models/user_login.dart';
+import 'package:spoosk/core/data/repositories/DI/service.dart';
 import 'package:spoosk/core/domain/useCases/AuthUseCase.dart';
 import 'package:spoosk/core/domain/useCases/SearchHistoryUseCase.dart';
 import 'package:spoosk/core/presentation/bloc_favorites_users/favorites_users_bloc.dart';
@@ -42,8 +43,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  AuthUseCase authUseCase = AuthUseCase();
-  DBControllerUserAuth dBControllerUserAuth = DBControllerUserAuth();
+  SingletonAuthUseCase singletonAuthUseCase = SingletonAuthUseCase();
 
   RequestController requestController = RequestController();
 
@@ -174,11 +174,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
 // Возможно это можно будет перенести в main_screen и инициализировать вместе с навигацией
   initData() async {
-    await authUseCase.checkDB(context.read<UserProfileBloc>());
+    await singletonAuthUseCase.authUseCase
+        .checkDB(context.read<UserProfileBloc>());
     context.read<PorularResortBloc>().add(LoadAllPorularResorts());
     context.read<ReviewsHomeBloc>().add(GetReviewsHomeEvent());
     SearchHistoryUseCase().checkDB(context.read<SearchHistoryBloc>());
-    int? userId = authUseCase.userId;
+    int? userId = singletonAuthUseCase.authUseCase.userId;
     if (userId != null) {
       context.read<FavoritesUsersBloc>().add(FavoritesUsersGet(userId: userId));
     }

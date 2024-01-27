@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/data/API/RequestController.dart';
 import 'package:spoosk/core/data/models/user_login.dart';
-import 'package:spoosk/core/domain/useCases/AuthUseCase.dart';
+import 'package:spoosk/core/data/repositories/DI/service.dart';
 
 import 'package:spoosk/core/presentation/bloc_favorites_users/favorites_users_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
@@ -26,6 +26,8 @@ class CustomCardImage extends StatefulWidget {
 
 class _CustomCardImageState extends State<CustomCardImage> {
   final RequestController _requestController = RequestController();
+  SingletonAuthUseCase singletonAuthUseCase = SingletonAuthUseCase();
+
   bool fovoriteIsSelected = false;
   @override
   Widget build(BuildContext context) {
