@@ -11,20 +11,24 @@ part 'favorites_users_state.dart';
 
 class FavoritesUsersBloc
     extends Bloc<FavoritesUsersEvent, FavoritesUsersState> {
+  final RequestController _requestController = RequestController();
   FavoritesUsersBloc() : super(FavoritesUsersInitial()) {
-    RequestController _requestController = RequestController();
     on<FavoritesUsersGet>((event, emit) async {
-      try {
-        final connectivityResult = await (Connectivity().checkConnectivity());
-        if (connectivityResult == ConnectivityResult.wifi ||
-            connectivityResult == ConnectivityResult.mobile) {
-          final List<Resort>? addedFavoritesList =
-              await _requestController.getAddedFavorites(userId: event.userId);
-          emit(FavoritesUsersAll(resorts: addedFavoritesList));
-        }
-      } catch (e) {
-        print("ReviewsByIdBloc: $e");
-      }
+      print("INITIAL: ${event.userId}");
+      _getFavotis(event);
     });
+  }
+  _getFavotis(FavoritesUsersGet event) async {
+    try {
+      final connectivityResult = await (Connectivity().checkConnectivity());
+      if (connectivityResult == ConnectivityResult.wifi ||
+          connectivityResult == ConnectivityResult.mobile) {
+        final List<Resort>? addedFavoritesList =
+            await _requestController.getAddedFavorites(userId: event.userId);
+        emit(FavoritesUsersAll(resorts: addedFavoritesList));
+      }
+    } catch (e) {
+      print("ReviewsByIdBloc: $e");
+    }
   }
 }

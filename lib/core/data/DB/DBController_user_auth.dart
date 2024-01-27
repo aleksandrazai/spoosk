@@ -45,9 +45,9 @@ class DBControllerUserAuth extends DBControllerAbsrt<UserData> {
           await dbClient!.query(_tableName);
       return queryResult.map((e) => UserData.fromMap(e)).toList();
     } catch (e) {
-      Exception(e);
+      print(e);
+      return [];
     }
-    return [];
   }
 
   @override

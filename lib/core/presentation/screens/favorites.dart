@@ -23,12 +23,6 @@ class _FavoritesState extends State<Favorites>
     super.initState();
 
     UserProfileBloc userBloc = context.read<UserProfileBloc>();
-    int? userId = userBloc.getUserId();
-
-    print("initState userBloc.userId: ${userBloc.state}");
-    if (userId != null) {
-      context.read<FavoritesUsersBloc>().add(FavoritesUsersGet(userId: userId));
-    }
   }
 
   @override

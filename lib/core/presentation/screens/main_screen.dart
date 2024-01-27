@@ -4,11 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spoosk/core/colors.dart';
-import 'package:spoosk/core/domain/useCases/AuthUseCase.dart';
-import 'package:spoosk/core/domain/useCases/SearchHistoryUseCase.dart';
-import 'package:spoosk/core/presentation/bloc_reviews_home/reviews_home_bloc.dart';
-import 'package:spoosk/core/presentation/bloc_search_history/search_history_bloc.dart';
-import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
 import 'package:spoosk/core/presentation/blocs_init/bloc/request_controller_bloc.dart';
 import 'package:spoosk/core/presentation/connected_bloc/connected_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
@@ -24,7 +19,6 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  AuthUseCase authUseCase = AuthUseCase();
   bool dialog = false;
 
   @override
