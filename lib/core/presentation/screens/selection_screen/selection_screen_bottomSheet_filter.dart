@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/data/models/fliter_models.dart/advanced_filter/all_filter_params.dart';
 import 'package:spoosk/core/data/models/fliter_models.dart/advanced_filter/button_values.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/advanced_filter/slider.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButtonWithContent.dart';
@@ -21,18 +22,15 @@ class SelectionScreenBottomSheetFilter extends StatefulWidget {
 
 class _SelectionScreenBottomSheetFilterState
     extends State<SelectionScreenBottomSheetFilter> {
-  num sliderValue = 0;
-  final List<double> values = [0, 50, 100];
-  int selectedIndex = 0;
   List<Widget> _buildButtonsList(
       {List<Widget>? icon,
       double? spasing,
       required List<String> buttonTexts,
-      required GroupButtonType groupButtonType,
+      required FilterType groupButtonType,
       required List<String> state}) {
     List<Widget> buttons = [];
     final groupButtonNotifier =
-        Provider.of<GroupButtonNotifierModel>(context, listen: false);
+        Provider.of<AdvancedFilterNotifier>(context, listen: false);
     for (int id = 1; id <= buttonTexts.length; id++) {
       String buttonText = buttonTexts[id - 1];
       buttons.add(
@@ -83,9 +81,9 @@ class _SelectionScreenBottomSheetFilterState
             Wrap(
               spacing: 8,
               children: _buildButtonsList(
-                  groupButtonType: GroupButtonType.Sort,
+                  groupButtonType: FilterType.Sort,
                   buttonTexts: sortByButtonLabels,
-                  state: Provider.of<GroupButtonNotifierModel>(context)
+                  state: Provider.of<AdvancedFilterNotifier>(context)
                       .sortGroupButton),
             ),
             Container(
@@ -108,9 +106,9 @@ class _SelectionScreenBottomSheetFilterState
                     CustomCircle(color: AppColors.chart_pink),
                     CustomCircle(color: AppColors.chart_black),
                   ],
-                  groupButtonType: GroupButtonType.Trails,
+                  groupButtonType: FilterType.Trails,
                   buttonTexts: trailsButtonLabels,
-                  state: Provider.of<GroupButtonNotifierModel>(context)
+                  state: Provider.of<AdvancedFilterNotifier>(context)
                       .trailsGroupButton),
             ),
             Container(
@@ -137,9 +135,9 @@ class _SelectionScreenBottomSheetFilterState
                         color: AppColors.primaryColor, image_type_children),
                   ],
                   spasing: 10,
-                  groupButtonType: GroupButtonType.Elevator,
+                  groupButtonType: FilterType.Elevator,
                   buttonTexts: elevatorsButtonLabels,
-                  state: Provider.of<GroupButtonNotifierModel>(context)
+                  state: Provider.of<AdvancedFilterNotifier>(context)
                       .elevatorGroupButton),
             ),
             Container(
@@ -155,9 +153,9 @@ class _SelectionScreenBottomSheetFilterState
             Wrap(
               spacing: 8,
               children: _buildButtonsList(
-                  groupButtonType: GroupButtonType.Instructor,
+                  groupButtonType: FilterType.Instructor,
                   buttonTexts: instructorsButtonLabels,
-                  state: Provider.of<GroupButtonNotifierModel>(context)
+                  state: Provider.of<AdvancedFilterNotifier>(context)
                       .instructorGroupButton),
             ),
             Container(
@@ -171,33 +169,34 @@ class _SelectionScreenBottomSheetFilterState
               ),
             ),
             SliderTheme(
-                data: SliderThemeData(
-                  overlayShape: SliderComponentShape.noOverlay,
-                  trackHeight: 4,
-                  tickMarkShape:
-                      const RoundSliderTickMarkShape(tickMarkRadius: 3),
-                  thumbShape: const RoundSliderThumbShape(
-                      elevation: 5, enabledThumbRadius: 14.0),
-                  thumbColor: Colors.white,
-                  activeTrackColor: AppColors.primaryColor,
-                  inactiveTrackColor: const Color.fromRGBO(120, 120, 128, 0.2),
-                  valueIndicatorColor: Colors.blue,
-                  activeTickMarkColor: AppColors.primaryColor,
-                  inactiveTickMarkColor: AppColors.primaryColor,
-                  overlayColor: Colors.blue.withOpacity(0.2),
-                ),
-                child: Slider(
-                  value: selectedIndex.toDouble(),
-                  min: 0,
-                  max: values.length - 1,
-                  divisions: values.length - 1,
+              data: SliderThemeData(
+                overlayShape: SliderComponentShape.noOverlay,
+                trackHeight: 4,
+                tickMarkShape:
+                    const RoundSliderTickMarkShape(tickMarkRadius: 3),
+                thumbShape: const RoundSliderThumbShape(
+                    elevation: 5, enabledThumbRadius: 14.0),
+                thumbColor: Colors.white,
+                activeTrackColor: AppColors.primaryColor,
+                inactiveTrackColor: const Color.fromRGBO(120, 120, 128, 0.2),
+                valueIndicatorColor: Colors.blue,
+                activeTickMarkColor: AppColors.primaryColor,
+                inactiveTickMarkColor: AppColors.primaryColor,
+                overlayColor: Colors.blue.withOpacity(0.2),
+              ),
+              child: Consumer<SliderNotifier>(
+                  builder: (context, sliderNotifier, _) {
+                return Slider(
+                  value: sliderNotifier.sliderValue,
+                  min: sliderNotifier.sliderValues.first,
+                  max: sliderNotifier.sliderValues.last,
+                  divisions: sliderNotifier.sliderValues.length - 1,
                   onChanged: (double value) {
-                    sliderValue = values[value.toInt()];
-                    setState(() {
-                      selectedIndex = value.toInt();
-                    });
+                    sliderNotifier.setSliderValue(value);
                   },
-                )),
+                );
+              }),
+            ),
             SizedBox(
               width: MediaQuery.of(context).size.width - (28),
               child: Row(
@@ -237,9 +236,9 @@ class _SelectionScreenBottomSheetFilterState
             Wrap(
               spacing: 8,
               children: _buildButtonsList(
-                  groupButtonType: GroupButtonType.Additionally,
+                  groupButtonType: FilterType.Additionally,
                   buttonTexts: additionalButtonsLabels,
-                  state: Provider.of<GroupButtonNotifierModel>(context)
+                  state: Provider.of<AdvancedFilterNotifier>(context)
                       .additionallyGroupButton),
             ),
             Expanded(
@@ -252,58 +251,59 @@ class _SelectionScreenBottomSheetFilterState
                     Flexible(
                         flex: 2,
                         child: CustomButton(
-                          textStyle: Theme.of(
-                                  context)
-                              .textTheme
-                              .headlineMedium
-                              ?.copyWith(
-                                  color: (Provider.of<GroupButtonNotifierModel>(
+                          textStyle:
+                              Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                  color: (Provider.of<AdvancedFilterNotifier>(
                                                   context)
                                               .sortGroupButton
                                               .isNotEmpty ||
-                                          Provider.of<GroupButtonNotifierModel>(
+                                          Provider.of<AdvancedFilterNotifier>(
                                                   context)
                                               .trailsGroupButton
                                               .isNotEmpty ||
-                                          Provider.of<GroupButtonNotifierModel>(
+                                          Provider.of<AdvancedFilterNotifier>(
                                                   context)
                                               .elevatorGroupButton
                                               .isNotEmpty ||
-                                          Provider.of<GroupButtonNotifierModel>(
+                                          Provider.of<AdvancedFilterNotifier>(
                                                   context)
                                               .instructorGroupButton
                                               .isNotEmpty ||
-                                          Provider.of<GroupButtonNotifierModel>(
+                                          Provider.of<AdvancedFilterNotifier>(
                                                   context)
                                               .additionallyGroupButton
                                               .isNotEmpty ||
-                                          selectedIndex != 0)
+                                          Provider.of<SliderNotifier>(context)
+                                                  .sliderValue !=
+                                              0)
                                       ? AppColors.icons_active_blue
                                       : AppColors.icons_not_Active_gray,
                                   fontSize: 16),
                           boxDecoration: BoxDecoration(
                               border: Border.all(
-                                  color: (Provider.of<GroupButtonNotifierModel>(
+                                  color: (Provider.of<AdvancedFilterNotifier>(
                                                   context)
                                               .sortGroupButton
                                               .isNotEmpty ||
-                                          Provider.of<GroupButtonNotifierModel>(
+                                          Provider.of<AdvancedFilterNotifier>(
                                                   context)
                                               .trailsGroupButton
                                               .isNotEmpty ||
-                                          Provider.of<GroupButtonNotifierModel>(
+                                          Provider.of<AdvancedFilterNotifier>(
                                                   context)
                                               .elevatorGroupButton
                                               .isNotEmpty ||
-                                          Provider.of<GroupButtonNotifierModel>(
+                                          Provider.of<AdvancedFilterNotifier>(
                                                   context)
                                               .instructorGroupButton
                                               .isNotEmpty ||
-                                          Provider.of<GroupButtonNotifierModel>(
+                                          Provider.of<AdvancedFilterNotifier>(
                                                   context)
                                               .additionallyGroupButton
                                               .isNotEmpty ||
-                                          selectedIndex != 0)
+                                          Provider.of<SliderNotifier>(context)
+                                                  .sliderValue !=
+                                              0)
                                       ? AppColors.icons_active_blue
                                       : AppColors.icons_not_Active_gray),
                               borderRadius: BorderRadius.circular(10)),
@@ -328,11 +328,17 @@ class _SelectionScreenBottomSheetFilterState
                         buttonText: "Применить",
                         color: AppColors.primaryColor,
                         onTap: () {
+                          final sliderValue = Provider.of<SliderNotifier>(
+                                  context,
+                                  listen: false)
+                              .sliderValue;
                           List<String> allGroupButtons =
-                              Provider.of<GroupButtonNotifierModel>(context,
+                              Provider.of<AdvancedFilterNotifier>(context,
                                       listen: false)
                                   .allGroupButtons;
-                          print('Passed to Selection Screen: $allGroupButtons');
+                          print(
+                              'Passed to Selection Screen: $allGroupButtons + $sliderValue');
+
                           Navigator.pop(context);
                         },
                       ),
@@ -349,8 +355,11 @@ class _SelectionScreenBottomSheetFilterState
 
   _clearAllGroup() {
     setState(() {
-      Provider.of<GroupButtonNotifierModel>(context, listen: false)
+      Provider.of<AdvancedFilterNotifier>(context, listen: false)
           .clearAllStates();
+    });
+    setState(() {
+      Provider.of<SliderNotifier>(context, listen: false).clearSliderValue();
     });
   }
 }

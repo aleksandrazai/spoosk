@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:spoosk/core/data/API/ApiConfig.dart';
 import 'package:spoosk/core/data/models/ResortById.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/advanced_filter/button_values.dart';
 import 'package:spoosk/core/data/models/regions.dart';
 import 'package:spoosk/core/data/models/resorts.dart';
 import 'package:spoosk/core/data/models/reviews.dart';
@@ -99,6 +100,8 @@ class RequestController {
     required List<String> resort_region,
     required List<String> resort_month,
     required List<String> resort_level,
+    required List<String> advancedFilter,
+    required String slider,
   }) async {
     try {
       final String regionsSelected = resort_region.isNotEmpty
@@ -110,11 +113,20 @@ class RequestController {
       final String levelsSelected = resort_level.isNotEmpty
           ? 'resort_level=${UserLevel.mapLevelsToColors(resort_level).join(',')}'
           : '';
+      final String advancedSelected = advancedFilter.isNotEmpty
+          ? GroupButtonMappings.mapListToParameters(advancedFilter)
+              .values
+              .join('&')
+          : '';
+      final String sliderSelected =
+          slider != '0' ? 'airport_distance=$slider' : '';
 
       final String parameters = [
         regionsSelected,
         monthsSelected,
-        levelsSelected
+        levelsSelected,
+        advancedSelected,
+        sliderSelected,
       ].where((param) => param.isNotEmpty).join('&');
 
       final String url =

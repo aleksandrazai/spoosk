@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum GroupButtonType {
+enum FilterType {
   Sort,
   Trails,
   Elevator,
@@ -8,32 +8,41 @@ enum GroupButtonType {
   Additionally,
 }
 
-class GroupButtonNotifierModel extends ChangeNotifier {
+class AdvancedFilterNotifier extends ChangeNotifier {
   List<String> sortGroupButton = [];
   List<String> trailsGroupButton = [];
   List<String> elevatorGroupButton = [];
   List<String> instructorGroupButton = [];
   List<String> additionallyGroupButton = [];
-  List<String> get allGroupButtons => getAllGroupButtons();
+
+  List<String> get allGroupButtons => getAllFilterValues();
 
   void setGroupButton({
     required String textButton,
-    required GroupButtonType groupButtonType,
+    required FilterType groupButtonType,
   }) {
     switch (groupButtonType) {
-      case GroupButtonType.Sort:
-        toggleListValue(sortGroupButton, textButton);
+      case FilterType.Sort:
+        if (textButton == "Сначала дешевые") {
+          toggleListValue(sortGroupButton, textButton);
+          deselectValue("Сначала дорогие");
+        } else if (textButton == "Сначала дорогие") {
+          toggleListValue(sortGroupButton, textButton);
+          deselectValue("Сначала дешевые");
+        } else {
+          toggleListValue(sortGroupButton, textButton);
+        }
         break;
-      case GroupButtonType.Trails:
+      case FilterType.Trails:
         toggleListValue(trailsGroupButton, textButton);
         break;
-      case GroupButtonType.Elevator:
+      case FilterType.Elevator:
         toggleListValue(elevatorGroupButton, textButton);
         break;
-      case GroupButtonType.Instructor:
+      case FilterType.Instructor:
         toggleListValue(instructorGroupButton, textButton);
         break;
-      case GroupButtonType.Additionally:
+      case FilterType.Additionally:
         toggleListValue(additionallyGroupButton, textButton);
         break;
     }
@@ -49,29 +58,29 @@ class GroupButtonNotifierModel extends ChangeNotifier {
   }
 
   bool isSelected({
-    required GroupButtonType groupButtonType,
+    required FilterType groupButtonType,
     required String value,
   }) {
     List<String> selectedList = _getSelectedList(groupButtonType);
     return selectedList.contains(value);
   }
 
-  List<String> _getSelectedList(GroupButtonType groupButtonType) {
+  List<String> _getSelectedList(FilterType groupButtonType) {
     switch (groupButtonType) {
-      case GroupButtonType.Sort:
+      case FilterType.Sort:
         return sortGroupButton;
-      case GroupButtonType.Trails:
+      case FilterType.Trails:
         return trailsGroupButton;
-      case GroupButtonType.Elevator:
+      case FilterType.Elevator:
         return elevatorGroupButton;
-      case GroupButtonType.Instructor:
+      case FilterType.Instructor:
         return instructorGroupButton;
-      case GroupButtonType.Additionally:
+      case FilterType.Additionally:
         return additionallyGroupButton;
     }
   }
 
-  List<String> getAllGroupButtons() {
+  List<String> getAllFilterValues() {
     List<String> allGroupButtons = [];
     allGroupButtons.addAll(sortGroupButton);
     allGroupButtons.addAll(trailsGroupButton);
@@ -93,5 +102,11 @@ class GroupButtonNotifierModel extends ChangeNotifier {
         "After clearing: $sortGroupButton, $trailsGroupButton, $elevatorGroupButton, $instructorGroupButton, $additionallyGroupButton,");
 
     notifyListeners();
+  }
+
+  void deselectValue(String oppositeOption) {
+    if (sortGroupButton.contains(oppositeOption)) {
+      sortGroupButton.remove(oppositeOption);
+    }
   }
 }

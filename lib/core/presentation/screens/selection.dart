@@ -1,20 +1,22 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../colors.dart';
-import '../../data/models/fliter_models.dart/main_filter/levels.dart';
-import '../../data/models/fliter_models.dart/main_filter/months.dart';
-import '../../data/models/fliter_models.dart/main_filter/regions.dart';
-import '../bloc_mainFilter.dart/mainFilter_bloc.dart';
-import '../image.dart';
-import '../routes.gr.dart';
-import 'selection_screen/selection_screen_bottomSheet.dart';
-import 'selection_screen/selection_screen_bottomSheet_filter.dart';
-import 'selection_screen/selection_screen_bottomSheet_level.dart';
-import 'selection_screen/selection_screen_bottomSheet_month.dart';
-import 'selection_screen/selection_screen_bottomSheet_region.dart';
-import '../widgets/CustomButton.dart';
-import '../widgets/resort_screen_widgets/line_button_w_icons.dart';
+import 'package:spoosk/core/colors.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/advanced_filter/all_filter_params.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/advanced_filter/slider.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/main_filter/levels.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/main_filter/months.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/main_filter/regions.dart';
+import 'package:spoosk/core/presentation/bloc_mainFilter.dart/mainFilter_bloc.dart';
+import 'package:spoosk/core/presentation/image.dart';
+import 'package:spoosk/core/presentation/routes.gr.dart';
+import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet.dart';
+import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet_filter.dart';
+import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet_level.dart';
+import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet_month.dart';
+import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet_region.dart';
+import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
+import 'package:spoosk/core/presentation/widgets/resort_screen_widgets/line_button_w_icons.dart';
 
 @RoutePage()
 class Selection extends StatefulWidget {
@@ -142,12 +144,19 @@ class _SelectionState extends State<Selection> {
                       final selectedMonthsModel =
                           Provider.of<SelectedMonthsModel>(context,
                               listen: false);
+                      final groupButtonModel =
+                          Provider.of<AdvancedFilterNotifier>(context,
+                              listen: false);
+                      final sliderValue =
+                          Provider.of<SliderNotifier>(context, listen: false);
 
                       final mainFilterBloc = context.read<MainFilterBloc>();
                       mainFilterBloc.add(MainFilterRequest(
                         resort_region: selectedRegionsModel.selectedRegions,
                         resort_month: selectedMonthsModel.selectedMonths,
                         resort_level: selectedLevelsModel.selectedLevels,
+                        group_button: groupButtonModel.allGroupButtons,
+                        slider: sliderValue.sliderValue.toStringAsFixed(0),
                       ));
                       print(
                           "Selected request to API : ${selectedRegionsModel.selectedRegions},${selectedMonthsModel.selectedMonths},${selectedLevelsModel.selectedLevels} ");

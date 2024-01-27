@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../widgets/widgets.dart';
+import 'package:spoosk/core/colors.dart';
+import 'package:spoosk/core/presentation/widgets/widgets.dart';
 
 class CustomBottomSheet {
   static customShowModalBottomSheet(
@@ -9,6 +10,7 @@ class CustomBottomSheet {
     return showModalBottomSheet(
         useSafeArea: true,
         isScrollControlled: true,
+        backgroundColor: AppColors.scaffoldBackgroundLight,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20.0),

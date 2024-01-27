@@ -18,9 +18,12 @@ class MainFilterBloc extends Bloc<MainFilterEvent, MainFilterState> {
         if (connectivityResult == ConnectivityResult.wifi ||
             connectivityResult == ConnectivityResult.mobile) {
           final List<Resort>? resorts = await requestController.getMainFilter(
-              resort_region: event.resort_region,
-              resort_month: event.resort_month,
-              resort_level: event.resort_level);
+            resort_region: event.resort_region,
+            resort_month: event.resort_month,
+            resort_level: event.resort_level,
+            advancedFilter: event.group_button,
+            slider: event.slider,
+          );
           if (resorts != null && resorts.isNotEmpty) {
             emit(MainFilterLoaded(resortsMainFilter: resorts));
           } else {

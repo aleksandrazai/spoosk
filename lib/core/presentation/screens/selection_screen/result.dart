@@ -105,22 +105,19 @@ class ResultScreen extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Flexible(
-                  flex: 2,
-                  child: CustomButton(
-                    textStyle: Theme.of(context)
-                        .textTheme
-                        .headlineMedium
-                        ?.copyWith(color: AppColors.white, fontSize: 16),
-                    boxDecoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                    height: 40,
-                    buttonText: "К подбору ",
-                    color: AppColors.primaryColor,
-                    onTap: () {
-                      context.router.push(const Selection());
-                    },
-                  ),
+                child: CustomButton(
+                  textStyle: Theme.of(context)
+                      .textTheme
+                      .headlineMedium
+                      ?.copyWith(color: AppColors.white, fontSize: 16),
+                  boxDecoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                  height: 40,
+                  buttonText: "К подбору ",
+                  color: AppColors.primaryColor,
+                  onTap: () {
+                    context.router.push(const Selection());
+                  },
                 ),
               ),
             ],
