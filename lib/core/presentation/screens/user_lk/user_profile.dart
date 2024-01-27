@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spoosk/core/data/API/ApiConfig.dart';
 import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
@@ -65,7 +66,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             .add(UserLogOut(userId: state.userProfile.id));
                         context.router.push(const LoginRoute());
                       },
-                    )
+                    ),
                   ],
                 ),
               ),
