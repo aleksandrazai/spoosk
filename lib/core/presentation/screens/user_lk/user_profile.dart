@@ -60,7 +60,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     TextButton(
                       child: const Text('Выйти'),
                       onPressed: () {
-                        context.read<UserProfileBloc>().add(UserLogOut());
+                        context
+                            .read<UserProfileBloc>()
+                            .add(UserLogOut(userId: state.userProfile.id));
                         context.router.push(const LoginRoute());
                       },
                     )

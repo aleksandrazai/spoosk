@@ -1,6 +1,5 @@
 import 'package:spoosk/core/data/API/ApiConfig.dart';
 
-import '../../data/DB/DBController_history_search.dart';
 import '../../data/DB/DBController_user_auth.dart';
 import '../../data/models/user_login.dart';
 import '../../presentation/bloc_user_by_id/user_bloc.dart';
@@ -8,6 +7,8 @@ import '../../presentation/bloc_user_by_id/user_bloc.dart';
 class AuthUseCase {
   static final DBControllerUserAuth _dbController_user_auth =
       DBControllerUserAuth();
+  int? userId;
+  String? userToken;
 
   checkDB(UserProfileBloc userProfileBloc) async {
     try {
@@ -15,8 +16,11 @@ class AuthUseCase {
       print("AuthUseCase checkDB is OK: ${userData[0].id}");
 
       if (userData[0].id != null && userData.isNotEmpty) {
-        userProfileBloc.add(GetUserInfo(userId: userData[0].id!));
         userToken = userData[0].token;
+        userId = userData[0].id;
+        userProfileBloc.add(GetUserInfo(userId: userId!));
+        UserTokenConfig.setToken(userToken!);
+        print(UserTokenConfig.token);
       }
     } catch (e) {
       print("AuthUseCase checkDB: ${e}");

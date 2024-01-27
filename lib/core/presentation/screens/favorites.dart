@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spoosk/core/domain/useCases/AuthUseCase.dart';
 import 'package:spoosk/core/presentation/bloc_favorites_users/favorites_users_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
 import 'package:spoosk/core/presentation/widgets/resort_card.dart';
@@ -18,32 +19,46 @@ class _FavoritesState extends State<Favorites>
   bool isAuth = false;
 
   @override
+  void initState() {
+    super.initState();
+
+    UserProfileBloc userBloc = context.read<UserProfileBloc>();
+    int? userId = userBloc.getUserId();
+
+    print("initState userBloc.userId: ${userBloc.state}");
+    if (userId != null) {
+      context.read<FavoritesUsersBloc>().add(FavoritesUsersGet(userId: userId));
+    }
+  }
+
+  @override
   void didInitTabRoute(TabPageRoute? previousRoute) async {
     UserProfileBloc userBloc = context.read<UserProfileBloc>();
-    print("didInitTabRoute userBloc.userId: ${userBloc.userId}");
+    int? userId = userBloc.getUserId();
+    print("didInitTabRoute userBloc.userId: $userId");
 
-    if (userBloc.userId != null) {
+    if (userId != null) {
       setState(() {
         isAuth = true;
       });
-      context
-          .read<FavoritesUsersBloc>()
-          .add(FavoritesUsersGet(userId: userBloc.userId!));
+      context.read<FavoritesUsersBloc>().add(FavoritesUsersGet(userId: userId));
     }
   }
 
   @override
   void didChangeTabRoute(TabPageRoute previousRoute) {
     UserProfileBloc userBloc = context.read<UserProfileBloc>();
-    print("didChangeTabRoute userBloc.userId: ${userBloc.userId}");
-    if (userBloc.userId != null) {
+    int? userId = userBloc.getUserId();
+
+    print("didChangeTabRoute userBloc.userId: ${userId}");
+    if (userId != null) {
       setState(() {
         isAuth = true;
       });
       context
           .read<FavoritesUsersBloc>()
-          .add(FavoritesUsersGet(userId: userBloc.userId!));
-    } else if (userBloc.userId == null) {
+          .add(FavoritesUsersGet(userId: userId!));
+    } else if (userId == null) {
       setState(() {
         isAuth = false;
       });
@@ -51,21 +66,11 @@ class _FavoritesState extends State<Favorites>
   }
 
   @override
-  void initState() {
-    super.initState();
-    UserProfileBloc userBloc = context.read<UserProfileBloc>();
-    print("initState userBloc.userId: ${userBloc.userId}");
-    if (userBloc.userId != null) {
-      context
-          .read<FavoritesUsersBloc>()
-          .add(FavoritesUsersGet(userId: userBloc.userId!));
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     UserProfileBloc userBloc = context.read<UserProfileBloc>();
-    print("Widget build ${userBloc.userId}");
+    int? userId = userBloc.getUserId();
+
+    print("Widget build $userId");
     return Scaffold(
         appBar: AppBar(
             backgroundColor: const Color(0xFFf8f8f8),
@@ -76,7 +81,7 @@ class _FavoritesState extends State<Favorites>
             )),
         body: BlocBuilder<FavoritesUsersBloc, FavoritesUsersState>(
           builder: (context, state) {
-            if (userBloc.userId == null && isAuth == false) {
+            if (userId == null && isAuth == false) {
               return const Center(child: Text("Требуется авторизация"));
             }
             if (state is FavoritesUsersAll && state.resorts != null) {

@@ -3,9 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/data/API/RequestController.dart';
+
 import 'package:spoosk/core/presentation/bloc_favorites_users/favorites_users_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
-import 'package:spoosk/core/utils/context.dart';
 import '../../data/models/resorts.dart';
 import '../image.dart';
 
@@ -114,10 +114,9 @@ class _CustomCardImageState extends State<CustomCardImage> {
 
   _setFavorites(BuildContext context) async {
     UserProfileBloc userBloc = context.read<UserProfileBloc>();
-    if (context.userInfo.userId != null) {
-      context
-          .read<FavoritesUsersBloc>()
-          .add(FavoritesUsersGet(userId: userBloc.userId!));
+    int? userId = userBloc.getUserId();
+    if (userId != null) {
+      context.read<FavoritesUsersBloc>().add(FavoritesUsersGet(userId: userId));
     }
 
     bool? favorite = await _requestController.getAddToFavorites(

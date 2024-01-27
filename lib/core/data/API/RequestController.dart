@@ -447,7 +447,7 @@ class RequestController {
   }
 
   Future<bool?> getAddToFavorites({required String resortId}) async {
-    print(userToken);
+    print(UserTokenConfig.token);
     try {
       final response = await _dio.request(
         _baseUrl + ApiConfigUserGet.getAddToFavorites(resortId: resortId),
