@@ -146,6 +146,9 @@ class _CustomCardImageState extends State<CustomCardImage> {
       if (favorite != null && favorite == true) {
         setState(() {
           fovoriteIsSelected = !fovoriteIsSelected;
+          context
+              .read<FavoritesUsersBloc>()
+              .add(FavoritesUsersGet(userId: userId.id!));
         });
       }
     }

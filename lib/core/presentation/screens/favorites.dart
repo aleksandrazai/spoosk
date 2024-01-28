@@ -20,8 +20,10 @@ class _FavoritesState extends State<Favorites>
   @override
   void initState() {
     super.initState();
-
     UserProfileBloc userBloc = context.read<UserProfileBloc>();
+    int? userId = userBloc.getUserId();
+
+    context.read<FavoritesUsersBloc>().add(FavoritesUsersGet(userId: userId!));
   }
 
   @override
@@ -48,9 +50,7 @@ class _FavoritesState extends State<Favorites>
       setState(() {
         isAuth = true;
       });
-      context
-          .read<FavoritesUsersBloc>()
-          .add(FavoritesUsersGet(userId: userId!));
+      context.read<FavoritesUsersBloc>().add(FavoritesUsersGet(userId: userId));
     } else if (userId == null) {
       setState(() {
         isAuth = false;
