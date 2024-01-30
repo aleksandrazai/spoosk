@@ -7,5 +7,6 @@ final class FavoritesUsersInitial extends FavoritesUsersState {}
 
 final class FavoritesUsersAll extends FavoritesUsersState {
   late List<Resort>? resorts;
-  FavoritesUsersAll({required this.resorts});
+  late List<ResortCard>? resortsWidget;
+  FavoritesUsersAll({required this.resortsWidget, required this.resorts});
 }

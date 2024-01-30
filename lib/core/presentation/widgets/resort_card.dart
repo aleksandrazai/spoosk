@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:spoosk/core/utils/context.dart';
 import '../../data/models/resorts.dart';
 import '../bloc_by_id/resort_by_id_bloc.dart';
 import '../bloc_reviews_by_id/reviews_by_id_bloc.dart';
@@ -11,24 +10,28 @@ import '../routes.gr.dart';
 import 'star_icon.dart';
 import 'custom_cardimage.dart';
 
-class ResortCard extends StatelessWidget {
+class ResortCard extends StatefulWidget {
   const ResortCard({
     super.key,
     required this.resort,
   });
   final Resort resort;
+  @override
+  _ResortCardState createState() => _ResortCardState();
+}
 
+class _ResortCardState extends State<ResortCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         context
             .read<ReviewsByIdBloc>()
-            .add(EventLoadByIdReviews(idResort: resort.idResort));
+            .add(EventLoadByIdReviews(idResort: widget.resort.idResort));
         context
             .read<ResortByIdBloc>()
-            .add(EventLoadByIdResort(idResort: resort.idResort));
-        context.router.push(ResortRoute(idResort: resort.idResort));
+            .add(EventLoadByIdResort(idResort: widget.resort.idResort));
+        context.router.push(ResortRoute(idResort: widget.resort.idResort));
       },
       child: Card(
         color: Colors.white,
@@ -38,7 +41,7 @@ class ResortCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomCardImage(resort: resort),
+            CustomCardImage(resort: widget.resort),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: SizedBox(
@@ -48,7 +51,7 @@ class ResortCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      resort.name,
+                      widget.resort.name,
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     const Padding(
@@ -56,7 +59,7 @@ class ResortCard extends StatelessWidget {
                       child: StarIcon(filled: true),
                     ),
                     Text(
-                      resort.rating.toString(),
+                      widget.resort.rating.toString(),
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
                     //reviews нет в API
@@ -75,7 +78,7 @@ class ResortCard extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(horizontal: 12).copyWith(top: 6),
               child: Text(
-                'РОССИЯ, ${resort.region}'.toUpperCase(),
+                'РОССИЯ, ${widget.resort.region}'.toUpperCase(),
                 style: const TextStyle(
                   color: Color(0xFF9B9CA0),
                   fontSize: 10,
@@ -96,7 +99,7 @@ class ResortCard extends StatelessWidget {
                           SvgPicture.asset(image_trail, height: 18, width: 18),
                     ),
                     Text(
-                      '${resort.trailLength} км.',
+                      '${widget.resort.trailLength} км.',
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
                     Padding(
@@ -105,7 +108,7 @@ class ResortCard extends StatelessWidget {
                           height: 18, width: 18),
                     ),
                     Text(
-                      'от ${resort.skipass.toString()} р.',
+                      'от ${widget.resort.skipass.toString()} р.',
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
                   ],

@@ -22,8 +22,9 @@ class _FavoritesState extends State<Favorites>
     super.initState();
     UserProfileBloc userBloc = context.read<UserProfileBloc>();
     int? userId = userBloc.getUserId();
-
-    context.read<FavoritesUsersBloc>().add(FavoritesUsersGet(userId: userId!));
+    if (userId != null) {
+      context.read<FavoritesUsersBloc>().add(FavoritesUsersGet(userId: userId));
+    }
   }
 
   @override
@@ -77,18 +78,14 @@ class _FavoritesState extends State<Favorites>
             if (userId == null && isAuth == false) {
               return const Center(child: Text("Требуется авторизация"));
             }
-            if (state is FavoritesUsersAll && state.resorts != null) {
-              return ListView.builder(
-                itemCount: state.resorts!.length,
-                itemBuilder: (context, index) {
-                  final resort = state.resorts![index];
-                  return ResortCard(resort: resort);
-                },
+            if (state is FavoritesUsersAll && state.resortsWidget != null) {
+              return SingleChildScrollView(
+                child: Column(children: [...?state.resortsWidget]),
               );
             }
             if (state is FavoritesUsersAll &&
-                state.resorts != null &&
-                state.resorts!.isEmpty) {
+                state.resortsWidget != null &&
+                state.resortsWidget!.isEmpty) {
               return const Center(
                 child: Text("Список пуст"),
               );

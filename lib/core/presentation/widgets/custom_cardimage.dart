@@ -1,6 +1,7 @@
-// ignore_for_file: use_build_context_synchronously, unused_local_variable
+// ignore_for_file: use_build_context_synchronously, unused_local_variable, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:spoosk/core/colors.dart';
@@ -11,6 +12,7 @@ import 'package:spoosk/core/data/repositories/DI/service.dart';
 import 'package:spoosk/core/presentation/bloc_favorites_users/favorites_users_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
 import '../../data/models/resorts.dart';
+import '../blocs_init/bloc/request_controller_bloc.dart';
 import '../image.dart';
 
 class CustomCardImage extends StatefulWidget {
@@ -28,9 +30,10 @@ class _CustomCardImageState extends State<CustomCardImage> {
   final RequestController _requestController = RequestController();
   SingletonAuthUseCase singletonAuthUseCase = SingletonAuthUseCase();
 
-  bool fovoriteIsSelected = false;
+  bool favoriteIsSelected = false;
   @override
   Widget build(BuildContext context) {
+    final bloc = BlocProvider.of<PorularResortBloc>(context, listen: false);
     return Container(
       padding: const EdgeInsets.all(8.0),
       child: Stack(
@@ -69,11 +72,14 @@ class _CustomCardImageState extends State<CustomCardImage> {
             top: 4,
             right: 2,
             child: ElevatedButton(
-              onPressed: () => _setFavorites(context),
+              onPressed: () async {
+                await _setFavorites(context);
+                bloc.add(LoadAllPorularResorts());
+              },
               style: ElevatedButton.styleFrom(
                 shape: const CircleBorder(),
                 elevation: 0,
-                backgroundColor: fovoriteIsSelected
+                backgroundColor: favoriteIsSelected
                     ? AppColors.primaryColor
                     : const Color.fromARGB(77, 0, 0, 61),
               ),
@@ -124,9 +130,11 @@ class _CustomCardImageState extends State<CustomCardImage> {
       };
 
       var status = resortsMap[widget.resort.name];
-
+      print("status: ${status}");
       if (status != null) {
-        fovoriteIsSelected = status;
+        setState(() {
+          favoriteIsSelected = status;
+        });
       }
     }
   }
@@ -145,11 +153,11 @@ class _CustomCardImageState extends State<CustomCardImage> {
           resortId: widget.resort.idResort);
       if (favorite != null && favorite == true) {
         setState(() {
-          fovoriteIsSelected = !fovoriteIsSelected;
-          context
-              .read<FavoritesUsersBloc>()
-              .add(FavoritesUsersGet(userId: userId.id!));
+          favoriteIsSelected = !favoriteIsSelected;
         });
+        context
+            .read<FavoritesUsersBloc>()
+            .add(FavoritesUsersGet(userId: userId.id!));
       }
     }
   }

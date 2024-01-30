@@ -3,14 +3,13 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:meta/meta.dart';
 import '../../data/API/RequestController.dart';
 import '../../data/models/reviews.dart';
-import '../bloc_reviews/reviews_bloc.dart';
 
 part 'reviews_home_event.dart';
 part 'reviews_home_state.dart';
 
 class ReviewsHomeBloc extends Bloc<ReviewsHomeEvent, ReviewsHomeState> {
   RequestController requestController = RequestController();
-  ReviewsHomeBloc() : super(ReviewsHomeInitial()) {
+  ReviewsHomeBloc() : super(ReviewsHomeInitial(reviews: null)) {
     on<GetReviewsHomeEvent>((event, emit) async {
       print("WORK");
       try {

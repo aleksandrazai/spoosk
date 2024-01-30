@@ -20,7 +20,6 @@ class AuthUseCase {
         userId = userData[0].id;
         userProfileBloc.add(GetUserInfo(userId: userId!));
         UserTokenConfig.setToken(userToken!);
-        print(UserTokenConfig.token);
       }
     } catch (e) {
       print("AuthUseCase checkDB: ${e}");

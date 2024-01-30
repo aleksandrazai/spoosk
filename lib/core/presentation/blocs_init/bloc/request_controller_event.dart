@@ -5,3 +5,5 @@ abstract class PorularResortEvent {}
 class InitPorularResorts extends PorularResortEvent {}
 
 class LoadAllPorularResorts extends PorularResortEvent {}
+
+class UpdateAllPorularResorts extends PorularResortEvent {}
