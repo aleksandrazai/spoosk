@@ -273,14 +273,16 @@ class RequestController {
 
       final response = await _dio.post('$_baseUrl$verifyCode$id/verify_code/',
           data: requestData, options: ApiConfigPost.postHeaders);
-
-      final result = UserLogin.fromJson(response.data);
-      print('VerifyCode Result: ${response.data}');
-      return result.data;
+      if (response.statusCode == 200) {
+        final result = UserLogin.fromJson(response.data);
+        print('VerifyCode Result: ${response.data}');
+        return result.data;
+      }
     } on DioException catch (e) {
       print('Error in UserProfile call: $e');
       return null;
     }
+    return null;
   }
 
   //cброс пароля
@@ -311,16 +313,17 @@ class RequestController {
     required setPassword,
     required id,
     required String password,
+    required String userToken,
   }) async {
     try {
       final requestData = {
         'password': password,
       };
       print('Request Data: $requestData, $id');
-      final response = await _dio.post(
-          '$_baseUrl$setPassword$id/change_password/',
+      final response = await _dio.post(setPassword,
           data: requestData,
-          options: ApiConfigPost.postHeaders);
+          options:
+              ApiConfigResetPassword.getHeaders(userTokenPassword: userToken));
       if (response.statusCode == 200) {
         final result = UserLogin.fromJson(response.data);
         print('New Password Result: ${response.data}');

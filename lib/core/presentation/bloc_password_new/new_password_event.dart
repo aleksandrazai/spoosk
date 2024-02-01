@@ -5,6 +5,8 @@ class NewPasswordEvent {}
 class PasswordEntered extends NewPasswordEvent {
   final String password;
   final num id;
+  final String token;
 
-  PasswordEntered({required this.password, required this.id});
+  PasswordEntered(
+      {required this.password, required this.id, required this.token});
 }

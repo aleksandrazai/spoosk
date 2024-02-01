@@ -60,12 +60,12 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
     const String resetText =
         'Для сброса пароля введите код, который мы выслали на вашу электронную почту';
     const String registerButton = 'Зарегистрироваться';
-    const String resetButton = 'Сбосить пароль';
+    const String resetButton = 'Сбросить пароль';
 
     if (widget.sourcePage == 'Регистрация') {
       messageText = registerText;
       buttonText = registerButton;
-      route = () => context.router.push(UserProfileRoute());
+      route = () => context.router.push(const UserProfileRoute());
       bloc = () => context.read<UserProfileBloc>().add(GetUserInfo(
           userId:
               Provider.of<UserDataProvider>(context, listen: false).userId));
@@ -113,6 +113,9 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
           if (state is VerifyCodeSuccessfull) {
             route;
             bloc;
+            final token = state.userdata.token;
+            Provider.of<UserDataProvider>(context, listen: false)
+                .setUserToken(token!);
           }
           if (state is VerifyCodeFailed) {
             setState(() {
@@ -207,7 +210,6 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
                                     listen: false)
                                 .userId));
                       }
-                      route();
                     }),
               ),
               Text(
