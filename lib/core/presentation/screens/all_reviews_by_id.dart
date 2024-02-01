@@ -50,7 +50,10 @@ class _AllReviewsByIdState extends State<AllReviewsById> {
                   final review = widget.reviews![index];
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: ReviewCard(reviews: review),
+                    child: ReviewCard(
+                      reviews: review,
+                      showSettings: false,
+                    ),
                   );
                 }),
           ),

@@ -50,12 +50,6 @@ class _ReviewFormState extends State<ReviewForm> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ModalHandle(),
-              ],
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [

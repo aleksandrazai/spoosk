@@ -20,7 +20,6 @@ const String image_track_length = 'assets/img/track_length.svg';
 const String image_calendar = 'assets/img/сalendar.svg';
 const String image_cloud_fill = 'assets/img/cloud_fill.svg';
 const String image_location = 'assets/img/location.svg';
-const String image_map = 'assets/img/map.png';
 const String image_height_mountain = 'assets/img/height_mountain.svg';
 const String image_height_mountain_ground =
     'assets/img/height_mountain_ground.svg';
@@ -40,3 +39,5 @@ const String image_clear = 'assets/img/сlear.svg';
 const String image_cross = 'assets/img/image_cross.svg';
 const String image_reviews = 'assets/img/icon_reviews.svg';
 const String image_edit = 'assets/img/icon_edit.svg';
+const String image_review_settings = 'assets/img/review_settings.svg';
+const String image_review_delete = 'assets/img/delete_review.svg';

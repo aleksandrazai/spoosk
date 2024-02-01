@@ -125,7 +125,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     childCount: stateReviews.reviews!.results.length,
                     (context, index) {
                       final reviews = stateReviews.reviews!.results[index];
-                      return ReviewCard(reviews: reviews);
+                      return ReviewCard(
+                        reviews: reviews,
+                        showSettings: false,
+                      );
                     },
                   ),
                 ),

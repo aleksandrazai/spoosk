@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:spoosk/core/colors.dart';
-import 'package:spoosk/core/presentation/widgets/widgets.dart';
 
 class CustomBottomSheet {
   static customShowModalBottomSheet(
@@ -8,6 +7,7 @@ class CustomBottomSheet {
       required List<Widget> children,
       double? height}) {
     return showModalBottomSheet(
+        showDragHandle: true,
         useSafeArea: true,
         isScrollControlled: true,
         backgroundColor: AppColors.scaffoldBackgroundLight,
@@ -28,7 +28,7 @@ class CustomBottomSheet {
               height: height,
               child: SingleChildScrollView(
                 child: Column(
-                  children: [const ModalHandle(), ...children],
+                  children: [...children],
                 ),
               ),
             ),

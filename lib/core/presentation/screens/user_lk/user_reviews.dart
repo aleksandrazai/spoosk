@@ -69,7 +69,10 @@ class _UserReviewsState extends State<UserReviews> {
                         itemCount: unapprovedReviews!.length,
                         itemBuilder: (context, index) {
                           final reviews = unapprovedReviews[index];
-                          return ReviewCard(reviews: reviews);
+                          return ReviewCard(
+                            reviews: reviews,
+                            showSettings: true,
+                          );
                         },
                       ),
                       SizedBox(height: 12),
@@ -81,7 +84,10 @@ class _UserReviewsState extends State<UserReviews> {
                         itemCount: approvedReviews!.length,
                         itemBuilder: (context, index) {
                           final reviews = approvedReviews[index];
-                          return ReviewCard(reviews: reviews);
+                          return ReviewCard(
+                            reviews: reviews,
+                            showSettings: true,
+                          );
                         },
                       ),
                       Padding(

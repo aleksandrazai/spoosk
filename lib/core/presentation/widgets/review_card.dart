@@ -1,6 +1,10 @@
+import 'dart:core';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet.dart';
+import 'package:spoosk/core/presentation/widgets/review_actionButton.dart';
 import '../../data/models/reviews.dart';
 import '../image.dart';
 import 'hide_text_overflow.dart';
@@ -8,9 +12,12 @@ import 'rating_stars.dart';
 
 class ReviewCard extends StatelessWidget {
   final Review reviews;
+  final bool showSettings;
+
   const ReviewCard({
     super.key,
     required this.reviews,
+    required this.showSettings,
   });
 
   @override
@@ -18,7 +25,7 @@ class ReviewCard extends StatelessWidget {
     DateTime? addAt = reviews.addAt;
 
     String formattedDate =
-        addAt != null ? DateFormat('dd.MM.yy').format(addAt!) : '';
+        addAt != null ? DateFormat('dd.MM.yy').format(addAt) : '';
     return Card(
       margin: context.router.current.name == "Home"
           ? const EdgeInsets.fromLTRB(16, 8, 16, 8)
@@ -65,6 +72,32 @@ class ReviewCard extends StatelessWidget {
                       ],
                     ),
                   ),
+                  const Spacer(flex: 2),
+                  if (showSettings)
+                    Transform.translate(
+                      offset: const Offset(-12, -12),
+                      child: reviews.approved == true
+                          ? ReviewActionIcon(
+                              onTapped: () {}, icon: image_review_delete)
+                          : ReviewActionIcon(
+                              onTapped: () {
+                                CustomBottomSheet.customShowModalBottomSheet(
+                                    context: context,
+                                    height:
+                                        MediaQuery.sizeOf(context).height * 0.3,
+                                    children: [
+                                      TextButton(
+                                        onPressed: () {},
+                                        child:
+                                            const Text('Редактировать отзыв'),
+                                      ),
+                                      TextButton(
+                                          onPressed: () {},
+                                          child: const Text('Удалить отзыв'))
+                                    ]);
+                              },
+                              icon: image_review_settings),
+                    ),
                 ],
               ),
               Padding(
@@ -107,7 +140,7 @@ class ReviewCard extends StatelessWidget {
                             ),
                             height: 72,
                             width: 120,
-                            child: Image.network(e!.image, fit: BoxFit.cover),
+                            child: Image.network(e.image, fit: BoxFit.cover),
                           ))
                     ],
                   ),

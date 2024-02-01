@@ -663,7 +663,10 @@ class _ResortScreenState extends State<ResortScreen>
                                   return Padding(
                                     padding:
                                         const EdgeInsets.symmetric(vertical: 8),
-                                    child: ReviewCard(reviews: reviews),
+                                    child: ReviewCard(
+                                      reviews: reviews,
+                                      showSettings: false,
+                                    ),
                                   );
                                 }),
                           ],
@@ -718,6 +721,8 @@ class _ResortScreenState extends State<ResortScreen>
   _showModalBottomSheet(state) {
     showModalBottomSheet(
         isScrollControlled: true,
+        showDragHandle: true,
+        backgroundColor: AppColors.scaffoldBackgroundLight,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20.0),
