@@ -166,30 +166,16 @@ class _ReviewFormState extends State<ReviewForm> {
             Wrap(
               spacing: 12,
               children: [
-                ...selectedImage.map((e) {
-                  return Container(
-                    clipBehavior: Clip.hardEdge,
-                    margin: const EdgeInsets.only(top: 12),
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(5))),
-                    child: Image.file(
-                        fit: BoxFit.cover, width: 56, height: 56, File(e.path)),
-                  );
-                }),
-                Container(
-                  margin: const EdgeInsets.only(top: 12),
-                  child: ImagePicker(
-                    getImage: (listImage) async {
-                      final List<File> result =
-                          // ignore: prefer_collection_literals
-                          Set<File>.from([...selectedImage, ...listImage])
-                              .toList();
-
-                      setState(() {
-                        selectedImage = result;
-                      });
-                    },
-                  ),
+                ImagePicker(
+                  getImage: (listImage) async {
+                    final List<File> result =
+                        // ignore: prefer_collection_literals
+                        Set<File>.from([...selectedImage, ...listImage])
+                            .toList();
+                    setState(() {
+                      selectedImage = result;
+                    });
+                  },
                 ),
               ],
             ),
