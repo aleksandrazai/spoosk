@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:spoosk/core/presentation/widgets/CustomImageNetwork.dart';
 import '../../../data/models/ResortById.dart';
 
 import '../../image.dart';
@@ -38,8 +39,8 @@ class _MapWidgetState extends State<MapWidget> {
           ),
         ),
       ),
-      Image.network(
-        widget.resorts!.resortMap,
+      CustomImageNetwork(
+        src: [widget.resorts!.resortMap],
         fit: BoxFit.fitHeight,
       )
     ]);

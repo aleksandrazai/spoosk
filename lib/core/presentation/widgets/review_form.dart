@@ -5,6 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spoosk/core/data/API/RequestController.dart';
 import 'package:spoosk/core/data/models/test_reviews.dart';
+import 'package:spoosk/core/presentation/widgets/CustomImageNetwork.dart';
 import '../../colors.dart';
 import '../../data/models/ResortById.dart';
 import '../image.dart';
@@ -69,7 +70,8 @@ class _ReviewFormState extends State<ReviewForm> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       color: Colors.blue),
-                  child: Image.network(
+                  child: CustomImageNetwork(
+                      listImages: [widget.resort!.image],
                       errorBuilder: (context, error, stackTrace) =>
                           const Center(
                             child: Icon(Icons.close_rounded),
@@ -77,7 +79,7 @@ class _ReviewFormState extends State<ReviewForm> {
                       height: 60,
                       width: 60,
                       fit: BoxFit.fill,
-                      widget.resort!.mainResortImg),
+                      src: [widget.resort!.mainResortImg]),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 16),

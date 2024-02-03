@@ -10,6 +10,7 @@ import 'package:spoosk/core/data/repositories/DI/service.dart';
 
 import 'package:spoosk/core/presentation/bloc_favorites_users/favorites_users_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
+import 'package:spoosk/core/presentation/widgets/CustomImageNetwork.dart';
 import '../../data/models/resorts.dart';
 import '../image.dart';
 
@@ -38,11 +39,11 @@ class _CustomCardImageState extends State<CustomCardImage> {
           Positioned(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(17),
-              child: Image.network(
+              child: CustomImageNetwork(
+                src: [widget.resort.image],
                 errorBuilder: (context, error, stackTrace) => const Center(
                   child: Icon(Icons.close_rounded),
                 ),
-                widget.resort.image,
                 height: 108,
                 width: double.infinity,
                 fit: BoxFit.cover,
