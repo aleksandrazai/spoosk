@@ -40,3 +40,4 @@ const String image_clear = 'assets/img/сlear.svg';
 const String image_cross = 'assets/img/image_cross.svg';
 const String image_reviews = 'assets/img/icon_reviews.svg';
 const String image_edit = 'assets/img/icon_edit.svg';
+const String error_image = 'assets/img/error_image.svg';

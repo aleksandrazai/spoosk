@@ -1,7 +1,10 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:spoosk/core/colors.dart';
+import 'package:spoosk/core/presentation/image.dart';
 
 final GlobalKey<_CustomImageNetworkState> globalKey = GlobalKey();
 
@@ -131,10 +134,11 @@ class _CustomImageNetworkState extends State<CustomImageNetwork> {
                               e,
                               errorBuilder: (context, error, stackTrace) =>
                                   Center(
-                                child: Icon(
-                                    color: AppColors.primaryColor,
-                                    size: 20,
-                                    Icons.close_rounded),
+                                child: Image.asset(
+                                  error_image,
+                                  width: 92,
+                                  height: 92,
+                                ),
                               ),
                               loadingBuilder:
                                   (context, child, loadingProgress) {
