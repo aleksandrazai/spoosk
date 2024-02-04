@@ -3,6 +3,7 @@ import 'dart:core';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:spoosk/core/presentation/widgets/CustomImageNetwork.dart';
 import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet.dart';
 import 'package:spoosk/core/presentation/widgets/review_actionButton.dart';
 import '../../data/models/reviews.dart';
@@ -140,7 +141,11 @@ class ReviewCard extends StatelessWidget {
                             ),
                             height: 72,
                             width: 120,
-                            child: Image.network(e.image, fit: BoxFit.cover),
+                            child: CustomImageNetwork(listImages: [
+                              ...reviews.images!.map((e) => e.image)
+                            ], src: [
+                              e.image
+                            ], fit: BoxFit.cover),
                           ))
                     ],
                   ),

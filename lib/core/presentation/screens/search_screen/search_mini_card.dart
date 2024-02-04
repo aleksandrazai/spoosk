@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spoosk/core/presentation/widgets/CustomImageNetwork.dart';
 import '../../../colors.dart';
 import '../../../data/models/resorts.dart';
 import '../../bloc_by_id/resort_by_id_bloc.dart';
@@ -44,15 +45,23 @@ class SearchMiniCard extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  errorBuilder: (context, error, stackTrace) => const Center(
-                    child: Icon(Icons.close_rounded),
-                  ),
-                  resort.image,
+                child: CustomImageNetwork(
+                  src: [resort.image],
+                  errorBuilder: (context, error, stackTrace) =>
+                      const Center(child: Icon(Icons.close_rounded)),
                   height: 58,
                   width: 58,
                   fit: BoxFit.cover,
                 ),
+                // Image.network(
+                //   errorBuilder: (context, error, stackTrace) => const Center(
+                //     child: Icon(Icons.close_rounded),
+                //   ),
+                //   resort.image,
+                //   height: 58,
+                //   width: 58,
+                //   fit: BoxFit.cover,
+                // ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 18),

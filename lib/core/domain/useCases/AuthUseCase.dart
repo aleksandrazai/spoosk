@@ -1,11 +1,14 @@
-import '../../data/DB/DBController_history_search.dart';
+import 'package:spoosk/core/data/API/ApiConfig.dart';
+
 import '../../data/DB/DBController_user_auth.dart';
 import '../../data/models/user_login.dart';
 import '../../presentation/bloc_user_by_id/user_bloc.dart';
 
 class AuthUseCase {
-  static final DBControllerUserAuth _dbController_user_auth =
+  static final DBControllerUserAuth dbControllerUserAuth =
       DBControllerUserAuth();
+  int? userId;
+  String? userToken;
 
   checkDB(UserProfileBloc userProfileBloc) async {
     try {
@@ -13,7 +16,11 @@ class AuthUseCase {
       print("AuthUseCase checkDB is OK: ${userData[0].id}");
 
       if (userData[0].id != null && userData.isNotEmpty) {
-        userProfileBloc.add(GetUserInfo(userId: userData[0].id!));
+        userToken = userData[0].token;
+        userId = userData[0].id;
+        userProfileBloc.add(GetUserInfo(userId: userId!));
+        UserTokenConfig.setToken(userToken!);
+        print(UserTokenConfig.token);
       }
     } catch (e) {
       print("AuthUseCase checkDB: ${e}");
@@ -21,8 +28,8 @@ class AuthUseCase {
   }
 
   Future<List<UserData>> _initDataBase() async {
-    await _dbController_user_auth.initDatabase();
-    final result = await _dbController_user_auth.getDataList();
+    await dbControllerUserAuth.initDatabase();
+    final result = await dbControllerUserAuth.getDataList();
     print("WORK: $result");
     return result;
   }

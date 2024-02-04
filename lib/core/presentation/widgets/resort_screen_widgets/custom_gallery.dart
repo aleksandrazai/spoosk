@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:spoosk/core/presentation/widgets/CustomImageNetwork.dart';
 
 import '../../../colors.dart';
 
@@ -37,7 +38,8 @@ class _CustomGalleryState extends State<CustomGallery> {
               ),
               carouselController: carouselController,
               items: [
-                ...widget.listUrl.map((e) => Image.network(
+                ...widget.listUrl.map((e) => CustomImageNetwork(
+                      src: [e],
                       errorBuilder: (context, error, stackTrace) => Center(
                         child: Icon(
                             color: AppColors.primaryColor,
@@ -54,7 +56,6 @@ class _CustomGalleryState extends State<CustomGallery> {
                               );
                       },
                       width: MediaQuery.of(context).size.width,
-                      e,
                       fit: BoxFit.fill,
                     ))
               ]),

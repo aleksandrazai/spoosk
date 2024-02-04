@@ -6,9 +6,9 @@ import 'core/app_spoosk.dart';
 import 'core/Infrastructure/firebase_options.dart';
 
 Future<void> main() async {
+  dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  dotenv.load(fileName: ".env");
 
   // Pass all uncaught "fatal" errors from the framework to Crashlytics
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;

@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_favorites_users/favorites_users_bloc.dart';
+import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
 import 'package:spoosk/core/presentation/widgets/resort_card.dart';
-import 'package:spoosk/core/utils/context.dart';
 
 @RoutePage()
 class Favorites extends StatefulWidget {
@@ -15,40 +15,55 @@ class Favorites extends StatefulWidget {
 
 class _FavoritesState extends State<Favorites>
     with AutoRouteAwareStateMixin<Favorites> {
-  int? _auth;
+  bool isAuth = false;
+
+  @override
+  void initState() {
+    super.initState();
+    UserProfileBloc userBloc = context.read<UserProfileBloc>();
+    int? userId = userBloc.getUserId();
+
+    context.read<FavoritesUsersBloc>().add(FavoritesUsersGet(userId: userId!));
+  }
 
   @override
   void didInitTabRoute(TabPageRoute? previousRoute) async {
-    print("didInitTabRoute  ${context.userInfo.userId}");
-    setState(() {
-      _auth = context.userInfo.userId;
-    });
+    UserProfileBloc userBloc = context.read<UserProfileBloc>();
+    int? userId = userBloc.getUserId();
+    print("didInitTabRoute userBloc.userId: $userId");
 
-    if (context.userInfo.userId != null) {
-      context
-          .read<FavoritesUsersBloc>()
-          .add(FavoritesUsersGet(userId: context.userInfo.userId!.toInt()));
+    if (userId != null) {
+      setState(() {
+        isAuth = true;
+      });
+      context.read<FavoritesUsersBloc>().add(FavoritesUsersGet(userId: userId));
     }
   }
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    print("initState _FavoritesState: ${context.userInfo}");
-  }
-
-  @override
   void didChangeTabRoute(TabPageRoute previousRoute) {
-    if (context.userInfo.userId != null) {
-      context
-          .read<FavoritesUsersBloc>()
-          .add(FavoritesUsersGet(userId: context.userInfo.userId!));
+    UserProfileBloc userBloc = context.read<UserProfileBloc>();
+    int? userId = userBloc.getUserId();
+
+    print("didChangeTabRoute userBloc.userId: ${userId}");
+    if (userId != null) {
+      setState(() {
+        isAuth = true;
+      });
+      context.read<FavoritesUsersBloc>().add(FavoritesUsersGet(userId: userId));
+    } else if (userId == null) {
+      setState(() {
+        isAuth = false;
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    UserProfileBloc userBloc = context.read<UserProfileBloc>();
+    int? userId = userBloc.getUserId();
+
+    print("Widget build $userId");
     return Scaffold(
         appBar: AppBar(
             backgroundColor: const Color(0xFFf8f8f8),
@@ -59,18 +74,28 @@ class _FavoritesState extends State<Favorites>
             )),
         body: BlocBuilder<FavoritesUsersBloc, FavoritesUsersState>(
           builder: (context, state) {
-            print(state is FavoritesUsersAll);
-            return state is FavoritesUsersAll && state.resorts != null
-                ? ListView.builder(
-                    itemCount: state.resorts!.length,
-                    itemBuilder: (context, index) {
-                      final resort = state.resorts![index];
-                      return ResortCard(resort: resort);
-                    },
-                  )
-                : const Center(
-                    child: CircularProgressIndicator(),
-                  );
+            if (userId == null && isAuth == false) {
+              return const Center(child: Text("Требуется авторизация"));
+            }
+            if (state is FavoritesUsersAll && state.resorts != null) {
+              return ListView.builder(
+                itemCount: state.resorts!.length,
+                itemBuilder: (context, index) {
+                  final resort = state.resorts![index];
+                  return ResortCard(resort: resort);
+                },
+              );
+            }
+            if (state is FavoritesUsersAll &&
+                state.resorts != null &&
+                state.resorts!.isEmpty) {
+              return const Center(
+                child: Text("Список пуст"),
+              );
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           },
         ));
   }

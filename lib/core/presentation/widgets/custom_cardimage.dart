@@ -1,10 +1,16 @@
+// ignore_for_file: use_build_context_synchronously, unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/data/API/RequestController.dart';
+import 'package:spoosk/core/data/models/user_login.dart';
+import 'package:spoosk/core/data/repositories/DI/service.dart';
+
 import 'package:spoosk/core/presentation/bloc_favorites_users/favorites_users_bloc.dart';
-import 'package:spoosk/core/utils/context.dart';
+import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
+import 'package:spoosk/core/presentation/widgets/CustomImageNetwork.dart';
 import '../../data/models/resorts.dart';
 import '../image.dart';
 
@@ -21,7 +27,9 @@ class CustomCardImage extends StatefulWidget {
 
 class _CustomCardImageState extends State<CustomCardImage> {
   final RequestController _requestController = RequestController();
-  late bool fovoriteIsSelected;
+  SingletonAuthUseCase singletonAuthUseCase = SingletonAuthUseCase();
+
+  bool fovoriteIsSelected = false;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,11 +39,11 @@ class _CustomCardImageState extends State<CustomCardImage> {
           Positioned(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(17),
-              child: Image.network(
+              child: CustomImageNetwork(
+                src: [widget.resort.image],
                 errorBuilder: (context, error, stackTrace) => const Center(
                   child: Icon(Icons.close_rounded),
                 ),
-                widget.resort.image,
                 height: 108,
                 width: double.infinity,
                 fit: BoxFit.cover,
@@ -102,28 +110,48 @@ class _CustomCardImageState extends State<CustomCardImage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    print("widget.resort.inFavorites ${widget.resort.inFavorites}");
-    setState(() {
-      fovoriteIsSelected = widget.resort.inFavorites;
-    });
+    _checkFavorites();
+  }
+
+  _checkFavorites() {
+    final FavoritesUsersState blocFavorites =
+        context.read<FavoritesUsersBloc>().state;
+
+    if (blocFavorites is FavoritesUsersAll && blocFavorites.resorts != null) {
+      var resortsMap = {
+        for (var resort in blocFavorites.resorts!)
+          resort.name: resort.inFavorites,
+      };
+
+      var status = resortsMap[widget.resort.name];
+
+      if (status != null) {
+        fovoriteIsSelected = status;
+      }
+    }
   }
 
   _setFavorites(BuildContext context) async {
-    if (context.userInfo.userId != null) {
-      print("FavoritesUsersBloc in _setFavorites");
+    List<UserData> userBloc = await context
+        .read<UserProfileBloc>()
+        .dbcontrollerUserAuth
+        .getDataList();
+    if (userBloc.isNotEmpty && userBloc[0].token != null) {
+      UserData userId = userBloc[0];
       context
           .read<FavoritesUsersBloc>()
-          .add(FavoritesUsersGet(userId: context.userInfo.userId!));
-    }
-
-    bool? favorite = await _requestController.getAddToFavorites(
-        resortId: widget.resort.idResort);
-    if (favorite != null && favorite == true) {
-      setState(() {
-        fovoriteIsSelected = !fovoriteIsSelected;
-      });
+          .add(FavoritesUsersGet(userId: userId.id!));
+      bool? favorite = await _requestController.getAddToFavorites(
+          resortId: widget.resort.idResort);
+      if (favorite != null && favorite == true) {
+        setState(() {
+          fovoriteIsSelected = !fovoriteIsSelected;
+          context
+              .read<FavoritesUsersBloc>()
+              .add(FavoritesUsersGet(userId: userId.id!));
+        });
+      }
     }
   }
 }

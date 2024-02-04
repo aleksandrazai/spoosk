@@ -5,6 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spoosk/core/data/API/RequestController.dart';
 import 'package:spoosk/core/data/models/test_reviews.dart';
+import 'package:spoosk/core/presentation/widgets/CustomImageNetwork.dart';
 import '../../colors.dart';
 import '../../data/models/ResortById.dart';
 import '../image.dart';
@@ -63,7 +64,8 @@ class _ReviewFormState extends State<ReviewForm> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       color: Colors.blue),
-                  child: Image.network(
+                  child: CustomImageNetwork(
+                      listImages: [widget.resort!.image],
                       errorBuilder: (context, error, stackTrace) =>
                           const Center(
                             child: Icon(Icons.close_rounded),
@@ -71,7 +73,7 @@ class _ReviewFormState extends State<ReviewForm> {
                       height: 60,
                       width: 60,
                       fit: BoxFit.fill,
-                      widget.resort!.mainResortImg),
+                      src: [widget.resort!.mainResortImg]),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 16),
@@ -160,30 +162,16 @@ class _ReviewFormState extends State<ReviewForm> {
             Wrap(
               spacing: 12,
               children: [
-                ...selectedImage.map((e) {
-                  return Container(
-                    clipBehavior: Clip.hardEdge,
-                    margin: const EdgeInsets.only(top: 12),
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(5))),
-                    child: Image.file(
-                        fit: BoxFit.cover, width: 56, height: 56, File(e.path)),
-                  );
-                }),
-                Container(
-                  margin: const EdgeInsets.only(top: 12),
-                  child: ImagePicker(
-                    getImage: (listImage) async {
-                      final List<File> result =
-                          // ignore: prefer_collection_literals
-                          Set<File>.from([...selectedImage, ...listImage])
-                              .toList();
-
-                      setState(() {
-                        selectedImage = result;
-                      });
-                    },
-                  ),
+                ImagePicker(
+                  getImage: (listImage) async {
+                    final List<File> result =
+                        // ignore: prefer_collection_literals
+                        Set<File>.from([...selectedImage, ...listImage])
+                            .toList();
+                    setState(() {
+                      selectedImage = result;
+                    });
+                  },
                 ),
               ],
             ),

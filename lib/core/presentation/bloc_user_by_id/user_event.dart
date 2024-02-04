@@ -8,7 +8,11 @@ class GetUserInfo extends UserProfileEvent {
   GetUserInfo({required this.userId});
 }
 
-class UserLogOut extends UserProfileEvent {}
+class UserLogOut extends UserProfileEvent {
+  final int userId;
+
+  UserLogOut({required this.userId});
+}
 
 class EditUserProfile extends UserProfileEvent {
   final int userId;

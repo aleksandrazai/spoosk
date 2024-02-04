@@ -41,3 +41,4 @@ const String image_reviews = 'assets/img/icon_reviews.svg';
 const String image_edit = 'assets/img/icon_edit.svg';
 const String image_review_settings = 'assets/img/review_settings.svg';
 const String image_review_delete = 'assets/img/delete_review.svg';
+const String error_image = 'assets/img/error_image.svg';

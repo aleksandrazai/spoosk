@@ -1,24 +1,22 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:spoosk/core/data/DB/DBController_user_auth.dart';
-import 'package:spoosk/core/data/models/user_login.dart';
 
-final DBControllerUserAuth dbcontrollerUserAuth = DBControllerUserAuth();
-String? userTokenDb;
+class UserTokenConfig {
+  static String _token = ''; // Default to an empty string
 
-void getUserToken() async {
-  List<UserData> userInfo = await dbcontrollerUserAuth.getDataList();
-  for (UserData user in userInfo) {
-    userTokenDb = user.token;
+  static setToken(String token) {
+    _token = token;
   }
-  userTokenDb ??= "";
+
+  static String get token {
+    return _token;
+  }
 }
 
+final String token = dotenv.env['API-key']!;
+final String userToken = "Token ${UserTokenConfig.token}";
 // ------ Read me ------
 // userToken имеет структуру - "Token l1k23jlkj4lk3jk54yijyi5jyoi5"
-
-final String token = dotenv.env['API-key']!;
-final String? userToken = userTokenDb;
 
 class ApiConfigurateGet {
   static final Options headers = Options(method: "GET", headers: {
@@ -67,15 +65,19 @@ class ApiConfigPatch {
 }
 
 class ApiConfigUserPost {
-  static final Options userHeaders = Options(
-      method: "POST", headers: {"API-key": token, "Authorization": userToken});
+  static final Options userHeaders = Options(method: "POST", headers: {
+    "API-key": token,
+    "Authorization": userToken,
+  });
 
   static String postReviews = 'api/reviews/';
 }
 
 class ApiConfigUserGet {
-  static final Options headers = Options(
-      method: "GET", headers: {"API-key": token, "Authorization": userToken});
+  static final Options headers = Options(method: "GET", headers: {
+    "API-key": token,
+    "Authorization": userToken,
+  });
   // Добавляет/ удаляет избранные
   static String Function({required String resortId}) getAddToFavorites =
       ({required String resortId}) {
