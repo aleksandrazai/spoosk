@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:spoosk/core/colors.dart';
 
 class ReviewActionIcon extends StatelessWidget {
   const ReviewActionIcon(
@@ -10,7 +11,8 @@ class ReviewActionIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkResponse(
+      radius: 20,
       onTap: onTapped,
       child: SvgPicture.asset(
         colorFilter: const ColorFilter.mode(Colors.black, BlendMode.srcIn),

@@ -4,8 +4,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:spoosk/core/presentation/widgets/CustomImageNetwork.dart';
+import 'package:spoosk/core/data/API/RequestController.dart';
 import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet.dart';
+import 'package:spoosk/core/presentation/widgets/custom_dialog.dart';
 import 'package:spoosk/core/presentation/widgets/review_actionButton.dart';
+import 'package:spoosk/core/presentation/widgets/separator.dart';
 import '../../data/models/reviews.dart';
 import '../image.dart';
 import 'hide_text_overflow.dart';
@@ -84,17 +87,10 @@ class ReviewCard extends StatelessWidget {
                               onTapped: () {
                                 CustomBottomSheet.customShowModalBottomSheet(
                                     context: context,
-                                    height:
-                                        MediaQuery.sizeOf(context).height * 0.3,
+                                    height: MediaQuery.sizeOf(context).height *
+                                        0.15,
                                     children: [
-                                      TextButton(
-                                        onPressed: () {},
-                                        child:
-                                            const Text('Редактировать отзыв'),
-                                      ),
-                                      TextButton(
-                                          onPressed: () {},
-                                          child: const Text('Удалить отзыв'))
+                                      ReviewSettings(reviews: reviews),
                                     ]);
                               },
                               icon: image_review_settings),
@@ -154,6 +150,48 @@ class ReviewCard extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ReviewSettings extends StatelessWidget {
+  ReviewSettings({super.key, required this.reviews});
+  final RequestController _requestController = RequestController();
+  final Review reviews;
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+        children: [
+          TextButton(
+            onPressed: () {},
+            child: const Text('Редактировать отзыв'),
+          ),
+          const Separator(),
+          TextButton(
+              onPressed: () {
+                CustomDialog.showCustomDialog(
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          _requestController.deleteReviews(reviews.id!);
+                        },
+                        child: const Text('Удалить')),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Закрыть'))
+                  ],
+                  context: context,
+                  title: 'Удалить отзыв',
+                  bodyText: 'Вы уверены, что хотите удалить отзыв?',
+                );
+              },
+              child: const Text('Удалить отзыв'))
+        ],
       ),
     );
   }
