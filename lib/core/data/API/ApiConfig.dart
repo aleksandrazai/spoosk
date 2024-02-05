@@ -1,24 +1,26 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:spoosk/core/data/DB/DBController_user_auth.dart';
-import 'package:spoosk/core/data/models/user_login.dart';
 
 final DBControllerUserAuth dbcontrollerUserAuth = DBControllerUserAuth();
-String? userTokenDb;
 
-void getUserToken() async {
-  List<UserData> userInfo = await dbcontrollerUserAuth.getDataList();
-  for (UserData user in userInfo) {
-    userTokenDb = user.token;
+class UserTokenConfig {
+  static String _token = ''; // Default to an empty string
+
+  static setToken(String token) {
+    _token = token;
   }
-  userTokenDb ??= "";
+
+  static String get token {
+    return _token;
+  }
 }
+
+final String token = dotenv.env['API-key']!;
+final String userToken = "Token ${UserTokenConfig.token}";
 
 // ------ Read me ------
 // userToken имеет структуру - "Token l1k23jlkj4lk3jk54yijyi5jyoi5"
-
-final String token = dotenv.env['API-key']!;
-final String? userToken = userTokenDb;
 
 class ApiConfigurateGet {
   static final Options headers = Options(method: "GET", headers: {
