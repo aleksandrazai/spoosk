@@ -32,34 +32,35 @@ class CustomImageNetwork extends StatefulWidget {
   Map<String, String>? headers;
   int? cacheWidth;
   int? cacheHeight;
+  bool openGallery = true;
   final imageCache = ImageCache();
 
-  CustomImageNetwork({
-    super.key,
-    required this.src,
-    this.initIndex,
-    this.listImages,
-    this.scale = 1.0,
-    this.frameBuilder,
-    this.semanticLabel,
-    this.excludeFromSemantics = false,
-    this.width,
-    this.height,
-    this.color,
-    this.opacity,
-    this.colorBlendMode,
-    this.fit,
-    this.alignment = Alignment.center,
-    this.repeat = ImageRepeat.noRepeat,
-    this.centerSlice,
-    this.matchTextDirection = false,
-    this.gaplessPlayback = false,
-    this.filterQuality = FilterQuality.low,
-    this.isAntiAlias = false,
-    this.headers,
-    this.cacheWidth,
-    this.cacheHeight,
-  }) {}
+  CustomImageNetwork(
+      {super.key,
+      required this.src,
+      this.initIndex,
+      this.listImages,
+      this.scale = 1.0,
+      this.frameBuilder,
+      this.semanticLabel,
+      this.excludeFromSemantics = false,
+      this.width,
+      this.height,
+      this.color,
+      this.opacity,
+      this.colorBlendMode,
+      this.fit,
+      this.alignment = Alignment.center,
+      this.repeat = ImageRepeat.noRepeat,
+      this.centerSlice,
+      this.matchTextDirection = false,
+      this.gaplessPlayback = false,
+      this.filterQuality = FilterQuality.low,
+      this.isAntiAlias = false,
+      this.headers,
+      this.cacheWidth,
+      this.cacheHeight,
+      this.openGallery = true});
 
   @override
   _CustomImageNetworkState createState() => _CustomImageNetworkState();
@@ -71,7 +72,11 @@ class _CustomImageNetworkState extends State<CustomImageNetwork> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: _openModal,
+      onTap: () {
+        if (widget.openGallery) {
+          _openModal();
+        }
+      },
       child: Image.network(widget.src[0],
           scale: widget.scale,
           frameBuilder: widget.frameBuilder,

@@ -35,7 +35,8 @@ class DBController_history_search extends DBControllerAbsrt<Resort> {
     trail_length REAL,
     height_difference REAL,
     skipass REAL,
-    trail_number INTEGER
+    trail_number INTEGER,
+    number_reviews INTEGER
     CONSTRAINT max_rows CHECK (id <= 3)    
   )
 ''');
@@ -49,22 +50,27 @@ class DBController_history_search extends DBControllerAbsrt<Resort> {
 
   @override
   Future<Resort> insert(Resort resultModel) async {
-    final dbClient = await db;
-    final List<Resort> oldData = await getDataList();
-    final List<Resort> newData = [resultModel, ...oldData];
+    try {
+      final dbClient = await db;
+      final List<Resort> oldData = await getDataList();
+      final List<Resort> newData = [resultModel, ...oldData];
 
-    newData.removeLast();
-    print(oldData.length);
-    if (oldData.length == 3) {
-      for (int i = 0; i < 3; i++) {
-        print("KEK ${i}");
-        await dbClient!
-            .update(_tableName, newData[i].toMap(), where: 'id = ${i + 1}');
+      newData.removeLast();
+
+      if (oldData.length == 3) {
+        for (int i = 0; i < 3; i++) {
+          print("KEK ${i}");
+          await dbClient!
+              .update(_tableName, newData[i].toMap(), where: 'id = ${i + 1}');
+        }
+      } else {
+        await dbClient!.insert(_tableName, resultModel.toMap());
       }
-    } else {
-      await dbClient!.insert(_tableName, resultModel.toMap());
+      return resultModel;
+    } catch (e) {
+      print("Error inserting data: $e");
+      return resultModel; // or handle the error as needed
     }
-    return resultModel;
   }
 
   @override

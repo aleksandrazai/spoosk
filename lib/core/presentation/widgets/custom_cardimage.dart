@@ -40,6 +40,7 @@ class _CustomCardImageState extends State<CustomCardImage> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(17),
               child: CustomImageNetwork(
+                openGallery: false,
                 src: [widget.resort.image],
                 height: 108,
                 width: double.infinity,

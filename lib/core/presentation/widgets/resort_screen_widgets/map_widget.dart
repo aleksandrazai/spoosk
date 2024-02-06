@@ -40,6 +40,7 @@ class _MapWidgetState extends State<MapWidget> {
         ),
       ),
       CustomImageNetwork(
+        openGallery: false,
         src: [widget.resorts!.resortMap],
         fit: BoxFit.fitHeight,
       )

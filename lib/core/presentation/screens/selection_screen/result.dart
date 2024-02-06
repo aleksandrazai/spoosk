@@ -31,7 +31,7 @@ class ResultScreen extends StatelessWidget {
         leading: GestureDetector(
           onTap: () {
             Feedback.forTap(context);
-            context.router.back();
+            context.router.pop();
           },
           child: SvgPicture.asset(
             fit: BoxFit.scaleDown,

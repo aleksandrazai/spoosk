@@ -46,6 +46,8 @@ class SearchMiniCard extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: CustomImageNetwork(
+                  listImages: [resort.image],
+                  openGallery: false,
                   src: [resort.image],
                   height: 58,
                   width: 58,

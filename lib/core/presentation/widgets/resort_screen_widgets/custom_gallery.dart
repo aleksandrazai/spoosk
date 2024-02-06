@@ -39,6 +39,7 @@ class _CustomGalleryState extends State<CustomGallery> {
               carouselController: carouselController,
               items: [
                 ...widget.listUrl.map((e) => CustomImageNetwork(
+                      listImages: [...widget.listUrl],
                       src: [e],
                       width: MediaQuery.of(context).size.width,
                       fit: BoxFit.fill,

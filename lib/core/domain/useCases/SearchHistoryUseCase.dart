@@ -18,7 +18,7 @@ class SearchHistoryUseCase {
   Future<List<Resort>> _checkDB() async {
     await dbController_history_search.initDatabase();
     try {
-      return await dbController_history_search.getDataList();
+      return await dbController_history_search.getDataList() ?? [];
     } catch (e) {
       print(e);
       return [];
