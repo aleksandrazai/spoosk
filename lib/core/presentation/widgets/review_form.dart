@@ -1,27 +1,30 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spoosk/core/data/API/RequestController.dart';
+import 'package:spoosk/core/data/models/reviews.dart';
 import 'package:spoosk/core/data/models/test_reviews.dart';
+import 'package:spoosk/core/presentation/bloc_user_reviews/user_reviews_bloc.dart';
+import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet.dart';
 import 'package:spoosk/core/presentation/widgets/CustomImageNetwork.dart';
 import '../../colors.dart';
 import '../../data/models/ResortById.dart';
 import '../image.dart';
 import 'CustomButton.dart';
 import 'Image_picker.dart';
-import 'widgets.dart';
+
 import '../../utils/context.dart';
 
 class ReviewForm extends StatefulWidget {
-  ResortById? resort;
-  Key? scaffoldKey;
+  ResortById resort;
+  Review? review;
 
   ReviewForm({
     super.key,
     required this.resort,
-    this.scaffoldKey,
+    this.review,
   });
 
   @override
@@ -31,11 +34,18 @@ class ReviewForm extends StatefulWidget {
 class _ReviewFormState extends State<ReviewForm> {
   List<File> selectedImage = [];
 
-  final TextEditingController _textEditingController = TextEditingController();
-  double _rating = 1;
+  TextEditingController _textEditingController = TextEditingController();
+  num _rating = 1;
   final RequestController _requestController = RequestController();
 
-  _ReviewFormState();
+  @override
+  void initState() {
+    super.initState();
+    _textEditingController =
+        TextEditingController(text: widget.review?.text ?? '');
+    _rating = widget.review?.rating ?? 1;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -65,20 +75,20 @@ class _ReviewFormState extends State<ReviewForm> {
                       ),
                       color: Colors.blue),
                   child: CustomImageNetwork(
-                      listImages: [widget.resort!.image],
+                      listImages: [widget.resort.image],
                       height: 60,
                       width: 60,
                       fit: BoxFit.fill,
-                      src: [widget.resort!.mainResortImg]),
+                      src: [widget.resort.mainResortImg]),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(widget.resort!.name,
+                      Text(widget.resort.name,
                           style: Theme.of(context).textTheme.headlineMedium),
-                      Text(widget.resort!.region,
+                      Text(widget.resort.region,
                           style: Theme.of(context).textTheme.bodyMedium),
                     ],
                   ),
@@ -98,7 +108,7 @@ class _ReviewFormState extends State<ReviewForm> {
             Container(
               alignment: Alignment.topLeft,
               child: RatingBar.builder(
-                  initialRating: 0,
+                  initialRating: widget.review?.rating?.toDouble() ?? 0,
                   direction: Axis.horizontal,
                   allowHalfRating: false,
                   itemCount: 5,
@@ -178,17 +188,21 @@ class _ReviewFormState extends State<ReviewForm> {
               width: MediaQuery.of(context).size.width * 0.9,
               height: 36,
               child: CustomButton(
-                textStyle: Theme.of(context)
-                    .textTheme
-                    .headlineMedium
-                    ?.copyWith(color: AppColors.white, fontSize: 16),
-                boxDecoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                height: 36,
-                color: AppColors.primaryColor,
-                buttonText: "Отправить отзыв",
-                onTap: () => _sendReviews(context),
-              ),
+                  textStyle: Theme.of(context)
+                      .textTheme
+                      .headlineMedium
+                      ?.copyWith(color: AppColors.white, fontSize: 16),
+                  boxDecoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                  height: 36,
+                  color: AppColors.primaryColor,
+                  buttonText: "Отправить отзыв",
+                  onTap: () {
+                    if (widget.review?.id == null) {
+                      _sendReviews(context);
+                    }
+                    _sendEditedReviews();
+                  }),
             ),
           ],
         ),
@@ -207,23 +221,29 @@ class _ReviewFormState extends State<ReviewForm> {
 
     if (context.userInfo.getUserInfo() != null &&
         _textEditingController.text.isNotEmpty) {
-      if (selectedImage.isNotEmpty) {
-        TestReviews reviews = TestReviews(
-            resort: widget.resort!.idResort,
-            text: _textEditingController.text,
-            rating: _rating.toInt(),
-            images: selectedImage);
+      TestReviews reviews = TestReviews(
+          resort: widget.resort.idResort,
+          text: _textEditingController.text,
+          rating: _rating.toInt(),
+          images: selectedImage);
 
-        _requestController.postReviews(reviews);
-        _showDialog(content: "Отзыв на модерации");
-      } else if (context.userInfo.getUserInfo() == null) {
-        _showDialog(content: "Требуется авторизация", title: "Ошибка");
-      } else if (_textEditingController.text.isEmpty) {
-        _showDialog(content: "Введите отзыв", title: "Ошибка");
-      } else {
-        print("Error: No images selected");
-      }
+      _requestController.postReviews(reviews);
+      _showDialog(content: "Отзыв на модерации");
+    } else if (context.userInfo.getUserInfo() == null) {
+      _showDialog(content: "Требуется авторизация", title: "Ошибка");
+    } else if (_textEditingController.text.isEmpty) {
+      _showDialog(content: "Введите отзыв", title: "Ошибка");
     }
+  }
+
+  void _sendEditedReviews() {
+    TestReviews editedReview = TestReviews(
+        resort: widget.resort.idResort,
+        text: _textEditingController.text,
+        rating: _rating.toInt(),
+        images: []);
+    _requestController.editReviews(editedReview, widget.review!.id!);
+    _showDialog(content: "Отзыв на модерации");
   }
 
   _showDialog(
@@ -238,6 +258,9 @@ class _ReviewFormState extends State<ReviewForm> {
           actions: [
             TextButton(
                 onPressed: () {
+                  context.read<UserReviewsBloc>().add(LoadUserReviews(
+                      id: context.userInfo.getUserInfo()!.userProfile.id));
+                  CustomBottomSheet.closeModalBottomSheet(context);
                   Navigator.of(context).pop();
                 },
                 child: const Text('Закрыть'))

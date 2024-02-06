@@ -722,6 +722,7 @@ class _ResortScreenState extends State<ResortScreen>
     showModalBottomSheet(
         isScrollControlled: true,
         showDragHandle: true,
+        useRootNavigator: true,
         backgroundColor: AppColors.scaffoldBackgroundLight,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(

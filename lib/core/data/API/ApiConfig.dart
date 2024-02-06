@@ -62,6 +62,7 @@ class ApiConfigPatch {
   });
 
   static String editProfile = 'api/users/';
+  static String editReview = 'api/reviews/';
 }
 
 class ApiConfigUserPost {
