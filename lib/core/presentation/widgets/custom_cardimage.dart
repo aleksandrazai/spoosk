@@ -41,9 +41,6 @@ class _CustomCardImageState extends State<CustomCardImage> {
               borderRadius: BorderRadius.circular(17),
               child: CustomImageNetwork(
                 src: [widget.resort.image],
-                errorBuilder: (context, error, stackTrace) => const Center(
-                  child: Icon(Icons.close_rounded),
-                ),
                 height: 108,
                 width: double.infinity,
                 fit: BoxFit.cover,

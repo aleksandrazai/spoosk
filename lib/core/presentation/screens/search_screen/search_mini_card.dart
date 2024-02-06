@@ -47,8 +47,6 @@ class SearchMiniCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
                 child: CustomImageNetwork(
                   src: [resort.image],
-                  errorBuilder: (context, error, stackTrace) =>
-                      const Center(child: Icon(Icons.close_rounded)),
                   height: 58,
                   width: 58,
                   fit: BoxFit.cover,

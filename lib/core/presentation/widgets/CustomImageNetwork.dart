@@ -2,7 +2,7 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/presentation/image.dart';
 
@@ -14,8 +14,6 @@ class CustomImageNetwork extends StatefulWidget {
   int? initIndex = 1;
   double scale = 1.0;
   Widget Function(BuildContext, Widget, int?, bool)? frameBuilder;
-  Widget Function(BuildContext, Widget, ImageChunkEvent?)? loadingBuilder;
-  Widget Function(BuildContext, Object, StackTrace?)? errorBuilder;
   String? semanticLabel;
   bool excludeFromSemantics = false;
   double? width;
@@ -43,8 +41,6 @@ class CustomImageNetwork extends StatefulWidget {
     this.listImages,
     this.scale = 1.0,
     this.frameBuilder,
-    this.loadingBuilder,
-    this.errorBuilder,
     this.semanticLabel,
     this.excludeFromSemantics = false,
     this.width,
@@ -76,31 +72,48 @@ class _CustomImageNetworkState extends State<CustomImageNetwork> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: _openModal,
-      child: Image.network(
-        widget.src[0],
-        scale: widget.scale,
-        frameBuilder: widget.frameBuilder,
-        loadingBuilder: widget.loadingBuilder,
-        errorBuilder: widget.errorBuilder,
-        semanticLabel: widget.semanticLabel,
-        excludeFromSemantics: widget.excludeFromSemantics,
-        width: widget.width,
-        height: widget.height,
-        color: widget.color,
-        opacity: widget.opacity,
-        colorBlendMode: widget.colorBlendMode,
-        fit: widget.fit,
-        alignment: widget.alignment,
-        repeat: widget.repeat,
-        centerSlice: widget.centerSlice,
-        matchTextDirection: widget.matchTextDirection,
-        gaplessPlayback: widget.gaplessPlayback,
-        filterQuality: widget.filterQuality,
-        isAntiAlias: widget.isAntiAlias,
-        headers: widget.headers,
-        cacheWidth: widget.cacheHeight,
-        cacheHeight: widget.cacheHeight,
-      ),
+      child: Image.network(widget.src[0],
+          scale: widget.scale,
+          frameBuilder: widget.frameBuilder,
+          semanticLabel: widget.semanticLabel,
+          excludeFromSemantics: widget.excludeFromSemantics,
+          width: widget.width,
+          height: widget.height,
+          color: widget.color,
+          opacity: widget.opacity,
+          colorBlendMode: widget.colorBlendMode,
+          fit: widget.fit,
+          alignment: widget.alignment,
+          repeat: widget.repeat,
+          centerSlice: widget.centerSlice,
+          matchTextDirection: widget.matchTextDirection,
+          gaplessPlayback: widget.gaplessPlayback,
+          filterQuality: widget.filterQuality,
+          isAntiAlias: widget.isAntiAlias,
+          headers: widget.headers,
+          cacheWidth: widget.cacheHeight,
+          cacheHeight: widget.cacheHeight,
+          errorBuilder: (context, error, stackTrace) => Container(
+                height: 108,
+                width: double.infinity,
+                color: const Color(0xFFE6E6E6),
+                child: Center(
+                  child: SvgPicture.asset(
+                    error_image,
+                    width: 92,
+                    height: 92,
+                  ),
+                ),
+              ),
+          loadingBuilder: (context, child, loadingProgress) {
+            return loadingProgress == null
+                ? child
+                : Center(
+                    child: CircularProgressIndicator(
+                      color: AppColors.primaryColor,
+                    ),
+                  );
+          }),
     );
   }
 
@@ -110,7 +123,6 @@ class _CustomImageNetworkState extends State<CustomImageNetwork> {
       Navigator.pop(contextDialog);
     }
 
-    print(widget.src[0]);
     if (widget.listImages != null && widget.listImages!.isNotEmpty) {
       setState(() {
         _indexList = widget.listImages!.indexOf(widget.src[0]);
@@ -133,11 +145,16 @@ class _CustomImageNetworkState extends State<CustomImageNetwork> {
                         ...widget.listImages!.map((e) => Image.network(
                               e,
                               errorBuilder: (context, error, stackTrace) =>
-                                  Center(
-                                child: Image.asset(
-                                  error_image,
-                                  width: 92,
-                                  height: 92,
+                                  Container(
+                                height: 108,
+                                width: double.infinity,
+                                color: const Color(0xFFE6E6E6),
+                                child: Center(
+                                  child: Image.asset(
+                                    error_image,
+                                    width: 92,
+                                    height: 92,
+                                  ),
                                 ),
                               ),
                               loadingBuilder:

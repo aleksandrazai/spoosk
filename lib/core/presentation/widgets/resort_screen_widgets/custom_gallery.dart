@@ -40,21 +40,6 @@ class _CustomGalleryState extends State<CustomGallery> {
               items: [
                 ...widget.listUrl.map((e) => CustomImageNetwork(
                       src: [e],
-                      errorBuilder: (context, error, stackTrace) => Center(
-                        child: Icon(
-                            color: AppColors.primaryColor,
-                            size: 20,
-                            Icons.close_rounded),
-                      ),
-                      loadingBuilder: (context, child, loadingProgress) {
-                        return loadingProgress == null
-                            ? child
-                            : Center(
-                                child: CircularProgressIndicator(
-                                  color: AppColors.primaryColor,
-                                ),
-                              );
-                      },
                       width: MediaQuery.of(context).size.width,
                       fit: BoxFit.fill,
                     ))
