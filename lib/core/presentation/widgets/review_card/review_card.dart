@@ -1,18 +1,14 @@
 import 'dart:core';
-
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:spoosk/core/presentation/widgets/CustomImageNetwork.dart';
-import 'package:spoosk/core/data/API/RequestController.dart';
 import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet.dart';
-import 'package:spoosk/core/presentation/widgets/custom_dialog.dart';
-import 'package:spoosk/core/presentation/widgets/review_actionButton.dart';
-import 'package:spoosk/core/presentation/widgets/separator.dart';
-import '../../data/models/reviews.dart';
-import '../image.dart';
-import 'hide_text_overflow.dart';
-import 'rating_stars.dart';
+import 'package:spoosk/core/presentation/widgets/review_card/review_actionButton.dart';
+import 'package:spoosk/core/presentation/widgets/review_card/review_settings.dart';
+import '../../../data/models/reviews.dart';
+import '../../image.dart';
+import '../hide_text_overflow.dart';
+import '../rating_stars.dart';
 
 class ReviewCard extends StatelessWidget {
   final Review reviews;
@@ -31,9 +27,6 @@ class ReviewCard extends StatelessWidget {
     String formattedDate =
         addAt != null ? DateFormat('dd.MM.yy').format(addAt) : '';
     return Card(
-      margin: context.router.current.name == "Home"
-          ? const EdgeInsets.fromLTRB(16, 8, 16, 8)
-          : null,
       color: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(17),
@@ -150,48 +143,6 @@ class ReviewCard extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class ReviewSettings extends StatelessWidget {
-  ReviewSettings({super.key, required this.reviews});
-  final RequestController _requestController = RequestController();
-  final Review reviews;
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        children: [
-          TextButton(
-            onPressed: () {},
-            child: const Text('Редактировать отзыв'),
-          ),
-          const Separator(),
-          TextButton(
-              onPressed: () {
-                CustomDialog.showCustomDialog(
-                  actions: [
-                    TextButton(
-                        onPressed: () {
-                          _requestController.deleteReviews(reviews.id!);
-                        },
-                        child: const Text('Удалить')),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text('Закрыть'))
-                  ],
-                  context: context,
-                  title: 'Удалить отзыв',
-                  bodyText: 'Вы уверены, что хотите удалить отзыв?',
-                );
-              },
-              child: const Text('Удалить отзыв'))
-        ],
       ),
     );
   }

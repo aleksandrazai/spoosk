@@ -456,8 +456,24 @@ class RequestController {
     return null;
   }
 
-// TODO Добавить запрос на изменение отзывов
-  Future<Review?> pathReviews(TestReviews data) async {
+//запрос на редактирование отзывов
+  Future<Review?> editReviews(TestReviews data, int id) async {
+    try {
+      FormData formData = FormData();
+      formData.fields.add(MapEntry('resort', data.resort));
+      formData.fields.add(MapEntry('text', data.text));
+      formData.fields.add(MapEntry('rating', data.rating.toString()));
+      print(formData);
+      final response = await _dio.patch(
+        '$_baseUrl${ApiConfigPatch.editReview}$id/',
+        options: ApiConfigPatch.patchHeaders,
+        data: formData,
+      );
+      print(response.data);
+      print(response.statusCode);
+    } on DioException catch (e) {
+      print('editReviews ERROR $e');
+    }
     return null;
   }
 
