@@ -9,6 +9,7 @@ class CustomBottomSheet {
     return showModalBottomSheet(
         showDragHandle: true,
         useSafeArea: true,
+        useRootNavigator: true,
         isScrollControlled: true,
         backgroundColor: AppColors.scaffoldBackgroundLight,
         shape: const RoundedRectangleBorder(
@@ -34,5 +35,9 @@ class CustomBottomSheet {
             ),
           );
         });
+  }
+
+  static closeModalBottomSheet(BuildContext context) {
+    Navigator.of(context).pop();
   }
 }

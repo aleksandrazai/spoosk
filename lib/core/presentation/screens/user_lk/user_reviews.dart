@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/data/models/reviews.dart';
 import 'package:spoosk/core/presentation/bloc_user_reviews/user_reviews_bloc.dart';
-import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/theme/theme.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
 import 'package:spoosk/core/presentation/widgets/custom_leading.dart';

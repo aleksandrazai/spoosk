@@ -10,7 +10,7 @@ class CustomDialog {
     return showDialog(
       context: context,
       barrierDismissible: true,
-      builder: (context) {
+      builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: AppColors.white,
           title: Text(title, style: Theme.of(context).textTheme.headlineMedium),
