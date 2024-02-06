@@ -79,14 +79,28 @@ class _HomeScreenState extends State<HomeScreen> {
                       padding: const EdgeInsets.only(top: 16),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: CustomSearchField(
-                          disabled: true,
-                          onTap: () {
-                            SearchHistoryUseCase()
-                                .checkDB(context.read<SearchHistoryBloc>());
-                            AutoRouter.of(context)
-                                .navigate(const SearchRoute());
-                          },
+                        child: Stack(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                color: AppColors.background,
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(12),
+                                    topRight: Radius.circular(12)),
+                              ),
+                              height: 36,
+                              width: double.infinity,
+                            ),
+                            CustomSearchField(
+                              disabled: true,
+                              onTap: () {
+                                SearchHistoryUseCase()
+                                    .checkDB(context.read<SearchHistoryBloc>());
+                                AutoRouter.of(context)
+                                    .navigate(const SearchRoute());
+                              },
+                            )
+                          ],
                         ),
                       ),
                     ),
