@@ -21,6 +21,7 @@ import 'package:spoosk/core/presentation/widgets/resort_screen_widgets/tablet_wi
 import 'package:spoosk/core/presentation/widgets/separator.dart';
 import 'package:spoosk/core/presentation/widgets/weather_widget.dart';
 import 'package:spoosk/core/presentation/widgets/widgets.dart';
+import 'package:spoosk/core/utils/utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 @RoutePage()
@@ -49,12 +50,12 @@ class _ResortScreenState extends State<ResortScreen>
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final state = context.watch<ResortByIdBloc>().state;
+        final stateResortById = context.watch<ResortByIdBloc>().state;
         final stateReviews = context.watch<ReviewsByIdBloc>().state;
 
-        print('ResortByID image: ${stateReviews.reviews}');
-        if (state is ResortByIdLoaded ||
-            stateReviews is ReviewsByIdLoaded && state.resortById != null) {
+        if (stateResortById is ResortByIdLoaded ||
+            stateReviews is ReviewsByIdLoaded &&
+                stateResortById.resortById != null) {
           return PopScope(
             canPop: false,
             onPopInvoked: (didPop) {
@@ -62,8 +63,9 @@ class _ResortScreenState extends State<ResortScreen>
               context.router.navigate(const Home());
             },
             child: Scaffold(
-              backgroundColor: const Color(0xFFf8f8f8),
+              backgroundColor: AppColors.background,
               appBar: AppBar(
+                surfaceTintColor: AppColors.background,
                 titleTextStyle: TextStyle(
                   color: AppColors.black,
                   fontSize: 18,
@@ -72,7 +74,7 @@ class _ResortScreenState extends State<ResortScreen>
                 ),
                 title: _seeNameResort
                     ? Text(
-                        state.resortById!.name,
+                        stateResortById.resortById!.name,
                         style: Theme.of(context).textTheme.headlineMedium,
                       )
                     : null,
@@ -156,9 +158,10 @@ class _ResortScreenState extends State<ResortScreen>
                       children: [
                         CustomGallery(
                           listUrl: [
-                            state.resortById!.mainResortImg,
-                            state.resortById!.image,
-                            ...state.resortById!.images.map((e) => e.image)
+                            stateResortById.resortById!.mainResortImg,
+                            stateResortById.resortById!.image,
+                            ...stateResortById.resortById!.images
+                                .map((e) => e.image)
                           ],
                         ),
                         Container(
@@ -167,7 +170,7 @@ class _ResortScreenState extends State<ResortScreen>
                             children: [
                               Text(
                                 key: textKey,
-                                state.resortById!.name,
+                                stateResortById.resortById!.name,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineMedium!
@@ -181,7 +184,8 @@ class _ResortScreenState extends State<ResortScreen>
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 4),
                                     child: Text(
-                                      state.resortById!.rating.toString(),
+                                      stateResortById.resortById!.rating
+                                          .toString(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .labelMedium,
@@ -224,7 +228,8 @@ class _ResortScreenState extends State<ResortScreen>
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headlineMedium,
-                                            state.resortById!.trailLength
+                                            stateResortById
+                                                .resortById!.trailLength
                                                 .toString()),
                                         Text(" км трасс",
                                             style: Theme.of(context)
@@ -253,7 +258,7 @@ class _ResortScreenState extends State<ResortScreen>
                                             ),
                                           ),
                                           Text(
-                                              "${state.resortById?.beginSeason} - ${state.resortById?.endSeason}",
+                                              "${stateResortById.resortById?.beginSeason} - ${stateResortById.resortById?.endSeason}",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyMedium
@@ -280,7 +285,7 @@ class _ResortScreenState extends State<ResortScreen>
                                             ),
                                           ),
                                           Text(
-                                              "Ски-пасс от ${state.resortById?.skipass.toInt()} р.",
+                                              "Ски-пасс от ${stateResortById.resortById?.skipass.toInt()} р.",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyMedium!
@@ -299,7 +304,7 @@ class _ResortScreenState extends State<ResortScreen>
                             margin: const EdgeInsets.only(top: 20),
                             child: const Separator()),
                         MapWidget(
-                          resorts: state.resortById,
+                          resorts: stateResortById.resortById,
                         ),
                         Container(
                             margin: const EdgeInsets.only(top: 20),
@@ -323,7 +328,7 @@ class _ResortScreenState extends State<ResortScreen>
                                   Padding(
                                     padding: const EdgeInsets.only(left: 9),
                                     child: Text(
-                                        "${state.resortById?.heightDifference.toInt()} м",
+                                        "${stateResortById.resortById?.heightDifference.toInt()} м",
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyMedium!
@@ -337,7 +342,7 @@ class _ResortScreenState extends State<ResortScreen>
                                         image_height_mountain_ground),
                                   ),
                                   Text(
-                                      "${state.resortById?.maxHeight.toInt()} м",
+                                      "${stateResortById.resortById?.maxHeight.toInt()} м",
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium!
@@ -354,7 +359,7 @@ class _ResortScreenState extends State<ResortScreen>
                                     Padding(
                                       padding: const EdgeInsets.only(left: 16),
                                       child: Text(
-                                          "${state.resortById?.trailNumber} трасс (${state.resortById?.trailLength} км)",
+                                          "${stateResortById.resortById?.trailNumber} трасс (${stateResortById.resortById?.trailLength} км)",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyMedium!
@@ -368,13 +373,17 @@ class _ResortScreenState extends State<ResortScreen>
                                 margin: const EdgeInsets.only(top: 20),
                                 child: ChartWidget(
                                     chartData: Chart(
-                                        easy: state.resortById!.greenTrails
+                                        easy: stateResortById
+                                            .resortById!.greenTrails
                                             .toInt(),
-                                        hard: state.resortById!.blueTrails
+                                        hard: stateResortById
+                                            .resortById!.blueTrails
                                             .toInt(),
-                                        medium:
-                                            state.resortById!.redTrails.toInt(),
-                                        veryHard: state.resortById!.blackTrails
+                                        medium: stateResortById
+                                            .resortById!.redTrails
+                                            .toInt(),
+                                        veryHard: stateResortById
+                                            .resortById!.blackTrails
                                             .toInt())),
                               ),
                               Container(
@@ -422,7 +431,7 @@ class _ResortScreenState extends State<ResortScreen>
                                                         .copyWith(
                                                             color: AppColors
                                                                 .text_black),
-                                                    state.resortById!
+                                                    stateResortById.resortById!
                                                         .gondolaSkilift
                                                         .toString())
                                               ],
@@ -447,7 +456,7 @@ class _ResortScreenState extends State<ResortScreen>
                                                         .copyWith(
                                                             color: AppColors
                                                                 .text_black),
-                                                    state.resortById!
+                                                    stateResortById.resortById!
                                                         .armchairSkilift
                                                         .toString())
                                               ],
@@ -472,7 +481,7 @@ class _ResortScreenState extends State<ResortScreen>
                                                         .copyWith(
                                                             color: AppColors
                                                                 .text_black),
-                                                    state.resortById!
+                                                    stateResortById.resortById!
                                                         .travelatorsSkilift
                                                         .toString())
                                               ],
@@ -497,7 +506,7 @@ class _ResortScreenState extends State<ResortScreen>
                                                         .copyWith(
                                                             color: AppColors
                                                                 .text_black),
-                                                    state.resortById!
+                                                    stateResortById.resortById!
                                                         .bugelnySkilift
                                                         .toString())
                                               ],
@@ -521,14 +530,16 @@ class _ResortScreenState extends State<ResortScreen>
                                 height: 18,
                               ),
                               SkipassTable(
-                                skipasses: state.resortById?.skipasses,
+                                skipasses:
+                                    stateResortById.resortById?.skipasses,
                               ),
                               Container(
                                   margin: const EdgeInsets.only(top: 20),
                                   child: TextButton(
                                     onPressed: () {
                                       _launchInAppBrowserView(Uri.parse(
-                                          state.resortById!.linkSkipasses));
+                                          stateResortById
+                                              .resortById!.linkSkipasses));
                                     },
                                     child: Text(
                                         style: Theme.of(context)
@@ -553,7 +564,8 @@ class _ResortScreenState extends State<ResortScreen>
                                               .headlineMedium,
                                           "Описание")),
                                   HideTextOverflow(
-                                    fullText: state.resortById?.info ?? "",
+                                    fullText:
+                                        stateResortById.resortById?.info ?? "",
                                     maxSymbols: 147,
                                   )
                                 ],
@@ -574,13 +586,15 @@ class _ResortScreenState extends State<ResortScreen>
                                               .textTheme
                                               .headlineMedium,
                                           "Дополнительные характеристики")),
-                                  AdditionalList(resortById: state.resortById),
+                                  AdditionalList(
+                                      resortById: stateResortById.resortById),
                                   Container(
                                     margin: const EdgeInsets.only(top: 10),
                                     child: TextButton(
                                       onPressed: () {
                                         _launchInAppBrowserView(Uri.parse(
-                                            state.resortById!.linkOfsite));
+                                            stateResortById
+                                                .resortById!.linkOfsite));
                                       },
                                       child: Text(
                                           style: Theme.of(context)
@@ -614,16 +628,18 @@ class _ResortScreenState extends State<ResortScreen>
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headlineMedium,
-                                            state.resortById!.rating
+                                            stateResortById.resortById!.rating
                                                 .toString())),
                                     const Spacer(),
                                     TextButton(
                                       onPressed: () {
                                         context.router.navigate(AllReviewsById(
+                                            resort: stateResortById.resortById,
                                             reviews: stateReviews.reviews));
                                       },
                                       child: Text(
-                                        '${stateReviews.reviews?.length} отзывов',
+                                        declensionWords(
+                                            stateReviews.reviews!.length),
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyMedium!
@@ -647,7 +663,7 @@ class _ResortScreenState extends State<ResortScreen>
                                 height: 40,
                                 color: AppColors.primaryColor,
                                 onTap: () {
-                                  _showModalBottomSheet(state);
+                                  _showModalBottomSheet(stateResortById);
                                 },
                                 buttonText: "Написать отзыв",
                               )
@@ -696,7 +712,7 @@ class _ResortScreenState extends State<ResortScreen>
                           height: 40,
                           color: AppColors.primaryColor,
                           onTap: () {
-                            _showModalBottomSheet(state);
+                            _showModalBottomSheet(stateResortById);
                           },
                           buttonText: "Написать отзыв",
                         ),
@@ -723,7 +739,7 @@ class _ResortScreenState extends State<ResortScreen>
         isScrollControlled: true,
         showDragHandle: true,
         useRootNavigator: true,
-        backgroundColor: AppColors.scaffoldBackgroundLight,
+        useSafeArea: true,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20.0),
@@ -732,7 +748,6 @@ class _ResortScreenState extends State<ResortScreen>
         ),
         context: context,
         builder: (BuildContext context) {
-          print(state.resortById!.name);
           return ReviewForm(
             resort: state.resortById,
           );

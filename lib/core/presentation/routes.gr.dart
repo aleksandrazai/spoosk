@@ -10,6 +10,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i21;
 import 'package:flutter/material.dart' as _i22;
+import 'package:spoosk/core/data/models/ResortById.dart' as _i24;
 import 'package:spoosk/core/data/models/reviews.dart' as _i23;
 import 'package:spoosk/core/presentation/routes.dart' as _i8;
 import 'package:spoosk/core/presentation/screens/all_resorts.dart' as _i1;
@@ -56,6 +57,7 @@ abstract class $AppRouter extends _i21.RootStackRouter {
         child: _i2.AllReviewsById(
           key: args.key,
           reviews: args.reviews,
+          resort: args.resort,
         ),
       );
     },
@@ -216,12 +218,14 @@ class AllReviewsById extends _i21.PageRouteInfo<AllReviewsByIdArgs> {
   AllReviewsById({
     _i22.Key? key,
     required List<_i23.Review>? reviews,
+    _i24.ResortById? resort,
     List<_i21.PageRouteInfo>? children,
   }) : super(
           AllReviewsById.name,
           args: AllReviewsByIdArgs(
             key: key,
             reviews: reviews,
+            resort: resort,
           ),
           initialChildren: children,
         );
@@ -236,15 +240,18 @@ class AllReviewsByIdArgs {
   const AllReviewsByIdArgs({
     this.key,
     required this.reviews,
+    this.resort,
   });
 
   final _i22.Key? key;
 
   final List<_i23.Review>? reviews;
 
+  final _i24.ResortById? resort;
+
   @override
   String toString() {
-    return 'AllReviewsByIdArgs{key: $key, reviews: $reviews}';
+    return 'AllReviewsByIdArgs{key: $key, reviews: $reviews, resort: $resort}';
   }
 }
 

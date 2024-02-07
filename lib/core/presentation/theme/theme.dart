@@ -6,7 +6,9 @@ const fontFamily = 'Nunito Sans';
 class CustomTheme {
   static ThemeData lightTheme = ThemeData(
     primaryColor: AppColors.primaryColor,
-    scaffoldBackgroundColor: AppColors.scaffoldBackgroundLight,
+    scaffoldBackgroundColor: AppColors.background,
+    bottomSheetTheme:
+        BottomSheetThemeData(backgroundColor: AppColors.background),
     textTheme: TextTheme(
       //H3
       headlineLarge: TextStyle(

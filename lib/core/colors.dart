@@ -6,7 +6,7 @@ class AppColors {
   static Color primaryColor = const Color(0xFF005FF9);
   static Color scaffoldBackgroundLight = const Color(0xFFF5F5F5);
   static Color primaryFontLight = const Color(0xFF232323);
-  static Color white = const Color.fromARGB(255, 255, 255, 255);
+  static Color white = const Color(0xFFFFFFFF);
   static Color transparent = Colors.transparent;
   static Color black = Colors.black;
   static Color text_black = const Color(0xFF232323);

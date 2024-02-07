@@ -48,166 +48,170 @@ class _ReviewFormState extends State<ReviewForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          )),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  alignment: Alignment.centerLeft,
-                  width: 60,
-                  height: 60,
-                  clipBehavior: Clip.hardEdge,
-                  decoration: ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      color: Colors.blue),
-                  child: CustomImageNetwork(
-                      listImages: [widget.resort.image],
-                      height: 60,
-                      width: 60,
-                      fit: BoxFit.fill,
-                      src: [widget.resort.mainResortImg]),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+    return SafeArea(
+        maintainBottomViewPadding: true,
+        child: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.only(
+                top: MediaQuery.of(context).viewInsets.top,
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            decoration: BoxDecoration(
+                color: AppColors.white,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                )),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(widget.resort.name,
-                          style: Theme.of(context).textTheme.headlineMedium),
-                      Text(widget.resort.region,
-                          style: Theme.of(context).textTheme.bodyMedium),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        width: 60,
+                        height: 60,
+                        clipBehavior: Clip.hardEdge,
+                        decoration: ShapeDecoration(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            color: Colors.blue),
+                        child: CustomImageNetwork(
+                            listImages: [widget.resort.image],
+                            height: 60,
+                            width: 60,
+                            fit: BoxFit.fill,
+                            src: [widget.resort.mainResortImg]),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(widget.resort.name,
+                                style:
+                                    Theme.of(context).textTheme.headlineMedium),
+                            Text(widget.resort.region,
+                                style: Theme.of(context).textTheme.bodyMedium),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-              'Как бы вы оценили курорт?',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            Container(
-              alignment: Alignment.topLeft,
-              child: RatingBar.builder(
-                  initialRating: widget.review?.rating?.toDouble() ?? 0,
-                  direction: Axis.horizontal,
-                  allowHalfRating: false,
-                  itemCount: 5,
-                  itemPadding: const EdgeInsets.all(10),
-                  itemBuilder: (context, index) {
-                    return SvgPicture.asset(
-                      image_star,
-                      height: 32,
-                      width: 32,
-                    );
-                  },
-                  onRatingUpdate: _setRating),
-            ),
-            Container(
-              alignment: Alignment.topLeft,
-              padding: const EdgeInsets.all(20),
-              height: 105,
-              width: MediaQuery.of(context).size.width * 0.9,
-              decoration: ShapeDecoration(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                color: const Color(0xFFF6F6F6),
-              ),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.8,
-                child: TextField(
-                  controller: _textEditingController,
-                  maxLines: null,
-                  expands: true,
-                  keyboardType: TextInputType.multiline,
-                  decoration: const InputDecoration(
-                    fillColor: Color(0xFFF6F6F6),
-                    border: InputBorder.none,
-                    filled: true,
-                    hintText:
-                        'Дополни свою оценку отзывом - это поможет другим райдерам определится с выбором курорта',
-                    hintMaxLines: 5,
-                    hintStyle: TextStyle(
-                      color: Color(0xFF9B9CA0),
-                      fontSize: 14,
-                      fontFamily: 'Nunito Sans',
-                      fontWeight: FontWeight.w400,
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Как бы вы оценили курорт?',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  Container(
+                    alignment: Alignment.topLeft,
+                    child: RatingBar.builder(
+                        initialRating: widget.review?.rating?.toDouble() ?? 0,
+                        direction: Axis.horizontal,
+                        allowHalfRating: false,
+                        itemCount: 5,
+                        itemPadding: const EdgeInsets.all(10),
+                        itemBuilder: (context, index) {
+                          return SvgPicture.asset(
+                            image_star,
+                            height: 32,
+                            width: 32,
+                          );
+                        },
+                        onRatingUpdate: _setRating),
+                  ),
+                  Container(
+                    alignment: Alignment.topLeft,
+                    padding: const EdgeInsets.all(20),
+                    height: 105,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    decoration: ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      color: const Color(0xFFF6F6F6),
+                    ),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: TextField(
+                        controller: _textEditingController,
+                        maxLines: null,
+                        expands: true,
+                        keyboardType: TextInputType.multiline,
+                        decoration: const InputDecoration(
+                          fillColor: Color(0xFFF6F6F6),
+                          border: InputBorder.none,
+                          filled: true,
+                          hintText:
+                              'Дополни свою оценку отзывом - это поможет другим райдерам определится с выбором курорта',
+                          hintMaxLines: 5,
+                          hintStyle: TextStyle(
+                            color: Color(0xFF9B9CA0),
+                            fontSize: 14,
+                            fontFamily: 'Nunito Sans',
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                      style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.primaryFontLight),
+                      "Дополни свой отзыв фотографиями"),
+                  Wrap(
+                    spacing: 12,
+                    children: [
+                      ImagePicker(
+                        getImage: (listImage) async {
+                          final List<File> result =
+                              // ignore: prefer_collection_literals
+                              Set<File>.from([...selectedImage, ...listImage])
+                                  .toList();
+                          setState(() {
+                            selectedImage = result;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 28, top: 24),
+                    child: CustomButton(
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .headlineMedium
+                            ?.copyWith(color: AppColors.white, fontSize: 16),
+                        boxDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10)),
+                        height: 40,
+                        color: AppColors.primaryColor,
+                        buttonText: "Отправить отзыв",
+                        onTap: () {
+                          if (widget.review?.id == null) {
+                            _sendReviews(context);
+                          }
+                          _sendEditedReviews();
+                        }),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-                style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.primaryFontLight),
-                "Дополни свой отзыв фотографиями"),
-            Wrap(
-              spacing: 12,
-              children: [
-                ImagePicker(
-                  getImage: (listImage) async {
-                    final List<File> result =
-                        // ignore: prefer_collection_literals
-                        Set<File>.from([...selectedImage, ...listImage])
-                            .toList();
-                    setState(() {
-                      selectedImage = result;
-                    });
-                  },
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.9,
-              height: 36,
-              child: CustomButton(
-                  textStyle: Theme.of(context)
-                      .textTheme
-                      .headlineMedium
-                      ?.copyWith(color: AppColors.white, fontSize: 16),
-                  boxDecoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                  height: 36,
-                  color: AppColors.primaryColor,
-                  buttonText: "Отправить отзыв",
-                  onTap: () {
-                    if (widget.review?.id == null) {
-                      _sendReviews(context);
-                    }
-                    _sendEditedReviews();
-                  }),
-            ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 
   _setRating(double rating) {
