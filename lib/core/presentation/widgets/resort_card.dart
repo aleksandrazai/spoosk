@@ -59,12 +59,11 @@ class ResortCard extends StatelessWidget {
                       resort.rating.toString(),
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
-                    //reviews нет в API
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4),
                       child: Text(
-                        '(278)',
-                        style: Theme.of(context).textTheme.bodyMedium,
+                        '(${resort.numberReviews.toString()})',
+                        style: Theme.of(context).textTheme.labelMedium,
                       ),
                     ),
                   ],
@@ -105,7 +104,7 @@ class ResortCard extends StatelessWidget {
                           height: 18, width: 18),
                     ),
                     Text(
-                      'от ${resort.skipass.toString()} р.',
+                      'от ${resort.skipass.toInt()} р.',
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
                   ],

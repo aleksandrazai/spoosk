@@ -110,36 +110,38 @@ class ReviewCard extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                child: SizedBox(
+                child: Container(
+                  alignment: Alignment.topLeft,
                   child: HideTextOverflow(
-                      fullText: reviews.text ?? "", maxSymbols: 170),
+                      fullText: reviews.text ?? '', maxSymbols: 170),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6),
+                padding: const EdgeInsets.all(4),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      ...(reviews.images ?? []).map((e) => Container(
-                            clipBehavior: Clip.hardEdge,
-                            margin: const EdgeInsets.symmetric(horizontal: 6),
-                            decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5)),
-                            ),
-                            height: 72,
-                            width: 120,
-                            child: CustomImageNetwork(listImages: [
-                              ...reviews.images!.map((e) => e.image)
-                            ], src: [
-                              e.image
-                            ], fit: BoxFit.cover),
-                          ))
+                      ...(reviews.images ?? []).map(
+                        (e) => Container(
+                          clipBehavior: Clip.hardEdge,
+                          margin: const EdgeInsets.symmetric(horizontal: 6),
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                          ),
+                          height: 72,
+                          width: 120,
+                          child: CustomImageNetwork(listImages: [
+                            ...reviews.images!.map((e) => e.image)
+                          ], src: [
+                            e.image
+                          ], fit: BoxFit.cover),
+                        ),
+                      ),
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
