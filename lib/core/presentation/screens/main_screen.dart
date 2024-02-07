@@ -25,7 +25,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return AutoTabsRouter(
       inheritNavigatorObservers: true,
-      routes: const [Home(), Selection(), Comparison(), Favorites(), Profile()],
+      routes: const [Home(), Selection(), Favorites(), Profile()],
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);
         return BlocBuilder<PorularResortBloc, PorularResortState>(
@@ -67,15 +67,16 @@ class _MainScreenState extends State<MainScreen> {
                       } else if (index == 1) {
                         // Navigate to the Selection page.
                         AutoRouter.of(context).navigate(const Selection());
-                      } else if (index == 2) {
-                        // Navigate to the Comparison page.
-                        AutoRouter.of(context).navigate(const Comparison());
-                      } else if (index == 3) {
+                      }
+                      // else if (index == 2) {
+                      //   // Navigate to the Comparison page.
+                      //   AutoRouter.of(context).navigate(const Comparison());
+                      else if (index == 2) {
                         // Navigate to the Selected page.
                         AutoRouter.of(context).navigate(
                           const Favorites(),
                         );
-                      } else if (index == 4) {
+                      } else if (index == 3) {
                         // Navigate to the Profile page.
                         AutoRouter.of(context).navigate(const Profile());
                       }
@@ -107,19 +108,19 @@ class _MainScreenState extends State<MainScreen> {
                             image_search,
                             color: AppColors.icons_active_blue,
                           )),
-                      BottomNavigationBarItem(
-                          icon: SvgPicture.asset(
-                              height: 20,
-                              width: 20,
-                              image_comparison,
-                              color: AppColors.icons_not_Active_gray),
-                          label: 'Сравнение',
-                          activeIcon: SvgPicture.asset(
-                            height: 20,
-                            width: 20,
-                            image_comparison,
-                            color: AppColors.icons_active_blue,
-                          )),
+                      // BottomNavigationBarItem(
+                      //     icon: SvgPicture.asset(
+                      //         height: 20,
+                      //         width: 20,
+                      //         image_comparison,
+                      //         color: AppColors.icons_not_Active_gray),
+                      //     label: 'Сравнение',
+                      //     activeIcon: SvgPicture.asset(
+                      //       height: 20,
+                      //       width: 20,
+                      //       image_comparison,
+                      //       color: AppColors.icons_active_blue,
+                      //     )),
                       BottomNavigationBarItem(
                           icon: SvgPicture.asset(
                               height: 20,

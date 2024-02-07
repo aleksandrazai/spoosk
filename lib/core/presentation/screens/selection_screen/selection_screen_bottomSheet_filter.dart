@@ -243,13 +243,13 @@ class _SelectionScreenBottomSheetFilterState
             ),
             Expanded(
               child: Align(
-                alignment: Alignment.bottomCenter,
+                // alignment: Alignment.bottomCenter,
                 child: Flex(
                   mainAxisAlignment: MainAxisAlignment.center,
                   direction: Axis.horizontal,
                   children: [
                     Flexible(
-                        flex: 2,
+                        flex: 1,
                         child: CustomButton(
                           textStyle:
                               Theme.of(context).textTheme.headlineMedium?.copyWith(
@@ -316,7 +316,7 @@ class _SelectionScreenBottomSheetFilterState
                       width: 8,
                     ),
                     Flexible(
-                      flex: 2,
+                      flex: 1,
                       child: CustomButton(
                         textStyle: Theme.of(context)
                             .textTheme
