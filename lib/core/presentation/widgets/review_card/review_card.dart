@@ -108,16 +108,15 @@ class ReviewCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Padding(
+              Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                child: Container(
-                  alignment: Alignment.topLeft,
-                  child: HideTextOverflow(
-                      fullText: reviews.text ?? '', maxSymbols: 170),
-                ),
+                alignment: Alignment.topLeft,
+                child: HideTextOverflow(
+                    fullText: reviews.text ?? '', maxSymbols: 170),
               ),
-              Padding(
+              Container(
                 padding: const EdgeInsets.all(4),
+                alignment: Alignment.topLeft,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(

@@ -5,11 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/data/API/RequestController.dart';
-import 'package:spoosk/core/data/DB/DBController_user_auth.dart';
-import 'package:spoosk/core/data/DB/DBController_user_auth.dart';
-import 'package:spoosk/core/data/models/user_login.dart';
 import 'package:spoosk/core/data/repositories/DI/service.dart';
-import 'package:spoosk/core/domain/useCases/AuthUseCase.dart';
 import 'package:spoosk/core/domain/useCases/SearchHistoryUseCase.dart';
 import 'package:spoosk/core/presentation/bloc_favorites_users/favorites_users_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_reviews_home/reviews_home_bloc.dart';
@@ -17,7 +13,6 @@ import 'package:spoosk/core/presentation/bloc_search_history/search_history_bloc
 import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
 import 'package:spoosk/core/presentation/blocs_init/bloc/request_controller_bloc.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
-import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
 
 import '../widgets/widgets.dart';
 
@@ -49,8 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    UserProfileBloc userBloc = context.read<UserProfileBloc>();
-
     return Builder(
       builder: (context) {
         final stateResorts = context.watch<PorularResortBloc>().state;
@@ -112,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         .copyWith(top: 20, bottom: 8),
                     child: const CardsHeaderPopularALL(
                       header: 'Популярные курорты',
-                      showButton: true,
+                      showButton: false,
                     ),
                   ),
                 ),
@@ -148,32 +141,35 @@ class _HomeScreenState extends State<HomeScreen> {
                     childCount: stateReviews.reviews!.results.length,
                     (context, index) {
                       final reviews = stateReviews.reviews!.results[index];
-                      return ReviewCard(
-                        reviews: reviews,
-                        showSettings: false,
+                      return Container(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: ReviewCard(
+                          reviews: reviews,
+                          showSettings: false,
+                        ),
                       );
                     },
                   ),
                 ),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.all(
-                      16.0,
-                    ).copyWith(bottom: 16),
-                    child: CustomButton(
-                      boxDecoration:
-                          BoxDecoration(borderRadius: BorderRadius.circular(8)),
-                      textStyle: Theme.of(context)
-                          .textTheme
-                          .labelMedium
-                          ?.copyWith(color: AppColors.white),
-                      height: 40,
-                      color: AppColors.primaryColor,
-                      onTap: () {},
-                      buttonText: "Написать отзыв",
-                    ),
-                  ),
-                ),
+                // SliverToBoxAdapter(
+                //   child: Padding(
+                //     padding: const EdgeInsets.all(
+                //       16.0,
+                //     ).copyWith(bottom: 16),
+                //     child: CustomButton(
+                //       boxDecoration:
+                //           BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                //       textStyle: Theme.of(context)
+                //           .textTheme
+                //           .labelMedium
+                //           ?.copyWith(color: AppColors.white),
+                //       height: 40,
+                //       color: AppColors.primaryColor,
+                //       onTap: () {},
+                //       buttonText: "Написать отзыв",
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           );
