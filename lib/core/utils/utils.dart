@@ -1,3 +1,5 @@
+import 'package:flutter/widgets.dart';
+
 String declensionWords(int? count) {
   if (count == null) {
     return '';
@@ -11,5 +13,16 @@ String declensionWords(int? count) {
     return '$count отзыва';
   } else {
     return '$count отзывов';
+  }
+}
+
+// ------------------------------ Адавптивные размеры ------------------------------
+// baseWidth - размер от размера макета макета
+class PercentCalculator {
+  static double calculatePercent(double width, double baseWidth) {
+    if (baseWidth == 0) {
+      throw ArgumentError('baseWidth cannot be 0.');
+    }
+    return (width / baseWidth) * 100;
   }
 }

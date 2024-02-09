@@ -48,6 +48,7 @@ class _CustomButtonFilterState extends State<CustomButtonFilter> {
           borderRadius: const BorderRadius.all(Radius.circular(12)),
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
             if (widget.icon != null) ...[

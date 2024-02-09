@@ -84,23 +84,24 @@ class _CustomCardImageState extends State<CustomCardImage> {
               ),
             ),
           ),
-          Positioned(
-            top: 4,
-            right: 46,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                shape: const CircleBorder(),
-                elevation: 0,
-                backgroundColor: const Color.fromARGB(77, 0, 0, 61),
-              ),
-              child: const Icon(
-                Icons.bar_chart_outlined,
-                size: 18,
-                color: Colors.white,
-              ),
-            ),
-          ),
+          // Раскоммитить для добавления в сравнения
+          // Positioned(
+          //   top: 4,
+          //   right: 46,
+          //   child: ElevatedButton(
+          //     onPressed: () {},
+          //     style: ElevatedButton.styleFrom(
+          //       shape: const CircleBorder(),
+          //       elevation: 0,
+          //       backgroundColor: const Color.fromARGB(77, 0, 0, 61),
+          //     ),
+          //     child: const Icon(
+          //       Icons.bar_chart_outlined,
+          //       size: 18,
+          //       color: Colors.white,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
