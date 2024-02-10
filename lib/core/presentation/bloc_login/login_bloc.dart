@@ -37,9 +37,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Future<void> initDataBase({UserData? userData}) async {
-    final List<UserData> data = await dbController_user_auth.getDataList();
-    print(data);
     await dbController_user_auth
         .insert(UserData(token: userData!.token, id: userData.id));
+    UserTokenConfig.setToken(userData.token!);
   }
 }
