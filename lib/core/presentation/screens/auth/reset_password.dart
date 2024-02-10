@@ -1,9 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
+import 'package:spoosk/core/presentation/widgets/loading_overlay.dart';
 import '../../../colors.dart';
-import '../../../data/models/user_id_notifier.dart';
 import '../../bloc_password_reset/reset_bloc.dart';
 import '../../routes.gr.dart';
 import '../../theme/theme.dart';
@@ -22,6 +21,7 @@ class ResetPasswordScreen extends StatefulWidget {
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   final _emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final LoadingOverlay _loadingOverlay = LoadingOverlay();
   String errorMessage = '';
 
   @override
@@ -60,10 +60,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       body: BlocListener<ResetBloc, ResetState>(
         listener: (context, state) {
           if (state is ResetSuccessfull) {
-            final userId = state.id;
-            Provider.of<UserDataProvider>(context, listen: false)
-                .setUserId(userId);
-            context.router.navigate(EnterCodeRoute(sourcePage: 'Reset'));
+            _navigateEnterCode(state, context);
           }
         },
         child: Padding(
@@ -113,19 +110,26 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   color: AppColors.primaryColor,
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
-                      Feedback.forTap(context);
-                      context
-                          .read<ResetBloc>()
-                          .add(ResetRequested(email: _emailController.text));
+                      _onResetRequested(context);
                     }
-                    context.router
-                        .navigate(EnterCodeRoute(sourcePage: 'Сброс'));
                   }),
             ],
           ),
         ),
       ),
     );
+  }
+
+  void _onResetRequested(BuildContext context) {
+    Feedback.forTap(context);
+    _loadingOverlay.show(context);
+    context.read<ResetBloc>().add(ResetRequested(email: _emailController.text));
+  }
+
+  void _navigateEnterCode(ResetSuccessfull state, BuildContext context) {
+    _loadingOverlay.hide();
+    final userId = state.id;
+    context.router.navigate(EnterCodeRoute(sourcePage: 'Reset', id: userId));
   }
 
   bool _isValidEmail(String value) {

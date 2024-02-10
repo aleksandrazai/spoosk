@@ -4,7 +4,7 @@ class NewPasswordEvent {}
 
 class PasswordEntered extends NewPasswordEvent {
   final String password;
-  final num id;
+  final int id;
   final String token;
 
   PasswordEntered(

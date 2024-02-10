@@ -10,7 +10,9 @@ part 'register_state.dart';
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   RegisterBloc() : super(RegisterInitial()) {
     RequestController requestController = RequestController();
+
     on<RegisterFormFilled>((event, emit) async {
+      emit(RegisterLoading());
       try {
         final UserRegister? userRegister = await requestController.userRegister(
             email: event.email,

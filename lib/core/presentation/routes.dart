@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:spoosk/core/presentation/screens/all_resorts.dart';
 import 'routes.gr.dart';
 
 @AutoRouterConfig()
@@ -36,7 +35,7 @@ class AppRouter extends $AppRouter {
               page: LoginEmptyRoute.page,
               path: 'emptylogin',
               children: [
-                RedirectRoute(path: '', redirectTo: 'emptylogin'),
+                RedirectRoute(path: '', redirectTo: 'login'),
                 AutoRoute(
                     page: ProfileEmptyRoute.page,
                     path: 'emptyprofile',
@@ -46,6 +45,7 @@ class AppRouter extends $AppRouter {
                       AutoRoute(page: UserReviews.page, path: 'reviews'),
                       AutoRoute(
                           page: UserProfileRoute.page, path: 'userprofile'),
+                      AutoRoute(page: LoginRoute.page, path: 'login'),
                     ]),
                 AutoRoute(page: Profile.page, path: 'profile'),
                 AutoRoute(page: LoginRoute.page, path: 'login'),

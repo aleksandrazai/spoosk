@@ -14,7 +14,6 @@ import 'package:spoosk/core/data/models/user_login.dart';
 import 'package:spoosk/core/data/models/user_profile.dart';
 import 'package:spoosk/core/data/models/user_register.dart';
 import 'package:spoosk/core/domain/useCases/AuthUseCase.dart';
-import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
 
 class RequestController {
   final Dio _dio = Dio();
@@ -322,7 +321,8 @@ class RequestController {
         'password': password,
       };
       print('Request Data: $requestData, $id');
-      final response = await _dio.post(setPassword,
+      final response = await _dio.post(
+          _baseUrl + ApiConfigResetPassword.setPassword(id: id),
           data: requestData,
           options:
               ApiConfigResetPassword.getHeaders(userTokenPassword: userToken));

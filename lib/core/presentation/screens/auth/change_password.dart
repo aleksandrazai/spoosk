@@ -1,9 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
+import 'package:spoosk/core/presentation/widgets/loading_overlay.dart';
 import '../../../colors.dart';
-import '../../../data/models/user_id_notifier.dart';
 import '../../bloc_password_new/new_password_bloc.dart';
 import '../../routes.gr.dart';
 import '../../theme/theme.dart';
@@ -12,7 +11,10 @@ import '../../widgets/custom_login_field.dart';
 
 @RoutePage()
 class ChangePasswordScreen extends StatefulWidget {
-  const ChangePasswordScreen({super.key});
+  const ChangePasswordScreen(
+      {super.key, required this.id, required this.token});
+  final int id;
+  final String token;
 
   @override
   State<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
@@ -21,6 +23,7 @@ class ChangePasswordScreen extends StatefulWidget {
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final LoadingOverlay _loadingOverlay = LoadingOverlay();
 
   @override
   Widget build(BuildContext context) {
@@ -39,23 +42,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       body: BlocListener<NewPasswordBloc, NewPasswordState>(
         listener: (context, state) {
           if (state is NewPasswordSuccessfull) {
-            showDialog(
-              context: context,
-              barrierDismissible: true,
-              builder: ((BuildContext context) {
-                return AlertDialog(
-                  title: const Text('Пароль успешно изменен'),
-                  actions: [
-                    TextButton(
-                        onPressed: () {
-                          context.router.push(const LoginRoute());
-                          context.router.pop();
-                        },
-                        child: const Text('Закрыть'))
-                  ],
-                );
-              }),
-            );
+            _loadingOverlay.hide();
+            _onPasswordChanged(context);
+          }
+          if (state is NewPasswordFailed) {
+            _loadingOverlay.hide();
           }
         },
         child: Padding(
@@ -113,15 +104,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 color: AppColors.primaryColor,
                 onTap: () {
                   if (_formKey.currentState!.validate()) {
-                    Feedback.forTap(context);
-                    context.read<NewPasswordBloc>().add(PasswordEntered(
-                        password: _passwordController.text,
-                        id: Provider.of<UserDataProvider>(context,
-                                listen: false)
-                            .userId,
-                        token: Provider.of<UserDataProvider>(context,
-                                listen: false)
-                            .userToken));
+                    _onChangeRequest(context);
                   }
                 },
               ),
@@ -129,6 +112,37 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  void _onChangeRequest(BuildContext context) {
+    Feedback.forTap(context);
+    _loadingOverlay.show(context);
+    context.read<NewPasswordBloc>().add(
+          PasswordEntered(
+              password: _passwordController.text,
+              id: widget.id,
+              token: widget.token),
+        );
+  }
+
+  void _onPasswordChanged(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: ((BuildContext context) {
+        return AlertDialog(
+          title: const Text('Пароль успешно изменен'),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  context.router.navigate(const LoginRoute());
+                  context.router.pop();
+                },
+                child: const Text('Закрыть'))
+          ],
+        );
+      }),
     );
   }
 }

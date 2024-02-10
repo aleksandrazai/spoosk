@@ -8,8 +8,18 @@ class LoadingOverlay {
   void show(BuildContext context) {
     if (_overlay == null) {
       _overlay = OverlayEntry(
-        builder: (context) => const Center(
-          child: CircularProgressIndicator(),
+        builder: (context) => Stack(
+          children: [
+            Positioned.fill(
+              child: GestureDetector(
+                onTap: () {}, // Prevents taps from passing through
+                behavior: HitTestBehavior.opaque,
+              ),
+            ),
+            const Center(
+              child: CircularProgressIndicator(),
+            ),
+          ],
         ),
       );
       Overlay.of(context).insert(_overlay!);
@@ -20,6 +30,8 @@ class LoadingOverlay {
     if (_overlay != null) {
       _overlay?.remove();
       _overlay = null;
+
+      ;
     }
   }
 }
