@@ -68,39 +68,40 @@ class _FavoritesState extends State<Favorites>
     int? userId = userBloc.getUserId();
 
     print("Widget build $userId");
-    return Scaffold(
-        appBar: AppBar(
-            backgroundColor: const Color(0xFFf8f8f8),
-            elevation: 0,
-            title: Text(
-              'Избранное',
-              style: Theme.of(context).textTheme.headlineMedium,
-            )),
-        body: BlocBuilder<FavoritesUsersBloc, FavoritesUsersState>(
-          builder: (context, state) {
-            if (userId == null && isAuth == false) {
-              return const LoginScreen();
-            }
-            if (state is FavoritesUsersAll && state.resorts != null) {
-              return ListView.builder(
-                itemCount: state.resorts!.length,
-                itemBuilder: (context, index) {
-                  final resort = state.resorts![index];
-                  return ResortCard(resort: resort);
-                },
-              );
-            }
-            if (state is FavoritesUsersAll &&
-                state.resorts != null &&
-                state.resorts!.isEmpty) {
-              return const Center(
-                child: Text("Список пуст"),
-              );
-            }
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          },
-        ));
+    return BlocBuilder<FavoritesUsersBloc, FavoritesUsersState>(
+      builder: (context, state) {
+        if (userId == null && isAuth == false) {
+          return const LoginScreen();
+        }
+        if (state is FavoritesUsersAll && state.resorts != null) {
+          return Scaffold(
+            appBar: AppBar(
+                backgroundColor: const Color(0xFFf8f8f8),
+                elevation: 0,
+                title: Text(
+                  'Избранное',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                )),
+            body: ListView.builder(
+              itemCount: state.resorts!.length,
+              itemBuilder: (context, index) {
+                final resort = state.resorts![index];
+                return ResortCard(resort: resort);
+              },
+            ),
+          );
+        }
+        if (state is FavoritesUsersAll &&
+            state.resorts != null &&
+            state.resorts!.isEmpty) {
+          return const Center(
+            child: Text("Список пуст"),
+          );
+        }
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
   }
 }
