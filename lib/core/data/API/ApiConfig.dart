@@ -87,7 +87,7 @@ class ApiConfigUserGet {
 // Получает список избронных у пользователя
   static String Function({required int userId}) getAddedFavorites =
       ({required int userId}) {
-    return 'api/users/${userId}/favorites/';
+    return 'api/users/$userId/favorites/';
   };
 }
 
@@ -97,12 +97,12 @@ class ApiConfigResetPassword {
       method: "POST",
       headers: {
         "API-key": token,
-        "Authorization": userTokenPassword,
+        "Authorization": "Token $userTokenPassword",
       },
     );
   }
 
-  static String Function({required num id}) setPassword = ({required num id}) {
+  static String Function({required int id}) setPassword = ({required int id}) {
     return 'api/users/$id/change_password/';
   };
 }

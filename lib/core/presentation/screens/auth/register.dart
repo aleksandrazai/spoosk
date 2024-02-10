@@ -1,9 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import '../../../colors.dart';
-import '../../../data/models/user_id_notifier.dart';
 import '../../bloc_register/register_bloc.dart';
 import '../../routes.gr.dart';
 import '../../theme/theme.dart';
@@ -47,19 +45,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return BlocListener<RegisterBloc, RegisterState>(
       listener: (context, state) {
         if (state is RegisterSuccessfull) {
-          // _loadingOverlay.hide();
-          final userId = state.id;
-          Provider.of<UserDataProvider>(context, listen: false)
-              .setUserId(userId);
-          context.router.push(EnterCodeRoute(sourcePage: 'Регистрация'));
+          _navigateEnterCode(state, context);
         }
         if (state is RegisterFailed) {
-          // _loadingOverlay.hide();
+          _loadingOverlay.hide();
           errorMessage = 'Пользователь с таким email уже существует';
         }
-        // if (state is RegisterLoading) {
-        //   _loadingOverlay.show(context);
-        // }
       },
       child: Scaffold(
         appBar: AppBar(
@@ -158,11 +149,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     color: AppColors.primaryColor,
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
-                        Feedback.forTap(context);
-                        context.read<RegisterBloc>().add(RegisterFormFilled(
-                            email: _emailController.text,
-                            password: _passwordController.text,
-                            name: _nameController.text));
+                        _onRegisterRequested(context);
                       }
                     }),
                 const SizedBox(height: 16),
@@ -183,6 +170,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       ),
     );
+  }
+
+  void _navigateEnterCode(RegisterSuccessfull state, BuildContext context) {
+    _loadingOverlay.hide();
+    final userId = state.id;
+    context.router
+        .navigate(EnterCodeRoute(sourcePage: 'Регистрация', id: userId));
+  }
+
+  void _onRegisterRequested(BuildContext context) {
+    Feedback.forTap(context);
+    _loadingOverlay.show(context);
+    context.read<RegisterBloc>().add(RegisterFormFilled(
+        email: _emailController.text,
+        password: _passwordController.text,
+        name: _nameController.text));
   }
 
   bool _isValidEmail(String value) {

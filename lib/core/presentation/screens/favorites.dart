@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_favorites_users/favorites_users_bloc.dart';
 import 'package:spoosk/core/presentation/bloc_user_by_id/user_bloc.dart';
+import 'package:spoosk/core/presentation/screens/auth/login.dart';
 import 'package:spoosk/core/presentation/widgets/resort_card.dart';
 
 @RoutePage()
@@ -78,7 +79,7 @@ class _FavoritesState extends State<Favorites>
         body: BlocBuilder<FavoritesUsersBloc, FavoritesUsersState>(
           builder: (context, state) {
             if (userId == null && isAuth == false) {
-              return const Center(child: Text("Требуется авторизация"));
+              return const LoginScreen();
             }
             if (state is FavoritesUsersAll && state.resorts != null) {
               return ListView.builder(

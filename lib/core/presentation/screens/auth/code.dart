@@ -2,9 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
-import 'package:provider/provider.dart';
+import 'package:spoosk/core/presentation/widgets/loading_overlay.dart';
 import '../../../colors.dart';
-import '../../../data/models/user_id_notifier.dart';
 import '../../bloc_user_by_id/user_bloc.dart';
 import '../../bloc_verify_code/verify_code_bloc.dart';
 import '../../routes.gr.dart';
@@ -14,9 +13,9 @@ import '../../widgets/custom_leading.dart';
 
 @RoutePage()
 class EnterCodeScreen extends StatefulWidget {
-  EnterCodeScreen({super.key, required this.sourcePage});
+  EnterCodeScreen({super.key, required this.sourcePage, required this.id});
   String sourcePage;
-
+  int id;
   @override
   State<EnterCodeScreen> createState() => _EnterCodeScreenState();
 }
@@ -25,6 +24,7 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
   final pinController = TextEditingController();
   final focusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
+  final LoadingOverlay _loadingOverlay = LoadingOverlay();
   String errorMessage = '';
 
   @override
@@ -52,7 +52,7 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
   Widget build(BuildContext context) {
     String messageText;
     String buttonText;
-    late VoidCallback route;
+    late void Function(String?) route;
     late VoidCallback bloc;
 
     const String registerText =
@@ -62,21 +62,21 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
     const String registerButton = 'Зарегистрироваться';
     const String resetButton = 'Сбросить пароль';
 
-    if (widget.sourcePage == 'Регистрация') {
-      messageText = registerText;
-      buttonText = registerButton;
-      route = () => context.router.push(const UserProfileRoute());
-      bloc = () => context.read<UserProfileBloc>().add(GetUserInfo(
-          userId:
-              Provider.of<UserDataProvider>(context, listen: false).userId));
-    } else {
-      messageText = resetText;
-      buttonText = resetButton;
-      route = () {
-        context.router.push(const ChangePasswordRoute());
-      };
-      bloc = () {};
-    }
+    final isRegistration = widget.sourcePage == 'Регистрация';
+    messageText = isRegistration ? registerText : resetText;
+    buttonText = isRegistration ? registerButton : resetButton;
+
+    route = isRegistration
+        ? (token) => context.router.push(const UserProfileRoute())
+        : (String? token) {
+            context.router
+                .push(ChangePasswordRoute(id: widget.id, token: token!));
+          };
+
+    bloc = isRegistration
+        ? () =>
+            context.read<UserProfileBloc>().add(GetUserInfo(userId: widget.id))
+        : () {};
 
     const focusedBorderColor = Color(0xFF005FF9);
     const fillColor = Color.fromRGBO(243, 246, 249, 0);
@@ -111,13 +111,13 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
       body: BlocListener<VerifyCodeBloc, VerifyCodeState>(
         listener: (context, state) {
           if (state is VerifyCodeSuccessfull) {
-            route;
-            bloc;
+            _loadingOverlay.hide();
             final token = state.userdata.token;
-            Provider.of<UserDataProvider>(context, listen: false)
-                .setUserToken(token!);
+            route(token);
+            bloc();
           }
           if (state is VerifyCodeFailed) {
+            _loadingOverlay.hide();
             setState(() {
               errorMessage = 'Введен неверный код';
             });
@@ -128,7 +128,7 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 48.0),
+                padding: const EdgeInsets.symmetric(vertical: 48.0),
                 //TODO: добавить почту пользователя
                 child: Text(
                   messageText,
@@ -204,11 +204,9 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
                     onTap: () {
                       if (formKey.currentState!.validate()) {
                         Feedback.forTap(context);
-                        context.read<VerifyCodeBloc>().add(EnterCode(
-                            code: pinController.text,
-                            id: Provider.of<UserDataProvider>(context,
-                                    listen: false)
-                                .userId));
+                        _loadingOverlay.show(context);
+                        context.read<VerifyCodeBloc>().add(
+                            EnterCode(code: pinController.text, id: widget.id));
                       }
                     }),
               ),

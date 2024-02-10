@@ -62,9 +62,14 @@ abstract class $AppRouter extends _i21.RootStackRouter {
       );
     },
     ChangePasswordRoute.name: (routeData) {
+      final args = routeData.argsAs<ChangePasswordRouteArgs>();
       return _i21.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i3.ChangePasswordScreen(),
+        child: _i3.ChangePasswordScreen(
+          key: args.key,
+          id: args.id,
+          token: args.token,
+        ),
       );
     },
     Comparison.name: (routeData) {
@@ -80,6 +85,7 @@ abstract class $AppRouter extends _i21.RootStackRouter {
         child: _i5.EnterCodeScreen(
           key: args.key,
           sourcePage: args.sourcePage,
+          id: args.id,
         ),
       );
     },
@@ -257,16 +263,45 @@ class AllReviewsByIdArgs {
 
 /// generated route for
 /// [_i3.ChangePasswordScreen]
-class ChangePasswordRoute extends _i21.PageRouteInfo<void> {
-  const ChangePasswordRoute({List<_i21.PageRouteInfo>? children})
-      : super(
+class ChangePasswordRoute extends _i21.PageRouteInfo<ChangePasswordRouteArgs> {
+  ChangePasswordRoute({
+    _i22.Key? key,
+    required int id,
+    required String token,
+    List<_i21.PageRouteInfo>? children,
+  }) : super(
           ChangePasswordRoute.name,
+          args: ChangePasswordRouteArgs(
+            key: key,
+            id: id,
+            token: token,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'ChangePasswordRoute';
 
-  static const _i21.PageInfo<void> page = _i21.PageInfo<void>(name);
+  static const _i21.PageInfo<ChangePasswordRouteArgs> page =
+      _i21.PageInfo<ChangePasswordRouteArgs>(name);
+}
+
+class ChangePasswordRouteArgs {
+  const ChangePasswordRouteArgs({
+    this.key,
+    required this.id,
+    required this.token,
+  });
+
+  final _i22.Key? key;
+
+  final int id;
+
+  final String token;
+
+  @override
+  String toString() {
+    return 'ChangePasswordRouteArgs{key: $key, id: $id, token: $token}';
+  }
 }
 
 /// generated route for
@@ -289,12 +324,14 @@ class EnterCodeRoute extends _i21.PageRouteInfo<EnterCodeRouteArgs> {
   EnterCodeRoute({
     _i22.Key? key,
     required String sourcePage,
+    required int id,
     List<_i21.PageRouteInfo>? children,
   }) : super(
           EnterCodeRoute.name,
           args: EnterCodeRouteArgs(
             key: key,
             sourcePage: sourcePage,
+            id: id,
           ),
           initialChildren: children,
         );
@@ -309,15 +346,18 @@ class EnterCodeRouteArgs {
   const EnterCodeRouteArgs({
     this.key,
     required this.sourcePage,
+    required this.id,
   });
 
   final _i22.Key? key;
 
   final String sourcePage;
 
+  final int id;
+
   @override
   String toString() {
-    return 'EnterCodeRouteArgs{key: $key, sourcePage: $sourcePage}';
+    return 'EnterCodeRouteArgs{key: $key, sourcePage: $sourcePage, id: $id}';
   }
 }
 

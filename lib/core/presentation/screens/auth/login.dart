@@ -1,15 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
+import 'package:spoosk/core/presentation/widgets/loading_overlay.dart';
 import '../../../colors.dart';
-import '../../../data/models/user_id_notifier.dart';
 import '../../bloc_login/login_bloc.dart';
 import '../../bloc_user_by_id/user_bloc.dart';
 import '../../routes.gr.dart';
 import '../../theme/theme.dart';
 import '../../widgets/CustomButton.dart';
-import '../../widgets/custom_leading.dart';
 import '../../widgets/custom_login_field.dart';
 
 @RoutePage()
@@ -24,6 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final LoadingOverlay _loadingOverlay = LoadingOverlay();
   String errorMessage = '';
 
   @override
@@ -45,17 +44,10 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccessfull) {
-          final userId = state.id;
-          Provider.of<UserDataProvider>(context, listen: false)
-              .setUserId(userId);
-          context.read<UserProfileBloc>().add(GetUserInfo(userId: userId));
-          context.router.push(UserProfileRoute());
+          _navigateUserProfile(state, context);
         }
         if (state is LoginFailed) {
-          print('Login Error state received');
-          setState(() {
-            errorMessage = 'Ошибка. Вы ввели неверные данные авторизации';
-          });
+          _onLoginError();
         }
       },
       child: Scaffold(
@@ -68,9 +60,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 fontFamily: fontFamily,
                 fontWeight: FontWeight.w700,
               ),
-              // leading: CustomLeadingIcon(
-              //   onTapped: () {},
-              // ),
               title: Text('Вход в аккаунт',
                   style: Theme.of(context).textTheme.headlineMedium)),
           body: Padding(
@@ -151,10 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: AppColors.primaryColor,
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
-                            Feedback.forTap(context);
-                            context.read<LoginBloc>().add(FilledFormEvent(
-                                email: _emailController.text,
-                                password: _passwordController.text));
+                            _onLoginRequested(context);
                           }
                         }),
                     const SizedBox(height: 16),
@@ -176,6 +162,27 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           )),
     );
+  }
+
+  void _onLoginError() {
+    _loadingOverlay.hide();
+    setState(() {
+      errorMessage = 'Ошибка. Вы ввели неверные данные авторизации';
+    });
+  }
+
+  void _navigateUserProfile(LoginSuccessfull state, BuildContext context) {
+    _loadingOverlay.hide();
+    final userId = state.id;
+    context.read<UserProfileBloc>().add(GetUserInfo(userId: userId));
+    context.router.navigate(const UserProfileRoute());
+  }
+
+  void _onLoginRequested(BuildContext context) {
+    Feedback.forTap(context);
+    _loadingOverlay.show(context);
+    context.read<LoginBloc>().add(FilledFormEvent(
+        email: _emailController.text, password: _passwordController.text));
   }
 
   bool _isValidEmail(String value) {

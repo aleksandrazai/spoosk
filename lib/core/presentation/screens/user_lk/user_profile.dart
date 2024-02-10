@@ -64,7 +64,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         context
                             .read<UserProfileBloc>()
                             .add(UserLogOut(userId: state.userProfile.id));
-                        context.router.push(const LoginRoute());
+                        context.router.navigate(const LoginRoute());
                       },
                     ),
                   ],
