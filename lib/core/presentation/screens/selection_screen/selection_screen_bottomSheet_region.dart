@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:spoosk/core/data/models/regions.dart';
 import '../../../colors.dart';
 import '../../../data/models/fliter_models.dart/main_filter/regions.dart';
 import '../../bloc_region/region_bloc.dart';

@@ -697,7 +697,11 @@ class _ResortScreenState extends State<ResortScreen>
                               ?.copyWith(color: AppColors.text_black),
                           height: 40,
                           color: AppColors.gray,
-                          onTap: () {},
+                          onTap: () {
+                            context.router.navigate(AllReviewsById(
+                                resort: stateResortById.resortById,
+                                reviews: stateReviews.reviews));
+                          },
                           buttonText:
                               "Показать все отзывы (${stateReviews.reviews?.length.toString()})",
                         ),

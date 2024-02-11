@@ -7,6 +7,7 @@ class CustomButtonFilter extends StatefulWidget {
   EdgeInsetsGeometry? margin;
   double? spasing;
   bool currentSelected;
+  Color? color;
   // int? id;
   VoidCallback onPress;
 
@@ -17,6 +18,8 @@ class CustomButtonFilter extends StatefulWidget {
     this.icon,
     this.margin,
     this.spasing,
+    this.color,
+
     // this.id,
     this.currentSelected = false,
   });
@@ -37,6 +40,7 @@ class _CustomButtonFilterState extends State<CustomButtonFilter> {
         });
       },
       child: Container(
+        color: widget.color,
         margin: widget.margin,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         decoration: BoxDecoration(
