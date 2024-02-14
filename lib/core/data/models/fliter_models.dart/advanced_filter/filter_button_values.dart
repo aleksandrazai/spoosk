@@ -1,7 +1,3 @@
-//доделать и учесть что можно выбрать либо дешевые либо дорогие
-
-import 'package:spoosk/core/data/models/fliter_models.dart/advanced_filter/all_filter_params.dart';
-
 List<String> sortByButtonLabels = [
   "Сначала дешевые",
   "Сначала дорогие",

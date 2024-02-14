@@ -3,6 +3,7 @@ import 'package:spoosk/core/data/API/ApiConfig.dart';
 import 'package:spoosk/core/data/API/RequestController.dart';
 import 'package:spoosk/core/data/DB/DBController_history_search.dart';
 import 'package:spoosk/core/data/DB/DBController_user_auth.dart';
+import 'package:spoosk/core/domain/useCases/setUserToken.dart';
 
 import '../../data/models/user_login.dart';
 

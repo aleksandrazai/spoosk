@@ -1,17 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
-class UserTokenConfig {
-  static String _token = ''; // Default to an empty string
-
-  static setToken(String token) {
-    _token = token;
-  }
-
-  static String get token {
-    return _token;
-  }
-}
+import 'package:spoosk/core/domain/useCases/setUserToken.dart';
 
 final String token = dotenv.env['API-key']!;
 final String userToken = "Token ${UserTokenConfig.token}";

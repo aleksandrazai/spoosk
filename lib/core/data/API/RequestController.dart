@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:spoosk/core/data/API/ApiConfig.dart';
 import 'package:spoosk/core/data/models/ResortById.dart';
-import 'package:spoosk/core/data/models/fliter_models.dart/advanced_filter/button_values.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/advanced_filter/filter_button_values.dart';
 import 'package:spoosk/core/data/models/regions.dart';
 import 'package:spoosk/core/data/models/resorts.dart';
 import 'package:spoosk/core/data/models/reviews.dart';
@@ -478,7 +478,6 @@ class RequestController {
   }
 
   Future<bool?> getAddToFavorites({required String resortId}) async {
-    print(UserTokenConfig.token);
     try {
       final response = await _dio.request(
         _baseUrl + ApiConfigUserGet.getAddToFavorites(resortId: resortId),

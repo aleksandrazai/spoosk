@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/data/models/fliter_models.dart/advanced_filter/all_filter_params.dart';
-import 'package:spoosk/core/data/models/fliter_models.dart/advanced_filter/button_values.dart';
+import 'package:spoosk/core/data/models/fliter_models.dart/advanced_filter/filter_button_values.dart';
 import 'package:spoosk/core/data/models/fliter_models.dart/advanced_filter/slider.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
