@@ -10,6 +10,7 @@ class CustomDialog {
     return showDialog(
       context: context,
       barrierDismissible: true,
+      useRootNavigator: true,
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: AppColors.white,

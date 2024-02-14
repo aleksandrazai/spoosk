@@ -79,42 +79,42 @@ class _ResortScreenState extends State<ResortScreen>
                       )
                     : null,
                 actions: [
-                  GestureDetector(
-                    onTap: () {},
-                    child: SvgPicture.asset(
-                      fit: BoxFit.scaleDown,
-                      image_comparison,
-                      width: 22,
-                      height: 22,
-                      color: AppColors.black,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: SvgPicture.asset(
-                        fit: BoxFit.scaleDown,
-                        image_selected,
-                        width: 22,
-                        height: 22,
-                        color: AppColors.black,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 17),
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: SvgPicture.asset(
-                        fit: BoxFit.scaleDown,
-                        image_share,
-                        width: 22,
-                        height: 22,
-                        color: AppColors.black,
-                      ),
-                    ),
-                  )
+                  // GestureDetector(
+                  //   onTap: () {},
+                  //   child: SvgPicture.asset(
+                  //     fit: BoxFit.scaleDown,
+                  //     image_comparison,
+                  //     width: 22,
+                  //     height: 22,
+                  //     color: AppColors.black,
+                  //   ),
+                  // ),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(horizontal: 12),
+                  //   child: GestureDetector(
+                  //     onTap: () {},
+                  //     child: SvgPicture.asset(
+                  //       fit: BoxFit.scaleDown,
+                  //       image_selected,
+                  //       width: 22,
+                  //       height: 22,
+                  //       color: AppColors.black,
+                  //     ),
+                  //   ),
+                  // ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(right: 17),
+                  //   child: GestureDetector(
+                  //     onTap: () {},
+                  //     child: SvgPicture.asset(
+                  //       fit: BoxFit.scaleDown,
+                  //       image_share,
+                  //       width: 22,
+                  //       height: 22,
+                  //       color: AppColors.black,
+                  //     ),
+                  //   ),
+                  // )
                 ],
                 leading: GestureDetector(
                     onTap: () {
@@ -294,10 +294,10 @@ class _ResortScreenState extends State<ResortScreen>
                                                           AppColors.text_black))
                                         ],
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
-                                const WeatherWidget()
+                                // const WeatherWidget()
                               ]),
                         ),
                         Container(

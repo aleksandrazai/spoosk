@@ -1,8 +1,11 @@
 import 'dart:core';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:spoosk/core/data/API/RequestController.dart';
 import 'package:spoosk/core/presentation/widgets/CustomImageNetwork.dart';
 import 'package:spoosk/core/presentation/screens/selection_screen/selection_screen_bottomSheet.dart';
+import 'package:spoosk/core/presentation/widgets/custom_dialog.dart';
 import 'package:spoosk/core/presentation/widgets/review_card/review_actionButton.dart';
 import 'package:spoosk/core/presentation/widgets/review_card/review_settings.dart';
 import '../../../data/models/reviews.dart';
@@ -14,12 +17,11 @@ class ReviewCard extends StatelessWidget {
   final Review reviews;
   final bool showSettings;
 
-  const ReviewCard({
+  ReviewCard({
     super.key,
     required this.reviews,
     required this.showSettings,
   });
-
   @override
   Widget build(BuildContext context) {
     DateTime? addAt = reviews.addAt;
@@ -74,8 +76,7 @@ class ReviewCard extends StatelessWidget {
                     Transform.translate(
                       offset: const Offset(-12, -12),
                       child: reviews.approved == true
-                          ? ReviewActionIcon(
-                              onTapped: () {}, icon: image_review_delete)
+                          ? ReviewDelete(reviews: reviews)
                           : ReviewActionIcon(
                               onTapped: () {
                                 CustomBottomSheet.customShowModalBottomSheet(
@@ -146,5 +147,42 @@ class ReviewCard extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class ReviewDelete extends StatefulWidget {
+  const ReviewDelete({super.key, required this.reviews});
+  final Review reviews;
+
+  @override
+  State<ReviewDelete> createState() => _ReviewDeleteState();
+}
+
+class _ReviewDeleteState extends State<ReviewDelete> {
+  final RequestController _requestController = RequestController();
+  @override
+  Widget build(BuildContext context) {
+    return ReviewActionIcon(
+        onTapped: () {
+          CustomDialog.showCustomDialog(
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    _requestController.deleteReviews(widget.reviews.id!);
+                    context.router.pop();
+                  },
+                  child: const Text('Удалить')),
+              TextButton(
+                  onPressed: () {
+                    context.router.pop();
+                  },
+                  child: const Text('Закрыть'))
+            ],
+            context: context,
+            title: 'Удалить отзыв',
+            bodyText: 'Вы уверены, что хотите удалить отзыв?',
+          );
+        },
+        icon: image_review_delete);
   }
 }

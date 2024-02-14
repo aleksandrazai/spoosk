@@ -89,23 +89,23 @@ class _UserReviewsState extends State<UserReviews> {
                           );
                         },
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(
-                          16.0,
-                        ).copyWith(bottom: 16),
-                        child: CustomButton(
-                          boxDecoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8)),
-                          textStyle: Theme.of(context)
-                              .textTheme
-                              .labelMedium
-                              ?.copyWith(color: AppColors.white),
-                          height: 40,
-                          color: AppColors.primaryColor,
-                          onTap: () {},
-                          buttonText: "Написать отзыв",
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.all(
+                      //     16.0,
+                      //   ).copyWith(bottom: 16),
+                      //   child: CustomButton(
+                      //     boxDecoration: BoxDecoration(
+                      //         borderRadius: BorderRadius.circular(8)),
+                      //     textStyle: Theme.of(context)
+                      //         .textTheme
+                      //         .labelMedium
+                      //         ?.copyWith(color: AppColors.white),
+                      //     height: 40,
+                      //     color: AppColors.primaryColor,
+                      //     onTap: () {},
+                      //     buttonText: "Написать отзыв",
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
