@@ -63,17 +63,6 @@ class _ResultScreenState extends State<ResultScreen> {
     });
   }
 
-  @override
-  void dispose() {
-    levelsModel.removeListener(_filterRequest);
-    regionModel.removeListener(_filterRequest);
-    monthModel.removeListener(_filterRequest);
-    advancedFilter.removeListener(_filterRequest);
-    sliderFilter.removeListener(_filterRequest);
-
-    super.dispose();
-  }
-
   void _filterRequest() {
     final mainFilterBloc = context.read<MainFilterBloc>();
 
