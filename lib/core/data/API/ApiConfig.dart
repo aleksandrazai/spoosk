@@ -78,6 +78,8 @@ class ApiConfigUserGet {
       ({required int userId}) {
     return 'api/users/$userId/favorites/';
   };
+
+  static String getAllResorts = 'api/resorts/';
 }
 
 class ApiConfigResetPassword {

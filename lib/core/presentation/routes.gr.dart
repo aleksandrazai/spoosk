@@ -12,32 +12,43 @@ import 'package:auto_route/auto_route.dart' as _i21;
 import 'package:flutter/material.dart' as _i22;
 import 'package:spoosk/core/data/models/ResortById.dart' as _i24;
 import 'package:spoosk/core/data/models/reviews.dart' as _i23;
-import 'package:spoosk/core/presentation/routes.dart' as _i8;
-import 'package:spoosk/core/presentation/screens/all_resorts.dart' as _i1;
-import 'package:spoosk/core/presentation/screens/all_reviews_by_id.dart' as _i2;
-import 'package:spoosk/core/presentation/screens/auth/change_password.dart'
+import 'package:spoosk/core/presentation/features/auth/login/view/login.dart'
+    as _i9;
+import 'package:spoosk/core/presentation/features/auth/register/view/register.dart'
+    as _i12;
+import 'package:spoosk/core/presentation/features/auth/reset_password/view/change_password.dart'
     as _i3;
-import 'package:spoosk/core/presentation/screens/auth/code.dart' as _i5;
-import 'package:spoosk/core/presentation/screens/auth/login.dart' as _i9;
-import 'package:spoosk/core/presentation/screens/auth/register.dart' as _i12;
-import 'package:spoosk/core/presentation/screens/auth/reset_password.dart'
+import 'package:spoosk/core/presentation/features/auth/reset_password/view/reset_password.dart'
     as _i13;
-import 'package:spoosk/core/presentation/screens/comparison.dart' as _i4;
-import 'package:spoosk/core/presentation/screens/favorites.dart' as _i6;
-import 'package:spoosk/core/presentation/screens/home.dart' as _i7;
-import 'package:spoosk/core/presentation/screens/main_screen.dart' as _i10;
-import 'package:spoosk/core/presentation/screens/profile.dart' as _i11;
-import 'package:spoosk/core/presentation/screens/resort_screen.dart' as _i14;
-import 'package:spoosk/core/presentation/screens/search_screen.dart' as _i16;
-import 'package:spoosk/core/presentation/screens/selection.dart' as _i17;
-import 'package:spoosk/core/presentation/screens/selection_screen/result.dart'
+import 'package:spoosk/core/presentation/features/auth/verify_code/code.dart'
+    as _i5;
+import 'package:spoosk/core/presentation/features/home/view/home.dart' as _i7;
+import 'package:spoosk/core/presentation/features/initial/view/main_screen.dart'
+    as _i10;
+import 'package:spoosk/core/presentation/features/resort/view/all_resorts.dart'
+    as _i1;
+import 'package:spoosk/core/presentation/features/resort/view/resort_screen.dart'
+    as _i14;
+import 'package:spoosk/core/presentation/features/review/view/all_reviews_by_id.dart'
+    as _i2;
+import 'package:spoosk/core/presentation/features/search/view/search_screen.dart'
+    as _i16;
+import 'package:spoosk/core/presentation/features/selection/view/result.dart'
     as _i15;
-import 'package:spoosk/core/presentation/screens/user_lk/user_edit.dart'
+import 'package:spoosk/core/presentation/features/selection/view/selection.dart'
+    as _i17;
+import 'package:spoosk/core/presentation/features/user/edit_profile/user_edit.dart'
     as _i18;
-import 'package:spoosk/core/presentation/screens/user_lk/user_profile.dart'
+import 'package:spoosk/core/presentation/features/user/favourites/view/favorites.dart'
+    as _i6;
+import 'package:spoosk/core/presentation/features/user/profile/view/profile.dart'
+    as _i11;
+import 'package:spoosk/core/presentation/features/user/profile/view/user_profile.dart'
     as _i19;
-import 'package:spoosk/core/presentation/screens/user_lk/user_reviews.dart'
+import 'package:spoosk/core/presentation/features/user/reviews/user_reviews.dart'
     as _i20;
+import 'package:spoosk/core/presentation/routes.dart' as _i8;
+import 'package:spoosk/core/presentation/screens/comparison.dart' as _i4;
 
 abstract class $AppRouter extends _i21.RootStackRouter {
   $AppRouter({super.navigatorKey});

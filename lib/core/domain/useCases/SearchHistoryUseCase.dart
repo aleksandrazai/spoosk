@@ -1,10 +1,10 @@
+import 'package:spoosk/core/presentation/features/search/bloc/bloc_search_history/search_history_bloc.dart';
+
 import '../../data/DB/DBController_history_search.dart';
-import '../../data/models/ResortById.dart';
 import '../../data/models/resorts.dart';
-import '../../presentation/bloc_search/search_bloc.dart';
-import '../../presentation/bloc_search_history/search_history_bloc.dart';
 
 class SearchHistoryUseCase {
+  // ignore: non_constant_identifier_names
   DBController_history_search dbController_history_search =
       DBController_history_search();
 
@@ -18,9 +18,8 @@ class SearchHistoryUseCase {
   Future<List<Resort>> _checkDB() async {
     await dbController_history_search.initDatabase();
     try {
-      return await dbController_history_search.getDataList() ?? [];
+      return await dbController_history_search.getDataList();
     } catch (e) {
-      print(e);
       return [];
     }
   }

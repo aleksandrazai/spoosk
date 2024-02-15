@@ -1,7 +1,7 @@
 import 'package:spoosk/core/domain/useCases/setUserToken.dart';
+import 'package:spoosk/core/presentation/features/user/profile/bloc_user_by_id/user_bloc.dart';
 import '../../data/DB/DBController_user_auth.dart';
 import '../../data/models/user_login.dart';
-import '../../presentation/bloc_user_by_id/user_bloc.dart';
 
 class AuthUseCase {
   static final DBControllerUserAuth dbControllerUserAuth =
