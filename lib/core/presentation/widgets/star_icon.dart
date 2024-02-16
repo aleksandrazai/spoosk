@@ -12,7 +12,10 @@ class StarIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset((filled ? image_star : image_gray_star),
-        height: 14, width: 14);
+    return Padding(
+      padding: const EdgeInsets.all(2.0),
+      child: SvgPicture.asset((filled ? image_star : image_gray_star),
+          height: 14, width: 14),
+    );
   }
 }

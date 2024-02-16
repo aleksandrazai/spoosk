@@ -56,12 +56,11 @@ class _ReviewFormState extends State<ReviewForm> {
             padding: EdgeInsets.only(
                 top: MediaQuery.of(context).viewInsets.top,
                 bottom: MediaQuery.of(context).viewInsets.bottom),
-            decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                )),
+            decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            )),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
@@ -85,6 +84,7 @@ class _ReviewFormState extends State<ReviewForm> {
                             listImages: [widget.resort.image],
                             height: 60,
                             width: 60,
+                            openGallery: false,
                             fit: BoxFit.fill,
                             src: [widget.resort.mainResortImg]),
                       ),
@@ -132,9 +132,7 @@ class _ReviewFormState extends State<ReviewForm> {
                   ),
                   Container(
                     alignment: Alignment.topLeft,
-                    padding: const EdgeInsets.all(20),
                     height: 105,
-                    width: MediaQuery.of(context).size.width * 0.9,
                     decoration: ShapeDecoration(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -142,25 +140,22 @@ class _ReviewFormState extends State<ReviewForm> {
                       color: const Color(0xFFF6F6F6),
                     ),
                     child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.8,
                       child: TextField(
                         controller: _textEditingController,
                         maxLines: null,
                         expands: true,
                         keyboardType: TextInputType.multiline,
-                        decoration: const InputDecoration(
-                          fillColor: Color(0xFFF6F6F6),
+                        decoration: InputDecoration(
+                          fillColor: const Color.fromARGB(56, 217, 217, 217),
                           border: InputBorder.none,
                           filled: true,
                           hintText:
                               'Дополни свою оценку отзывом - это поможет другим райдерам определится с выбором курорта',
                           hintMaxLines: 5,
-                          hintStyle: TextStyle(
-                            color: Color(0xFF9B9CA0),
-                            fontSize: 14,
-                            fontFamily: 'Nunito Sans',
-                            fontWeight: FontWeight.w400,
-                          ),
+                          hintStyle: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(color: const Color(0xFF696969)),
                         ),
                       ),
                     ),
@@ -169,9 +164,7 @@ class _ReviewFormState extends State<ReviewForm> {
                     height: 20,
                   ),
                   Text(
-                      style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.primaryFontLight),
+                      style: Theme.of(context).textTheme.bodyMedium,
                       "Дополни свой отзыв фотографиями"),
                   Wrap(
                     spacing: 12,
@@ -234,10 +227,6 @@ class _ReviewFormState extends State<ReviewForm> {
 
       _requestController.postReviews(reviews);
       _showDialog(content: "Отзыв на модерации");
-    } else if (context.userInfo.getUserInfo() == null) {
-      _showDialog(content: "Требуется авторизация", title: "Ошибка");
-    } else if (_textEditingController.text.isEmpty) {
-      _showDialog(content: "Введите отзыв", title: "Ошибка");
     }
   }
 

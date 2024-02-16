@@ -132,7 +132,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemBuilder: (BuildContext context, index) {
                               final resort = state.resortsAll[index];
                               return SizedBox(
-                                  width: 285,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.7,
                                   child: ResortCard(resort: resort));
                             },
                           ),

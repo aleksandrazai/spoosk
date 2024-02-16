@@ -9,6 +9,7 @@ import 'package:spoosk/core/presentation/features/home/bloc/popular_resorts/requ
 import 'package:spoosk/core/presentation/features/user/favourites/bloc/bloc_favorites_users/favorites_users_bloc.dart';
 import 'package:spoosk/core/presentation/features/user/profile/bloc_user_by_id/user_bloc.dart';
 import 'package:spoosk/core/presentation/widgets/CustomImageNetwork.dart';
+import 'package:spoosk/core/presentation/widgets/custom_dialog.dart';
 import '../../../../../data/models/resorts.dart';
 import '../../../../image.dart';
 
@@ -145,5 +146,27 @@ class _FavouriteButtonState extends State<FavouriteButton> {
         });
       }
     }
+    if (userBloc.isEmpty) {
+      showAuthDialog(context);
+    }
+  }
+
+  void showAuthDialog(BuildContext context) {
+    CustomDialog.showCustomDialog(
+      context: context,
+      title: 'Необходима авторизация',
+      bodyText: 'Пожалуйста, авторизируйтесь для добавления в избранное',
+      actions: [
+        TextButton(
+            onPressed: () {
+              Navigator.of(context, rootNavigator: true).pop();
+            },
+            child: Text('Закрыть',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(color: AppColors.primaryColor))),
+      ],
+    );
   }
 }

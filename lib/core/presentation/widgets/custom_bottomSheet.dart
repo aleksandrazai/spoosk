@@ -11,7 +11,7 @@ class CustomBottomSheet {
         useSafeArea: true,
         useRootNavigator: true,
         isScrollControlled: true,
-        backgroundColor: AppColors.scaffoldBackgroundLight,
+        backgroundColor: AppColors.white,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20.0),

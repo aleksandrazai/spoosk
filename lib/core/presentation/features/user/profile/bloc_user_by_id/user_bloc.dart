@@ -51,8 +51,8 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     }
   }
 
-  void _onUserLogout(UserLogOut event, Emitter<UserProfileState> emit) {
-    dbcontrollerUserAuth.delete(event.userId);
+  void _onUserLogout(UserLogOut event, Emitter<UserProfileState> emit) async {
+    await dbcontrollerUserAuth.delete(event.userId);
     UserTokenConfig.setToken('');
     emit(UserProfileInitial());
   }

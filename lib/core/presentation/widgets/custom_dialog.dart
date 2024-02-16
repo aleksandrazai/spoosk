@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:spoosk/core/colors.dart';
 
@@ -13,6 +14,7 @@ class CustomDialog {
       useRootNavigator: true,
       builder: (BuildContext context) {
         return AlertDialog(
+          surfaceTintColor: Colors.transparent,
           backgroundColor: AppColors.white,
           title: Text(title, style: Theme.of(context).textTheme.headlineMedium),
           content: Text(bodyText),
@@ -20,5 +22,9 @@ class CustomDialog {
         );
       },
     );
+  }
+
+  static closeCustomDialog(BuildContext context) {
+    Navigator.of(context, rootNavigator: true).pop();
   }
 }

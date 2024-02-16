@@ -20,7 +20,7 @@ import 'package:spoosk/core/presentation/features/auth/reset_password/view/chang
     as _i3;
 import 'package:spoosk/core/presentation/features/auth/reset_password/view/reset_password.dart'
     as _i13;
-import 'package:spoosk/core/presentation/features/auth/verify_code/code.dart'
+import 'package:spoosk/core/presentation/features/auth/verify_code/view/code.dart'
     as _i5;
 import 'package:spoosk/core/presentation/features/home/view/home.dart' as _i7;
 import 'package:spoosk/core/presentation/features/initial/view/main_screen.dart'

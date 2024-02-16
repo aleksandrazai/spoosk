@@ -4,7 +4,7 @@ import 'star_icon.dart';
 class RatingStars extends StatelessWidget {
   final num rating;
 
-  const RatingStars({required this.rating});
+  const RatingStars({super.key, required this.rating});
 
   @override
   Widget build(BuildContext context) {
