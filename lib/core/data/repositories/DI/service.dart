@@ -20,6 +20,7 @@ sealed class AuthUseCaseAbstract {
       ("userData: ${userData[0].token}");
       userToken = userData[0].token;
       userId = userData[0].id;
+      userProfileBloc.add(GetUserInfo(userId: userId!));
     } else {
       userToken = null;
       userId = null;
