@@ -4,6 +4,7 @@ import 'package:spoosk/core/data/API/ApiConfig.dart';
 import 'package:spoosk/core/data/API/RequestController.dart';
 import 'package:spoosk/core/data/DB/DBController_user_auth.dart';
 import 'package:spoosk/core/data/models/user_profile.dart';
+import 'package:spoosk/core/data/repositories/DI/service.dart';
 import 'package:spoosk/core/domain/useCases/SetUserToken.dart';
 
 part 'user_event.dart';
@@ -40,11 +41,13 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   ) async {
     print("_onGetUserInfo ${event.userId}");
     RequestController requestController = RequestController();
+    SingletonAuthUseCase authUseCase = SingletonAuthUseCase();
 
     final UserProfile? userProfile = await requestController.getUserProfile(
         getUserProfile: ApiConfigurateGet.getUserProfile, id: event.userId);
     emit(UserProfileLoad());
     if (userProfile != null) {
+      authUseCase.authUseCase.checkDB(UserProfileBloc());
       emit(UserProfileLoaded(userProfile: userProfile));
     } else {
       emit(UserProfileFailed());
@@ -52,14 +55,16 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   }
 
   void _onUserLogout(UserLogOut event, Emitter<UserProfileState> emit) async {
+    SingletonAuthUseCase authUseCase = SingletonAuthUseCase();
     await dbcontrollerUserAuth.delete(event.userId);
-    UserTokenConfig.setToken('');
+    authUseCase.authUseCase.checkDB(UserProfileBloc());
     emit(UserProfileInitial());
   }
 
   void _onProfileEdit(
       EditUserProfile event, Emitter<UserProfileState> emit) async {
     RequestController requestController = RequestController();
+    SingletonAuthUseCase authUseCase = SingletonAuthUseCase();
     final UserProfile? newUserProfile = await requestController.editProfile(
         editProfile: ApiConfigPatch.editProfile,
         id: event.userId,
@@ -67,7 +72,8 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
         lastName: event.lastName,
         nickName: event.nickName,
         country: event.country,
-        city: event.city);
+        city: event.city,
+        userToken: authUseCase.authUseCase.userToken!);
     if (newUserProfile != null) {
       emit(UserProfileEdited(userProfile: newUserProfile));
     } else {

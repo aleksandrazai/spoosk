@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/data/API/RequestController.dart';
 import 'package:spoosk/core/data/models/user_login.dart';
+import 'package:spoosk/core/data/repositories/DI/service.dart';
 import 'package:spoosk/core/presentation/features/home/bloc/popular_resorts/request_controller_bloc.dart';
 import 'package:spoosk/core/presentation/features/user/favourites/bloc/bloc_favorites_users/favorites_users_bloc.dart';
 import 'package:spoosk/core/presentation/features/user/profile/bloc_user_by_id/user_bloc.dart';
@@ -88,6 +89,7 @@ class FavouriteButton extends StatefulWidget {
 
 class _FavouriteButtonState extends State<FavouriteButton> {
   final RequestController _requestController = RequestController();
+  SingletonAuthUseCase authUseCase = SingletonAuthUseCase();
 
   bool fovoriteIsSelected = false;
 
@@ -135,7 +137,8 @@ class _FavouriteButtonState extends State<FavouriteButton> {
           .read<FavoritesUsersBloc>()
           .add(FavoritesUsersGet(userId: userId.id!));
       bool? favorite = await _requestController.getAddToFavorites(
-          resortId: widget.resort.idResort);
+          resortId: widget.resort.idResort,
+          userToken: authUseCase.authUseCase.userToken!);
       if (favorite != null && favorite == true) {
         setState(() {
           fovoriteIsSelected = !fovoriteIsSelected;

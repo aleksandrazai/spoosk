@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spoosk/core/data/API/RequestController.dart';
 import 'package:spoosk/core/data/models/reviews.dart';
+import 'package:spoosk/core/data/repositories/DI/service.dart';
 import 'package:spoosk/core/presentation/features/resort/bloc/bloc_by_id/resort_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/features/review/widgets/review_form/review_form.dart';
 import 'package:spoosk/core/presentation/widgets/custom_bottomSheet.dart';
@@ -12,6 +13,7 @@ import 'package:spoosk/core/presentation/widgets/separator.dart';
 class ReviewSettings extends StatelessWidget {
   ReviewSettings({super.key, required this.reviews});
   final RequestController _requestController = RequestController();
+  SingletonAuthUseCase authUseCase = SingletonAuthUseCase();
   final Review reviews;
 
   @override
@@ -50,7 +52,8 @@ class ReviewSettings extends StatelessWidget {
                   actions: [
                     TextButton(
                         onPressed: () {
-                          _requestController.deleteReviews(reviews.id!);
+                          _requestController.deleteReviews(
+                              reviews.id!, authUseCase.authUseCase.userToken!);
                           CustomBottomSheet.closeModalBottomSheet(context);
                           context.router.pop();
                         },

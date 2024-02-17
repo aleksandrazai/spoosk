@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spoosk/core/data/API/RequestController.dart';
 import 'package:spoosk/core/data/models/reviews.dart';
 import 'package:spoosk/core/data/models/test_reviews.dart';
+import 'package:spoosk/core/data/repositories/DI/service.dart';
 import 'package:spoosk/core/presentation/features/user/reviews/bloc_user_reviews/user_reviews_bloc.dart';
 
 import 'package:spoosk/core/presentation/widgets/custom_bottomSheet.dart';
@@ -38,6 +39,7 @@ class _ReviewFormState extends State<ReviewForm> {
   TextEditingController _textEditingController = TextEditingController();
   num _rating = 1;
   final RequestController _requestController = RequestController();
+  SingletonAuthUseCase authUseCase = SingletonAuthUseCase();
 
   @override
   void initState() {
@@ -217,15 +219,15 @@ class _ReviewFormState extends State<ReviewForm> {
   void _sendReviews(BuildContext context) {
     print(context.userInfo.getUserInfo());
 
-    if (context.userInfo.getUserInfo() != null &&
-        _textEditingController.text.isNotEmpty) {
+    if (context.userInfo.getUserInfo() != null) {
       TestReviews reviews = TestReviews(
           resort: widget.resort.idResort,
           text: _textEditingController.text,
           rating: _rating.toInt(),
           images: selectedImage);
 
-      _requestController.postReviews(reviews);
+      _requestController.postReviews(
+          reviews, authUseCase.authUseCase.userToken!);
       _showDialog(content: "Отзыв на модерации");
     }
   }
@@ -236,7 +238,8 @@ class _ReviewFormState extends State<ReviewForm> {
         text: _textEditingController.text,
         rating: _rating.toInt(),
         images: []);
-    _requestController.editReviews(editedReview, widget.review!.id!);
+    _requestController.editReviews(
+        editedReview, widget.review!.id!, authUseCase.authUseCase.userToken!);
     _showDialog(content: "Отзыв на модерации");
   }
 

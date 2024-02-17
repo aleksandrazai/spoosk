@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:spoosk/core/domain/useCases/setUserToken.dart';
 
 final String token = dotenv.env['API-key']!;
-final String userToken = "Token ${UserTokenConfig.token}";
+
 // ------ Read me ------
 // userToken имеет структуру - "Token l1k23jlkj4lk3jk54yijyi5jyoi5"
 
@@ -36,38 +35,50 @@ class ApiConfigPost {
 }
 
 class ApiConfigDelete {
-  static final Options deleteHeaders = Options(method: "DELETE", headers: {
-    'accept': 'application/json',
-    "API-key": token,
-    "Authorization": userToken,
-  });
+  static Options deleteHeaders({required userToken}) {
+    return Options(method: "DELETE", headers: {
+      'accept': 'application/json',
+      "API-key": token,
+      "Authorization": "Token $userToken"
+    });
+  }
+
   static String deleteReviews = 'api/reviews/';
 }
 
 class ApiConfigPatch {
-  static final Options patchHeaders = Options(method: "PATCH", headers: {
-    "API-key": token,
-    "Authorization": userToken,
-  });
+  static Options patchHeaders({required String userToken}) {
+    return Options(
+        method: "PATCH",
+        headers: {"API-key": token, "Authorization": "Token $userToken"});
+  }
 
   static String editProfile = 'api/users/';
   static String editReview = 'api/reviews/';
 }
 
 class ApiConfigUserPost {
-  static final Options userHeaders = Options(method: "POST", headers: {
-    "API-key": token,
-    "Authorization": userToken,
-  });
+  static Options userHeaders({required String userToken}) {
+    return Options(
+        method: "POST",
+        headers: {"API-key": token, "Authorization": "Token $userToken"});
+  }
 
   static String postReviews = 'api/reviews/';
 }
 
 class ApiConfigUserGet {
-  static final Options headers = Options(method: "GET", headers: {
-    "API-key": token,
-    "Authorization": userToken,
-  });
+  static Options userHeaders({required String? userToken}) {
+    Map<String, String> headers = {
+      "API-key": token,
+    };
+
+    if (userToken != null && userToken.isNotEmpty) {
+      headers["Authorization"] = "Token $userToken";
+    }
+    return Options(method: "GET", headers: headers);
+  }
+
   // Добавляет/ удаляет избранные
   static String Function({required String resortId}) getAddToFavorites =
       ({required String resortId}) {

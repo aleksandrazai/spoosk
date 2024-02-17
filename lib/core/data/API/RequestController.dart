@@ -24,11 +24,11 @@ class RequestController {
     _baseUrl = dotenv.env['API_URL']!;
   }
 
-  Future<List<Resort>?> getResortsAll() async {
+  Future<List<Resort>?> getResortsAll(String? userToken) async {
     try {
       final Response<Map<String, dynamic>> response = await _dio.request(
         _baseUrl + ApiConfigUserGet.getAllResorts,
-        options: ApiConfigUserGet.headers,
+        options: ApiConfigUserGet.userHeaders(userToken: userToken ?? ''),
       );
 
       final Map<String, dynamic>? responseData = response.data;
@@ -353,12 +353,12 @@ class RequestController {
     return null;
   }
 
-  Future<void> deleteReviews(int id) async {
+  Future<void> deleteReviews(int id, String userToken) async {
     print("$_baseUrl${ApiConfigDelete.deleteReviews}$id/");
     try {
       final response = await _dio.request(
           "$_baseUrl${ApiConfigDelete.deleteReviews}$id/",
-          options: ApiConfigDelete.deleteHeaders);
+          options: ApiConfigDelete.deleteHeaders(userToken: userToken));
       print(response.data);
     } catch (e) {
       print('deleteReviews ERROR $e');
@@ -387,6 +387,7 @@ class RequestController {
   Future<UserProfile?> editProfile({
     required editProfile,
     required id,
+    required String userToken,
     required String firstName,
     required String lastName,
     required String nickName,
@@ -407,7 +408,8 @@ class RequestController {
       print('Request Data: $requestData, $id');
       print('$_baseUrl$editProfile$id');
       final response = await _dio.patch('$_baseUrl$editProfile$id/',
-          data: requestData, options: ApiConfigPatch.patchHeaders);
+          data: requestData,
+          options: ApiConfigPatch.patchHeaders(userToken: userToken));
       if (response.statusCode == 200) {
         final result = UserProfile.fromJson(response.data['data']);
         print('New Profile: ${response.data}');
@@ -419,7 +421,7 @@ class RequestController {
     return null;
   }
 
-  Future<Review?> postReviews(TestReviews data) async {
+  Future<Review?> postReviews(TestReviews data, String userToken) async {
     try {
       FormData formData = FormData();
 
@@ -445,7 +447,7 @@ class RequestController {
       print(formData);
       final response = await _dio.post(
         _baseUrl + ApiConfigUserPost.postReviews,
-        options: ApiConfigUserPost.userHeaders,
+        options: ApiConfigUserPost.userHeaders(userToken: userToken),
         data: formData,
       );
       print(response.data);
@@ -457,7 +459,8 @@ class RequestController {
   }
 
 //запрос на редактирование отзывов
-  Future<Review?> editReviews(TestReviews data, int id) async {
+  Future<Review?> editReviews(
+      TestReviews data, int id, String userToken) async {
     try {
       FormData formData = FormData();
       formData.fields.add(MapEntry('resort', data.resort));
@@ -466,7 +469,7 @@ class RequestController {
       print(formData);
       final response = await _dio.patch(
         '$_baseUrl${ApiConfigPatch.editReview}$id/',
-        options: ApiConfigPatch.patchHeaders,
+        options: ApiConfigPatch.patchHeaders(userToken: userToken),
         data: formData,
       );
       print(response.data);
@@ -477,11 +480,12 @@ class RequestController {
     return null;
   }
 
-  Future<bool?> getAddToFavorites({required String resortId}) async {
+  Future<bool?> getAddToFavorites(
+      {required String resortId, required String userToken}) async {
     try {
       final response = await _dio.request(
         _baseUrl + ApiConfigUserGet.getAddToFavorites(resortId: resortId),
-        options: ApiConfigUserGet.headers,
+        options: ApiConfigUserGet.userHeaders(userToken: userToken),
       );
       if (response.statusCode == 200) {
         print(response.data);
@@ -493,12 +497,13 @@ class RequestController {
     return null;
   }
 
-  Future<List<Resort>?> getAddedFavorites({required int? userId}) async {
+  Future<List<Resort>?> getAddedFavorites(
+      {required int userId, required String userToken}) async {
     print("getAddedFavorites WORK");
     try {
       final response = await _dio.request(
-        _baseUrl + ApiConfigUserGet.getAddedFavorites(userId: userId!),
-        options: ApiConfigUserGet.headers,
+        _baseUrl + ApiConfigUserGet.getAddedFavorites(userId: userId),
+        options: ApiConfigUserGet.userHeaders(userToken: userToken),
       );
       final List<Resort> result = List<Resort>.from(
         response.data['results'].map((x) {

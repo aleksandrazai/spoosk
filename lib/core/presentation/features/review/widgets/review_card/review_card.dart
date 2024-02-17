@@ -3,11 +3,14 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:spoosk/core/data/API/RequestController.dart';
+import 'package:spoosk/core/data/repositories/DI/service.dart';
+import 'package:spoosk/core/domain/useCases/AuthUseCase.dart';
 import 'package:spoosk/core/presentation/widgets/CustomImageNetwork.dart';
 import 'package:spoosk/core/presentation/widgets/custom_bottomSheet.dart';
 import 'package:spoosk/core/presentation/widgets/custom_dialog.dart';
 import 'package:spoosk/core/presentation/features/review/widgets/review_card/review_actionButton.dart';
 import 'package:spoosk/core/presentation/features/review/widgets/review_card/review_settings.dart';
+import 'package:spoosk/core/utils/context.dart';
 import '../../../../../data/models/reviews.dart';
 import '../../../../image.dart';
 import '../../../../widgets/hide_text_overflow.dart';
@@ -160,6 +163,8 @@ class ReviewDelete extends StatefulWidget {
 }
 
 class _ReviewDeleteState extends State<ReviewDelete> {
+  SingletonAuthUseCase authUseCase = SingletonAuthUseCase();
+
   final RequestController _requestController = RequestController();
   @override
   Widget build(BuildContext context) {
@@ -169,7 +174,8 @@ class _ReviewDeleteState extends State<ReviewDelete> {
             actions: [
               TextButton(
                   onPressed: () {
-                    _requestController.deleteReviews(widget.reviews.id!);
+                    _requestController.deleteReviews(
+                        widget.reviews.id!, authUseCase.authUseCase.userToken!);
                     context.router.pop();
                   },
                   child: const Text('Удалить')),

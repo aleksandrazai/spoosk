@@ -4,6 +4,7 @@ import 'package:spoosk/core/data/API/RequestController.dart';
 import 'package:spoosk/core/data/DB/DBController_history_search.dart';
 import 'package:spoosk/core/data/DB/DBController_user_auth.dart';
 import 'package:spoosk/core/data/models/user_login.dart';
+import 'package:spoosk/core/data/repositories/DI/service.dart';
 import 'package:spoosk/core/domain/useCases/setUserToken.dart';
 
 part 'login_event.dart';
@@ -17,6 +18,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   LoginBloc() : super(LoginInitial()) {
     RequestController requestController = RequestController();
+
     on<FilledFormEvent>((event, emit) async {
       try {
         final UserData? userData = await requestController.postUserLogin(

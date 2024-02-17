@@ -1,4 +1,3 @@
-import 'package:spoosk/core/domain/useCases/setUserToken.dart';
 import 'package:spoosk/core/presentation/features/user/profile/bloc_user_by_id/user_bloc.dart';
 import '../../data/DB/DBController_user_auth.dart';
 import '../../data/models/user_login.dart';
@@ -10,18 +9,14 @@ class AuthUseCase {
   String? userToken;
 
   checkDB(UserProfileBloc userProfileBloc) async {
-    try {
-      final List<UserData> userData = await _initDataBase();
-      print("AuthUseCase checkDB is OK: ${userData[0].id}");
-
-      if (userData[0].id != null && userData.isNotEmpty) {
-        userToken = userData[0].token;
-        userId = userData[0].id;
-        userProfileBloc.add(GetUserInfo(userId: userId!));
-        UserTokenConfig.setToken(userToken!);
-      }
-    } catch (e) {
-      print("AuthUseCase checkDB: ${e}");
+    final List<UserData> userData = await _initDataBase();
+    print("AuthUseCase checkDB is OK: ${userData[0].id}");
+    if (userData[0].id != null && userData.isNotEmpty) {
+      userToken = userData[0].token;
+      userId = userData[0].id;
+    } else {
+      userToken = null;
+      userId = null;
     }
   }
 
