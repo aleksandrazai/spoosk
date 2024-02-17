@@ -11,6 +11,7 @@ import 'package:spoosk/core/presentation/features/user/reviews/bloc_user_reviews
 
 import 'package:spoosk/core/presentation/widgets/custom_bottomSheet.dart';
 import 'package:spoosk/core/presentation/widgets/CustomImageNetwork.dart';
+import 'package:spoosk/core/presentation/widgets/custom_dialog.dart';
 import '../../../../../colors.dart';
 import '../../../../../data/models/ResortById.dart';
 import '../../../../image.dart';
@@ -228,8 +229,27 @@ class _ReviewFormState extends State<ReviewForm> {
 
       _requestController.postReviews(
           reviews, authUseCase.authUseCase.userToken!);
-      _showDialog(content: "Отзыв на модерации");
+      _showDialog(context);
     }
+  }
+
+  void _showDialog(BuildContext context) {
+    CustomDialog.showCustomDialog(
+      context: context,
+      title: 'Отзыв на модерации',
+      bodyText: 'Спасибо за Ваш отзыв!',
+      actions: [
+        TextButton(
+          onPressed: () {
+            context.read<UserReviewsBloc>().add(LoadUserReviews(
+                id: context.userInfo.getUserInfo()!.userProfile.id));
+            CustomBottomSheet.closeModalBottomSheet(context);
+            Navigator.of(context).pop();
+          },
+          child: const Text('Закрыть'),
+        ),
+      ],
+    );
   }
 
   void _sendEditedReviews() {
@@ -240,30 +260,6 @@ class _ReviewFormState extends State<ReviewForm> {
         images: []);
     _requestController.editReviews(
         editedReview, widget.review!.id!, authUseCase.authUseCase.userToken!);
-    _showDialog(content: "Отзыв на модерации");
-  }
-
-  _showDialog(
-      {required String content, String title = 'Спасибо за Ваш отзыв!'}) {
-    showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: ((BuildContext context) {
-        return AlertDialog(
-          title: Text(title),
-          content: Text(content),
-          actions: [
-            TextButton(
-                onPressed: () {
-                  context.read<UserReviewsBloc>().add(LoadUserReviews(
-                      id: context.userInfo.getUserInfo()!.userProfile.id));
-                  CustomBottomSheet.closeModalBottomSheet(context);
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Закрыть'))
-          ],
-        );
-      }),
-    );
+    _showDialog(context);
   }
 }

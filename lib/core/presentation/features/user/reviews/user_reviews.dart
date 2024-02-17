@@ -60,11 +60,13 @@ class _UserReviewsState extends State<UserReviews> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Ожидают публикации',
-                          style: Theme.of(context).textTheme.headlineMedium),
+                      unapprovedReviews!.isNotEmpty
+                          ? Text('Ожидают публикации',
+                              style: Theme.of(context).textTheme.headlineMedium)
+                          : const Text(''),
                       ListView.builder(
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         itemCount: unapprovedReviews!.length,
                         itemBuilder: (context, index) {
                           final reviews = unapprovedReviews[index];
@@ -75,8 +77,10 @@ class _UserReviewsState extends State<UserReviews> {
                         },
                       ),
                       SizedBox(height: 12),
-                      Text('Опубликованы',
-                          style: Theme.of(context).textTheme.headlineMedium),
+                      approvedReviews!.isNotEmpty
+                          ? Text('Опубликованы',
+                              style: Theme.of(context).textTheme.headlineMedium)
+                          : const Text(''),
                       ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),

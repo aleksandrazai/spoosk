@@ -5,6 +5,7 @@ import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/presentation/features/user/profile/bloc_user_by_id/user_bloc.dart';
 import 'package:spoosk/core/presentation/theme/theme.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
+import 'package:spoosk/core/presentation/widgets/custom_dialog.dart';
 import 'package:spoosk/core/presentation/widgets/custom_leading.dart';
 import 'package:spoosk/core/presentation/widgets/custom_login_field.dart';
 import 'package:spoosk/core/presentation/features/user/profile/view/user_avatar.dart';
@@ -68,6 +69,17 @@ class _UserEditProfileState extends State<UserEditProfile> {
                     userId: state.userProfile.id,
                   ),
                 );
+            CustomDialog.showCustomDialog(
+                context: context,
+                title: 'Данные профиля успешно изменены',
+                bodyText: '',
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        CustomDialog.closeCustomDialog(context);
+                      },
+                      child: const Text('Закрыть'))
+                ]);
           }
         },
         child: Padding(
