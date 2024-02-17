@@ -2,6 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
+import 'package:spoosk/core/data/DB/DBController_user_auth.dart';
+import 'package:spoosk/core/data/models/user_login.dart';
+import 'package:spoosk/core/data/repositories/DI/service.dart';
 import 'package:spoosk/core/presentation/features/auth/verify_code/bloc/bloc_verify_code/verify_code_bloc.dart';
 import 'package:spoosk/core/presentation/features/user/profile/bloc_user_by_id/user_bloc.dart';
 import 'package:spoosk/core/presentation/widgets/loading_overlay.dart';
@@ -54,7 +57,9 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
     String messageText;
     String buttonText;
     late void Function(String?) route;
-    late VoidCallback bloc;
+    late void Function(UserData) bloc;
+    SingletonAuthUseCase singletonAuthUseCase = SingletonAuthUseCase();
+    DBControllerUserAuth dbControllerUserAuth = DBControllerUserAuth();
 
     const String registerText =
         'Для завершения регистрации введите код, который мы выслали на вашу электронную почту';
@@ -68,16 +73,22 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
     buttonText = isRegistration ? registerButton : resetButton;
 
     route = isRegistration
-        ? (token) => context.router.push(const UserProfileRoute())
+        ? (userData) => context.router.push(const UserProfileRoute())
         : (String? token) {
             context.router
                 .push(ChangePasswordRoute(id: widget.id, token: token!));
           };
 
     bloc = isRegistration
-        ? () =>
-            context.read<UserProfileBloc>().add(GetUserInfo(userId: widget.id))
-        : () {};
+        ? (userData) {
+            dbControllerUserAuth
+                .insert(UserData(token: userData.token, id: userData.id));
+            singletonAuthUseCase.authUseCase.userId = userData.id;
+            singletonAuthUseCase.authUseCase.userToken = userData.token;
+            singletonAuthUseCase.authUseCase
+                .checkDB(context.read<UserProfileBloc>());
+          }
+        : (userData) {};
 
     const focusedBorderColor = Color(0xFF005FF9);
     const fillColor = Color.fromRGBO(243, 246, 249, 0);
@@ -113,9 +124,9 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
         listener: (context, state) {
           if (state is VerifyCodeSuccessfull) {
             _loadingOverlay.hide();
-            final token = state.userdata.token;
-            route(token);
-            bloc();
+            final userData = state.userdata;
+            route(userData.token);
+            bloc(userData);
           }
           if (state is VerifyCodeFailed) {
             _loadingOverlay.hide();

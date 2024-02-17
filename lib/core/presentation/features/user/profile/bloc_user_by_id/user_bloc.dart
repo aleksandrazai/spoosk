@@ -45,7 +45,6 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
         getUserProfile: ApiConfigurateGet.getUserProfile, id: event.userId);
     emit(UserProfileLoad());
     if (userProfile != null) {
-      // singletonAuthUseCase.authUseCase.checkDB(UserProfileBloc());
       print("_onGetUserInfo ${singletonAuthUseCase.authUseCase.userToken}");
       emit(UserProfileLoaded(userProfile: userProfile));
     } else {

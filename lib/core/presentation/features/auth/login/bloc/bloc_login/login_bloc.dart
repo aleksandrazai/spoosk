@@ -18,6 +18,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   LoginBloc() : super(LoginInitial()) {
     RequestController requestController = RequestController();
+    SingletonAuthUseCase singletonAuthUseCase = SingletonAuthUseCase();
 
     on<FilledFormEvent>((event, emit) async {
       try {
@@ -27,6 +28,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             userLogin: ApiConfigPost.userLogin);
         if (userData != null) {
           await initDataBase(userData: userData);
+          singletonAuthUseCase.authUseCase.userId = userData.id;
+          singletonAuthUseCase.authUseCase.userToken = userData.token;
           emit(LoginSuccessfull(userData: userData, id: userData.id!));
         } else {
           emit(LoginFailed());
@@ -41,6 +44,5 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Future<void> initDataBase({UserData? userData}) async {
     await dbControllerUserAuth
         .insert(UserData(token: userData!.token, id: userData.id));
-    UserTokenConfig.setToken(userData.token!);
   }
 }

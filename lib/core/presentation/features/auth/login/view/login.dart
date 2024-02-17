@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spoosk/core/data/repositories/DI/service.dart';
 import 'package:spoosk/core/presentation/features/auth/login/bloc/bloc_login/login_bloc.dart';
+import 'package:spoosk/core/presentation/features/user/favourites/bloc/bloc_favorites_users/favorites_users_bloc.dart';
 import 'package:spoosk/core/presentation/features/user/profile/bloc_user_by_id/user_bloc.dart';
 import 'package:spoosk/core/presentation/widgets/loading_overlay.dart';
 import '../../../../../colors.dart';
@@ -23,6 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final LoadingOverlay _loadingOverlay = LoadingOverlay();
+  SingletonAuthUseCase singletonAuthUseCase = SingletonAuthUseCase();
   String errorMessage = '';
 
   @override
@@ -173,8 +176,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _navigateUserProfile(LoginSuccessfull state, BuildContext context) {
     _loadingOverlay.hide();
-    final userId = state.id;
-    context.read<UserProfileBloc>().add(GetUserInfo(userId: userId));
+    singletonAuthUseCase.authUseCase.checkDB(context.read<UserProfileBloc>());
+    BlocProvider.of<FavoritesUsersBloc>(context)
+        .add(FavoritesUsersGet(userId: state.id));
     context.router.navigate(const UserProfileRoute());
   }
 
