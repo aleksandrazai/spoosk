@@ -100,7 +100,8 @@ class _FavouriteButtonState extends State<FavouriteButton> {
       style: ElevatedButton.styleFrom(
         shape: const CircleBorder(),
         elevation: 0,
-        backgroundColor: fovoriteIsSelected
+        backgroundColor: SingletonAuthUseCase().authUseCase.userToken != null &&
+                fovoriteIsSelected
             ? AppColors.primaryColor
             : const Color.fromARGB(77, 0, 0, 61),
       ),

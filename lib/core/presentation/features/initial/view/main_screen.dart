@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spoosk/core/colors.dart';
-import 'package:spoosk/core/presentation/features/home/bloc/popular_resorts/request_controller_bloc.dart';
 import 'package:spoosk/core/presentation/features/initial/bloc/connected_bloc/connected_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';

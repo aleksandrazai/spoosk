@@ -10,6 +10,7 @@ import 'package:spoosk/core/domain/useCases/SearchHistoryUseCase.dart';
 import 'package:spoosk/core/presentation/features/home/bloc/popular_resorts/request_controller_bloc.dart';
 import 'package:spoosk/core/presentation/features/home/bloc/reviews_home/reviews_home_bloc.dart';
 import 'package:spoosk/core/presentation/features/home/widgets/custom_appBar.dart';
+import 'package:spoosk/core/presentation/features/home/widgets/popular.dart';
 import 'package:spoosk/core/presentation/features/review/widgets/review_card/review_card.dart';
 import 'package:spoosk/core/presentation/features/search/bloc/bloc_search_history/search_history_bloc.dart';
 import 'package:spoosk/core/presentation/features/search/widgets/custom_searchfield.dart';
@@ -17,7 +18,6 @@ import 'package:spoosk/core/presentation/features/user/favourites/bloc/bloc_favo
 import 'package:spoosk/core/presentation/features/user/profile/bloc_user_by_id/user_bloc.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/features/home/widgets/cardsheader.dart';
-import 'package:spoosk/core/presentation/features/resort/widgets/resort_card/resort_card.dart';
 
 @RoutePage()
 class Home extends StatefulWidget {
@@ -117,33 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-              BlocBuilder<PorularResortBloc, PorularResortState>(
-                builder: (context, state) {
-                  if (state is PorularResortLoaded) {
-                    return SliverToBoxAdapter(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: SizedBox(
-                          height: 220, //test
-                          child: ListView.builder(
-                            addRepaintBoundaries: false,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 6,
-                            itemBuilder: (BuildContext context, index) {
-                              final resort = state.resortsAll[index];
-                              return SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.7,
-                                  child: ResortCard(resort: resort));
-                            },
-                          ),
-                        ),
-                      ),
-                    );
-                  }
-                  return SliverToBoxAdapter();
-                },
-              ),
+              PopularHome(),
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16)
