@@ -20,6 +20,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return BlocBuilder<UserProfileBloc, UserProfileState>(
       builder: (context, state) {
+        print("_ProfileState ${state}");
         if (state is UserProfileLoaded) {
           return const UserProfileScreen();
         }

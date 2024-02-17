@@ -131,11 +131,10 @@ class _FavouriteButtonState extends State<FavouriteButton> {
         .read<UserProfileBloc>()
         .dbcontrollerUserAuth
         .getDataList();
-    if (userBloc.isNotEmpty && userBloc[0].token != null) {
-      UserData userId = userBloc[0];
+    if (authUseCase.authUseCase.userToken != null) {
       context
           .read<FavoritesUsersBloc>()
-          .add(FavoritesUsersGet(userId: userId.id!));
+          .add(FavoritesUsersGet(userId: authUseCase.authUseCase.userId!));
       bool? favorite = await _requestController.getAddToFavorites(
           resortId: widget.resort.idResort,
           userToken: authUseCase.authUseCase.userToken!);
@@ -144,7 +143,7 @@ class _FavouriteButtonState extends State<FavouriteButton> {
           fovoriteIsSelected = !fovoriteIsSelected;
           context
               .read<FavoritesUsersBloc>()
-              .add(FavoritesUsersGet(userId: userId.id!));
+              .add(FavoritesUsersGet(userId: authUseCase.authUseCase.userId!));
           context.read<PorularResortBloc>().add(LoadAllPorularResorts());
         });
       }

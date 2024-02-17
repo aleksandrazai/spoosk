@@ -12,7 +12,7 @@ part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  DBControllerUserAuth dbController_user_auth = DBControllerUserAuth();
+  DBControllerUserAuth dbControllerUserAuth = DBControllerUserAuth();
   DBController_history_search dbController_history_search =
       DBController_history_search();
 
@@ -39,7 +39,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Future<void> initDataBase({UserData? userData}) async {
-    await dbController_user_auth
+    await dbControllerUserAuth
         .insert(UserData(token: userData!.token, id: userData.id));
     UserTokenConfig.setToken(userData.token!);
   }

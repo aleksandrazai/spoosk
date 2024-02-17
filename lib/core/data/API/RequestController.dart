@@ -13,11 +13,11 @@ import 'package:spoosk/core/data/models/user_level.dart';
 import 'package:spoosk/core/data/models/user_login.dart';
 import 'package:spoosk/core/data/models/user_profile.dart';
 import 'package:spoosk/core/data/models/user_register.dart';
-import 'package:spoosk/core/domain/useCases/AuthUseCase.dart';
+import 'package:spoosk/core/data/repositories/DI/service.dart';
 
 class RequestController {
   final Dio _dio = Dio();
-  AuthUseCase authUseCase = AuthUseCase();
+  SingletonAuthUseCase singletonAuthUseCase = SingletonAuthUseCase();
   late String _baseUrl;
 
   RequestController() {
@@ -28,7 +28,8 @@ class RequestController {
     try {
       final Response<Map<String, dynamic>> response = await _dio.request(
         _baseUrl + ApiConfigUserGet.getAllResorts,
-        options: ApiConfigUserGet.userHeaders(userToken: userToken ?? ''),
+        options: ApiConfigUserGet.userHeaders(
+            userToken: singletonAuthUseCase.authUseCase.userToken ?? ''),
       );
 
       final Map<String, dynamic>? responseData = response.data;
