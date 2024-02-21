@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:spoosk/core/Infrastructure/firebase_analytics.dart';
 import 'package:spoosk/core/presentation/features/resort/bloc/bloc_by_id/resort_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/features/review/bloc/bloc_reviews_by_id/reviews_by_id_bloc.dart';
 import '../../../../../data/models/resorts.dart';
@@ -11,12 +12,12 @@ import '../../../../widgets/star_icon.dart';
 import 'custom_cardimage.dart';
 
 class ResortCard extends StatelessWidget {
-  const ResortCard({
+  ResortCard({
     super.key,
     required this.resort,
   });
   final Resort resort;
-
+  FireBaseAnalytics fireBaseAnalytics = FireBaseAnalytics();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -28,6 +29,7 @@ class ResortCard extends StatelessWidget {
             .read<ResortByIdBloc>()
             .add(EventLoadByIdResort(idResort: resort.idResort));
         context.router.push(ResortRoute(idResort: resort.idResort));
+        fireBaseAnalytics.logEventResort(resortName: resort.name);
       },
       child: Card(
         elevation: 0.5,
