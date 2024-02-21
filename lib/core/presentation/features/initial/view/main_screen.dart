@@ -1,10 +1,18 @@
 // ignore_for_file: deprecated_member_use, use_build_context_synchronously
 import 'package:auto_route/auto_route.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spoosk/core/colors.dart';
+import 'package:spoosk/core/data/repositories/DI/service.dart';
+import 'package:spoosk/core/domain/useCases/SearchHistoryUseCase.dart';
+import 'package:spoosk/core/presentation/features/home/bloc/popular_resorts/request_controller_bloc.dart';
+import 'package:spoosk/core/presentation/features/home/bloc/reviews_home/reviews_home_bloc.dart';
 import 'package:spoosk/core/presentation/features/initial/bloc/connected_bloc/connected_bloc.dart';
+import 'package:spoosk/core/presentation/features/search/bloc/bloc_search_history/search_history_bloc.dart';
+import 'package:spoosk/core/presentation/features/user/favourites/bloc/bloc_favorites_users/favorites_users_bloc.dart';
+import 'package:spoosk/core/presentation/features/user/profile/bloc_user_by_id/user_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/features/initial/view/error.dart';
@@ -19,6 +27,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   bool dialog = false;
+  SingletonAuthUseCase singletonAuthUseCase = SingletonAuthUseCase();
 
   @override
   Widget build(BuildContext context) {
@@ -31,20 +40,9 @@ class _MainScreenState extends State<MainScreen> {
         return BlocConsumer<ConnectedBloc, ConnectedState>(
           listener: (context, state) async {
             if (state is ConnectedFailureState && dialog != true) {
-              setState(() {
-                dialog = true;
-              });
-              bool? canContinie = await showDialog<bool>(
-                useSafeArea: true,
-                barrierDismissible: false,
-                context: context,
-                builder: (context) => ErrorScreen(),
-              );
-              setState(() {
-                dialog = false;
-              });
+              _openModal();
+              initData();
             }
-
             print('\x1B[31m$state\x1B[0m');
           },
           builder: (context, state) {
@@ -152,5 +150,47 @@ class _MainScreenState extends State<MainScreen> {
         );
       },
     );
+  }
+
+  @override
+  initState() {
+    super.initState();
+    _checkConnection();
+  }
+
+  _checkConnection() async {
+    ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.none) {
+      _openModal();
+    }
+  }
+
+  _openModal() async {
+    setState(() {
+      dialog = true;
+    });
+    bool? canContinie = await showDialog<bool>(
+      useSafeArea: true,
+      barrierDismissible: false,
+      context: context,
+      builder: (context) => const ErrorScreen(),
+    );
+    setState(() {
+      dialog = false;
+    });
+    initData();
+  }
+
+  initData() async {
+    await singletonAuthUseCase.authUseCase
+        .checkDB(context.read<UserProfileBloc>());
+    context.read<PorularResortBloc>().add(LoadAllPorularResorts());
+    context.read<ReviewsHomeBloc>().add(GetReviewsHomeEvent());
+    SearchHistoryUseCase().checkDB(context.read<SearchHistoryBloc>());
+    int? userId = singletonAuthUseCase.authUseCase.userId;
+    if (userId != null) {
+      context.read<FavoritesUsersBloc>().add(FavoritesUsersGet(userId: userId));
+    }
   }
 }

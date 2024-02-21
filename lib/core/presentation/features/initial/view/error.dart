@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spoosk/core/presentation/features/initial/bloc/connected_bloc/connected_bloc.dart';
@@ -29,14 +30,14 @@ class ErrorScreenState extends State<ErrorScreen> {
                     margin: const EdgeInsets.symmetric(
                       vertical: 40,
                     ),
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(17)),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(17),
+                      child: Image.asset(
+                          fit: BoxFit.cover,
+                          width: MediaQuery.of(context).size.width,
+                          height: 165,
+                          error_page_image),
                     ),
-                    clipBehavior: Clip.hardEdge,
-                    child: Image.asset(
-                        width: MediaQuery.of(context).size.width,
-                        height: 165,
-                        error_page_image),
                   ),
                   Text(
                       style: Theme.of(context)
@@ -58,7 +59,7 @@ class ErrorScreenState extends State<ErrorScreen> {
                                 fontWeight: FontWeight.w400,
                                 color: AppColors.primaryFontLight,
                                 fontSize: 14),
-                        "Похоже возникли проблемы с подключением. Попробуйте обновить страницу или проверьте ваше подключение к интернету."),
+                        "Похоже возникли проблемы с подключением. Попробуйте перезайти или проверьте ваше подключение к интернету."),
                   ),
                   const Spacer(),
                   CustomButton(
@@ -70,11 +71,9 @@ class ErrorScreenState extends State<ErrorScreen> {
                         ?.copyWith(color: AppColors.white),
                     height: 40,
                     color: AppColors.primaryColor,
-                    buttonText: 'Обновить страницу',
+                    buttonText: 'Проверить соединение',
                     onTap: () {
-                      if (state is ConnectedSucessState) {
-                        Navigator.pop(context);
-                      }
+                      _checkConnection();
                     },
                   ),
                   const SizedBox(
@@ -85,5 +84,13 @@ class ErrorScreenState extends State<ErrorScreen> {
             ));
       },
     );
+  }
+
+  Future<void> _checkConnection() async {
+    ConnectivityResult connectivityResult =
+        await Connectivity().checkConnectivity();
+    if (connectivityResult != ConnectivityResult.none) {
+      Navigator.pop(context);
+    }
   }
 }
