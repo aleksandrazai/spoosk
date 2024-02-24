@@ -16,15 +16,10 @@ class SelectionScreenBottomSheetLevel extends StatefulWidget {
 
 class _SelectionScreenBottomSheetLevelState
     extends State<SelectionScreenBottomSheetLevel> {
-  late final SelectedLevelsModel levelsModel;
-  @override
-  void initState() {
-    super.initState();
-    levelsModel = Provider.of<SelectedLevelsModel>(context, listen: false);
-  }
-
   @override
   Widget build(BuildContext context) {
+    SelectedLevelsModel levelsModel =
+        Provider.of<SelectedLevelsModel>(context, listen: false);
     return SizedBox(
       child: Column(
         children: [

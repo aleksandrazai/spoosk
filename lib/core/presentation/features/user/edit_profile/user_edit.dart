@@ -56,7 +56,7 @@ class _UserEditProfileState extends State<UserEditProfile> {
           ),
           leading: CustomLeadingIcon(
             onTapped: () {
-              context.router.back();
+              context.back();
             },
           ),
           title: Text('Редактирование профиля',

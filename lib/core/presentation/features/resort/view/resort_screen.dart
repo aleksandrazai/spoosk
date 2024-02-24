@@ -7,7 +7,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/data/models/chart.dart';
 import 'package:spoosk/core/data/repositories/DI/service.dart';
-import 'package:spoosk/core/presentation/features/auth/login/view/login.dart';
 import 'package:spoosk/core/presentation/features/resort/bloc/bloc_by_id/resort_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/features/resort/widgets/resort_screen_widgets/additional_list.dart';
 import 'package:spoosk/core/presentation/features/resort/widgets/resort_screen_widgets/chart_widget.dart';
@@ -17,7 +16,6 @@ import 'package:spoosk/core/presentation/features/resort/widgets/resort_screen_w
 import 'package:spoosk/core/presentation/features/review/bloc/bloc_reviews_by_id/reviews_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/features/review/widgets/review_card/review_card.dart';
 import 'package:spoosk/core/presentation/features/review/widgets/review_form/review_form.dart';
-import 'package:spoosk/core/presentation/features/user/profile/bloc_user_by_id/user_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
 import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/theme/theme.dart';
@@ -46,12 +44,12 @@ class _ResortScreenState extends State<ResortScreen>
   final textKey = GlobalKey();
   SingletonAuthUseCase authUseCase = SingletonAuthUseCase();
 
-  @override
-  void initState() {
-    super.initState();
-    context.read<ResortByIdBloc>();
-    context.read<ReviewsByIdBloc>();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   context.read<ResortByIdBloc>();
+  //   context.read<ReviewsByIdBloc>();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +57,6 @@ class _ResortScreenState extends State<ResortScreen>
       builder: (context) {
         final stateResortById = context.watch<ResortByIdBloc>().state;
         final stateReviews = context.watch<ReviewsByIdBloc>().state;
-
         if (stateResortById is ResortByIdLoaded ||
             stateReviews is ReviewsByIdLoaded &&
                 stateResortById.resortById != null) {
@@ -67,7 +64,7 @@ class _ResortScreenState extends State<ResortScreen>
             canPop: false,
             onPopInvoked: (didPop) {
               context.read<ResortByIdBloc>().add(EventClearByIdResort());
-              context.router.navigate(const Home());
+              context.router.back();
             },
             child: Scaffold(
               backgroundColor: AppColors.background,
@@ -130,7 +127,7 @@ class _ResortScreenState extends State<ResortScreen>
                           .read<ResortByIdBloc>()
                           .add(EventClearByIdResort());
                       Feedback.forTap(context);
-                      context.back();
+                      context.router.pop();
                     },
                     child: SvgPicture.asset(
                       fit: BoxFit.scaleDown,

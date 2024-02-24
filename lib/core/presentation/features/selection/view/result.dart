@@ -30,55 +30,10 @@ class ResultScreen extends StatefulWidget {
 }
 
 class _ResultScreenState extends State<ResultScreen> {
-  late final SelectedLevelsModel levelsModel;
-  late final SelectedRegionsModel regionModel;
-  late final SelectedMonthsModel monthModel;
-  late final AdvancedFilterNotifier advancedFilter;
-  late final SliderNotifier sliderFilter;
-
-  @override
-  void initState() {
-    super.initState();
-    levelsModel = Provider.of<SelectedLevelsModel>(context, listen: false);
-    regionModel = Provider.of<SelectedRegionsModel>(context, listen: false);
-    monthModel = Provider.of<SelectedMonthsModel>(context, listen: false);
-    advancedFilter =
-        Provider.of<AdvancedFilterNotifier>(context, listen: false);
-    sliderFilter = Provider.of<SliderNotifier>(context, listen: false);
-
-    levelsModel.addListener(() {
-      _filterRequest();
-    });
-    regionModel.addListener(() {
-      _filterRequest();
-    });
-    monthModel.addListener(() {
-      _filterRequest();
-    });
-    advancedFilter.addListener(() {
-      _filterRequest();
-    });
-    sliderFilter.addListener(() {
-      _filterRequest();
-    });
-  }
-
-  void _filterRequest() {
-    final mainFilterBloc = context.read<MainFilterBloc>();
-
-    mainFilterBloc.add(
-      MainFilterRequest(
-        resort_region: regionModel.selectedRegions,
-        resort_month: monthModel.selectedMonths,
-        resort_level: levelsModel.selectedLevels,
-        group_button: advancedFilter.allGroupButtons,
-        slider: sliderFilter.sliderValue.toStringAsFixed(0),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    initProvider(context);
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -277,5 +232,35 @@ class _ResultScreenState extends State<ResultScreen> {
         return const CircularProgressIndicator();
       }),
     );
+  }
+
+  void initProvider(BuildContext context) {
+    SelectedLevelsModel levelsModel =
+        Provider.of<SelectedLevelsModel>(context, listen: false);
+    SelectedRegionsModel regionModel =
+        Provider.of<SelectedRegionsModel>(context, listen: false);
+    SelectedMonthsModel monthModel =
+        Provider.of<SelectedMonthsModel>(context, listen: false);
+    AdvancedFilterNotifier advancedFilter =
+        Provider.of<AdvancedFilterNotifier>(context, listen: false);
+    SliderNotifier sliderFilter =
+        Provider.of<SliderNotifier>(context, listen: false);
+
+    void handleFilterRequest() {
+      final mainFilterBloc = context.read<MainFilterBloc>();
+      mainFilterBloc.add(MainFilterRequest(
+        resort_region: regionModel.selectedRegions,
+        resort_month: monthModel.selectedMonths,
+        resort_level: levelsModel.selectedLevels,
+        group_button: advancedFilter.allGroupButtons,
+        slider: sliderFilter.sliderValue.toStringAsFixed(0),
+      ));
+    }
+
+    levelsModel.addListener(handleFilterRequest);
+    regionModel.addListener(handleFilterRequest);
+    monthModel.addListener(handleFilterRequest);
+    advancedFilter.addListener(handleFilterRequest);
+    sliderFilter.addListener(handleFilterRequest);
   }
 }

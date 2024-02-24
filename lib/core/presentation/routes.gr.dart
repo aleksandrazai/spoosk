@@ -22,7 +22,7 @@ import 'package:spoosk/core/presentation/features/auth/reset_password/view/reset
     as _i13;
 import 'package:spoosk/core/presentation/features/auth/verify_code/view/code.dart'
     as _i5;
-import 'package:spoosk/core/presentation/features/home/view/home.dart' as _i7;
+import 'package:spoosk/core/presentation/features/home/view/home.dart' as _i8;
 import 'package:spoosk/core/presentation/features/initial/view/main_screen.dart'
     as _i10;
 import 'package:spoosk/core/presentation/features/resort/view/all_resorts.dart'
@@ -47,7 +47,7 @@ import 'package:spoosk/core/presentation/features/user/profile/view/user_profile
     as _i19;
 import 'package:spoosk/core/presentation/features/user/reviews/user_reviews.dart'
     as _i20;
-import 'package:spoosk/core/presentation/routes.dart' as _i8;
+import 'package:spoosk/core/presentation/routes.dart' as _i7;
 import 'package:spoosk/core/presentation/screens/comparison.dart' as _i4;
 
 abstract class $AppRouter extends _i21.RootStackRouter {
@@ -106,16 +106,22 @@ abstract class $AppRouter extends _i21.RootStackRouter {
         child: const _i6.Favorites(),
       );
     },
+    FavouriteEmptyRoute.name: (routeData) {
+      return _i21.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i7.FavouriteEmptyPage(),
+      );
+    },
     Home.name: (routeData) {
       return _i21.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i7.Home(),
+        child: const _i8.Home(),
       );
     },
     LoginEmptyRoute.name: (routeData) {
       return _i21.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i8.LoginEmptyPage(),
+        child: const _i7.LoginEmptyPage(),
       );
     },
     LoginRoute.name: (routeData) {
@@ -139,7 +145,7 @@ abstract class $AppRouter extends _i21.RootStackRouter {
     ProfileEmptyRoute.name: (routeData) {
       return _i21.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i8.ProfileEmptyPage(),
+        child: const _i7.ProfileEmptyPage(),
       );
     },
     RegisterRoute.name: (routeData) {
@@ -152,6 +158,12 @@ abstract class $AppRouter extends _i21.RootStackRouter {
       return _i21.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i13.ResetPasswordScreen(),
+      );
+    },
+    ResortEmptyRoute.name: (routeData) {
+      return _i21.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i7.ResortEmptyPage(),
       );
     },
     ResortRoute.name: (routeData) {
@@ -167,7 +179,7 @@ abstract class $AppRouter extends _i21.RootStackRouter {
     ResortTab.name: (routeData) {
       return _i21.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i8.ResortTabPage(),
+        child: const _i7.ResortTabPage(),
       );
     },
     ResultRoute.name: (routeData) {
@@ -191,7 +203,7 @@ abstract class $AppRouter extends _i21.RootStackRouter {
     SelectionTab.name: (routeData) {
       return _i21.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i8.SelectionEmptyPage(),
+        child: const _i7.SelectionEmptyPage(),
       );
     },
     UserEditProfile.name: (routeData) {
@@ -387,7 +399,21 @@ class Favorites extends _i21.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.Home]
+/// [_i7.FavouriteEmptyPage]
+class FavouriteEmptyRoute extends _i21.PageRouteInfo<void> {
+  const FavouriteEmptyRoute({List<_i21.PageRouteInfo>? children})
+      : super(
+          FavouriteEmptyRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'FavouriteEmptyRoute';
+
+  static const _i21.PageInfo<void> page = _i21.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i8.Home]
 class Home extends _i21.PageRouteInfo<void> {
   const Home({List<_i21.PageRouteInfo>? children})
       : super(
@@ -401,7 +427,7 @@ class Home extends _i21.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i8.LoginEmptyPage]
+/// [_i7.LoginEmptyPage]
 class LoginEmptyRoute extends _i21.PageRouteInfo<void> {
   const LoginEmptyRoute({List<_i21.PageRouteInfo>? children})
       : super(
@@ -457,7 +483,7 @@ class Profile extends _i21.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i8.ProfileEmptyPage]
+/// [_i7.ProfileEmptyPage]
 class ProfileEmptyRoute extends _i21.PageRouteInfo<void> {
   const ProfileEmptyRoute({List<_i21.PageRouteInfo>? children})
       : super(
@@ -494,6 +520,20 @@ class ResetPasswordRoute extends _i21.PageRouteInfo<void> {
         );
 
   static const String name = 'ResetPasswordRoute';
+
+  static const _i21.PageInfo<void> page = _i21.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i7.ResortEmptyPage]
+class ResortEmptyRoute extends _i21.PageRouteInfo<void> {
+  const ResortEmptyRoute({List<_i21.PageRouteInfo>? children})
+      : super(
+          ResortEmptyRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ResortEmptyRoute';
 
   static const _i21.PageInfo<void> page = _i21.PageInfo<void>(name);
 }
@@ -537,7 +577,7 @@ class ResortRouteArgs {
 }
 
 /// generated route for
-/// [_i8.ResortTabPage]
+/// [_i7.ResortTabPage]
 class ResortTab extends _i21.PageRouteInfo<void> {
   const ResortTab({List<_i21.PageRouteInfo>? children})
       : super(
@@ -593,7 +633,7 @@ class Selection extends _i21.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i8.SelectionEmptyPage]
+/// [_i7.SelectionEmptyPage]
 class SelectionTab extends _i21.PageRouteInfo<void> {
   const SelectionTab({List<_i21.PageRouteInfo>? children})
       : super(

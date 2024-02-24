@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:spoosk/core/colors.dart';
 import 'package:spoosk/core/data/models/ResortById.dart';
-import 'package:spoosk/core/presentation/features/home/view/home.dart';
 import 'package:spoosk/core/presentation/features/review/widgets/review_card/review_card.dart';
 import 'package:spoosk/core/presentation/features/review/widgets/review_form/review_form.dart';
+import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/widgets/CustomButton.dart';
 import 'package:spoosk/core/utils/utils.dart';
 import '../../../../data/models/reviews.dart';
@@ -29,7 +29,8 @@ class _AllReviewsByIdState extends State<AllReviewsById> {
     return PopScope(
         canPop: true,
         onPopInvoked: (didPop) {
-          context.router.canPop();
+          context.router
+              .navigate(ResortRoute(idResort: widget.resort!.idResort));
         },
         child: Scaffold(
           backgroundColor: AppColors.background,

@@ -17,16 +17,10 @@ class SelectionScreenBottomSheetMonth extends StatefulWidget {
 
 class _SelectionScreenBottomSheetMonthState
     extends State<SelectionScreenBottomSheetMonth> {
-  late final SelectedMonthsModel monthModel;
-
-  @override
-  void initState() {
-    super.initState();
-    monthModel = Provider.of<SelectedMonthsModel>(context, listen: false);
-  }
-
   @override
   Widget build(BuildContext context) {
+    SelectedMonthsModel monthModel =
+        Provider.of<SelectedMonthsModel>(context, listen: false);
     final month = ResortMonths.month;
     return Column(
       children: [

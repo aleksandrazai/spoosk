@@ -10,18 +10,30 @@ class AppRouter extends $AppRouter {
           path: '/',
           initial: true,
           children: [
+            //Home Page
             AutoRoute(
               path: 'emptyhome',
               page: ResortTab.page,
               children: [
                 RedirectRoute(path: '', redirectTo: 'emptyhome/:id'),
                 AutoRoute(page: Home.page, path: 'Home'),
-                AutoRoute(page: ResortRoute.page, path: 'resortscreen'),
+                //Resort Page
+                AutoRoute(
+                    page: ResortEmptyRoute.page,
+                    path: 'emptyresort',
+                    children: [
+                      RedirectRoute(path: '', redirectTo: 'emptyresort'),
+                      AutoRoute(
+                        page: ResortRoute.page,
+                        path: 'resortscreen',
+                      ),
+                      AutoRoute(page: AllReviewsById.page, path: 'allreviews'),
+                    ]),
+                //Search Page
                 AutoRoute(page: SearchRoute.page, path: 'search'),
-                AutoRoute(page: AllReviewsById.page, path: 'allreviews'),
-                AutoRoute(page: AllResortsRoute.page, path: 'allresorts'),
               ],
             ),
+            //Selection Page
             AutoRoute(
                 page: SelectionTab.page,
                 path: 'emptyselection',
@@ -31,6 +43,7 @@ class AppRouter extends $AppRouter {
                   AutoRoute(page: ResultRoute.page, path: 'ResultSelection'),
                   AutoRoute(page: ResortRoute.page, path: 'resortscreen'),
                 ]),
+            //Login Page
             AutoRoute(
               page: LoginEmptyRoute.page,
               path: 'emptylogin',
@@ -60,11 +73,18 @@ class AppRouter extends $AppRouter {
                     page: ChangePasswordRoute.page, path: 'changepassword'),
               ],
             ),
+            //Comparison
             AutoRoute(page: Comparison.page, path: 'Comparison'),
+            //Favourites
             AutoRoute(
-                page: Favorites.page,
-                path: 'Favorites',
-                allowSnapshotting: true),
+                page: FavouriteEmptyRoute.page,
+                path: 'emptyfavourite',
+                allowSnapshotting: true,
+                children: [
+                  RedirectRoute(path: '', redirectTo: 'emptyfavourite'),
+                  AutoRoute(page: Favorites.page),
+                  AutoRoute(page: ResortRoute.page),
+                ]),
           ],
         ),
       ];
@@ -88,4 +108,14 @@ class LoginEmptyPage extends AutoRouter {
 @RoutePage()
 class ProfileEmptyPage extends AutoRouter {
   const ProfileEmptyPage({super.key});
+}
+
+@RoutePage()
+class ResortEmptyPage extends AutoRouter {
+  const ResortEmptyPage({super.key});
+}
+
+@RoutePage()
+class FavouriteEmptyPage extends AutoRouter {
+  const FavouriteEmptyPage({super.key});
 }

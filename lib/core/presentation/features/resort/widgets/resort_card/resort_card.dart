@@ -28,7 +28,7 @@ class ResortCard extends StatelessWidget {
         context
             .read<ResortByIdBloc>()
             .add(EventLoadByIdResort(idResort: resort.idResort));
-        context.router.push(ResortRoute(idResort: resort.idResort));
+        context.router.navigate(ResortRoute(idResort: resort.idResort));
         fireBaseAnalytics.logEventResort(resortName: resort.name);
       },
       child: Card(
