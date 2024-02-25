@@ -64,7 +64,7 @@ class _ResortScreenState extends State<ResortScreen>
             canPop: false,
             onPopInvoked: (didPop) {
               context.read<ResortByIdBloc>().add(EventClearByIdResort());
-              context.router.back();
+              Navigator.pop(context);
             },
             child: Scaffold(
               backgroundColor: AppColors.background,

@@ -29,6 +29,10 @@ class AppRouter extends $AppRouter {
                       ),
                       AutoRoute(page: AllReviewsById.page, path: 'allreviews'),
                     ]),
+                AutoRoute(
+                  page: ResortRoute.page,
+                  path: 'resortscreen',
+                ),
                 //Search Page
                 AutoRoute(page: SearchRoute.page, path: 'search'),
               ],
