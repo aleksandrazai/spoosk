@@ -14,7 +14,6 @@ class ApiConfigurateGet {
   static String getAllResorts = 'api/resorts/';
   static String getResotrsById = 'api/resorts/';
   static String getAllRegions = 'api/resorts/regions';
-  static String mainFilter = 'api/resorts/filter';
   static String searchResort = 'api/resorts/';
   static String getReviews = 'api/reviews/';
   static String getReviewsById = 'api/resorts/';
@@ -91,6 +90,7 @@ class ApiConfigUserGet {
   };
 
   static String getAllResorts = 'api/resorts/';
+  static String mainFilter = 'api/resorts/filter';
 }
 
 class ApiConfigResetPassword {

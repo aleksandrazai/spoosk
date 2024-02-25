@@ -132,10 +132,12 @@ class RequestController {
       ].where((param) => param.isNotEmpty).join('&');
 
       final String url =
-          '$_baseUrl${ApiConfigurateGet.mainFilter}${parameters.isNotEmpty ? '?' : ''}$parameters';
+          '$_baseUrl${ApiConfigUserGet.mainFilter}${parameters.isNotEmpty ? '?' : ''}$parameters';
       print('Filter Request: $url');
 
-      final response = await _dio.get(url, options: ApiConfigurateGet.headers);
+      final response = await _dio.get(url,
+          options: ApiConfigUserGet.userHeaders(
+              userToken: singletonAuthUseCase.authUseCase.userToken ?? ''));
 
       final result = List<Resort>.from(
           response.data['results'].map((x) => Resort.fromMap(x)));
