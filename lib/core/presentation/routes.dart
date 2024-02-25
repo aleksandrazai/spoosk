@@ -79,11 +79,10 @@ class AppRouter extends $AppRouter {
             AutoRoute(
                 page: FavouriteEmptyRoute.page,
                 path: 'emptyfavourite',
-                allowSnapshotting: true,
                 children: [
                   RedirectRoute(path: '', redirectTo: 'emptyfavourite'),
                   AutoRoute(page: Favorites.page),
-                  AutoRoute(page: ResortRoute.page),
+                  AutoRoute(page: ResortRoute.page, path: 'resortscreen'),
                 ]),
           ],
         ),
