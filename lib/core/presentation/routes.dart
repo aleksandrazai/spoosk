@@ -45,7 +45,18 @@ class AppRouter extends $AppRouter {
                   RedirectRoute(path: '', redirectTo: 'emptyselection'),
                   AutoRoute(page: Selection.page, path: 'Selection'),
                   AutoRoute(page: ResultRoute.page, path: 'ResultSelection'),
-                  AutoRoute(page: ResortRoute.page, path: 'resortscreen'),
+                  AutoRoute(
+                      page: ResortEmptyRoute.page,
+                      path: 'emptyresort',
+                      children: [
+                        RedirectRoute(path: '', redirectTo: 'emptyresort'),
+                        AutoRoute(
+                          page: ResortRoute.page,
+                          path: 'resortscreen',
+                        ),
+                        AutoRoute(
+                            page: AllReviewsById.page, path: 'allreviews'),
+                      ]),
                 ]),
             //Login Page
             AutoRoute(
@@ -86,7 +97,18 @@ class AppRouter extends $AppRouter {
                 children: [
                   RedirectRoute(path: '', redirectTo: 'emptyfavourite'),
                   AutoRoute(page: Favorites.page),
-                  AutoRoute(page: ResortRoute.page, path: 'resortscreen'),
+                  AutoRoute(
+                      page: ResortEmptyRoute.page,
+                      path: 'emptyresort',
+                      children: [
+                        RedirectRoute(path: '', redirectTo: 'emptyresort'),
+                        AutoRoute(
+                          page: ResortRoute.page,
+                          path: 'resortscreen',
+                        ),
+                        AutoRoute(
+                            page: AllReviewsById.page, path: 'allreviews'),
+                      ]),
                 ]),
           ],
         ),
