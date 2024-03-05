@@ -21,16 +21,7 @@ class ResortCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        context
-            .read<ReviewsByIdBloc>()
-            .add(EventLoadByIdReviews(idResort: resort.idResort));
-        context
-            .read<ResortByIdBloc>()
-            .add(EventLoadByIdResort(idResort: resort.idResort));
-        context.router.navigate(ResortRoute(idResort: resort.idResort));
-        fireBaseAnalytics.logEventResort(resortName: resort.name);
-      },
+      onTap: () => onTap(context),
       child: Card(
         elevation: 0.5,
         color: Colors.white,
@@ -40,7 +31,7 @@ class ResortCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomCardImage(resort: resort),
+            CustomCardImage(onTapImage: () => onTap(context), resort: resort),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: SizedBox(
@@ -117,5 +108,16 @@ class ResortCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  onTap(BuildContext context) {
+    context
+        .read<ReviewsByIdBloc>()
+        .add(EventLoadByIdReviews(idResort: resort.idResort));
+    context
+        .read<ResortByIdBloc>()
+        .add(EventLoadByIdResort(idResort: resort.idResort));
+    context.router.navigate(ResortRoute(idResort: resort.idResort));
+    fireBaseAnalytics.logEventResort(resortName: resort.name);
   }
 }

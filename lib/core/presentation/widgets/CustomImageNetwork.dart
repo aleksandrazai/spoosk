@@ -34,9 +34,11 @@ class CustomImageNetwork extends StatefulWidget {
   int? cacheHeight;
   bool openGallery = true;
   final imageCache = ImageCache();
+  final void Function()? onTapImage;
 
   CustomImageNetwork(
       {super.key,
+      this.onTapImage,
       required this.src,
       this.initIndex,
       this.listImages,
@@ -77,48 +79,55 @@ class _CustomImageNetworkState extends State<CustomImageNetwork> {
           _openModal();
         }
       },
-      child: Image.network(widget.src[0],
-          scale: widget.scale,
-          frameBuilder: widget.frameBuilder,
-          semanticLabel: widget.semanticLabel,
-          excludeFromSemantics: widget.excludeFromSemantics,
-          width: widget.width,
-          height: widget.height,
-          color: widget.color,
-          opacity: widget.opacity,
-          colorBlendMode: widget.colorBlendMode,
-          fit: widget.fit,
-          alignment: widget.alignment,
-          repeat: widget.repeat,
-          centerSlice: widget.centerSlice,
-          matchTextDirection: widget.matchTextDirection,
-          gaplessPlayback: widget.gaplessPlayback,
-          filterQuality: widget.filterQuality,
-          isAntiAlias: widget.isAntiAlias,
-          headers: widget.headers,
-          cacheWidth: widget.cacheHeight,
-          cacheHeight: widget.cacheHeight,
-          errorBuilder: (context, error, stackTrace) => Container(
-                height: 108,
-                width: double.infinity,
-                color: const Color(0xFFE6E6E6),
-                child: Center(
-                  child: SvgPicture.asset(
-                    error_image,
-                    width: 92,
-                    height: 92,
+      child: GestureDetector(
+        onTap: () {
+          if (widget.onTapImage != null) {
+            widget.onTapImage!();
+          }
+        },
+        child: Image.network(widget.src[0],
+            scale: widget.scale,
+            frameBuilder: widget.frameBuilder,
+            semanticLabel: widget.semanticLabel,
+            excludeFromSemantics: widget.excludeFromSemantics,
+            width: widget.width,
+            height: widget.height,
+            color: widget.color,
+            opacity: widget.opacity,
+            colorBlendMode: widget.colorBlendMode,
+            fit: widget.fit,
+            alignment: widget.alignment,
+            repeat: widget.repeat,
+            centerSlice: widget.centerSlice,
+            matchTextDirection: widget.matchTextDirection,
+            gaplessPlayback: widget.gaplessPlayback,
+            filterQuality: widget.filterQuality,
+            isAntiAlias: widget.isAntiAlias,
+            headers: widget.headers,
+            cacheWidth: widget.cacheHeight,
+            cacheHeight: widget.cacheHeight,
+            errorBuilder: (context, error, stackTrace) => Container(
+                  height: 108,
+                  width: double.infinity,
+                  color: const Color(0xFFE6E6E6),
+                  child: Center(
+                    child: SvgPicture.asset(
+                      error_image,
+                      width: 92,
+                      height: 92,
+                    ),
                   ),
                 ),
-              ),
-          loadingBuilder: (context, child, loadingProgress) {
-            return loadingProgress == null
-                ? child
-                : Center(
-                    child: CircularProgressIndicator(
-                      color: AppColors.primaryColor,
-                    ),
-                  );
-          }),
+            loadingBuilder: (context, child, loadingProgress) {
+              return loadingProgress == null
+                  ? child
+                  : Center(
+                      child: CircularProgressIndicator(
+                        color: AppColors.primaryColor,
+                      ),
+                    );
+            }),
+      ),
     );
   }
 

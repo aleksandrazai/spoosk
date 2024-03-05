@@ -18,8 +18,10 @@ class CustomCardImage extends StatefulWidget {
   const CustomCardImage({
     super.key,
     required this.resort,
+    this.onTapImage,
   }) : super();
   final Resort resort;
+  final void Function()? onTapImage;
 
   @override
   CustomCardImageState createState() => CustomCardImageState();
@@ -36,6 +38,7 @@ class CustomCardImageState extends State<CustomCardImage> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(17),
               child: CustomImageNetwork(
+                onTapImage: widget.onTapImage,
                 openGallery: false,
                 src: [widget.resort.image],
                 height: 108,
