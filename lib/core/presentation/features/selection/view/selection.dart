@@ -109,12 +109,6 @@ class _SelectionState extends State<Selection> {
                     const SizedBox(
                       width: 28,
                     ),
-                    // Text(
-                    //     style: Theme.of(context)
-                    //         .textTheme
-                    //         .bodyMedium!
-                    //         .copyWith(color: AppColors.primaryColor),
-                    //     "На карте")
                   ],
                 ),
               )

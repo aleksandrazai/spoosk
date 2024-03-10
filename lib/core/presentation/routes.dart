@@ -98,6 +98,10 @@ class AppRouter extends $AppRouter {
                   RedirectRoute(path: '', redirectTo: 'emptyfavourite'),
                   AutoRoute(page: Favorites.page),
                   AutoRoute(
+                    page: ResortRoute.page,
+                    path: 'resortscreen',
+                  ),
+                  AutoRoute(
                       page: ResortEmptyRoute.page,
                       path: 'emptyresort',
                       children: [
