@@ -30,77 +30,57 @@ class _FavoritesState extends State<Favorites>
   }
 
   @override
-  void didInitTabRoute(TabPageRoute? previousRoute) async {
-    UserProfileBloc userBloc = context.read<UserProfileBloc>();
-    int? userId = userBloc.getUserId();
-    print("didInitTabRoute userBloc.userId: $userId");
-
-    if (userId != null) {
-      setState(() {
-        isAuth = true;
-      });
-      context.read<FavoritesUsersBloc>().add(FavoritesUsersGet(userId: userId));
-    }
-  }
-
-  @override
-  void didChangeTabRoute(TabPageRoute previousRoute) {
-    UserProfileBloc userBloc = context.read<UserProfileBloc>();
-    int? userId = userBloc.getUserId();
-
-    print("didChangeTabRoute userBloc.userId: ${userId}");
-    if (userId != null) {
-      setState(() {
-        isAuth = true;
-      });
-      context.read<FavoritesUsersBloc>().add(FavoritesUsersGet(userId: userId));
-    } else if (userId == null) {
-      setState(() {
-        isAuth = false;
-      });
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     UserProfileBloc userBloc = context.read<UserProfileBloc>();
     int? userId = userBloc.getUserId();
-
-    print("Widget build $userId");
-    return BlocBuilder<FavoritesUsersBloc, FavoritesUsersState>(
-      builder: (context, state) {
-        if (userId == null && isAuth == false) {
-          return const LoginScreen();
+    return BlocListener<UserProfileBloc, UserProfileState>(
+      listener: (context, state) {
+        if (state is UserProfileLoaded) {
+          setState(() {
+            isAuth = true;
+          });
         }
-        if (state is FavoritesUsersAll && state.resorts != null) {
-          return Scaffold(
-            appBar: AppBar(
-                backgroundColor: const Color(0xFFf8f8f8),
-                elevation: 0,
-                title: Text(
-                  'Избранное',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                )),
-            body: ListView.builder(
-              itemCount: state.resorts!.length,
-              itemBuilder: (context, index) {
-                final resort = state.resorts![index];
-                return ResortCard(resort: resort);
-              },
-            ),
-          );
+        if (state is UserProfileInitial) {
+          setState(() {
+            isAuth = false;
+          });
         }
-        if (state is FavoritesUsersAll &&
-            state.resorts != null &&
-            state.resorts!.isEmpty) {
-          return const Center(
-            child: Text("Список пуст"),
-          );
-        }
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
       },
+      child: BlocBuilder<FavoritesUsersBloc, FavoritesUsersState>(
+        builder: (context, state) {
+          if (userId == null && isAuth == false) {
+            return const LoginScreen();
+          }
+          if (state is FavoritesUsersAll && state.resorts != null) {
+            return Scaffold(
+              appBar: AppBar(
+                  backgroundColor: const Color(0xFFf8f8f8),
+                  elevation: 0,
+                  title: Text(
+                    'Избранное',
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  )),
+              body: ListView.builder(
+                itemCount: state.resorts!.length,
+                itemBuilder: (context, index) {
+                  final resort = state.resorts![index];
+                  return ResortCard(resort: resort);
+                },
+              ),
+            );
+          }
+          if (state is FavoritesUsersAll &&
+              state.resorts != null &&
+              state.resorts!.isEmpty) {
+            return const Center(
+              child: Text("Список пуст"),
+            );
+          }
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ),
     );
   }
 }
