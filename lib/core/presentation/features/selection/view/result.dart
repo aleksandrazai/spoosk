@@ -8,6 +8,7 @@ import 'package:spoosk/core/presentation/features/selection/provider/advanced_fi
 import 'package:spoosk/core/presentation/features/selection/provider/main_filter/levels.dart';
 import 'package:spoosk/core/presentation/features/selection/provider/main_filter/months.dart';
 import 'package:spoosk/core/presentation/features/selection/bloc/bloc_mainFilter.dart/mainFilter_bloc.dart';
+import 'package:spoosk/core/presentation/router/routes.gr.dart';
 import 'package:spoosk/core/presentation/widgets/custom_bottomSheet.dart';
 import 'package:spoosk/core/presentation/features/selection/widgets/selection_screen_bottomSheet_filter.dart';
 import 'package:spoosk/core/presentation/features/selection/widgets/selection_screen_bottomSheet_level.dart';
@@ -16,7 +17,6 @@ import 'package:spoosk/core/presentation/widgets/CustomButtonWithContent.dart';
 import '../../../../colors.dart';
 import '../provider/main_filter/regions.dart';
 import '../../../image.dart';
-import '../../../routes.gr.dart';
 import '../../../theme/theme.dart';
 import '../../../widgets/CustomButton.dart';
 import '../../resort/widgets/resort_card/resort_card.dart';

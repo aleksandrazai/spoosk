@@ -6,7 +6,7 @@ import 'package:spoosk/core/presentation/features/home/bloc/popular_resorts/requ
 import 'package:spoosk/core/presentation/features/resort/widgets/resort_screen_widgets/line_button_w_icons.dart';
 import 'package:spoosk/core/presentation/features/user/profile/bloc_user_by_id/user_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
-import 'package:spoosk/core/presentation/routes.gr.dart';
+import 'package:spoosk/core/presentation/router/routes.gr.dart';
 import 'package:spoosk/core/presentation/features/auth/login/view/login.dart';
 import 'package:spoosk/core/presentation/features/user/profile/view/user_avatar.dart';
 import 'package:spoosk/core/presentation/widgets/custom_dialog.dart';
@@ -85,7 +85,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                             .read<PorularResortBloc>()
                                             .add(LoadAllPorularResorts());
                                         context.router
-                                            .navigate(const Profile());
+                                            .navigate(const LoginRoute());
                                       },
                                       child: const Text('Выйти')),
                                   TextButton(

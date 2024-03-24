@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spoosk/core/colors.dart';
+import 'package:spoosk/core/presentation/features/home/view/home.dart';
 import 'package:spoosk/core/presentation/features/initial/bloc/connected_bloc/connected_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
-import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/features/initial/view/error.dart';
+import 'package:spoosk/core/presentation/router/tab_routes/home_routes.dart';
+import 'package:spoosk/core/presentation/router/routes.gr.dart';
+import 'package:spoosk/core/presentation/router/route_wrappers/selection_wrapper.dart';
 
 @RoutePage()
 class MainScreen extends StatefulWidget {
@@ -24,7 +27,12 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return AutoTabsRouter(
       inheritNavigatorObservers: true,
-      routes: const [Home(), Selection(), Favorites(), Profile()],
+      routes: const [
+        HomeWrapperRoute(),
+        SelectionWrapperRoute(),
+        FavouritesWrapperRoute(),
+        ProfileWrapperRoute(),
+      ],
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);
 
@@ -38,7 +46,7 @@ class _MainScreenState extends State<MainScreen> {
                 useSafeArea: true,
                 barrierDismissible: false,
                 context: context,
-                builder: (context) => ErrorScreen(),
+                builder: (context) => const ErrorScreen(),
               );
               setState(() {
                 dialog = false;
@@ -61,22 +69,24 @@ class _MainScreenState extends State<MainScreen> {
                 onTap: (int index) {
                   if (index == 0) {
                     // Navigate to the Home page.
-                    AutoRouter.of(context).navigate(const Home());
+                    AutoRouter.of(context).navigate(const HomeWrapperRoute());
                   } else if (index == 1) {
                     // Navigate to the Selection page.
-                    AutoRouter.of(context).navigate(const Selection());
+                    AutoRouter.of(context)
+                        .navigate(const SelectionWrapperRoute());
                   }
                   // else if (index == 2) {
                   //   // Navigate to the Comparison page.
                   //   AutoRouter.of(context).navigate(const Comparison());
                   else if (index == 2) {
-                    // Navigate to the Selected page.
+                    // Navigate to the Favourites page.
                     AutoRouter.of(context).navigate(
-                      const Favorites(),
+                      const FavouritesWrapperRoute(),
                     );
                   } else if (index == 3) {
                     // Navigate to the Profile page.
-                    AutoRouter.of(context).navigate(const Profile());
+                    AutoRouter.of(context)
+                        .navigate(const ProfileWrapperRoute());
                   }
                 },
                 items: [

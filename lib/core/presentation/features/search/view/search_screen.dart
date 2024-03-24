@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:spoosk/core/presentation/features/review/bloc/bloc_reviews_by_id/reviews_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/features/search/bloc/bloc_search/search_bloc.dart';
 import 'package:spoosk/core/presentation/features/search/widgets/custom_searchfield.dart';
+import 'package:spoosk/core/presentation/router/routes.gr.dart';
 import '../../../image.dart';
 import 'search_result.dart';
 
@@ -30,7 +31,7 @@ class _SearchScreenState extends State<SearchScreen> {
             onTap: () {
               context.read<SearchResortBloc>().add(ClearText());
               context.read<ReviewsByIdBloc>().add(ClearReviewsById());
-              context.router.back();
+              context.router.navigate(const HomeRoute());
             },
             child: SvgPicture.asset(
               fit: BoxFit.scaleDown,

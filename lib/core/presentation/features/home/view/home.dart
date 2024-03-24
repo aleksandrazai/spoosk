@@ -16,28 +16,10 @@ import 'package:spoosk/core/presentation/features/search/bloc/bloc_search_histor
 import 'package:spoosk/core/presentation/features/search/widgets/custom_searchfield.dart';
 import 'package:spoosk/core/presentation/features/user/favourites/bloc/bloc_favorites_users/favorites_users_bloc.dart';
 import 'package:spoosk/core/presentation/features/user/profile/bloc_user_by_id/user_bloc.dart';
-import 'package:spoosk/core/presentation/routes.gr.dart';
 import 'package:spoosk/core/presentation/features/home/widgets/cardsheader.dart';
+import 'package:spoosk/core/presentation/router/routes.gr.dart';
 
 @RoutePage()
-class Home extends StatefulWidget {
-  const Home({super.key});
-
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SafeArea(
-        child: HomeScreen(),
-      ),
-    );
-  }
-}
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 

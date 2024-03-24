@@ -28,7 +28,7 @@ import 'package:spoosk/core/presentation/features/selection/bloc/bloc_mainFilter
 import 'package:spoosk/core/presentation/features/user/favourites/bloc/bloc_favorites_users/favorites_users_bloc.dart';
 import 'package:spoosk/core/presentation/features/user/profile/bloc_user_by_id/user_bloc.dart';
 import 'package:spoosk/core/presentation/features/user/reviews/bloc_user_reviews/user_reviews_bloc.dart';
-import 'package:spoosk/core/presentation/routes.dart';
+import 'package:spoosk/core/presentation/router/routes.dart';
 import 'package:spoosk/core/presentation/features/initial/view/main_screen.dart';
 import 'package:spoosk/core/presentation/features/search/view/search_screen.dart';
 import 'package:spoosk/core/presentation/features/selection/view/selection.dart';

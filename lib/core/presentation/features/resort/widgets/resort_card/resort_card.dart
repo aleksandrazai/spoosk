@@ -5,9 +5,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:spoosk/core/Infrastructure/firebase_analytics.dart';
 import 'package:spoosk/core/presentation/features/resort/bloc/bloc_by_id/resort_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/features/review/bloc/bloc_reviews_by_id/reviews_by_id_bloc.dart';
+import 'package:spoosk/core/presentation/router/routes.gr.dart';
 import '../../../../../data/models/resorts.dart';
 import '../../../../image.dart';
-import '../../../../routes.gr.dart';
 import '../../../../widgets/star_icon.dart';
 import 'custom_cardimage.dart';
 
@@ -117,5 +117,16 @@ class ResortCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  onTap(BuildContext context) {
+    context
+        .read<ReviewsByIdBloc>()
+        .add(EventLoadByIdReviews(idResort: resort.idResort));
+    context
+        .read<ResortByIdBloc>()
+        .add(EventLoadByIdResort(idResort: resort.idResort));
+    context.router.push(ResortRoute(idResort: resort.idResort));
+    fireBaseAnalytics.logEventResort(resortName: resort.name);
   }
 }

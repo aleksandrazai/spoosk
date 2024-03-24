@@ -5,9 +5,9 @@ import 'package:spoosk/core/data/repositories/DI/service.dart';
 import 'package:spoosk/core/presentation/features/auth/login/bloc/bloc_login/login_bloc.dart';
 import 'package:spoosk/core/presentation/features/user/favourites/bloc/bloc_favorites_users/favorites_users_bloc.dart';
 import 'package:spoosk/core/presentation/features/user/profile/bloc_user_by_id/user_bloc.dart';
+import 'package:spoosk/core/presentation/router/routes.gr.dart';
 import 'package:spoosk/core/presentation/widgets/loading_overlay.dart';
 import '../../../../../colors.dart';
-import '../../../../routes.gr.dart';
 import '../../../../theme/theme.dart';
 import '../../../../widgets/CustomButton.dart';
 import '../../../../widgets/custom_login_field.dart';
@@ -179,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
     singletonAuthUseCase.authUseCase.checkDB(context.read<UserProfileBloc>());
     BlocProvider.of<FavoritesUsersBloc>(context)
         .add(FavoritesUsersGet(userId: state.id));
-    context.router.navigate(const UserProfileRoute());
+    context.router.push(const UserProfileRoute());
   }
 
   void _onLoginRequested(BuildContext context) {

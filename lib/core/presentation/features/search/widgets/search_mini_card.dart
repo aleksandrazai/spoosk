@@ -4,11 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spoosk/core/presentation/features/resort/bloc/bloc_by_id/resort_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/features/review/bloc/bloc_reviews_by_id/reviews_by_id_bloc.dart';
 import 'package:spoosk/core/presentation/features/search/bloc/bloc_search/search_bloc.dart';
+import 'package:spoosk/core/presentation/router/routes.gr.dart';
 import 'package:spoosk/core/presentation/widgets/CustomImageNetwork.dart';
 import '../../../../colors.dart';
 import '../../../../data/models/resorts.dart';
-import '../../../routes.gr.dart';
-
 import '../../../../data/DB/DBController_history_search.dart';
 
 class SearchMiniCard extends StatelessWidget {

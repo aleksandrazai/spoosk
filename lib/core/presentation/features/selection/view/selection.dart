@@ -10,7 +10,7 @@ import 'package:spoosk/core/presentation/features/selection/provider/main_filter
 import 'package:spoosk/core/presentation/features/selection/provider/main_filter/regions.dart';
 import 'package:spoosk/core/presentation/features/selection/bloc/bloc_mainFilter.dart/mainFilter_bloc.dart';
 import 'package:spoosk/core/presentation/image.dart';
-import 'package:spoosk/core/presentation/routes.gr.dart';
+import 'package:spoosk/core/presentation/router/routes.gr.dart';
 import 'package:spoosk/core/presentation/widgets/custom_bottomSheet.dart';
 import 'package:spoosk/core/presentation/features/selection/widgets/selection_screen_bottomSheet_filter.dart';
 import 'package:spoosk/core/presentation/features/selection/widgets/selection_screen_bottomSheet_level.dart';

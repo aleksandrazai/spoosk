@@ -7,10 +7,9 @@ import 'package:spoosk/core/data/models/user_login.dart';
 import 'package:spoosk/core/data/repositories/DI/service.dart';
 import 'package:spoosk/core/presentation/features/auth/verify_code/bloc/bloc_verify_code/verify_code_bloc.dart';
 import 'package:spoosk/core/presentation/features/user/profile/bloc_user_by_id/user_bloc.dart';
+import 'package:spoosk/core/presentation/router/routes.gr.dart';
 import 'package:spoosk/core/presentation/widgets/loading_overlay.dart';
 import '../../../../../colors.dart';
-
-import '../../../../routes.gr.dart';
 import '../../../../theme/theme.dart';
 import '../../../../widgets/CustomButton.dart';
 import '../../../../widgets/custom_leading.dart';

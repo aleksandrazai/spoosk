@@ -5,7 +5,6 @@ import 'package:spoosk/core/data/DB/DBController_history_search.dart';
 import 'package:spoosk/core/data/DB/DBController_user_auth.dart';
 import 'package:spoosk/core/data/models/user_login.dart';
 import 'package:spoosk/core/data/repositories/DI/service.dart';
-import 'package:spoosk/core/domain/useCases/setUserToken.dart';
 
 part 'login_event.dart';
 

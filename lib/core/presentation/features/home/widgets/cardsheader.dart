@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:spoosk/core/colors.dart';
-import 'package:spoosk/core/presentation/routes.gr.dart';
+import 'package:spoosk/core/presentation/router/routes.gr.dart';
 
 class CardsHeaderPopularALL extends StatelessWidget {
   const CardsHeaderPopularALL(
