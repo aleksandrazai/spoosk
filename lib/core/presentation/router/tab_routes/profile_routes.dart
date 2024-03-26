@@ -5,7 +5,8 @@ abstract class ProfileRoutes {
   static final routes = AutoRoute(
     page: ProfileWrapperRoute.page,
     children: [
-      AutoRoute(page: LoginRoute.page, initial: true),
+      AutoRoute(page: ProfileRoute.page, initial: true),
+      AutoRoute(page: LoginRoute.page),
       AutoRoute(page: RegisterRoute.page),
       AutoRoute(page: ResetPasswordRoute.page),
       AutoRoute(page: EnterCodeRoute.page),
